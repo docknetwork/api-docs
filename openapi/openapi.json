@@ -1,0 +1,846 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1",
+    "title": "Dock API mode 3",
+    "description": ""
+  },
+  "components": {
+    "securitySchemes": {
+      "accessToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "DOCK-API-TOKEN"
+      }
+    },
+    "schemas": {
+      "Hex32": {
+        "description": "32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec",
+        "type": "string",
+        "minimum": 64,
+        "maximum": 64
+      },
+      "JobId": {
+        "description": "Unique id of the background task. This id can be used to query the job status",
+        "type": "string"
+      },
+      "JobStatus": {
+        "description": "Status of the job.",
+        "type": "string",
+        "enum": [
+          "Unstarted",
+          "Started",
+          "Finished"
+        ]
+      },
+      "JobDesc": {
+        "description": "Description of the job including result if available",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "DIDQualified": {
+        "description": "DID as fully qualified, eg. `did:dock:`.",
+        "type": "string",
+        "format": "uri"
+      },
+      "DID": {
+        "description": "DID as 32 byte hex of fully quanlified",
+        "type": "string",
+        "minimum": 32
+      },
+      "KeyType": {
+        "description": "Type of public key for DID",
+        "type": "string",
+        "enum": [
+          "sr25519",
+          "ed25519",
+          "secp256k1"
+        ]
+      },
+      "SigType": {
+        "description": "Type of signature",
+        "type": "string",
+        "enum": [
+          "Sr25519Signature2020",
+          "Ed25519Signature2018",
+          "EcdsaSecp256k1Signature2019"
+        ]
+      },
+      "ProofPurpose": {
+        "description": "Purpose of credential",
+        "type": "string",
+        "enum": [
+          "assertionMethod"
+        ]
+      },
+      "Context": {
+        "description": "JSON-LD context",
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "DIDDoc": {
+        "description": "DID document. The current set of propoerties is incomplete",
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "id": {
+            "$ref": "#/components/schemas/DIDQualified"
+          },
+          "authentication": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "Credential": {
+        "description": "Credential format expected by API caller. The current set of propoerties is almost complete",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "subject": {
+            "type": "object"
+          },
+          "issuer": {
+            "$ref": "#/components/schemas/DID"
+          },
+          "issuanceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "description": "Revocation registry id or user supplied status object",
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "VerifiableCredential": {
+        "description": "Verifiable (signed) Credential returned by API. The current set of propoerties is almost complete",
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "credentialSubject": {
+            "type": "object"
+          },
+          "issuer": {
+            "$ref": "#/components/schemas/DID"
+          },
+          "issuanceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "credentialStatus": {
+            "description": "Revocation registry id or user supplied status object",
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "proof": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "$ref": "#/components/schemas/SigType"
+              },
+              "proofPurpose": {
+                "$ref": "#/components/schemas/ProofPurpose"
+              },
+              "verificationMethod": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "jws": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Anchor": {
+        "description": "An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.",
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "blockHash": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "root": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      },
+      "Registry": {
+        "description": "Revocation registry",
+        "type": "object",
+        "properties": {
+          "addOnly": {
+            "type": "boolean"
+          },
+          "policy": {
+            "description": "Only one policy supported as of now called `OneOf`",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DID"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "accessToken": []
+    }
+  ],
+  "paths": {
+    "/jobs/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "A Job id",
+          "schema": {
+            "$ref": "#/components/schemas/JobId"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get job description for the given id",
+        "responses": {
+          "200": {
+            "description": "Job desc",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobDesc"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job id was not found."
+          }
+        }
+      }
+    },
+    "/dids/{did}": {
+      "parameters": [
+        {
+          "name": "did",
+          "in": "path",
+          "required": true,
+          "description": "A DID",
+          "schema": {
+            "$ref": "#/components/schemas/DID"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get DIDDoc for the given DID",
+        "responses": {
+          "200": {
+            "description": "The DIDDoc",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DIDDoc"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "DID was not found."
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update the DID's key or controller",
+        "requestBody": {
+          "description": "Properties of DID",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "controller": {
+                    "$ref": "#/components/schemas/DID"
+                  },
+                  "keyType": {
+                    "$ref": "#/components/schemas/KeyType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Will update DID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Does not own the DID"
+          },
+          "404": {
+            "description": "DID does not exist"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove DID",
+        "responses": {
+          "200": {
+            "description": "Will remove DID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Does not own the DID"
+          },
+          "404": {
+            "description": "DID does not exist"
+          }
+        }
+      }
+    },
+    "/dids/": {
+      "get": {
+        "summary": "Get DIDDoc for DIDs created by user. No pagination as issuer will not have a lot of DIDs anyway.",
+        "responses": {
+          "200": {
+            "description": "All DIDDocs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DIDDoc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new DID. Auto generates the key",
+        "requestBody": {
+          "description": "Properties of DID",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "$ref": "#/components/schemas/DID"
+                  },
+                  "controller": {
+                    "$ref": "#/components/schemas/DID"
+                  },
+                  "keyType": {
+                    "$ref": "#/components/schemas/KeyType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Will try to create DID. DID does not exist on network as of now.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params"
+          }
+        }
+      }
+    },
+    "/credentials/": {
+      "post": {
+        "summary": "Create a verifiable credential",
+        "requestBody": {
+          "description": "JSON-schema",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credential": {
+                    "$ref": "#/components/schemas/Credential"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A VC.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifiableCredential"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid/insufficient credential params."
+          },
+          "401": {
+            "description": "User does not own DID."
+          }
+        }
+      }
+    },
+    "/registries/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Revocation registry id",
+          "schema": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get the registry details like policy, controller(s)",
+        "responses": {
+          "200": {
+            "description": "Revocation Registry metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registry"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Registry was not found."
+          }
+        }
+      },
+      "post": {
+        "summary": "Revoke or unrevoke one or more credential ids",
+        "requestBody": {
+          "description": "Specify action and credential ids",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "Revoke",
+                      "Unrevoke"
+                    ]
+                  },
+                  "credentialIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Will try to update registry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params"
+          },
+          "404": {
+            "description": "Registry was not found."
+          }
+        }
+      }
+    },
+    "/registries/": {
+      "get": {
+        "summary": "Get all registries created by user",
+        "responses": {
+          "200": {
+            "description": "All registries by user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "$ref": "#/components/schemas/Hex32"
+                      },
+                      "registry": {
+                        "$ref": "#/components/schemas/Registry"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Revocation registry",
+        "requestBody": {
+          "description": "Revocation registry",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Will try to create registry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params like policy not supported."
+          }
+        }
+      }
+    },
+    "/revocationStatus/{regId}/{revId}": {
+      "parameters": [
+        {
+          "name": "regId",
+          "in": "path",
+          "required": true,
+          "description": "Revocation registry id",
+          "schema": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        },
+        {
+          "name": "revId",
+          "in": "path",
+          "required": true,
+          "description": "Credential revocation id",
+          "schema": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get the revocation status of a credential",
+        "responses": {
+          "200": {
+            "description": "Returns true of credential is revoked, false otherwise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Registry was not found."
+          }
+        }
+      }
+    },
+    "/schemas/{schemaId}": {
+      "parameters": [
+        {
+          "name": "schemaId",
+          "in": "path",
+          "required": true,
+          "description": "A schema id",
+          "schema": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get the schema",
+        "responses": {
+          "200": {
+            "description": "Schema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "$ref": "#/components/schemas/Hex32"
+                    },
+                    "schema": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schema was not found."
+          }
+        }
+      }
+    },
+    "/schemas/": {
+      "get": {
+        "summary": "Get all schemas created by user",
+        "responses": {
+          "200": {
+            "description": "All schemas by user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.",
+        "requestBody": {
+          "description": "JSON-schema",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Will try to create schema.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params like size not supported or not JSON."
+          }
+        }
+      }
+    },
+    "/anchors/{anchor}": {
+      "parameters": [
+        {
+          "name": "anchor",
+          "in": "path",
+          "required": true,
+          "description": "An anchor",
+          "schema": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get the anchor",
+        "responses": {
+          "200": {
+            "description": "Anchor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Anchor"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anchor was not found."
+          }
+        }
+      }
+    },
+    "/anchors/": {
+      "get": {
+        "summary": "Get all anchors created by user",
+        "responses": {
+          "200": {
+            "description": "All anchors by user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored",
+        "requestBody": {
+          "description": "Documents",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "byte"
+                    }
+                  },
+                  {
+                    "type": "string",
+                    "format": "byte"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Will try to create Anchor. Anchor does not exist on network as of now.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params"
+          }
+        }
+      }
+    }
+  }
+}

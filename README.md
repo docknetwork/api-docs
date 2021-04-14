@@ -1,8 +1,8 @@
-## Dock Issuer API documentation source
+## Dock Issuer API documentation
 
 Using slate: https://github.com/slatedocs/slate
 
-## Widdershins
-```
-widdershins --language_tabs 'shell' 'javascript:JavaScript:request' --expandBody true --resolve true --verbose true --summary docs/openapi.json -o docs/slate.md
-```
+Instructions:
+- Ensure `openapi/openapi.json` exists and is upto date.
+- Run `npm run convert` to convert the OpenAPI document into Slate markdown
+- Commit and push to master for automatic deployment

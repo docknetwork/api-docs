@@ -1,0 +1,33 @@
+@import 'variables';
+
+.highlight .c {
+  color: $drac-comment !important;
+}
+
+.highlight .nf, .highlight .fm {
+  color: $drac-green !important;
+}
+
+.highlight .no {
+  color: $drac-cyan !important;
+}
+
+.highlight .kd, .highlight .kn, .highlight .nb {
+  color: $drac-pink !important;
+}
+
+.highlight .o {
+  color: $drac-red !important;
+}
+
+.highlight .nl {
+  color: $drac-white !important;
+}
+
+.highlight .s1, .highlight .s2 {
+  color: $drac-yellow !important;
+}
+
+.highlight .mi {
+  color: $drac-purple !important;
+}
