@@ -21,148 +21,17 @@ headingLevel: 2
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
+Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
+We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.
+
 # Authentication
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header. 
 
-<h1 id="dock-api-mode-3-default">Default</h1>
+<h1 id="dock-api-mode-3-did">did</h1>
 
-## Get job description for the given id
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X GET /jobs/{id} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/jobs/{id}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.get('/jobs/{id}', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('GET','/jobs/{id}', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/jobs/{id}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /jobs/{id}`
-
-<h3 id="get-job-description-for-the-given-id-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|[JobId](#schemajobid)|true|A Job id|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "id": "string",
-  "status": "Unstarted",
-  "result": {}
-}
-```
-
-<h3 id="get-job-description-for-the-given-id-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Job desc|[JobDesc](#schemajobdesc)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Job id was not found.|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
+Operations about DIDs
 
 ## Get DIDDoc for the given DID
 
@@ -734,7 +603,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|[[DIDDoc](#schemadiddoc)]|false|none|[DID document. The current set of propoerties is incomplete]|
+|*anonymous*|[[DIDDoc](#schemadiddoc)]|false|none|[DID document. The current set of properties is incomplete]|
 |» @context|any|false|none|JSON-LD context|
 
 *oneOf*
@@ -754,7 +623,19 @@ Status Code **200**
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» id|[DIDQualified](#schemadidqualified)(uri)|false|none|DID as fully qualified, eg. `did:dock:`.|
-|» authentication|[object]|false|none|none|
+|» authentication|[oneOf]|false|none|none|
+
+*oneOf*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|object|false|none|none|
+
+*xor*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|string|false|none|none|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -908,20 +789,27 @@ func main() {
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "string",
+  "data": {}
+}
 ```
 
 <h3 id="create-a-new-did.-auto-generates-the-key-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create DID. DID does not exist on network as of now.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create DID. DID does not exist on network as of now.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|None|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-credential">credential</h1>
+
+Operations about credentials
 
 ## Create a verifiable credential
 
@@ -1069,7 +957,7 @@ func main() {
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|true|JSON-schema|
-|» credential|body|[Credential](#schemacredential)|false|Credential format expected by API caller. The current set of propoerties is almost complete|
+|» credential|body|[Credential](#schemacredential)|false|Credential format expected by API caller. The current set of is almost complete|
 |»» id|body|string(uri)|false|none|
 |»» type|body|[string]|false|none|
 |»» subject|body|object|false|none|
@@ -1115,6 +1003,144 @@ func main() {
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+<h1 id="dock-api-mode-3-registry">registry</h1>
+
+Operations about registries
+
+## Deletes a specific registry
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE /registries/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/registries/{id}',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.delete('/registries/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/registries/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/registries/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`DELETE /registries/{id}`
+
+<h3 id="deletes-a-specific-registry-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "code": 0
+}
+```
+
+<h3 id="deletes-a-specific-registry-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry was deleted|[Response](#schemaresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1273,7 +1299,7 @@ curl -X POST /registries/{id} \
 
 ```javascript
 const inputBody = '{
-  "action": "Revoke",
+  "action": "revoke",
   "credentialIds": [
     "http://example.com"
   ]
@@ -1378,7 +1404,7 @@ func main() {
 
 ```json
 {
-  "action": "Revoke",
+  "action": "revoke",
   "credentialIds": [
     "http://example.com"
   ]
@@ -1398,8 +1424,8 @@ func main() {
 
 |Parameter|Value|
 |---|---|
-|» action|Revoke|
-|» action|Unrevoke|
+|» action|revoke|
+|» action|unrevoke|
 
 > Example responses
 
@@ -1723,6 +1749,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+<h1 id="dock-api-mode-3-revocationstatus">revocationStatus</h1>
+
+Operations about revocation_status
+
 ## Get the revocation status of a credential
 
 > Code samples
@@ -1865,6 +1895,10 @@ Status Code **200**
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-schema">schema</h1>
+
+Operations about schemas
 
 ## Get the schema
 
@@ -2282,6 +2316,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+<h1 id="dock-api-mode-3-anchor">anchor</h1>
+
+Operations about anchors
+
 ## Get the anchor
 
 > Code samples
@@ -2694,6 +2732,146 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+<h1 id="dock-api-mode-3-job">job</h1>
+
+Operations about jobs
+
+## Get job description for the given id
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /jobs/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/jobs/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.get('/jobs/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/jobs/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/jobs/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /jobs/{id}`
+
+<h3 id="get-job-description-for-the-given-id-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|[JobId](#schemajobid)|true|A Job id|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "id": "string",
+  "status": "todo",
+  "result": {}
+}
+```
+
+<h3 id="get-job-description-for-the-given-id-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Job desc|[JobDesc](#schemajobdesc)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Job id was not found.|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
 # Schemas
 
 <h2 id="tocS_Hex32">Hex32</h2>
@@ -2715,6 +2893,30 @@ accessToken
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+
+<h2 id="tocS_JobStartedResult">JobStartedResult</h2>
+<!-- backwards compatibility -->
+<a id="schemajobstartedresult"></a>
+<a id="schema_JobStartedResult"></a>
+<a id="tocSjobstartedresult"></a>
+<a id="tocsjobstartedresult"></a>
+
+```json
+{
+  "id": "string",
+  "data": {}
+}
+
+```
+
+Object containing unique id of the background task and associated data. This id can be used to query the job status
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status|
+|data|object|false|none|none|
 
 <h2 id="tocS_JobId">JobId</h2>
 <!-- backwards compatibility -->
@@ -2744,7 +2946,7 @@ Unique id of the background task. This id can be used to query the job status
 <a id="tocsjobstatus"></a>
 
 ```json
-"Unstarted"
+"todo"
 
 ```
 
@@ -2760,9 +2962,10 @@ Status of the job.
 
 |Property|Value|
 |---|---|
-|*anonymous*|Unstarted|
-|*anonymous*|Started|
-|*anonymous*|Finished|
+|*anonymous*|todo|
+|*anonymous*|finalized|
+|*anonymous*|in_progress|
+|*anonymous*|error|
 
 <h2 id="tocS_JobDesc">JobDesc</h2>
 <!-- backwards compatibility -->
@@ -2774,7 +2977,7 @@ Status of the job.
 ```json
 {
   "id": "string",
-  "status": "Unstarted",
+  "status": "todo",
   "result": {}
 }
 
@@ -2962,7 +3165,7 @@ xor
 
 ```
 
-DID document. The current set of propoerties is incomplete
+DID document. The current set of properties is incomplete
 
 ### Properties
 
@@ -2970,7 +3173,19 @@ DID document. The current set of propoerties is incomplete
 |---|---|---|---|---|
 |@context|[Context](#schemacontext)|false|none|JSON-LD context|
 |id|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
-|authentication|[object]|false|none|none|
+|authentication|[oneOf]|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|object|false|none|none|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|string|false|none|none|
 
 <h2 id="tocS_Credential">Credential</h2>
 <!-- backwards compatibility -->
@@ -2994,7 +3209,7 @@ DID document. The current set of propoerties is incomplete
 
 ```
 
-Credential format expected by API caller. The current set of propoerties is almost complete
+Credential format expected by API caller. The current set of is almost complete
 
 ### Properties
 
@@ -3052,7 +3267,7 @@ xor
 
 ```
 
-Verifiable (signed) Credential returned by API. The current set of propoerties is almost complete
+Verifiable (signed) Credential returned by API. The current set of properties is almost complete
 
 ### Properties
 
@@ -3061,7 +3276,24 @@ Verifiable (signed) Credential returned by API. The current set of propoerties i
 |@context|[Context](#schemacontext)|false|none|JSON-LD context|
 |id|string(uri)|false|none|none|
 |type|[string]|false|none|none|
-|credentialSubject|object|false|none|none|
+|credentialSubject|any|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|object|false|none|none|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|array|false|none|none|
+
+continued
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
 |issuer|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
 |issuanceDate|string(date-time)|false|none|none|
 |expirationDate|string(date-time)|false|none|none|
@@ -3142,11 +3374,35 @@ Revocation registry
 |addOnly|boolean|false|none|none|
 |policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
 
+<h2 id="tocS_Response">Response</h2>
+<!-- backwards compatibility -->
+<a id="schemaresponse"></a>
+<a id="schema_Response"></a>
+<a id="tocSresponse"></a>
+<a id="tocsresponse"></a>
+
+```json
+{
+  "code": 0
+}
+
+```
+
+Default response
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer|false|none|none|
+
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  
+  "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
+We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.
+",
   
   
   
