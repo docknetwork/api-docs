@@ -318,11 +318,8 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#dock-api-mode-3-default" class="toc-h1 toc-link" data-title="Default">Default</a>
+            <a href="#dock-api-mode-3-did" class="toc-h1 toc-link" data-title="did">did</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-job-description-for-the-given-id" class="toc-h2 toc-link" data-title="Get job description for the given id">Get job description for the given id</a>
-                  </li>
                   <li>
                     <a href="#get-diddoc-for-the-given-did" class="toc-h2 toc-link" data-title="Get DIDDoc for the given DID">Get DIDDoc for the given DID</a>
                   </li>
@@ -338,8 +335,21 @@
                   <li>
                     <a href="#create-a-new-did-auto-generates-the-key" class="toc-h2 toc-link" data-title="Create a new DID. Auto generates the key">Create a new DID. Auto generates the key</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dock-api-mode-3-credential" class="toc-h1 toc-link" data-title="credential">credential</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#create-a-verifiable-credential" class="toc-h2 toc-link" data-title="Create a verifiable credential">Create a verifiable credential</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dock-api-mode-3-registry" class="toc-h1 toc-link" data-title="registry">registry</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#deletes-a-specific-registry" class="toc-h2 toc-link" data-title="Deletes a specific registry">Deletes a specific registry</a>
                   </li>
                   <li>
                     <a href="#get-the-registry-details-like-policy-controller-s" class="toc-h2 toc-link" data-title="Get the registry details like policy, controller(s)">Get the registry details like policy, controller(s)</a>
@@ -353,9 +363,19 @@
                   <li>
                     <a href="#create-a-revocation-registry" class="toc-h2 toc-link" data-title="Create a Revocation registry">Create a Revocation registry</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dock-api-mode-3-revocationstatus" class="toc-h1 toc-link" data-title="revocationStatus">revocationStatus</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#get-the-revocation-status-of-a-credential" class="toc-h2 toc-link" data-title="Get the revocation status of a credential">Get the revocation status of a credential</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dock-api-mode-3-schema" class="toc-h1 toc-link" data-title="schema">schema</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#get-the-schema" class="toc-h2 toc-link" data-title="Get the schema">Get the schema</a>
                   </li>
@@ -365,6 +385,11 @@
                   <li>
                     <a href="#create-a-json-schema-this-is-not-meant-to-be-used-to-create-arbitrary-blobs-we-can-provide-separate-api" class="toc-h2 toc-link" data-title="Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.">Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dock-api-mode-3-anchor" class="toc-h1 toc-link" data-title="anchor">anchor</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#get-the-anchor" class="toc-h2 toc-link" data-title="Get the anchor">Get the anchor</a>
                   </li>
@@ -377,10 +402,21 @@
               </ul>
           </li>
           <li>
+            <a href="#dock-api-mode-3-job" class="toc-h1 toc-link" data-title="job">job</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-job-description-for-the-given-id" class="toc-h2 toc-link" data-title="Get job description for the given id">Get job description for the given id</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#tocS_Hex32" class="toc-h2 toc-link" data-title="Hex32">Hex32</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_JobStartedResult" class="toc-h2 toc-link" data-title="JobStartedResult">JobStartedResult</a>
                   </li>
                   <li>
                     <a href="#tocS_JobId" class="toc-h2 toc-link" data-title="JobId">JobId</a>
@@ -424,6 +460,9 @@
                   <li>
                     <a href="#tocS_Registry" class="toc-h2 toc-link" data-title="Registry">Registry</a>
                   </li>
+                  <li>
+                    <a href="#tocS_Response" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
               </ul>
           </li>
       </ul>
@@ -441,6 +480,9 @@
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
+
+<p>Use Dock&#39;s complete solution for creating and managing verifiable credentials on the blockchain.
+We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.</p>
 <h1 id='authentication'>Authentication</h1>
 <ul>
 <li>API Key (accessToken)
@@ -450,158 +492,9 @@
 </ul></li>
 </ul>
 
-<h1 id="dock-api-mode-3-default">Default</h1>
-<h2 id='get-job-description-for-the-given-id'>Get job description for the given id</h2>
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<h1 id="dock-api-mode-3-did">did</h1>
 
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
-<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
-  <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
-<span class="p">};</span>
-
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/jobs/{id}</span><span class="dl">'</span><span class="p">,</span>
-<span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
-
-  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-<span class="p">});</span>
-
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
-  <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
-<span class="p">}</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/jobs/{id}'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-
-<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
-
-</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-
-<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
-
-<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
-    <span class="s1">'DOCK-API-TOKEN'</span> <span class="o">=&gt;</span> <span class="s1">'API_KEY'</span><span class="p">,</span>
-<span class="p">);</span>
-
-<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
-
-<span class="c1">// Define array of request body.</span>
-<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/jobs/{id}'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
-        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
-       <span class="p">)</span>
-    <span class="p">);</span>
-    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
- <span class="p">}</span>
- <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// handle exception or api errors.</span>
-    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
- <span class="p">}</span>
-
- <span class="c1">// ...</span>
-
-</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-       <span class="s">"bytes"</span>
-       <span class="s">"net/http"</span>
-<span class="p">)</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
-        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
-        <span class="s">"DOCK-API-TOKEN"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"API_KEY"</span><span class="p">},</span>
-    <span class="p">}</span>
-
-    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/jobs/{id}"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
-
-    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
-    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
-    <span class="c">// ...</span>
-<span class="p">}</span>
-
-</code></pre></div>
-<p><code>GET /jobs/{id}</code></p>
-
-<h3 id="get-job-description-for-the-given-id-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>path</td>
-<td><a href="#schemajobid">JobId</a></td>
-<td>true</td>
-<td>A Job id</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-
-<p>200 Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unstarted"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<h3 id="get-job-description-for-the-given-id-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Job desc</td>
-<td><a href="#schemajobdesc">JobDesc</a></td>
-</tr>
-<tr>
-<td>404</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Job id was not found.</td>
-<td>None</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
+<p>Operations about DIDs</p>
 <h2 id='get-diddoc-for-the-given-did'>Get DIDDoc for the given DID</h2>
 <blockquote>
 <p>Code samples</p>
@@ -1265,7 +1158,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <td>[<a href="#schemadiddoc">DIDDoc</a>]</td>
 <td>false</td>
 <td>none</td>
-<td>[DID document. The current set of propoerties is incomplete]</td>
+<td>[DID document. The current set of properties is incomplete]</td>
 </tr>
 <tr>
 <td>» @context</td>
@@ -1336,7 +1229,47 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 </tr>
 <tr>
 <td>» authentication</td>
-<td>[object]</td>
+<td>[oneOf]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p><em>oneOf</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>»» <em>anonymous</em></td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p><em>xor</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>»» <em>anonymous</em></td>
+<td>string</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
@@ -1523,7 +1456,10 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 
 <p>200 Response</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="create-a-new-did.-auto-generates-the-key-responses">Responses</h3>
 
@@ -1539,7 +1475,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>Will try to create DID. DID does not exist on network as of now.</td>
-<td><a href="#schemajobid">JobId</a></td>
+<td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
 <td>400</td>
@@ -1553,6 +1489,10 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-credential">credential</h1>
+
+<p>Operations about credentials</p>
 <h2 id='create-a-verifiable-credential'>Create a verifiable credential</h2>
 <blockquote>
 <p>Code samples</p>
@@ -1702,7 +1642,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <td>body</td>
 <td><a href="#schemacredential">Credential</a></td>
 <td>false</td>
-<td>Credential format expected by API caller. The current set of propoerties is almost complete</td>
+<td>Credential format expected by API caller. The current set of is almost complete</td>
 </tr>
 <tr>
 <td>»» id</td>
@@ -1822,6 +1762,159 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
 <td>User does not own DID.</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+<h1 id="dock-api-mode-3-registry">registry</h1>
+
+<p>Operations about registries</p>
+<h2 id='deletes-a-specific-registry'>Deletes a specific registry</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/registries/{id}</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DELETE</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'/registries/{id}'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+    <span class="s1">'DOCK-API-TOKEN'</span> <span class="o">=&gt;</span> <span class="s1">'API_KEY'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'DELETE'</span><span class="p">,</span><span class="s1">'/registries/{id}'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+        <span class="s">"DOCK-API-TOKEN"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"API_KEY"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"DELETE"</span><span class="p">,</span> <span class="s">"/registries/{id}"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>DELETE /registries/{id}</code></p>
+
+<h3 id="deletes-a-specific-registry-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td><a href="#schemahex32">Hex32</a></td>
+<td>true</td>
+<td>Revocation registry id</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="deletes-a-specific-registry-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Revocation Registry was deleted</td>
+<td><a href="#schemaresponse">Response</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Registry was not found.</td>
 <td>None</td>
 </tr>
 </tbody></table>
@@ -1993,7 +2086,7 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "action": "Revoke",
+  "action": "revoke",
   "credentialIds": [
     "http://example.com"
   ]
@@ -2088,7 +2181,7 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Revoke"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"revoke"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentialIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"http://example.com"</span><span class="w">
   </span><span class="p">]</span><span class="w">
@@ -2143,11 +2236,11 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </thead><tbody>
 <tr>
 <td>» action</td>
-<td>Revoke</td>
+<td>revoke</td>
 </tr>
 <tr>
 <td>» action</td>
-<td>Unrevoke</td>
+<td>unrevoke</td>
 </tr>
 </tbody></table>
 
@@ -2547,6 +2640,10 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-revocationstatus">revocationStatus</h1>
+
+<p>Operations about revocation_status</p>
 <h2 id='get-the-revocation-status-of-a-credential'>Get the revocation status of a credential</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2725,6 +2822,10 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-schema">schema</h1>
+
+<p>Operations about schemas</p>
 <h2 id='get-the-schema'>Get the schema</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3186,6 +3287,10 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-anchor">anchor</h1>
+
+<p>Operations about anchors</p>
 <h2 id='get-the-anchor'>Get the anchor</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3623,6 +3728,161 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+
+<h1 id="dock-api-mode-3-job">job</h1>
+
+<p>Operations about jobs</p>
+<h2 id='get-job-description-for-the-given-id'>Get job description for the given id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/jobs/{id}</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/jobs/{id}'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+    <span class="s1">'DOCK-API-TOKEN'</span> <span class="o">=&gt;</span> <span class="s1">'API_KEY'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/jobs/{id}'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+        <span class="s">"DOCK-API-TOKEN"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"API_KEY"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/jobs/{id}"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>GET /jobs/{id}</code></p>
+
+<h3 id="get-job-description-for-the-given-id-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td><a href="#schemajobid">JobId</a></td>
+<td>true</td>
+<td>A Job id</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"todo"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-job-description-for-the-given-id-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Job desc</td>
+<td><a href="#schemajobdesc">JobDesc</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Job id was not found.</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
 <h1 id='schemas'>Schemas</h1>
 <h2 id="tocS_Hex32">Hex32</h2>
 
@@ -3655,6 +3915,47 @@ accessToken
 </tr>
 </tbody></table>
 
+<h2 id="tocS_JobStartedResult">JobStartedResult</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemajobstartedresult"></a>
+<a id="schema_JobStartedResult"></a>
+<a id="tocSjobstartedresult"></a>
+<a id="tocsjobstartedresult"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>Object containing unique id of the background task and associated data. This id can be used to query the job status</p>
+<h3 id='properties-2'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><a href="#schemajobid">JobId</a></td>
+<td>false</td>
+<td>none</td>
+<td>Unique id of the background task. This id can be used to query the job status</td>
+</tr>
+<tr>
+<td>data</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
 <h2 id="tocS_JobId">JobId</h2>
 
 <!-- backwards compatibility -->
@@ -3667,7 +3968,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Unique id of the background task. This id can be used to query the job status</p>
-<h3 id='properties-2'>Properties</h3>
+<h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3694,11 +3995,11 @@ accessToken
 <a id="schema_JobStatus"></a>
 <a id="tocSjobstatus"></a>
 <a id="tocsjobstatus"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"Unstarted"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"todo"</span><span class="w">
 
 </span></code></pre></div>
 <p>Status of the job.</p>
-<h3 id='properties-3'>Properties</h3>
+<h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3725,15 +4026,19 @@ accessToken
 </thead><tbody>
 <tr>
 <td><em>anonymous</em></td>
-<td>Unstarted</td>
+<td>todo</td>
 </tr>
 <tr>
 <td><em>anonymous</em></td>
-<td>Started</td>
+<td>finalized</td>
 </tr>
 <tr>
 <td><em>anonymous</em></td>
-<td>Finished</td>
+<td>in_progress</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>error</td>
 </tr>
 </tbody></table>
 
@@ -3747,13 +4052,13 @@ accessToken
 <a id="tocsjobdesc"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unstarted"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"todo"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>Description of the job including result if available</p>
-<h3 id='properties-4'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3798,7 +4103,7 @@ accessToken
 
 </span></code></pre></div>
 <p>DID as fully qualified, eg. <code>did:dock:</code>.</p>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3829,7 +4134,7 @@ accessToken
 
 </span></code></pre></div>
 <p>DID as 32 byte hex of fully quanlified</p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3860,7 +4165,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Type of public key for DID</p>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3911,7 +4216,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Type of signature</p>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3962,7 +4267,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Purpose of credential</p>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4007,7 +4312,7 @@ accessToken
 
 </span></code></pre></div>
 <p>JSON-LD context</p>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <p>oneOf</p>
 
 <table><thead>
@@ -4067,8 +4372,8 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>DID document. The current set of propoerties is incomplete</p>
-<h3 id='properties-11'>Properties</h3>
+<p>DID document. The current set of properties is incomplete</p>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4094,7 +4399,47 @@ accessToken
 </tr>
 <tr>
 <td>authentication</td>
-<td>[object]</td>
+<td>[oneOf]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p>oneOf</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» <em>anonymous</em></td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p>xor</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» <em>anonymous</em></td>
+<td>string</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
@@ -4122,8 +4467,8 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Credential format expected by API caller. The current set of propoerties is almost complete</p>
-<h3 id='properties-12'>Properties</h3>
+<p>Credential format expected by API caller. The current set of is almost complete</p>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4255,8 +4600,8 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Verifiable (signed) Credential returned by API. The current set of propoerties is almost complete</p>
-<h3 id='properties-13'>Properties</h3>
+<p>Verifiable (signed) Credential returned by API. The current set of properties is almost complete</p>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4289,11 +4634,64 @@ accessToken
 </tr>
 <tr>
 <td>credentialSubject</td>
+<td>any</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p>oneOf</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» <em>anonymous</em></td>
 <td>object</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
 </tr>
+</tbody></table>
+
+<p>xor</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» <em>anonymous</em></td>
+<td>array</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p>continued</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>issuer</td>
 <td><a href="#schemadid">DID</a></td>
@@ -4435,7 +4833,7 @@ accessToken
 
 </span></code></pre></div>
 <p>An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.</p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4485,7 +4883,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Revocation registry</p>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4511,11 +4909,46 @@ accessToken
 </tr>
 </tbody></table>
 
+<h2 id="tocS_Response">Response</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaresponse"></a>
+<a id="schema_Response"></a>
+<a id="tocSresponse"></a>
+<a id="tocsresponse"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>Default response</p>
+<h3 id='properties-17'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>integer</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  
+  "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
+We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.
+",
   
   
   
