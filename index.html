@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Dock API mode 3 v1</title>
+    <title>Dock API v1</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -312,61 +312,61 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#dock-api-mode-3" class="toc-h1 toc-link" data-title="Dock API mode 3 v1">Dock API mode 3 v1</a>
+            <a href="#dock-api" class="toc-h1 toc-link" data-title="Dock API v1">Dock API v1</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#dock-api-mode-3-did" class="toc-h1 toc-link" data-title="did">did</a>
+            <a href="#dock-api-dids" class="toc-h1 toc-link" data-title="dids">dids</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-diddoc-for-the-given-did" class="toc-h2 toc-link" data-title="Get DIDDoc for the given DID">Get DIDDoc for the given DID</a>
+                    <a href="#get-did" class="toc-h2 toc-link" data-title="Get DID">Get DID</a>
                   </li>
                   <li>
-                    <a href="#update-the-did-39-s-key-or-controller" class="toc-h2 toc-link" data-title="Update the DID's key or controller">Update the DID's key or controller</a>
+                    <a href="#update-did" class="toc-h2 toc-link" data-title="Update DID">Update DID</a>
                   </li>
                   <li>
-                    <a href="#remove-did" class="toc-h2 toc-link" data-title="Remove DID">Remove DID</a>
+                    <a href="#delete-did" class="toc-h2 toc-link" data-title="Delete DID">Delete DID</a>
                   </li>
                   <li>
-                    <a href="#get-diddoc-for-dids-created-by-user-no-pagination-as-issuer-will-not-have-a-lot-of-dids-anyway" class="toc-h2 toc-link" data-title="Get DIDDoc for DIDs created by user. No pagination as issuer will not have a lot of DIDs anyway.">Get DIDDoc for DIDs created by user. No pagination as issuer will not have a lot of DIDs anyway.</a>
+                    <a href="#list-dids" class="toc-h2 toc-link" data-title="List DIDs">List DIDs</a>
                   </li>
                   <li>
-                    <a href="#create-a-new-did-auto-generates-the-key" class="toc-h2 toc-link" data-title="Create a new DID. Auto generates the key">Create a new DID. Auto generates the key</a>
+                    <a href="#create-did" class="toc-h2 toc-link" data-title="Create DID">Create DID</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#dock-api-mode-3-credential" class="toc-h1 toc-link" data-title="credential">credential</a>
+            <a href="#dock-api-credentials" class="toc-h1 toc-link" data-title="credentials">credentials</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-a-verifiable-credential" class="toc-h2 toc-link" data-title="Create a verifiable credential">Create a verifiable credential</a>
+                    <a href="#issue-a-credential" class="toc-h2 toc-link" data-title="Issue a credential">Issue a credential</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#dock-api-mode-3-registry" class="toc-h1 toc-link" data-title="registry">registry</a>
+            <a href="#dock-api-registries" class="toc-h1 toc-link" data-title="registries">registries</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#deletes-a-specific-registry" class="toc-h2 toc-link" data-title="Deletes a specific registry">Deletes a specific registry</a>
+                    <a href="#delete-registry" class="toc-h2 toc-link" data-title="Delete registry">Delete registry</a>
                   </li>
                   <li>
-                    <a href="#get-the-registry-details-like-policy-controller-s" class="toc-h2 toc-link" data-title="Get the registry details like policy, controller(s)">Get the registry details like policy, controller(s)</a>
+                    <a href="#get-registry" class="toc-h2 toc-link" data-title="Get registry">Get registry</a>
                   </li>
                   <li>
-                    <a href="#revoke-or-unrevoke-one-or-more-credential-ids" class="toc-h2 toc-link" data-title="Revoke or unrevoke one or more credential ids">Revoke or unrevoke one or more credential ids</a>
+                    <a href="#revoke-unrevoke-credential" class="toc-h2 toc-link" data-title="Revoke/unrevoke credential">Revoke/unrevoke credential</a>
                   </li>
                   <li>
-                    <a href="#get-all-registries-created-by-user" class="toc-h2 toc-link" data-title="Get all registries created by user">Get all registries created by user</a>
+                    <a href="#list-registries" class="toc-h2 toc-link" data-title="List registries">List registries</a>
                   </li>
                   <li>
-                    <a href="#create-a-revocation-registry" class="toc-h2 toc-link" data-title="Create a Revocation registry">Create a Revocation registry</a>
+                    <a href="#create-registry" class="toc-h2 toc-link" data-title="Create registry">Create registry</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#dock-api-mode-3-revocationstatus" class="toc-h1 toc-link" data-title="revocationStatus">revocationStatus</a>
+            <a href="#dock-api-revocationstatus" class="toc-h1 toc-link" data-title="revocationStatus">revocationStatus</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-the-revocation-status-of-a-credential" class="toc-h2 toc-link" data-title="Get the revocation status of a credential">Get the revocation status of a credential</a>
@@ -374,38 +374,38 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-mode-3-schema" class="toc-h1 toc-link" data-title="schema">schema</a>
+            <a href="#dock-api-schemas" class="toc-h1 toc-link" data-title="schemas">schemas</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-the-schema" class="toc-h2 toc-link" data-title="Get the schema">Get the schema</a>
+                    <a href="#get-schema" class="toc-h2 toc-link" data-title="Get schema">Get schema</a>
                   </li>
                   <li>
-                    <a href="#get-all-schemas-created-by-user" class="toc-h2 toc-link" data-title="Get all schemas created by user">Get all schemas created by user</a>
+                    <a href="#list-schemas" class="toc-h2 toc-link" data-title="List schemas">List schemas</a>
                   </li>
                   <li>
-                    <a href="#create-a-json-schema-this-is-not-meant-to-be-used-to-create-arbitrary-blobs-we-can-provide-separate-api" class="toc-h2 toc-link" data-title="Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.">Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.</a>
+                    <a href="#create-schema" class="toc-h2 toc-link" data-title="Create schema">Create schema</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#dock-api-mode-3-anchor" class="toc-h1 toc-link" data-title="anchor">anchor</a>
+            <a href="#dock-api-anchors" class="toc-h1 toc-link" data-title="anchors">anchors</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-the-anchor" class="toc-h2 toc-link" data-title="Get the anchor">Get the anchor</a>
+                    <a href="#get-anchor" class="toc-h2 toc-link" data-title="Get anchor">Get anchor</a>
                   </li>
                   <li>
-                    <a href="#get-all-anchors-created-by-user" class="toc-h2 toc-link" data-title="Get all anchors created by user">Get all anchors created by user</a>
+                    <a href="#list-anchors" class="toc-h2 toc-link" data-title="List anchors">List anchors</a>
                   </li>
                   <li>
-                    <a href="#anchor-one-or-more-documents-if-more-than-one-docs-are-given-a-merkle-tree-is-created-and-root-is-anchored" class="toc-h2 toc-link" data-title="Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored">Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored</a>
+                    <a href="#create-anchor" class="toc-h2 toc-link" data-title="Create anchor">Create anchor</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#dock-api-mode-3-job" class="toc-h1 toc-link" data-title="job">job</a>
+            <a href="#dock-api-jobs" class="toc-h1 toc-link" data-title="jobs">jobs</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-job-description-for-the-given-id" class="toc-h2 toc-link" data-title="Get job description for the given id">Get job description for the given id</a>
+                    <a href="#get-job-status-and-data" class="toc-h2 toc-link" data-title="Get job status and data">Get job status and data</a>
                   </li>
               </ul>
           </li>
@@ -467,7 +467,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href="https://dock.io/api">Sign up for an API Key</a></li>
+            <li><a href="https://console.api.dock.io/">Sign up for an API Key</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -475,14 +475,14 @@
       <div class="content">
         <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="dock-api-mode-3">Dock API mode 3 v1</h1>
+<h1 id="dock-api">Dock API v1</h1>
 
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
 
 <p>Use Dock&#39;s complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.</p>
+We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.</p>
 <h1 id='authentication'>Authentication</h1>
 <ul>
 <li>API Key (accessToken)
@@ -492,10 +492,10 @@ We handle the pricing of blockchain operations for you, you simply get billed mo
 </ul></li>
 </ul>
 
-<h1 id="dock-api-mode-3-did">did</h1>
+<h1 id="dock-api-dids">dids</h1>
 
 <p>Operations about DIDs</p>
-<h2 id='get-diddoc-for-the-given-did'>Get DIDDoc for the given DID</h2>
+<h2 id='get-did'>Get DID</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -587,7 +587,9 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 </code></pre></div>
 <p><code>GET /dids/{did}</code></p>
 
-<h3 id="get-diddoc-for-the-given-did-parameters">Parameters</h3>
+<p>Resolves a specific DID into a DID document.</p>
+
+<h3 id="get-did-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -622,7 +624,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-diddoc-for-the-given-did-responses">Responses</h3>
+<h3 id="get-did-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -650,7 +652,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='update-the-did-39-s-key-or-controller'>Update the DID&#39;s key or controller</h2>
+<h2 id='update-did'>Update DID</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -750,6 +752,8 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 </code></pre></div>
 <p><code>PATCH /dids/{did}</code></p>
 
+<p>Updates the DID&#39;s key or controller on the blockchain.</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -758,7 +762,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="update-the-did's-key-or-controller-parameters">Parameters</h3>
+<h3 id="update-did-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -826,7 +830,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre></div>
-<h3 id="update-the-did's-key-or-controller-responses">Responses</h3>
+<h3 id="update-did-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -860,7 +864,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='remove-did'>Remove DID</h2>
+<h2 id='delete-did'>Delete DID</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -952,7 +956,9 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 </code></pre></div>
 <p><code>DELETE /dids/{did}</code></p>
 
-<h3 id="remove-did-parameters">Parameters</h3>
+<p>Deletes a DID from the blockchain, further attempts to resolve this DID will fail.</p>
+
+<h3 id="delete-did-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -979,7 +985,7 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre></div>
-<h3 id="remove-did-responses">Responses</h3>
+<h3 id="delete-did-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -1013,7 +1019,7 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='get-diddoc-for-dids-created-by-user-no-pagination-as-issuer-will-not-have-a-lot-of-dids-anyway'>Get DIDDoc for DIDs created by user. No pagination as issuer will not have a lot of DIDs anyway.</h2>
+<h2 id='list-dids'>List DIDs</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1122,7 +1128,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-diddoc-for-dids-created-by-user.-no-pagination-as-issuer-will-not-have-a-lot-of-dids-anyway.-responses">Responses</h3>
+<h3 id="list-dids-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -1135,12 +1141,12 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>All DIDDocs</td>
+<td>All of a user&#39;s DIDs fully resolved into DID documents</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
 
-<h3 id="get-diddoc-for-dids-created-by-user.-no-pagination-as-issuer-will-not-have-a-lot-of-dids-anyway.-responseschema">Response Schema</h3>
+<h3 id="list-dids-responseschema">Response Schema</h3>
 
 <p>Status Code <strong>200</strong></p>
 
@@ -1280,7 +1286,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='create-a-new-did-auto-generates-the-key'>Create a new DID. Auto generates the key</h2>
+<h2 id='create-did'>Create DID</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1381,6 +1387,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /dids/</code></p>
 
+<p>Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -1390,7 +1398,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-new-did.-auto-generates-the-key-parameters">Parameters</h3>
+<h3 id="create-did-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -1461,7 +1469,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-new-did.-auto-generates-the-key-responses">Responses</h3>
+<h3 id="create-did-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -1490,10 +1498,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-credential">credential</h1>
+<h1 id="dock-api-credentials">credentials</h1>
 
 <p>Operations about credentials</p>
-<h2 id='create-a-verifiable-credential'>Create a verifiable credential</h2>
+<h2 id='issue-a-credential'>Issue a credential</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1602,6 +1610,8 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /credentials/</code></p>
 
+<p>Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -1619,7 +1629,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-verifiable-credential-parameters">Parameters</h3>
+<h3 id="issue-a-credential-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -1736,7 +1746,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-verifiable-credential-responses">Responses</h3>
+<h3 id="issue-a-credential-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -1771,10 +1781,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-registry">registry</h1>
+<h1 id="dock-api-registries">registries</h1>
 
 <p>Operations about registries</p>
-<h2 id='deletes-a-specific-registry'>Deletes a specific registry</h2>
+<h2 id='delete-registry'>Delete registry</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1866,7 +1876,9 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 </code></pre></div>
 <p><code>DELETE /registries/{id}</code></p>
 
-<h3 id="deletes-a-specific-registry-parameters">Parameters</h3>
+<p>Deletes a specific registry</p>
+
+<h3 id="delete-registry-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -1895,7 +1907,7 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="deletes-a-specific-registry-responses">Responses</h3>
+<h3 id="delete-registry-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -1923,7 +1935,7 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='get-the-registry-details-like-policy-controller-s'>Get the registry details like policy, controller(s)</h2>
+<h2 id='get-registry'>Get registry</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -2015,7 +2027,9 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 </code></pre></div>
 <p><code>GET /registries/{id}</code></p>
 
-<h3 id="get-the-registry-details-like-policy,-controller(s)-parameters">Parameters</h3>
+<p>Get the registry details like policy, controller(s)</p>
+
+<h3 id="get-registry-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2047,7 +2061,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-the-registry-details-like-policy,-controller(s)-responses">Responses</h3>
+<h3 id="get-registry-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2075,7 +2089,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='revoke-or-unrevoke-one-or-more-credential-ids'>Revoke or unrevoke one or more credential ids</h2>
+<h2 id='revoke-unrevoke-credential'>Revoke/unrevoke credential</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -2177,6 +2191,8 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </code></pre></div>
 <p><code>POST /registries/{id}</code></p>
 
+<p>Revoke or unrevoke one or more credential ids</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -2187,7 +2203,7 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="revoke-or-unrevoke-one-or-more-credential-ids-parameters">Parameters</h3>
+<h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2251,7 +2267,7 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre></div>
-<h3 id="revoke-or-unrevoke-one-or-more-credential-ids-responses">Responses</h3>
+<h3 id="revoke/unrevoke-credential-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2285,7 +2301,7 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='get-all-registries-created-by-user'>Get all registries created by user</h2>
+<h2 id='list-registries'>List registries</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -2377,6 +2393,8 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /registries/</code></p>
 
+<p>Get all registries created by user</p>
+
 <blockquote>
 <p>Example responses</p>
 
@@ -2394,7 +2412,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-all-registries-created-by-user-responses">Responses</h3>
+<h3 id="list-registries-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2412,7 +2430,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<h3 id="get-all-registries-created-by-user-responseschema">Response Schema</h3>
+<h3 id="list-registries-responseschema">Response Schema</h3>
 
 <p>Status Code <strong>200</strong></p>
 
@@ -2459,7 +2477,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='create-a-revocation-registry'>Create a Revocation registry</h2>
+<h2 id='create-registry'>Create registry</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -2561,6 +2579,8 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /registries/</code></p>
 
+<p>Create a Revocation registry on the blockchain</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -2571,7 +2591,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-revocation-registry-parameters">Parameters</h3>
+<h3 id="create-registry-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2612,7 +2632,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-revocation-registry-responses">Responses</h3>
+<h3 id="create-registry-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2641,7 +2661,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-revocationstatus">revocationStatus</h1>
+<h1 id="dock-api-revocationstatus">revocationStatus</h1>
 
 <p>Operations about revocation_status</p>
 <h2 id='get-the-revocation-status-of-a-credential'>Get the revocation status of a credential</h2>
@@ -2823,10 +2843,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-schema">schema</h1>
+<h1 id="dock-api-schemas">schemas</h1>
 
 <p>Operations about schemas</p>
-<h2 id='get-the-schema'>Get the schema</h2>
+<h2 id='get-schema'>Get schema</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -2918,7 +2938,9 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 </code></pre></div>
 <p><code>GET /schemas/{schemaId}</code></p>
 
-<h3 id="get-the-schema-parameters">Parameters</h3>
+<p>Returns the JSON schema for a specific ID</p>
+
+<h3 id="get-schema-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2948,7 +2970,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
   </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-the-schema-responses">Responses</h3>
+<h3 id="get-schema-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2972,7 +2994,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 </tr>
 </tbody></table>
 
-<h3 id="get-the-schema-responseschema">Response Schema</h3>
+<h3 id="get-schema-responseschema">Response Schema</h3>
 
 <p>Status Code <strong>200</strong></p>
 
@@ -3005,7 +3027,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='get-all-schemas-created-by-user'>Get all schemas created by user</h2>
+<h2 id='list-schemas'>List schemas</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3097,6 +3119,8 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /schemas/</code></p>
 
+<p>Get all schemas created by user</p>
+
 <blockquote>
 <p>Example responses</p>
 
@@ -3106,7 +3130,7 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
   </span><span class="p">{}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-all-schemas-created-by-user-responses">Responses</h3>
+<h3 id="list-schemas-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3124,13 +3148,13 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<h3 id="get-all-schemas-created-by-user-responseschema">Response Schema</h3>
+<h3 id="list-schemas-responseschema">Response Schema</h3>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='create-a-json-schema-this-is-not-meant-to-be-used-to-create-arbitrary-blobs-we-can-provide-separate-api'>Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.</h2>
+<h2 id='create-schema'>Create schema</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3227,12 +3251,14 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /schemas/</code></p>
 
+<p>Creates a JSON schema on the blockchain</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-json-schema.-this-is-not-meant-to-be-used-to-create-arbitrary-blobs.-we-can-provide-separate-api.-parameters">Parameters</h3>
+<h3 id="create-schema-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3259,7 +3285,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre></div>
-<h3 id="create-a-json-schema.-this-is-not-meant-to-be-used-to-create-arbitrary-blobs.-we-can-provide-separate-api.-responses">Responses</h3>
+<h3 id="create-schema-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3288,10 +3314,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-anchor">anchor</h1>
+<h1 id="dock-api-anchors">anchors</h1>
 
 <p>Operations about anchors</p>
-<h2 id='get-the-anchor'>Get the anchor</h2>
+<h2 id='get-anchor'>Get anchor</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3383,7 +3409,9 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 </code></pre></div>
 <p><code>GET /anchors/{anchor}</code></p>
 
-<h3 id="get-the-anchor-parameters">Parameters</h3>
+<p>Gets a specific anchor by ID</p>
+
+<h3 id="get-anchor-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3414,7 +3442,7 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
   </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-the-anchor-responses">Responses</h3>
+<h3 id="get-anchor-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3442,7 +3470,7 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='get-all-anchors-created-by-user'>Get all anchors created by user</h2>
+<h2 id='list-anchors'>List anchors</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3534,6 +3562,8 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /anchors/</code></p>
 
+<p>Get all anchors created by user</p>
+
 <blockquote>
 <p>Example responses</p>
 
@@ -3543,7 +3573,7 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
   </span><span class="p">{}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-all-anchors-created-by-user-responses">Responses</h3>
+<h3 id="list-anchors-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3561,13 +3591,13 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<h3 id="get-all-anchors-created-by-user-responseschema">Response Schema</h3>
+<h3 id="list-anchors-responseschema">Response Schema</h3>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='anchor-one-or-more-documents-if-more-than-one-docs-are-given-a-merkle-tree-is-created-and-root-is-anchored'>Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored</h2>
+<h2 id='create-anchor'>Create anchor</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3666,6 +3696,8 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /anchors/</code></p>
 
+<p>Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored</p>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -3673,7 +3705,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
   </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<h3 id="anchor-one-or-more-documents.-if-more-than-one-docs-are-given,-a-merkle-tree-is-created-and-root-is-anchored-parameters">Parameters</h3>
+<h3 id="create-anchor-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3700,7 +3732,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 </span></code></pre></div>
-<h3 id="anchor-one-or-more-documents.-if-more-than-one-docs-are-given,-a-merkle-tree-is-created-and-root-is-anchored-responses">Responses</h3>
+<h3 id="create-anchor-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -3729,10 +3761,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-job">job</h1>
+<h1 id="dock-api-jobs">jobs</h1>
 
 <p>Operations about jobs</p>
-<h2 id='get-job-description-for-the-given-id'>Get job description for the given id</h2>
+<h2 id='get-job-status-and-data'>Get job status and data</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3824,7 +3856,9 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 </code></pre></div>
 <p><code>GET /jobs/{id}</code></p>
 
-<h3 id="get-job-description-for-the-given-id-parameters">Parameters</h3>
+<p>Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.</p>
+
+<h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -3855,7 +3889,7 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-job-description-for-the-given-id-responses">Responses</h3>
+<h3 id="get-job-status-and-data-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -4947,12 +4981,12 @@ accessToken
   "@context": "http://schema.org/",
   "@type": "WebAPI",
   "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.
+We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
 ",
   
   
   
-  "name": "Dock API mode 3"
+  "name": "Dock API"
 }
 </script>
 
