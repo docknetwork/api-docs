@@ -38,13 +38,13 @@ $drac-yellow: #f1fa8c;
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: $drac-white !default;
+$nav-bg: #F4F4F5 !default;
 $examples-bg: $drac-bg !default;
 $code-bg: $drac-bg !default;
 $code-annotation-bg: #44475a !default;
 $nav-subitem-bg: $drac-white !default;
-$nav-active-bg: #FFF !default;
-$nav-active-parent-bg: #FFF !default; // parent links of the current section
+$nav-active-bg: #E4E4E7 !default;
+$nav-active-parent-bg: #E4E4E7 !default; // parent links of the current section
 $lang-select-border: #000 !default;
 $lang-select-bg: #1E2224 !default;
 $lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
@@ -92,12 +92,20 @@ $phone-width: $tablet-width - $nav-width !default; // min width before reverting
 
 %default-font {
   font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
   font-size: 16px;
+  line-height: 16px;
+  color: #52525B;
 }
 
 %header-font {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 36px;
+  color: #18181B;
 }
 
 %code-font {
