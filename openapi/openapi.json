@@ -772,7 +772,8 @@
         "tags": [
           "revocationStatus"
         ],
-        "summary": "Get the revocation status of a credential",
+        "summary": "Get revocation status",
+        "description": "Get the revocation status of a credential",
         "responses": {
           "200": {
             "description": "Returns true of credential is revoked, false otherwise",
