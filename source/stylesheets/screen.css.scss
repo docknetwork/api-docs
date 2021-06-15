@@ -150,6 +150,10 @@ html, body {
     transition-duration: 200ms;
   }
 
+  .toc-link {
+    text-transform: capitalize;
+  }
+
   // This is the currently selected ToC entry
   .toc-link.active {
     background-color: $nav-active-bg;
