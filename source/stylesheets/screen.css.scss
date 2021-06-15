@@ -154,6 +154,7 @@ html, body {
   .toc-link.active {
     background-color: $nav-active-bg;
     color: $nav-active-text;
+    font-weight: 600;
   }
 
   // this is parent links of the currently selected ToC entry
