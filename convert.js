@@ -6,11 +6,11 @@ const sourceObj = JSON.parse(fs.readFileSync(sourceFile, 'utf8'));
 
 let options = {
   language_tabs: [{ 'shell': 'cURL' }, { 'javascript': 'JavaScript' }, { 'python': 'Python' }, { 'php': 'PHP' }, { 'go': 'Go' }],
-  title: 'Dock Issuer API',
+  title: 'Dock API',
   theme: 'darkula',
   toc_footers: {
     apiKey: {
-      url: 'https://dock.io/api',
+      url: 'https://console.api.dock.io/',
       description: 'Sign up for an API Key'
     }
   }

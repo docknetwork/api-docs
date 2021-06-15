@@ -2,24 +2,20 @@
   "openapi": "3.0.2",
   "info": {
     "version": "1",
-    "title": "Dock API mode 3",
-    "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.\nWe handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.\n"
+    "title": "Dock API",
+    "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.\nWe handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.\n"
   },
   "tags": [
     {
-      "name": "user",
-      "description": "Operations about users"
-    },
-    {
-      "name": "did",
+      "name": "dids",
       "description": "Operations about DIDs"
     },
     {
-      "name": "credential",
+      "name": "credentials",
       "description": "Operations about credentials"
     },
     {
-      "name": "registry",
+      "name": "registries",
       "description": "Operations about registries"
     },
     {
@@ -27,15 +23,15 @@
       "description": "Operations about revocation_status"
     },
     {
-      "name": "schema",
+      "name": "schemas",
       "description": "Operations about schemas"
     },
     {
-      "name": "anchor",
+      "name": "anchors",
       "description": "Operations about anchors"
     },
     {
-      "name": "job",
+      "name": "jobs",
       "description": "Operations about jobs"
     }
   ],
@@ -342,9 +338,10 @@
       ],
       "get": {
         "tags": [
-          "job"
+          "jobs"
         ],
-        "summary": "Get job description for the given id",
+        "summary": "Get job status and data",
+        "description": "Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.",
         "responses": {
           "200": {
             "description": "Job desc",
@@ -376,9 +373,10 @@
       ],
       "get": {
         "tags": [
-          "did"
+          "dids"
         ],
-        "summary": "Get DIDDoc for the given DID",
+        "summary": "Get DID",
+        "description": "Resolves a specific DID into a DID document.",
         "responses": {
           "200": {
             "description": "The DIDDoc",
@@ -397,9 +395,10 @@
       },
       "patch": {
         "tags": [
-          "did"
+          "dids"
         ],
-        "summary": "Update the DID's key or controller",
+        "summary": "Update DID",
+        "description": "Updates the DID's key or controller on the blockchain.",
         "requestBody": {
           "description": "Properties of DID",
           "required": false,
@@ -440,9 +439,10 @@
       },
       "delete": {
         "tags": [
-          "did"
+          "dids"
         ],
-        "summary": "Remove DID",
+        "summary": "Delete DID",
+        "description": "Deletes a DID from the blockchain, further attempts to resolve this DID will fail.",
         "responses": {
           "200": {
             "description": "Will remove DID.",
@@ -466,12 +466,12 @@
     "/dids/": {
       "get": {
         "tags": [
-          "did"
+          "dids"
         ],
-        "summary": "Get DIDDoc for DIDs created by user. No pagination as issuer will not have a lot of DIDs anyway.",
+        "summary": "List DIDs",
         "responses": {
           "200": {
-            "description": "All DIDDocs",
+            "description": "All of a user's DIDs fully resolved into DID documents",
             "content": {
               "application/json": {
                 "schema": {
@@ -487,9 +487,10 @@
       },
       "post": {
         "tags": [
-          "did"
+          "dids"
         ],
-        "summary": "Create a new DID. Auto generates the key",
+        "summary": "Create DID",
+        "description": "Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.",
         "requestBody": {
           "description": "Properties of DID",
           "required": false,
@@ -532,9 +533,10 @@
     "/credentials/": {
       "post": {
         "tags": [
-          "credential"
+          "credentials"
         ],
-        "summary": "Create a verifiable credential",
+        "summary": "Issue a credential",
+        "description": "Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.",
         "requestBody": {
           "description": "JSON-schema",
           "required": true,
@@ -585,9 +587,10 @@
       ],
       "delete": {
         "tags": [
-          "registry"
+          "registries"
         ],
-        "summary": "Deletes a specific registry",
+        "summary": "Delete registry",
+        "description": "Deletes a specific registry",
         "responses": {
           "200": {
             "description": "Revocation Registry was deleted",
@@ -606,9 +609,10 @@
       },
       "get": {
         "tags": [
-          "registry"
+          "registries"
         ],
-        "summary": "Get the registry details like policy, controller(s)",
+        "summary": "Get registry",
+        "description": "Get the registry details like policy, controller(s)",
         "responses": {
           "200": {
             "description": "Revocation Registry metadata",
@@ -627,9 +631,10 @@
       },
       "post": {
         "tags": [
-          "registry"
+          "registries"
         ],
-        "summary": "Revoke or unrevoke one or more credential ids",
+        "summary": "Revoke/unrevoke credential",
+        "description": "Revoke or unrevoke one or more credential ids",
         "requestBody": {
           "description": "Specify action and credential ids",
           "required": true,
@@ -680,9 +685,10 @@
     "/registries/": {
       "get": {
         "tags": [
-          "registry"
+          "registries"
         ],
-        "summary": "Get all registries created by user",
+        "summary": "List registries",
+        "description": "Get all registries created by user",
         "responses": {
           "200": {
             "description": "All registries by user",
@@ -709,9 +715,10 @@
       },
       "post": {
         "tags": [
-          "registry"
+          "registries"
         ],
-        "summary": "Create a Revocation registry",
+        "summary": "Create registry",
+        "description": "Create a Revocation registry on the blockchain",
         "requestBody": {
           "description": "Revocation registry",
           "required": true,
@@ -802,9 +809,10 @@
       ],
       "get": {
         "tags": [
-          "schema"
+          "schemas"
         ],
-        "summary": "Get the schema",
+        "summary": "Get schema",
+        "description": "Returns the JSON schema for a specific ID",
         "responses": {
           "200": {
             "description": "Schema",
@@ -833,9 +841,10 @@
     "/schemas/": {
       "get": {
         "tags": [
-          "schema"
+          "schemas"
         ],
-        "summary": "Get all schemas created by user",
+        "summary": "List schemas",
+        "description": "Get all schemas created by user",
         "responses": {
           "200": {
             "description": "All schemas by user",
@@ -854,9 +863,10 @@
       },
       "post": {
         "tags": [
-          "schema"
+          "schemas"
         ],
-        "summary": "Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.",
+        "summary": "Create schema",
+        "description": "Creates a JSON schema on the blockchain",
         "requestBody": {
           "description": "JSON-schema",
           "required": true,
@@ -899,9 +909,10 @@
       ],
       "get": {
         "tags": [
-          "anchor"
+          "anchors"
         ],
-        "summary": "Get the anchor",
+        "summary": "Get anchor",
+        "description": "Gets a specific anchor by ID",
         "responses": {
           "200": {
             "description": "Anchor",
@@ -922,9 +933,10 @@
     "/anchors/": {
       "get": {
         "tags": [
-          "anchor"
+          "anchors"
         ],
-        "summary": "Get all anchors created by user",
+        "summary": "List anchors",
+        "description": "Get all anchors created by user",
         "responses": {
           "200": {
             "description": "All anchors by user",
@@ -943,9 +955,10 @@
       },
       "post": {
         "tags": [
-          "anchor"
+          "anchors"
         ],
-        "summary": "Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored",
+        "summary": "Create anchor",
+        "description": "Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored",
         "requestBody": {
           "description": "Documents",
           "required": true,

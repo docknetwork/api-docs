@@ -1,5 +1,5 @@
 ---
-title: Dock API mode 3 v1
+title: Dock API v1
 language_tabs:
   - shell: cURL
   - javascript: JavaScript
@@ -7,7 +7,7 @@ language_tabs:
   - php: PHP
   - go: Go
 toc_footers:
-  - <a href="https://dock.io/api">Sign up for an API Key</a>
+  - <a href="https://console.api.dock.io/">Sign up for an API Key</a>
 includes: []
 search: true
 highlight_theme: darkula
@@ -17,23 +17,23 @@ headingLevel: 2
 
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="dock-api-mode-3">Dock API mode 3 v1</h1>
+<h1 id="dock-api">Dock API v1</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
 Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.
+We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
 
 # Authentication
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header. 
 
-<h1 id="dock-api-mode-3-did">did</h1>
+<h1 id="dock-api-dids">dids</h1>
 
 Operations about DIDs
 
-## Get DIDDoc for the given DID
+## Get DID
 
 > Code samples
 
@@ -139,7 +139,9 @@ func main() {
 
 `GET /dids/{did}`
 
-<h3 id="get-diddoc-for-the-given-did-parameters">Parameters</h3>
+Resolves a specific DID into a DID document.
+
+<h3 id="get-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -161,7 +163,7 @@ func main() {
 }
 ```
 
-<h3 id="get-diddoc-for-the-given-did-responses">Responses</h3>
+<h3 id="get-did-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -173,7 +175,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Update the DID's key or controller
+## Update DID
 
 > Code samples
 
@@ -287,6 +289,8 @@ func main() {
 
 `PATCH /dids/{did}`
 
+Updates the DID's key or controller on the blockchain.
+
 > Body parameter
 
 ```json
@@ -296,7 +300,7 @@ func main() {
 }
 ```
 
-<h3 id="update-the-did's-key-or-controller-parameters">Parameters</h3>
+<h3 id="update-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -321,7 +325,7 @@ func main() {
 "string"
 ```
 
-<h3 id="update-the-did's-key-or-controller-responses">Responses</h3>
+<h3 id="update-did-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -334,7 +338,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Remove DID
+## Delete DID
 
 > Code samples
 
@@ -440,7 +444,9 @@ func main() {
 
 `DELETE /dids/{did}`
 
-<h3 id="remove-did-parameters">Parameters</h3>
+Deletes a DID from the blockchain, further attempts to resolve this DID will fail.
+
+<h3 id="delete-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -454,7 +460,7 @@ func main() {
 "string"
 ```
 
-<h3 id="remove-did-responses">Responses</h3>
+<h3 id="delete-did-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -467,7 +473,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Get DIDDoc for DIDs created by user. No pagination as issuer will not have a lot of DIDs anyway.
+## List DIDs
 
 > Code samples
 
@@ -591,13 +597,13 @@ func main() {
 ]
 ```
 
-<h3 id="get-diddoc-for-dids-created-by-user.-no-pagination-as-issuer-will-not-have-a-lot-of-dids-anyway.-responses">Responses</h3>
+<h3 id="list-dids-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All DIDDocs|Inline|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents|Inline|
 
-<h3 id="get-diddoc-for-dids-created-by-user.-no-pagination-as-issuer-will-not-have-a-lot-of-dids-anyway.-responseschema">Response Schema</h3>
+<h3 id="list-dids-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -642,7 +648,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Create a new DID. Auto generates the key
+## Create DID
 
 > Code samples
 
@@ -757,6 +763,8 @@ func main() {
 
 `POST /dids/`
 
+Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.
+
 > Body parameter
 
 ```json
@@ -767,7 +775,7 @@ func main() {
 }
 ```
 
-<h3 id="create-a-new-did.-auto-generates-the-key-parameters">Parameters</h3>
+<h3 id="create-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -795,7 +803,7 @@ func main() {
 }
 ```
 
-<h3 id="create-a-new-did.-auto-generates-the-key-responses">Responses</h3>
+<h3 id="create-did-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -807,11 +815,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-credential">credential</h1>
+<h1 id="dock-api-credentials">credentials</h1>
 
 Operations about credentials
 
-## Create a verifiable credential
+## Issue a credential
 
 > Code samples
 
@@ -934,6 +942,8 @@ func main() {
 
 `POST /credentials/`
 
+Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.
+
 > Body parameter
 
 ```json
@@ -952,7 +962,7 @@ func main() {
 }
 ```
 
-<h3 id="create-a-verifiable-credential-parameters">Parameters</h3>
+<h3 id="issue-a-credential-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -996,7 +1006,7 @@ func main() {
 }
 ```
 
-<h3 id="create-a-verifiable-credential-responses">Responses</h3>
+<h3 id="issue-a-credential-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1009,11 +1019,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-registry">registry</h1>
+<h1 id="dock-api-registries">registries</h1>
 
 Operations about registries
 
-## Deletes a specific registry
+## Delete registry
 
 > Code samples
 
@@ -1119,7 +1129,9 @@ func main() {
 
 `DELETE /registries/{id}`
 
-<h3 id="deletes-a-specific-registry-parameters">Parameters</h3>
+Deletes a specific registry
+
+<h3 id="delete-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1135,7 +1147,7 @@ func main() {
 }
 ```
 
-<h3 id="deletes-a-specific-registry-responses">Responses</h3>
+<h3 id="delete-registry-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1147,7 +1159,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Get the registry details like policy, controller(s)
+## Get registry
 
 > Code samples
 
@@ -1253,7 +1265,9 @@ func main() {
 
 `GET /registries/{id}`
 
-<h3 id="get-the-registry-details-like-policy,-controller(s)-parameters">Parameters</h3>
+Get the registry details like policy, controller(s)
+
+<h3 id="get-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1272,7 +1286,7 @@ func main() {
 }
 ```
 
-<h3 id="get-the-registry-details-like-policy,-controller(s)-responses">Responses</h3>
+<h3 id="get-registry-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1284,7 +1298,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Revoke or unrevoke one or more credential ids
+## Revoke/unrevoke credential
 
 > Code samples
 
@@ -1400,6 +1414,8 @@ func main() {
 
 `POST /registries/{id}`
 
+Revoke or unrevoke one or more credential ids
+
 > Body parameter
 
 ```json
@@ -1411,7 +1427,7 @@ func main() {
 }
 ```
 
-<h3 id="revoke-or-unrevoke-one-or-more-credential-ids-parameters">Parameters</h3>
+<h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1435,7 +1451,7 @@ func main() {
 "string"
 ```
 
-<h3 id="revoke-or-unrevoke-one-or-more-credential-ids-responses">Responses</h3>
+<h3 id="revoke/unrevoke-credential-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1448,7 +1464,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Get all registries created by user
+## List registries
 
 > Code samples
 
@@ -1554,6 +1570,8 @@ func main() {
 
 `GET /registries/`
 
+Get all registries created by user
+
 > Example responses
 
 > 200 Response
@@ -1572,13 +1590,13 @@ func main() {
 ]
 ```
 
-<h3 id="get-all-registries-created-by-user-responses">Responses</h3>
+<h3 id="list-registries-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All registries by user|Inline|
 
-<h3 id="get-all-registries-created-by-user-responseschema">Response Schema</h3>
+<h3 id="list-registries-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -1594,7 +1612,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Create a Revocation registry
+## Create registry
 
 > Code samples
 
@@ -1710,6 +1728,8 @@ func main() {
 
 `POST /registries/`
 
+Create a Revocation registry on the blockchain
+
 > Body parameter
 
 ```json
@@ -1721,7 +1741,7 @@ func main() {
 }
 ```
 
-<h3 id="create-a-revocation-registry-parameters">Parameters</h3>
+<h3 id="create-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1737,7 +1757,7 @@ func main() {
 "string"
 ```
 
-<h3 id="create-a-revocation-registry-responses">Responses</h3>
+<h3 id="create-registry-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1749,7 +1769,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-revocationstatus">revocationStatus</h1>
+<h1 id="dock-api-revocationstatus">revocationStatus</h1>
 
 Operations about revocation_status
 
@@ -1896,11 +1916,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-schema">schema</h1>
+<h1 id="dock-api-schemas">schemas</h1>
 
 Operations about schemas
 
-## Get the schema
+## Get schema
 
 > Code samples
 
@@ -2006,7 +2026,9 @@ func main() {
 
 `GET /schemas/{schemaId}`
 
-<h3 id="get-the-schema-parameters">Parameters</h3>
+Returns the JSON schema for a specific ID
+
+<h3 id="get-schema-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -2023,14 +2045,14 @@ func main() {
 }
 ```
 
-<h3 id="get-the-schema-responses">Responses</h3>
+<h3 id="get-schema-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Schema|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Schema was not found.|None|
 
-<h3 id="get-the-schema-responseschema">Response Schema</h3>
+<h3 id="get-schema-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -2044,7 +2066,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Get all schemas created by user
+## List schemas
 
 > Code samples
 
@@ -2150,6 +2172,8 @@ func main() {
 
 `GET /schemas/`
 
+Get all schemas created by user
+
 > Example responses
 
 > 200 Response
@@ -2160,20 +2184,20 @@ func main() {
 ]
 ```
 
-<h3 id="get-all-schemas-created-by-user-responses">Responses</h3>
+<h3 id="list-schemas-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All schemas by user|Inline|
 
-<h3 id="get-all-schemas-created-by-user-responseschema">Response Schema</h3>
+<h3 id="list-schemas-responseschema">Response Schema</h3>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-## Create a JSON-Schema. This is not meant to be used to create arbitrary blobs. We can provide separate API.
+## Create schema
 
 > Code samples
 
@@ -2284,13 +2308,15 @@ func main() {
 
 `POST /schemas/`
 
+Creates a JSON schema on the blockchain
+
 > Body parameter
 
 ```json
 {}
 ```
 
-<h3 id="create-a-json-schema.-this-is-not-meant-to-be-used-to-create-arbitrary-blobs.-we-can-provide-separate-api.-parameters">Parameters</h3>
+<h3 id="create-schema-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -2304,7 +2330,7 @@ func main() {
 "string"
 ```
 
-<h3 id="create-a-json-schema.-this-is-not-meant-to-be-used-to-create-arbitrary-blobs.-we-can-provide-separate-api.-responses">Responses</h3>
+<h3 id="create-schema-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -2316,11 +2342,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-anchor">anchor</h1>
+<h1 id="dock-api-anchors">anchors</h1>
 
 Operations about anchors
 
-## Get the anchor
+## Get anchor
 
 > Code samples
 
@@ -2426,7 +2452,9 @@ func main() {
 
 `GET /anchors/{anchor}`
 
-<h3 id="get-the-anchor-parameters">Parameters</h3>
+Gets a specific anchor by ID
+
+<h3 id="get-anchor-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -2444,7 +2472,7 @@ func main() {
 }
 ```
 
-<h3 id="get-the-anchor-responses">Responses</h3>
+<h3 id="get-anchor-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -2456,7 +2484,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Get all anchors created by user
+## List anchors
 
 > Code samples
 
@@ -2562,6 +2590,8 @@ func main() {
 
 `GET /anchors/`
 
+Get all anchors created by user
+
 > Example responses
 
 > 200 Response
@@ -2572,20 +2602,20 @@ func main() {
 ]
 ```
 
-<h3 id="get-all-anchors-created-by-user-responses">Responses</h3>
+<h3 id="list-anchors-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All anchors by user|Inline|
 
-<h3 id="get-all-anchors-created-by-user-responseschema">Response Schema</h3>
+<h3 id="list-anchors-responseschema">Response Schema</h3>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-## Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored
+## Create anchor
 
 > Code samples
 
@@ -2698,6 +2728,8 @@ func main() {
 
 `POST /anchors/`
 
+Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored
+
 > Body parameter
 
 ```json
@@ -2706,7 +2738,7 @@ func main() {
 ]
 ```
 
-<h3 id="anchor-one-or-more-documents.-if-more-than-one-docs-are-given,-a-merkle-tree-is-created-and-root-is-anchored-parameters">Parameters</h3>
+<h3 id="create-anchor-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -2720,7 +2752,7 @@ func main() {
 "string"
 ```
 
-<h3 id="anchor-one-or-more-documents.-if-more-than-one-docs-are-given,-a-merkle-tree-is-created-and-root-is-anchored-responses">Responses</h3>
+<h3 id="create-anchor-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -2732,11 +2764,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-mode-3-job">job</h1>
+<h1 id="dock-api-jobs">jobs</h1>
 
 Operations about jobs
 
-## Get job description for the given id
+## Get job status and data
 
 > Code samples
 
@@ -2842,7 +2874,9 @@ func main() {
 
 `GET /jobs/{id}`
 
-<h3 id="get-job-description-for-the-given-id-parameters">Parameters</h3>
+Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
+
+<h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -2860,7 +2894,7 @@ func main() {
 }
 ```
 
-<h3 id="get-job-description-for-the-given-id-responses">Responses</h3>
+<h3 id="get-job-status-and-data-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -3401,12 +3435,12 @@ Default response
   "@context": "http://schema.org/",
   "@type": "WebAPI",
   "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly by credit card.
+We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
 ",
   
   
   
-  "name": "Dock API mode 3"
+  "name": "Dock API"
 }
 </script>
 
