@@ -369,7 +369,7 @@
             <a href="#dock-api-revocationstatus" class="toc-h1 toc-link" data-title="revocationStatus">revocationStatus</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-the-revocation-status-of-a-credential" class="toc-h2 toc-link" data-title="Get the revocation status of a credential">Get the revocation status of a credential</a>
+                    <a href="#get-revocation-status" class="toc-h2 toc-link" data-title="Get revocation status">Get revocation status</a>
                   </li>
               </ul>
           </li>
@@ -482,7 +482,8 @@
 </blockquote>
 
 <p>Use Dock&#39;s complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.</p>
+We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
+You can use our available endpoint at: https://api.dock.io</p>
 <h1 id='authentication'>Authentication</h1>
 <ul>
 <li>API Key (accessToken)
@@ -2664,7 +2665,7 @@ accessToken
 <h1 id="dock-api-revocationstatus">revocationStatus</h1>
 
 <p>Operations about revocation_status</p>
-<h2 id='get-the-revocation-status-of-a-credential'>Get the revocation status of a credential</h2>
+<h2 id='get-revocation-status'>Get revocation status</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -2756,7 +2757,9 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 </code></pre></div>
 <p><code>GET /revocationStatus/{regId}/{revId}</code></p>
 
-<h3 id="get-the-revocation-status-of-a-credential-parameters">Parameters</h3>
+<p>Get the revocation status of a credential</p>
+
+<h3 id="get-revocation-status-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2792,7 +2795,7 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-the-revocation-status-of-a-credential-responses">Responses</h3>
+<h3 id="get-revocation-status-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2816,7 +2819,7 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 </tr>
 </tbody></table>
 
-<h3 id="get-the-revocation-status-of-a-credential-responseschema">Response Schema</h3>
+<h3 id="get-revocation-status-responseschema">Response Schema</h3>
 
 <p>Status Code <strong>200</strong></p>
 
@@ -4982,6 +4985,7 @@ accessToken
   "@type": "WebAPI",
   "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
 We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
+You can use our available endpoint at: https://api.dock.io
 ",
   
   
