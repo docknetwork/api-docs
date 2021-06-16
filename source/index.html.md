@@ -23,6 +23,7 @@ headingLevel: 2
 
 Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
 We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
+You can use our available endpoint at: https://api.dock.io
 
 # Authentication
 
@@ -1773,7 +1774,7 @@ accessToken
 
 Operations about revocation_status
 
-## Get the revocation status of a credential
+## Get revocation status
 
 > Code samples
 
@@ -1879,7 +1880,9 @@ func main() {
 
 `GET /revocationStatus/{regId}/{revId}`
 
-<h3 id="get-the-revocation-status-of-a-credential-parameters">Parameters</h3>
+Get the revocation status of a credential
+
+<h3 id="get-revocation-status-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1896,14 +1899,14 @@ func main() {
 }
 ```
 
-<h3 id="get-the-revocation-status-of-a-credential-responses">Responses</h3>
+<h3 id="get-revocation-status-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Returns true of credential is revoked, false otherwise|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
 
-<h3 id="get-the-revocation-status-of-a-credential-responseschema">Response Schema</h3>
+<h3 id="get-revocation-status-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -3436,6 +3439,7 @@ Default response
   "@type": "WebAPI",
   "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
 We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
+You can use our available endpoint at: https://api.dock.io
 ",
   
   
