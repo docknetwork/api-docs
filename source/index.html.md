@@ -1020,7 +1020,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Verifies a credential
+## Verify a credential
 
 > Code samples
 
@@ -1183,7 +1183,7 @@ Verifies a VCDM credential object. Presentation support coming soon.
 }
 ```
 
-<h3 id="verifies-a-credential-parameters">Parameters</h3>
+<h3 id="verify-a-credential-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1229,7 +1229,7 @@ Verifies a VCDM credential object. Presentation support coming soon.
 }
 ```
 
-<h3 id="verifies-a-credential-responses">Responses</h3>
+<h3 id="verify-a-credential-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|

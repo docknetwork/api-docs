@@ -587,7 +587,7 @@
         "tags": [
           "credentials"
         ],
-        "summary": "Verifies a credential",
+        "summary": "Verify a credential",
         "description": "Verifies a VCDM credential object. Presentation support coming soon.",
         "requestBody": {
           "description": "JSON-schema",
