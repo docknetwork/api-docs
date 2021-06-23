@@ -307,6 +307,15 @@
           }
         }
       },
+      "VerificationResponse": {
+        "description": "Whether a credential/presentation is verified or not",
+        "type": "object",
+        "properties": {
+          "verified": {
+            "type": "boolean"
+          }
+        }
+      },
       "Response": {
         "description": "Default response",
         "type": "object",
@@ -569,6 +578,46 @@
           },
           "401": {
             "description": "User does not own DID."
+          }
+        }
+      }
+    },
+    "/verify/": {
+      "post": {
+        "tags": [
+          "credentials"
+        ],
+        "summary": "Verifies a credential",
+        "description": "Verifies a VCDM credential object. Presentation support coming soon.",
+        "requestBody": {
+          "description": "JSON-schema",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credential": {
+                    "$ref": "#/components/schemas/VerifiableCredential"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The verification result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid/insufficient credential params."
           }
         }
       }

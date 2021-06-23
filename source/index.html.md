@@ -1020,6 +1020,227 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+## Verifies a credential
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /verify/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{
+  "credential": {
+    "@context": [
+      "string"
+    ],
+    "id": "http://example.com",
+    "type": [
+      "string"
+    ],
+    "credentialSubject": {},
+    "issuer": "string",
+    "issuanceDate": "2019-08-24T14:15:22Z",
+    "expirationDate": "2019-08-24T14:15:22Z",
+    "credentialStatus": {},
+    "proof": {
+      "type": "Sr25519Signature2020",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "string",
+      "created": "2019-08-24T14:15:22Z",
+      "jws": "string"
+    }
+  }
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/verify/',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.post('/verify/', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/verify/', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/verify/", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`POST /verify/`
+
+Verifies a VCDM credential object. Presentation support coming soon.
+
+> Body parameter
+
+```json
+{
+  "credential": {
+    "@context": [
+      "string"
+    ],
+    "id": "http://example.com",
+    "type": [
+      "string"
+    ],
+    "credentialSubject": {},
+    "issuer": "string",
+    "issuanceDate": "2019-08-24T14:15:22Z",
+    "expirationDate": "2019-08-24T14:15:22Z",
+    "credentialStatus": {},
+    "proof": {
+      "type": "Sr25519Signature2020",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "string",
+      "created": "2019-08-24T14:15:22Z",
+      "jws": "string"
+    }
+  }
+}
+```
+
+<h3 id="verifies-a-credential-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|JSON-schema|
+|» credential|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API. The current set of properties is almost complete|
+|»» @context|body|any|false|JSON-LD context|
+|»»» *anonymous*|body|[string]|false|none|
+|»»» *anonymous*|body|string|false|none|
+|»» id|body|string(uri)|false|none|
+|»» type|body|[string]|false|none|
+|»» credentialSubject|body|any|false|none|
+|»»» *anonymous*|body|object|false|none|
+|»»» *anonymous*|body|array|false|none|
+|»» issuer|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»» issuanceDate|body|string(date-time)|false|none|
+|»» expirationDate|body|string(date-time)|false|none|
+|»» credentialStatus|body|any|false|Revocation registry id or user supplied status object|
+|»»» *anonymous*|body|object|false|none|
+|»»» *anonymous*|body|string|false|none|
+|»» proof|body|object|false|none|
+|»»» type|body|[SigType](#schemasigtype)|false|Type of signature|
+|»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
+|»»» verificationMethod|body|string|false|none|
+|»»» created|body|string(date-time)|false|none|
+|»»» jws|body|string|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|»»» type|Sr25519Signature2020|
+|»»» type|Ed25519Signature2018|
+|»»» type|EcdsaSecp256k1Signature2019|
+|»»» proofPurpose|assertionMethod|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "verified": true
+}
+```
+
+<h3 id="verifies-a-credential-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The verification result|[VerificationResponse](#schemaverificationresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
 <h1 id="dock-api-registries">registries</h1>
 
 Operations about registries
@@ -3410,6 +3631,28 @@ Revocation registry
 |---|---|---|---|---|
 |addOnly|boolean|false|none|none|
 |policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
+
+<h2 id="tocS_VerificationResponse">VerificationResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaverificationresponse"></a>
+<a id="schema_VerificationResponse"></a>
+<a id="tocSverificationresponse"></a>
+<a id="tocsverificationresponse"></a>
+
+```json
+{
+  "verified": true
+}
+
+```
+
+Whether a credential/presentation is verified or not
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|verified|boolean|false|none|none|
 
 <h2 id="tocS_Response">Response</h2>
 <!-- backwards compatibility -->
