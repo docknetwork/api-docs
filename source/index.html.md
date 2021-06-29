@@ -837,6 +837,9 @@ curl -X POST /credentials/ \
 const inputBody = '{
   "credential": {
     "id": "http://example.com",
+    "context": [
+      "string"
+    ],
     "type": [
       "string"
     ],
@@ -951,6 +954,9 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 {
   "credential": {
     "id": "http://example.com",
+    "context": [
+      "string"
+    ],
     "type": [
       "string"
     ],
@@ -970,6 +976,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 |body|body|object|true|JSON-schema|
 |» credential|body|[Credential](#schemacredential)|false|Credential format expected by API caller. The current set of is almost complete|
 |»» id|body|string(uri)|false|none|
+|»» context|body|[string]|false|none|
 |»» type|body|[string]|false|none|
 |»» subject|body|object|false|none|
 |»» issuer|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
@@ -3455,6 +3462,9 @@ xor
 ```json
 {
   "id": "http://example.com",
+  "context": [
+    "string"
+  ],
   "type": [
     "string"
   ],
@@ -3474,6 +3484,7 @@ Credential format expected by API caller. The current set of is almost complete
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |id|string(uri)|false|none|none|
+|context|[string]|false|none|none|
 |type|[string]|false|none|none|
 |subject|object|false|none|none|
 |issuer|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|

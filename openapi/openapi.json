@@ -171,6 +171,12 @@
             "type": "string",
             "format": "uri"
           },
+          "context": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "type": {
             "type": "array",
             "items": {
