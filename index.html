@@ -1521,6 +1521,9 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
   "credential": {
     "id": "http://example.com",
+    "context": [
+      "string"
+    ],
     "type": [
       "string"
     ],
@@ -1625,6 +1628,9 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">],</span><span class="w">
@@ -1665,6 +1671,13 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <td>»» id</td>
 <td>body</td>
 <td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» context</td>
+<td>body</td>
+<td>[string]</td>
 <td>false</td>
 <td>none</td>
 </tr>
@@ -4875,6 +4888,9 @@ accessToken
 <a id="tocscredential"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
@@ -4900,6 +4916,13 @@ accessToken
 <tr>
 <td>id</td>
 <td>string(uri)</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>context</td>
+<td>[string]</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
