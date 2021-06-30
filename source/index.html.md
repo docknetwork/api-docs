@@ -844,7 +844,7 @@ const inputBody = '{
       "string"
     ],
     "subject": {},
-    "issuer": "string",
+    "issuer": "http://example.com",
     "issuanceDate": "2019-08-24T14:15:22Z",
     "expirationDate": "2019-08-24T14:15:22Z",
     "status": {}
@@ -961,7 +961,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
       "string"
     ],
     "subject": {},
-    "issuer": "string",
+    "issuer": "http://example.com",
     "issuanceDate": "2019-08-24T14:15:22Z",
     "expirationDate": "2019-08-24T14:15:22Z",
     "status": {}
@@ -980,7 +980,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 |»» type|body|[string]|false|none|
 |»» subject|body|object|false|none|
 |»» issuer|body|any|false|none|
-|»»» *anonymous*|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
 |»»» *anonymous*|body|object|false|none|
 |»» issuanceDate|body|string(date-time)|false|none|
 |»» expirationDate|body|string(date-time)|false|none|
@@ -1002,7 +1002,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "string",
+  "issuer": "http://example.com",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -1052,7 +1052,7 @@ const inputBody = '{
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "string",
+  "issuer": "http://example.com",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -1174,7 +1174,7 @@ Verifies a VCDM credential or presentation JSON-LD object.
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "string",
+  "issuer": "http://example.com",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -1235,7 +1235,7 @@ curl -X POST /presentations/ \
 
 ```javascript
 const inputBody = '{
-  "holder": "string",
+  "holder": "http://example.com",
   "challenge": "string",
   "domain": "string",
   "credentials": [
@@ -1248,7 +1248,7 @@ const inputBody = '{
         "string"
       ],
       "credentialSubject": {},
-      "issuer": "string",
+      "issuer": "http://example.com",
       "issuanceDate": "2019-08-24T14:15:22Z",
       "expirationDate": "2019-08-24T14:15:22Z",
       "credentialStatus": {},
@@ -1364,7 +1364,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 
 ```json
 {
-  "holder": "string",
+  "holder": "http://example.com",
   "challenge": "string",
   "domain": "string",
   "credentials": [
@@ -1377,7 +1377,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
         "string"
       ],
       "credentialSubject": {},
-      "issuer": "string",
+      "issuer": "http://example.com",
       "issuanceDate": "2019-08-24T14:15:22Z",
       "expirationDate": "2019-08-24T14:15:22Z",
       "credentialStatus": {},
@@ -1398,7 +1398,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|true|JSON-schema|
-|» holder|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» holder|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
 |» challenge|body|string|false|none|
 |» domain|body|string|false|none|
 |» credentials|body|[[VerifiableCredential](#schemaverifiablecredential)]|false|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
@@ -1411,7 +1411,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 |»»» *anonymous*|body|object|false|none|
 |»»» *anonymous*|body|array|false|none|
 |»» issuer|body|any|false|none|
-|»»» *anonymous*|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
 |»»» *anonymous*|body|object|false|none|
 |»» issuanceDate|body|string(date-time)|false|none|
 |»» expirationDate|body|string(date-time)|false|none|
@@ -1449,7 +1449,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "string",
+  "issuer": "http://example.com",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -3698,7 +3698,7 @@ xor
     "string"
   ],
   "subject": {},
-  "issuer": "string",
+  "issuer": "http://example.com",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "status": {}
@@ -3722,7 +3722,7 @@ oneOf
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
+|» *anonymous*|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
 
 xor
 
@@ -3829,7 +3829,7 @@ continued
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "string",
+  "issuer": "http://example.com",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -3877,7 +3877,7 @@ oneOf
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
+|» *anonymous*|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
 
 xor
 
