@@ -1009,7 +1009,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
     "proofPurpose": "assertionMethod",
     "verificationMethod": "string",
     "created": "2019-08-24T14:15:22Z",
-    "jws": "string"
+    "proofValue": "string"
   }
 }
 ```
@@ -1027,7 +1027,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Verify a credential
+## Verify a credential or presentation
 
 > Code samples
 
@@ -1042,26 +1042,24 @@ curl -X POST /verify/ \
 
 ```javascript
 const inputBody = '{
-  "credential": {
-    "@context": [
-      "string"
-    ],
-    "id": "http://example.com",
-    "type": [
-      "string"
-    ],
-    "credentialSubject": {},
-    "issuer": "string",
-    "issuanceDate": "2019-08-24T14:15:22Z",
-    "expirationDate": "2019-08-24T14:15:22Z",
-    "credentialStatus": {},
-    "proof": {
-      "type": "Sr25519Signature2020",
-      "proofPurpose": "assertionMethod",
-      "verificationMethod": "string",
-      "created": "2019-08-24T14:15:22Z",
-      "jws": "string"
-    }
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "credentialSubject": {},
+  "issuer": "string",
+  "issuanceDate": "2019-08-24T14:15:22Z",
+  "expirationDate": "2019-08-24T14:15:22Z",
+  "credentialStatus": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
   }
 }';
 const headers = {
@@ -1160,71 +1158,39 @@ func main() {
 
 `POST /verify/`
 
-Verifies a VCDM credential object. Presentation support coming soon.
+Verifies a VCDM credential or presentation JSON-LD object.
 
 > Body parameter
 
 ```json
 {
-  "credential": {
-    "@context": [
-      "string"
-    ],
-    "id": "http://example.com",
-    "type": [
-      "string"
-    ],
-    "credentialSubject": {},
-    "issuer": "string",
-    "issuanceDate": "2019-08-24T14:15:22Z",
-    "expirationDate": "2019-08-24T14:15:22Z",
-    "credentialStatus": {},
-    "proof": {
-      "type": "Sr25519Signature2020",
-      "proofPurpose": "assertionMethod",
-      "verificationMethod": "string",
-      "created": "2019-08-24T14:15:22Z",
-      "jws": "string"
-    }
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "credentialSubject": {},
+  "issuer": "string",
+  "issuanceDate": "2019-08-24T14:15:22Z",
+  "expirationDate": "2019-08-24T14:15:22Z",
+  "credentialStatus": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
   }
 }
 ```
 
-<h3 id="verify-a-credential-parameters">Parameters</h3>
+<h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema|
-|» credential|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API. The current set of properties is almost complete|
-|»» @context|body|any|false|JSON-LD context|
-|»»» *anonymous*|body|[string]|false|none|
-|»»» *anonymous*|body|string|false|none|
-|»» id|body|string(uri)|false|none|
-|»» type|body|[string]|false|none|
-|»» credentialSubject|body|any|false|none|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|array|false|none|
-|»» issuer|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
-|»» issuanceDate|body|string(date-time)|false|none|
-|»» expirationDate|body|string(date-time)|false|none|
-|»» credentialStatus|body|any|false|Revocation registry id or user supplied status object|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|string|false|none|
-|»» proof|body|object|false|none|
-|»»» type|body|[SigType](#schemasigtype)|false|Type of signature|
-|»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
-|»»» verificationMethod|body|string|false|none|
-|»»» created|body|string(date-time)|false|none|
-|»»» jws|body|string|false|none|
-
-#### Enumerated Values
-
-|Parameter|Value|
-|---|---|
-|»»» type|Sr25519Signature2020|
-|»»» type|Ed25519Signature2018|
-|»»» type|EcdsaSecp256k1Signature2019|
-|»»» proofPurpose|assertionMethod|
+|body|body|any|true|JSON-schema|
 
 > Example responses
 
@@ -1236,7 +1202,7 @@ Verifies a VCDM credential object. Presentation support coming soon.
 }
 ```
 
-<h3 id="verify-a-credential-responses">Responses</h3>
+<h3 id="verify-a-credential-or-presentation-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -3137,6 +3103,262 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+<h1 id="dock-api-presentations">presentations</h1>
+
+## Create a presentation
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /presentations/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{
+  "holder": "string",
+  "challenge": "string",
+  "domain": "string",
+  "credentials": [
+    {
+      "@context": [
+        "string"
+      ],
+      "id": "http://example.com",
+      "type": [
+        "string"
+      ],
+      "credentialSubject": {},
+      "issuer": "string",
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "credentialStatus": {},
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "proofValue": "string"
+      }
+    }
+  ]
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/presentations/',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.post('/presentations/', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/presentations/', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/presentations/", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`POST /presentations/`
+
+Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.
+
+> Body parameter
+
+```json
+{
+  "holder": "string",
+  "challenge": "string",
+  "domain": "string",
+  "credentials": [
+    {
+      "@context": [
+        "string"
+      ],
+      "id": "http://example.com",
+      "type": [
+        "string"
+      ],
+      "credentialSubject": {},
+      "issuer": "string",
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "credentialStatus": {},
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "proofValue": "string"
+      }
+    }
+  ]
+}
+```
+
+<h3 id="create-a-presentation-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|JSON-schema|
+|» holder|body|string|false|none|
+|» challenge|body|string|false|none|
+|» domain|body|string|false|none|
+|» credentials|body|[[VerifiableCredential](#schemaverifiablecredential)]|false|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
+|»» @context|body|any|false|JSON-LD context|
+|»»» *anonymous*|body|[string]|false|none|
+|»»» *anonymous*|body|string|false|none|
+|»» id|body|string(uri)|false|none|
+|»» type|body|[string]|false|none|
+|»» credentialSubject|body|any|false|none|
+|»»» *anonymous*|body|object|false|none|
+|»»» *anonymous*|body|array|false|none|
+|»» issuer|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»» issuanceDate|body|string(date-time)|false|none|
+|»» expirationDate|body|string(date-time)|false|none|
+|»» credentialStatus|body|any|false|Revocation registry id or user supplied status object|
+|»»» *anonymous*|body|object|false|none|
+|»»» *anonymous*|body|string|false|none|
+|»» proof|body|object|false|none|
+|»»» type|body|[SigType](#schemasigtype)|false|Type of signature|
+|»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
+|»»» verificationMethod|body|string|false|none|
+|»»» created|body|string(date-time)|false|none|
+|»»» proofValue|body|string|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|»»» type|Sr25519Signature2020|
+|»»» type|Ed25519Signature2018|
+|»»» type|EcdsaSecp256k1Signature2019|
+|»»» proofPurpose|assertionMethod|
+|»»» proofPurpose|authentication|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "credentialSubject": {},
+  "issuer": "string",
+  "issuanceDate": "2019-08-24T14:15:22Z",
+  "expirationDate": "2019-08-24T14:15:22Z",
+  "credentialStatus": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
+  }
+}
+```
+
+<h3 id="create-a-presentation-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
 # Schemas
 
 <h2 id="tocS_Hex32">Hex32</h2>
@@ -3379,6 +3601,7 @@ Purpose of credential
 |Property|Value|
 |---|---|
 |*anonymous*|assertionMethod|
+|*anonymous*|authentication|
 
 <h2 id="tocS_Context">Context</h2>
 <!-- backwards compatibility -->
@@ -3504,6 +3727,68 @@ xor
 |---|---|---|---|---|
 |» *anonymous*|string|false|none|none|
 
+<h2 id="tocS_VerifiablePresentation">VerifiablePresentation</h2>
+<!-- backwards compatibility -->
+<a id="schemaverifiablepresentation"></a>
+<a id="schema_VerifiablePresentation"></a>
+<a id="tocSverifiablepresentation"></a>
+<a id="tocsverifiablepresentation"></a>
+
+```json
+{
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "verifiableCredential": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
+  }
+}
+
+```
+
+Verifiable (signed) Presentation returned by API. The current set of properties is almost complete
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|@context|[Context](#schemacontext)|false|none|JSON-LD context|
+|id|string(uri)|false|none|none|
+|type|[string]|false|none|none|
+|verifiableCredential|any|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|object|false|none|none|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|array|false|none|none|
+
+continued
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|proof|object|false|none|none|
+|» type|[SigType](#schemasigtype)|false|none|Type of signature|
+|» proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential|
+|» verificationMethod|string|false|none|none|
+|» created|string(date-time)|false|none|none|
+|» proofValue|string|false|none|none|
+
 <h2 id="tocS_VerifiableCredential">VerifiableCredential</h2>
 <!-- backwards compatibility -->
 <a id="schemaverifiablecredential"></a>
@@ -3530,7 +3815,7 @@ xor
     "proofPurpose": "assertionMethod",
     "verificationMethod": "string",
     "created": "2019-08-24T14:15:22Z",
-    "jws": "string"
+    "proofValue": "string"
   }
 }
 
@@ -3589,7 +3874,7 @@ continued
 |» proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential|
 |» verificationMethod|string|false|none|none|
 |» created|string(date-time)|false|none|none|
-|» jws|string|false|none|none|
+|» proofValue|string|false|none|none|
 
 <h2 id="tocS_Anchor">Anchor</h2>
 <!-- backwards compatibility -->

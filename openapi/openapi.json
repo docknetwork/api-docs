@@ -121,7 +121,8 @@
         "description": "Purpose of credential",
         "type": "string",
         "enum": [
-          "assertionMethod"
+          "assertionMethod",
+          "authentication"
         ]
       },
       "Context": {
@@ -210,6 +211,56 @@
           }
         }
       },
+      "VerifiablePresentation": {
+        "description": "Verifiable (signed) Presentation returned by API. The current set of properties is almost complete",
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verifiableCredential": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          },
+          "proof": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "$ref": "#/components/schemas/SigType"
+              },
+              "proofPurpose": {
+                "$ref": "#/components/schemas/ProofPurpose"
+              },
+              "verificationMethod": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "proofValue": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "VerifiableCredential": {
         "description": "Verifiable (signed) Credential returned by API. The current set of properties is almost complete",
         "type": "object",
@@ -275,7 +326,7 @@
                 "type": "string",
                 "format": "date-time"
               },
-              "jws": {
+              "proofValue": {
                 "type": "string"
               }
             }
@@ -588,13 +639,13 @@
         }
       }
     },
-    "/verify/": {
+    "/presentations/": {
       "post": {
         "tags": [
-          "credentials"
+          "presentations"
         ],
-        "summary": "Verify a credential",
-        "description": "Verifies a VCDM credential object. Presentation support coming soon.",
+        "summary": "Create a presentation",
+        "description": "Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.",
         "requestBody": {
           "description": "JSON-schema",
           "required": true,
@@ -603,10 +654,69 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "credential": {
-                    "$ref": "#/components/schemas/VerifiableCredential"
+                  "holder": {
+                    "type": "string"
+                  },
+                  "challenge": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "credentials": {
+                    "items": {
+                      "$ref": "#/components/schemas/VerifiableCredential"
+                    },
+                    "type": "array"
                   }
                 }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A VC.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifiableCredential"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid/insufficient credential params."
+          },
+          "401": {
+            "description": "User does not own DID."
+          }
+        }
+      }
+    },
+    "/verify/": {
+      "post": {
+        "tags": [
+          "credentials"
+        ],
+        "summary": "Verify a credential or presentation",
+        "description": "Verifies a VCDM credential or presentation JSON-LD object.",
+        "requestBody": {
+          "description": "JSON-schema",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "$ref": "#/components/schemas/VerifiableCredential"
+                  },
+                  {
+                    "type": "object",
+                    "$ref": "#/components/schemas/VerifiablePresentation"
+                  }
+                ]
               }
             }
           }
