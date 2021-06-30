@@ -1029,193 +1029,6 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## Verify a credential or presentation
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X POST /verify/ \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-const inputBody = '{
-  "@context": [
-    "string"
-  ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "http://example.com",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/verify/',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.post('/verify/', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Content-Type' => 'application/json',
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('POST','/verify/', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/verify/", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`POST /verify/`
-
-Verifies a VCDM credential or presentation JSON-LD object.
-
-> Body parameter
-
-```json
-{
-  "@context": [
-    "string"
-  ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "http://example.com",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
-}
-```
-
-<h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|any|true|JSON-schema|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "verified": true
-}
-```
-
-<h3 id="verify-a-credential-or-presentation-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The verification result|[VerificationResponse](#schemaverificationresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="dock-api-presentations">presentations</h1>
 
 Operations about presentations
@@ -3359,6 +3172,195 @@ Returns information related to the job being processed and its associated blockc
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Job desc|[JobDesc](#schemajobdesc)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Job id was not found.|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+<h1 id="dock-api-verify">verify</h1>
+
+## Verify a credential or presentation
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /verify/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "credentialSubject": {},
+  "issuer": "http://example.com",
+  "issuanceDate": "2019-08-24T14:15:22Z",
+  "expirationDate": "2019-08-24T14:15:22Z",
+  "credentialStatus": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
+  }
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/verify/',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.post('/verify/', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/verify/', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/verify/", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`POST /verify/`
+
+Verifies a VCDM credential or presentation JSON-LD object.
+
+> Body parameter
+
+```json
+{
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "credentialSubject": {},
+  "issuer": "http://example.com",
+  "issuanceDate": "2019-08-24T14:15:22Z",
+  "expirationDate": "2019-08-24T14:15:22Z",
+  "credentialStatus": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
+  }
+}
+```
+
+<h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|any|true|JSON-schema|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "verified": true
+}
+```
+
+<h3 id="verify-a-credential-or-presentation-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The verification result|[VerificationResponse](#schemaverificationresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:

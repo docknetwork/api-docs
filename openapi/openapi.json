@@ -719,8 +719,7 @@
     "/verify/": {
       "post": {
         "tags": [
-          "credentials",
-          "presentations"
+          "verify"
         ],
         "summary": "Verify a credential or presentation",
         "description": "Verifies a VCDM credential or presentation JSON-LD object.",
