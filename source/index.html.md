@@ -157,7 +157,7 @@ Resolves a specific DID into a DID document.
   "@context": [
     "string"
   ],
-  "id": "http://example.com",
+  "id": "did:dock:xyz",
   "authentication": [
     {}
   ]
@@ -590,7 +590,7 @@ func main() {
     "@context": [
       "string"
     ],
-    "id": "http://example.com",
+    "id": "did:dock:xyz",
     "authentication": [
       {}
     ]
@@ -844,7 +844,7 @@ const inputBody = '{
       "string"
     ],
     "subject": {},
-    "issuer": "http://example.com",
+    "issuer": "did:dock:xyz",
     "issuanceDate": "2019-08-24T14:15:22Z",
     "expirationDate": "2019-08-24T14:15:22Z",
     "status": {}
@@ -961,7 +961,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
       "string"
     ],
     "subject": {},
-    "issuer": "http://example.com",
+    "issuer": "did:dock:xyz",
     "issuanceDate": "2019-08-24T14:15:22Z",
     "expirationDate": "2019-08-24T14:15:22Z",
     "status": {}
@@ -1002,7 +1002,7 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -1048,7 +1048,7 @@ curl -X POST /presentations/ \
 
 ```javascript
 const inputBody = '{
-  "holder": "http://example.com",
+  "holder": "did:dock:xyz",
   "challenge": "string",
   "domain": "string",
   "credentials": [
@@ -1061,7 +1061,7 @@ const inputBody = '{
         "string"
       ],
       "credentialSubject": {},
-      "issuer": "http://example.com",
+      "issuer": "did:dock:xyz",
       "issuanceDate": "2019-08-24T14:15:22Z",
       "expirationDate": "2019-08-24T14:15:22Z",
       "credentialStatus": {},
@@ -1177,7 +1177,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 
 ```json
 {
-  "holder": "http://example.com",
+  "holder": "did:dock:xyz",
   "challenge": "string",
   "domain": "string",
   "credentials": [
@@ -1190,7 +1190,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
         "string"
       ],
       "credentialSubject": {},
-      "issuer": "http://example.com",
+      "issuer": "did:dock:xyz",
       "issuanceDate": "2019-08-24T14:15:22Z",
       "expirationDate": "2019-08-24T14:15:22Z",
       "credentialStatus": {},
@@ -1262,7 +1262,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -3203,7 +3203,7 @@ const inputBody = '{
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -3325,7 +3325,7 @@ Verifies a VCDM credential or presentation JSON-LD object.
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -3496,7 +3496,7 @@ Description of the job including result if available
 <a id="tocsdidqualified"></a>
 
 ```json
-"http://example.com"
+"did:dock:xyz"
 
 ```
 
@@ -3653,7 +3653,7 @@ xor
   "@context": [
     "string"
   ],
-  "id": "http://example.com",
+  "id": "did:dock:xyz",
   "authentication": [
     {}
   ]
@@ -3700,7 +3700,7 @@ xor
     "string"
   ],
   "subject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "status": {}
@@ -3831,7 +3831,7 @@ continued
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},

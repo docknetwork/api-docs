@@ -96,7 +96,8 @@
       "DIDQualified": {
         "description": "DID as fully qualified, eg. `did:dock:`.",
         "type": "string",
-        "format": "uri"
+        "format": "uri",
+        "example": "did:dock:xyz"
       },
       "DID": {
         "description": "DID as 32 byte hex of fully quanlified",
