@@ -979,7 +979,9 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 |»» context|body|[string]|false|none|
 |»» type|body|[string]|false|none|
 |»» subject|body|object|false|none|
-|»» issuer|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»» issuer|body|any|false|none|
+|»»» *anonymous*|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»»» *anonymous*|body|object|false|none|
 |»» issuanceDate|body|string(date-time)|false|none|
 |»» expirationDate|body|string(date-time)|false|none|
 |»» status|body|any|false|Revocation registry id or user supplied status object|
@@ -1208,6 +1210,266 @@ Verifies a VCDM credential or presentation JSON-LD object.
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The verification result|[VerificationResponse](#schemaverificationresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+<h1 id="dock-api-presentations">presentations</h1>
+
+Operations about presentations
+
+## Create a presentation
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /presentations/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{
+  "holder": "string",
+  "challenge": "string",
+  "domain": "string",
+  "credentials": [
+    {
+      "@context": [
+        "string"
+      ],
+      "id": "http://example.com",
+      "type": [
+        "string"
+      ],
+      "credentialSubject": {},
+      "issuer": "string",
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "credentialStatus": {},
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "proofValue": "string"
+      }
+    }
+  ]
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/presentations/',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.post('/presentations/', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/presentations/', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/presentations/", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`POST /presentations/`
+
+Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.
+
+> Body parameter
+
+```json
+{
+  "holder": "string",
+  "challenge": "string",
+  "domain": "string",
+  "credentials": [
+    {
+      "@context": [
+        "string"
+      ],
+      "id": "http://example.com",
+      "type": [
+        "string"
+      ],
+      "credentialSubject": {},
+      "issuer": "string",
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "credentialStatus": {},
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "proofValue": "string"
+      }
+    }
+  ]
+}
+```
+
+<h3 id="create-a-presentation-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|JSON-schema|
+|» holder|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» challenge|body|string|false|none|
+|» domain|body|string|false|none|
+|» credentials|body|[[VerifiableCredential](#schemaverifiablecredential)]|false|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
+|»» @context|body|any|false|JSON-LD context|
+|»»» *anonymous*|body|[string]|false|none|
+|»»» *anonymous*|body|string|false|none|
+|»» id|body|string(uri)|false|none|
+|»» type|body|[string]|false|none|
+|»» credentialSubject|body|any|false|none|
+|»»» *anonymous*|body|object|false|none|
+|»»» *anonymous*|body|array|false|none|
+|»» issuer|body|any|false|none|
+|»»» *anonymous*|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|»»» *anonymous*|body|object|false|none|
+|»» issuanceDate|body|string(date-time)|false|none|
+|»» expirationDate|body|string(date-time)|false|none|
+|»» credentialStatus|body|any|false|Revocation registry id or user supplied status object|
+|»»» *anonymous*|body|object|false|none|
+|»»» *anonymous*|body|string|false|none|
+|»» proof|body|object|false|none|
+|»»» type|body|[SigType](#schemasigtype)|false|Type of signature|
+|»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
+|»»» verificationMethod|body|string|false|none|
+|»»» created|body|string(date-time)|false|none|
+|»»» proofValue|body|string|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|»»» type|Sr25519Signature2020|
+|»»» type|Ed25519Signature2018|
+|»»» type|EcdsaSecp256k1Signature2019|
+|»»» proofPurpose|assertionMethod|
+|»»» proofPurpose|authentication|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "@context": [
+    "string"
+  ],
+  "id": "http://example.com",
+  "type": [
+    "string"
+  ],
+  "credentialSubject": {},
+  "issuer": "string",
+  "issuanceDate": "2019-08-24T14:15:22Z",
+  "expirationDate": "2019-08-24T14:15:22Z",
+  "credentialStatus": {},
+  "proof": {
+    "type": "Sr25519Signature2020",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "proofValue": "string"
+  }
+}
+```
+
+<h3 id="create-a-presentation-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|None|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3103,262 +3365,6 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-presentations">presentations</h1>
-
-## Create a presentation
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X POST /presentations/ \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-const inputBody = '{
-  "holder": "string",
-  "challenge": "string",
-  "domain": "string",
-  "credentials": [
-    {
-      "@context": [
-        "string"
-      ],
-      "id": "http://example.com",
-      "type": [
-        "string"
-      ],
-      "credentialSubject": {},
-      "issuer": "string",
-      "issuanceDate": "2019-08-24T14:15:22Z",
-      "expirationDate": "2019-08-24T14:15:22Z",
-      "credentialStatus": {},
-      "proof": {
-        "type": "Sr25519Signature2020",
-        "proofPurpose": "assertionMethod",
-        "verificationMethod": "string",
-        "created": "2019-08-24T14:15:22Z",
-        "proofValue": "string"
-      }
-    }
-  ]
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/presentations/',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.post('/presentations/', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Content-Type' => 'application/json',
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('POST','/presentations/', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/presentations/", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`POST /presentations/`
-
-Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.
-
-> Body parameter
-
-```json
-{
-  "holder": "string",
-  "challenge": "string",
-  "domain": "string",
-  "credentials": [
-    {
-      "@context": [
-        "string"
-      ],
-      "id": "http://example.com",
-      "type": [
-        "string"
-      ],
-      "credentialSubject": {},
-      "issuer": "string",
-      "issuanceDate": "2019-08-24T14:15:22Z",
-      "expirationDate": "2019-08-24T14:15:22Z",
-      "credentialStatus": {},
-      "proof": {
-        "type": "Sr25519Signature2020",
-        "proofPurpose": "assertionMethod",
-        "verificationMethod": "string",
-        "created": "2019-08-24T14:15:22Z",
-        "proofValue": "string"
-      }
-    }
-  ]
-}
-```
-
-<h3 id="create-a-presentation-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|JSON-schema|
-|» holder|body|string|false|none|
-|» challenge|body|string|false|none|
-|» domain|body|string|false|none|
-|» credentials|body|[[VerifiableCredential](#schemaverifiablecredential)]|false|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
-|»» @context|body|any|false|JSON-LD context|
-|»»» *anonymous*|body|[string]|false|none|
-|»»» *anonymous*|body|string|false|none|
-|»» id|body|string(uri)|false|none|
-|»» type|body|[string]|false|none|
-|»» credentialSubject|body|any|false|none|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|array|false|none|
-|»» issuer|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
-|»» issuanceDate|body|string(date-time)|false|none|
-|»» expirationDate|body|string(date-time)|false|none|
-|»» credentialStatus|body|any|false|Revocation registry id or user supplied status object|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|string|false|none|
-|»» proof|body|object|false|none|
-|»»» type|body|[SigType](#schemasigtype)|false|Type of signature|
-|»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
-|»»» verificationMethod|body|string|false|none|
-|»»» created|body|string(date-time)|false|none|
-|»»» proofValue|body|string|false|none|
-
-#### Enumerated Values
-
-|Parameter|Value|
-|---|---|
-|»»» type|Sr25519Signature2020|
-|»»» type|Ed25519Signature2018|
-|»»» type|EcdsaSecp256k1Signature2019|
-|»»» proofPurpose|assertionMethod|
-|»»» proofPurpose|authentication|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "@context": [
-    "string"
-  ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "string",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
-}
-```
-
-<h3 id="create-a-presentation-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 # Schemas
 
 <h2 id="tocS_Hex32">Hex32</h2>
@@ -3710,7 +3716,24 @@ Credential format expected by API caller. The current set of is almost complete
 |context|[string]|false|none|none|
 |type|[string]|false|none|none|
 |subject|object|false|none|none|
-|issuer|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
+|issuer|any|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|object|false|none|none|
+
+continued
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
 |issuanceDate|string(date-time)|false|none|none|
 |expirationDate|string(date-time)|false|none|none|
 |status|any|false|none|Revocation registry id or user supplied status object|
@@ -3848,7 +3871,24 @@ continued
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|issuer|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
+|issuer|any|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|[DID](#schemadid)|false|none|DID as 32 byte hex of fully quanlified|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|object|false|none|none|
+
+continued
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
 |issuanceDate|string(date-time)|false|none|none|
 |expirationDate|string(date-time)|false|none|none|
 |credentialStatus|any|false|none|Revocation registry id or user supplied status object|

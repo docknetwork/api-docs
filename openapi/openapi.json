@@ -15,6 +15,10 @@
       "description": "Operations about credentials"
     },
     {
+      "name": "presentations",
+      "description": "Operations about presentations"
+    },
+    {
       "name": "registries",
       "description": "Operations about registries"
     },
@@ -188,7 +192,15 @@
             "type": "object"
           },
           "issuer": {
-            "$ref": "#/components/schemas/DID"
+            "oneOf": [
+              {
+                "type": "string",
+                "$ref": "#/components/schemas/DID"
+              },
+              {
+                "type": "object"
+              }
+            ]
           },
           "issuanceDate": {
             "type": "string",
@@ -289,7 +301,15 @@
             ]
           },
           "issuer": {
-            "$ref": "#/components/schemas/DID"
+            "oneOf": [
+              {
+                "type": "string",
+                "$ref": "#/components/schemas/DID"
+              },
+              {
+                "type": "object"
+              }
+            ]
           },
           "issuanceDate": {
             "type": "string",
@@ -655,7 +675,9 @@
                 "type": "object",
                 "properties": {
                   "holder": {
-                    "type": "string"
+                    "type": "string",
+                    "$ref": "#/components/schemas/DID",
+                    "required": true
                   },
                   "challenge": {
                     "type": "string"
@@ -697,7 +719,8 @@
     "/verify/": {
       "post": {
         "tags": [
-          "credentials"
+          "credentials",
+          "presentations"
         ],
         "summary": "Verify a credential or presentation",
         "description": "Verifies a VCDM credential or presentation JSON-LD object.",
