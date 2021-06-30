@@ -641,7 +641,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
   </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{}</span><span class="w">
   </span><span class="p">]</span><span class="w">
@@ -1144,7 +1144,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
     </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -1544,7 +1544,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
       "string"
     ],
     "subject": {},
-    "issuer": "http://example.com",
+    "issuer": "did:dock:xyz",
     "issuanceDate": "2019-08-24T14:15:22Z",
     "expirationDate": "2019-08-24T14:15:22Z",
     "status": {}
@@ -1651,7 +1651,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
       </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-    </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
@@ -1783,7 +1783,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
@@ -1845,7 +1845,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "holder": "http://example.com",
+  "holder": "did:dock:xyz",
   "challenge": "string",
   "domain": "string",
   "credentials": [
@@ -1858,7 +1858,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
         "string"
       ],
       "credentialSubject": {},
-      "issuer": "http://example.com",
+      "issuer": "did:dock:xyz",
       "issuanceDate": "2019-08-24T14:15:22Z",
       "expirationDate": "2019-08-24T14:15:22Z",
       "credentialStatus": {},
@@ -1964,7 +1964,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"holder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"holder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"challenge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1977,7 +1977,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
         </span><span class="s2">"string"</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
@@ -2236,7 +2236,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
@@ -4443,7 +4443,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
     "string"
   ],
   "credentialSubject": {},
-  "issuer": "http://example.com",
+  "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
   "credentialStatus": {},
@@ -4555,7 +4555,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
@@ -4841,7 +4841,7 @@ accessToken
 <a id="schema_DIDQualified"></a>
 <a id="tocSdidqualified"></a>
 <a id="tocsdidqualified"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"http://example.com"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
 <p>DID as fully qualified, eg. <code>did:dock:</code>.</p>
@@ -5111,7 +5111,7 @@ accessToken
   </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{}</span><span class="w">
   </span><span class="p">]</span><span class="w">
@@ -5209,7 +5209,7 @@ accessToken
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
@@ -5558,7 +5558,7 @@ accessToken
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
