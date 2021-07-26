@@ -781,11 +781,11 @@
         "description": "Deletes a specific registry",
         "responses": {
           "200": {
-            "description": "Revocation Registry was deleted",
+            "description": "Revocation Registry will be deleted",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Response"
+                  "$ref": "#/components/schemas/JobStartedResult"
                 }
               }
             }
@@ -852,11 +852,11 @@
         },
         "responses": {
           "200": {
-            "description": "Will try to update registry.",
+            "description": "Will try to revoke/unrevoke the credential.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobId"
+                  "$ref": "#/components/schemas/JobStartedResult"
                 }
               }
             }
@@ -924,7 +924,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobId"
+                  "$ref": "#/components/schemas/JobStartedResult"
                 }
               }
             }

@@ -1413,7 +1413,8 @@ Deletes a specific registry
 
 ```json
 {
-  "code": 0
+  "id": "string",
+  "data": {}
 }
 ```
 
@@ -1421,7 +1422,7 @@ Deletes a specific registry
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry was deleted|[Response](#schemaresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry will be deleted|[JobStartedResult](#schemajobstartedresult)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
 
 <aside class="warning">
@@ -1718,14 +1719,17 @@ Revoke or unrevoke one or more credential ids
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "string",
+  "data": {}
+}
 ```
 
 <h3 id="revoke/unrevoke-credential-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to update registry.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|None|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
 
@@ -2024,14 +2028,17 @@ Create a Revocation registry on the blockchain
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "string",
+  "data": {}
+}
 ```
 
 <h3 id="create-registry-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create registry.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create registry.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like policy not supported.|None|
 
 <aside class="warning">
