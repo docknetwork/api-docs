@@ -3,7 +3,7 @@
   "info": {
     "version": "1",
     "title": "Dock API",
-    "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.\nWe handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.\nYou can use our available endpoint at: https://api.dock.io\n"
+    "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/"
   },
   "tags": [
     {

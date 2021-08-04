@@ -21,14 +21,12 @@ headingLevel: 2
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
-You can use our available endpoint at: https://api.dock.io
+Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: <a href="https://console.api.dock.io/">https://console.api.dock.io/</a>
 
 # Authentication
 
 * API Key (accessToken)
-    - Parameter Name: **DOCK-API-TOKEN**, in: header. 
+    - Parameter Name: **DOCK-API-TOKEN**, in: header.
 
 <h1 id="dock-api-dids">dids</h1>
 
@@ -4025,14 +4023,10 @@ Default response
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  "description": "Use Dock's complete solution for creating and managing verifiable credentials on the blockchain.
-We handle the pricing of blockchain operations for you, you simply get billed monthly through fiat.
-You can use our available endpoint at: https://api.dock.io
-",
-  
-  
-  
+  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/",
+
+
+
   "name": "Dock API"
 }
 </script>
-
