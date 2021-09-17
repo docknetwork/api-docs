@@ -503,13 +503,13 @@
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
 
-<p>Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: <a href="https://console.api.dock.io/">https://console.api.dock.io/</a></p>
+<p>Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/</p>
 <h1 id='authentication'>Authentication</h1>
 <ul>
 <li>API Key (accessToken)
 
 <ul>
-<li>Parameter Name: <strong>DOCK-API-TOKEN</strong>, in: header.</li>
+<li>Parameter Name: <strong>DOCK-API-TOKEN</strong>, in: header. </li>
 </ul></li>
 </ul>
 
@@ -684,7 +684,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "controller": "string",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -779,7 +779,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -806,7 +806,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 <tr>
 <td>» keyType</td>
@@ -1318,8 +1318,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "did": "string",
-  "controller": "string",
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -1414,8 +1414,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1442,14 +1442,14 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 <tr>
 <td>» controller</td>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 <tr>
 <td>» keyType</td>
@@ -2088,7 +2088,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <tr>
 <td>»»» <em>anonymous</em></td>
 <td>body</td>
-<td>array</td>
+<td>[object]</td>
 <td>false</td>
 <td>none</td>
 </tr>
@@ -2559,7 +2559,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2911,7 +2911,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
     </span><span class="nl">"registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"string"</span><span class="w">
+        </span><span class="s2">"did:dock:xyz"</span><span class="w">
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2953,7 +2953,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>» registry</td>
@@ -2995,7 +2995,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -3092,7 +3092,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3522,7 +3522,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>» schema</td>
@@ -4439,27 +4439,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "@context": [
-    "string"
-  ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "did:dock:xyz",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
-}</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{}</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
   <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
@@ -4551,27 +4531,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519Signature2020"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"proofPurpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assertionMethod"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"verificationMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"proofValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
 </span></code></pre></div>
 <h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
@@ -4587,7 +4547,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <tr>
 <td>body</td>
 <td>body</td>
-<td>any</td>
+<td>object</td>
 <td>true</td>
 <td>JSON-schema</td>
 </tr>
@@ -4642,7 +4602,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 
 </span></code></pre></div>
-<p>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</p>
+<p>32 byte hex string. Ignoring higher base (base64) for similicity.</p>
 <h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
@@ -4658,7 +4618,7 @@ accessToken
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 </tbody></table>
 
@@ -4877,10 +4837,10 @@ accessToken
 <a id="schema_DID"></a>
 <a id="tocSdid"></a>
 <a id="tocsdid"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
-<p>DID as 32 byte hex of fully quanlified</p>
+<p>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</p>
 <h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
@@ -4896,7 +4856,7 @@ accessToken
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 </tbody></table>
 
@@ -5399,7 +5359,27 @@ accessToken
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"verifiableCredential"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"verifiableCredential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+    </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+    </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519Signature2020"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"proofPurpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assertionMethod"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"verificationMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"proofValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519Signature2020"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"proofPurpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assertionMethod"</span><span class="p">,</span><span class="w">
@@ -5464,10 +5444,10 @@ accessToken
 </thead><tbody>
 <tr>
 <td>» <em>anonymous</em></td>
-<td>object</td>
+<td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete</td>
 </tr>
 </tbody></table>
 
@@ -5484,10 +5464,10 @@ accessToken
 </thead><tbody>
 <tr>
 <td>» <em>anonymous</em></td>
-<td>array</td>
+<td>[<a href="#schemaverifiablecredential">VerifiableCredential</a>]</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]</td>
 </tr>
 </tbody></table>
 
@@ -5651,7 +5631,7 @@ accessToken
 </thead><tbody>
 <tr>
 <td>» <em>anonymous</em></td>
-<td>array</td>
+<td>[object]</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
@@ -5878,21 +5858,21 @@ accessToken
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>blockHash</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>root</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 </tbody></table>
 
@@ -5907,7 +5887,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -6009,10 +5989,11 @@ accessToken
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/",
-
-
-
+  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
+",
+  
+  
+  
   "name": "Dock API"
 }
 </script>
