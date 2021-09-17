@@ -429,6 +429,9 @@
             <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#tocS_Error" class="toc-h2 toc-link" data-title="Error">Error</a>
+                  </li>
+                  <li>
                     <a href="#tocS_Hex32" class="toc-h2 toc-link" data-title="Hex32">Hex32</a>
                   </li>
                   <li>
@@ -665,7 +668,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>DID was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -684,7 +687,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "controller": "did:dock:xyz",
+  "controller": "string",
   "keyType": "sr25519"
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -779,7 +782,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -806,7 +809,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as 32 byte hex of fully quanlified</td>
 </tr>
 <tr>
 <td>» keyType</td>
@@ -871,13 +874,13 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
 <td>Does not own the DID</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>DID does not exist</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -1026,13 +1029,13 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
 <td>Does not own the DID</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>DID does not exist</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -1318,8 +1321,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
+  "did": "string",
+  "controller": "string",
   "keyType": "sr25519"
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -1414,8 +1417,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1442,14 +1445,14 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as 32 byte hex of fully quanlified</td>
 </tr>
 <tr>
 <td>» controller</td>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as 32 byte hex of fully quanlified</td>
 </tr>
 <tr>
 <td>» keyType</td>
@@ -1510,7 +1513,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid params</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -1814,13 +1817,13 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid/insufficient credential params.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
 <td>User does not own DID.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -2267,13 +2270,13 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid/insufficient credential params.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
 <td>User does not own DID.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -2429,7 +2432,7 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Registry was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -2559,7 +2562,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"did:dock:xyz"</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2583,7 +2586,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Registry was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -2792,13 +2795,13 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid params</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Registry was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -2911,7 +2914,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
     </span><span class="nl">"registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"did:dock:xyz"</span><span class="w">
+        </span><span class="s2">"string"</span><span class="w">
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2953,7 +2956,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
 </tr>
 <tr>
 <td>» registry</td>
@@ -2995,7 +2998,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
   "addOnly": true,
   "policy": [
-    "did:dock:xyz"
+    "string"
   ]
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -3092,7 +3095,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"did:dock:xyz"</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3160,7 +3163,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid params like policy not supported.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -3322,7 +3325,7 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Registry was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -3500,7 +3503,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Schema was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -3522,7 +3525,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
 </tr>
 <tr>
 <td>» schema</td>
@@ -3815,7 +3818,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid params like size not supported or not JSON.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -3972,7 +3975,7 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Anchor was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -4262,7 +4265,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid params</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -4419,7 +4422,7 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>Job id was not found.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -4582,7 +4585,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>Invalid/insufficient credential params.</td>
-<td>None</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 
@@ -4591,6 +4594,55 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 <h1 id='schemas'>Schemas</h1>
+<h2 id="tocS_Error">Error</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaerror"></a>
+<a id="schema_Error"></a>
+<a id="tocSerror"></a>
+<a id="tocserror"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>An API Error</p>
+<h3 id='properties'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>integer</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
 <h2 id="tocS_Hex32">Hex32</h2>
 
 <!-- backwards compatibility -->
@@ -4602,8 +4654,8 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 
 </span></code></pre></div>
-<p>32 byte hex string. Ignoring higher base (base64) for similicity.</p>
-<h3 id='properties'>Properties</h3>
+<p>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</p>
+<h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4618,7 +4670,7 @@ accessToken
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
 </tr>
 </tbody></table>
 
@@ -4637,7 +4689,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Object containing unique id of the background task and associated data. This id can be used to query the job status</p>
-<h3 id='properties-2'>Properties</h3>
+<h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4675,7 +4727,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Unique id of the background task. This id can be used to query the job status</p>
-<h3 id='properties-3'>Properties</h3>
+<h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4706,7 +4758,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Status of the job.</p>
-<h3 id='properties-4'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4765,7 +4817,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Description of the job including result if available</p>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4810,7 +4862,7 @@ accessToken
 
 </span></code></pre></div>
 <p>DID as fully qualified, eg. <code>did:dock:</code>.</p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4837,11 +4889,11 @@ accessToken
 <a id="schema_DID"></a>
 <a id="tocSdid"></a>
 <a id="tocsdid"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 
 </span></code></pre></div>
-<p>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</p>
-<h3 id='properties-7'>Properties</h3>
+<p>DID as 32 byte hex of fully quanlified</p>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4856,7 +4908,7 @@ accessToken
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as 32 byte hex of fully quanlified</td>
 </tr>
 </tbody></table>
 
@@ -4872,7 +4924,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Type of public key for DID</p>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4923,7 +4975,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Type of signature</p>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4974,7 +5026,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Purpose of credential</p>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5023,7 +5075,7 @@ accessToken
 
 </span></code></pre></div>
 <p>JSON-LD context</p>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <p>oneOf</p>
 
 <table><thead>
@@ -5084,7 +5136,7 @@ accessToken
 
 </span></code></pre></div>
 <p>DID document. The current set of properties is incomplete</p>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5182,7 +5234,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Credential format expected by API caller. The current set of is almost complete</p>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5391,7 +5443,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Verifiable (signed) Presentation returned by API. The current set of properties is almost complete</p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5558,7 +5610,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Verifiable (signed) Credential returned by API. The current set of properties is almost complete</p>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5843,7 +5895,7 @@ accessToken
 
 </span></code></pre></div>
 <p>An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.</p>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5858,21 +5910,21 @@ accessToken
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
 </tr>
 <tr>
 <td>blockHash</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
 </tr>
 <tr>
 <td>root</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
 </tr>
 </tbody></table>
 
@@ -5887,13 +5939,13 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"did:dock:xyz"</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>Revocation registry</p>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5933,7 +5985,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Whether a credential/presentation is verified or not</p>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5966,7 +6018,7 @@ accessToken
 
 </span></code></pre></div>
 <p>Default response</p>
-<h3 id='properties-19'>Properties</h3>
+<h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
