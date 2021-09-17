@@ -21,12 +21,12 @@ headingLevel: 2
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: <a href="https://console.api.dock.io/">https://console.api.dock.io/</a>
+Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
 
 # Authentication
 
 * API Key (accessToken)
-    - Parameter Name: **DOCK-API-TOKEN**, in: header.
+    - Parameter Name: **DOCK-API-TOKEN**, in: header. 
 
 <h1 id="dock-api-dids">dids</h1>
 
@@ -189,7 +189,7 @@ curl -X PATCH /dids/{did} \
 
 ```javascript
 const inputBody = '{
-  "controller": "string",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -294,7 +294,7 @@ Updates the DID's key or controller on the blockchain.
 
 ```json
 {
-  "controller": "string",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }
 ```
@@ -304,7 +304,7 @@ Updates the DID's key or controller on the blockchain.
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|Properties of DID|
-|» controller|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
 |did|path|[DID](#schemadid)|true|A DID|
 
@@ -662,8 +662,8 @@ curl -X POST /dids/ \
 
 ```javascript
 const inputBody = '{
-  "did": "string",
-  "controller": "string",
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -768,8 +768,8 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 
 ```json
 {
-  "did": "string",
-  "controller": "string",
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }
 ```
@@ -779,8 +779,8 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|Properties of DID|
-|» did|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
-|» controller|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» did|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
 
 #### Enumerated Values
@@ -1220,7 +1220,7 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 |»» type|body|[string]|false|none|
 |»» credentialSubject|body|any|false|none|
 |»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|array|false|none|
+|»»» *anonymous*|body|[object]|false|none|
 |»» issuer|body|any|false|none|
 |»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
 |»»» *anonymous*|body|object|false|none|
@@ -1550,7 +1550,7 @@ Get the registry details like policy, controller(s)
 {
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 ```
@@ -1855,7 +1855,7 @@ Get all registries created by user
     "registry": {
       "addOnly": true,
       "policy": [
-        "string"
+        "did:dock:xyz"
       ]
     }
   }
@@ -1874,7 +1874,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 |» registry|[Registry](#schemaregistry)|false|none|Revocation registry|
 |»» addOnly|boolean|false|none|none|
 |»» policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
@@ -1901,7 +1901,7 @@ curl -X POST /registries/ \
 const inputBody = '{
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }';
 const headers = {
@@ -2008,7 +2008,7 @@ Create a Revocation registry on the blockchain
 {
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 ```
@@ -2335,7 +2335,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 |» schema|object|false|none|none|
 
 <aside class="warning">
@@ -3199,27 +3199,7 @@ curl -X POST /verify/ \
 ```
 
 ```javascript
-const inputBody = '{
-  "@context": [
-    "string"
-  ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "did:dock:xyz",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
-}';
+const inputBody = '{}';
 const headers = {
   'Content-Type':'application/json',
   'Accept':'application/json',
@@ -3321,34 +3301,14 @@ Verifies a VCDM credential or presentation JSON-LD object.
 > Body parameter
 
 ```json
-{
-  "@context": [
-    "string"
-  ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "did:dock:xyz",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
-}
+{}
 ```
 
 <h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|any|true|JSON-schema|
+|body|body|object|true|JSON-schema|
 
 > Example responses
 
@@ -3386,13 +3346,13 @@ accessToken
 
 ```
 
-32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec
+32 byte hex string. Ignoring higher base (base64) for similicity.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 
 <h2 id="tocS_JobStartedResult">JobStartedResult</h2>
 <!-- backwards compatibility -->
@@ -3521,17 +3481,17 @@ DID as fully qualified, eg. `did:dock:`.
 <a id="tocsdid"></a>
 
 ```json
-"string"
+"did:dock:xyz"
 
 ```
 
-DID as 32 byte hex of fully quanlified
+DID as fully qualified, eg. `did:dock:` or 32 byte hex string
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|DID as 32 byte hex of fully quanlified|
+|*anonymous*|string|false|none|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3773,7 +3733,27 @@ xor
   "type": [
     "string"
   ],
-  "verifiableCredential": {},
+  "verifiableCredential": {
+    "@context": [
+      "string"
+    ],
+    "id": "http://example.com",
+    "type": [
+      "string"
+    ],
+    "credentialSubject": {},
+    "issuer": "did:dock:xyz",
+    "issuanceDate": "2019-08-24T14:15:22Z",
+    "expirationDate": "2019-08-24T14:15:22Z",
+    "credentialStatus": {},
+    "proof": {
+      "type": "Sr25519Signature2020",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "string",
+      "created": "2019-08-24T14:15:22Z",
+      "proofValue": "string"
+    }
+  },
   "proof": {
     "type": "Sr25519Signature2020",
     "proofPurpose": "assertionMethod",
@@ -3800,13 +3780,13 @@ oneOf
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
+|» *anonymous*|[VerifiableCredential](#schemaverifiablecredential)|false|none|Verifiable (signed) Credential returned by API. The current set of properties is almost complete|
 
 xor
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|array|false|none|none|
+|» *anonymous*|[[VerifiableCredential](#schemaverifiablecredential)]|false|none|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
 
 continued
 
@@ -3872,7 +3852,7 @@ xor
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|array|false|none|none|
+|» *anonymous*|[object]|false|none|none|
 
 continued
 
@@ -3945,9 +3925,9 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
-|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
-|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 
 <h2 id="tocS_Registry">Registry</h2>
 <!-- backwards compatibility -->
@@ -3960,7 +3940,7 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 {
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 
@@ -4023,10 +4003,12 @@ Default response
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/",
-
-
-
+  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
+",
+  
+  
+  
   "name": "Dock API"
 }
 </script>
+
