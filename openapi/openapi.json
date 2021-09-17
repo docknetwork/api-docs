@@ -3,7 +3,7 @@
   "info": {
     "version": "1",
     "title": "Dock API",
-    "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/"
+    "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/\n"
   },
   "tags": [
     {
@@ -49,7 +49,7 @@
     },
     "schemas": {
       "Hex32": {
-        "description": "32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec",
+        "description": "32 byte hex string. Ignoring higher base (base64) for similicity.",
         "type": "string",
         "minimum": 64,
         "maximum": 64
@@ -100,9 +100,10 @@
         "example": "did:dock:xyz"
       },
       "DID": {
-        "description": "DID as 32 byte hex of fully quanlified",
+        "description": "DID as fully qualified, eg. `did:dock:` or 32 byte hex string",
         "type": "string",
-        "minimum": 32
+        "minimum": 32,
+        "example": "did:dock:xyz"
       },
       "KeyType": {
         "description": "Type of public key for DID",
@@ -244,10 +245,15 @@
           "verifiableCredential": {
             "oneOf": [
               {
-                "type": "object"
+                "type": "object",
+                "$ref": "#/components/schemas/VerifiableCredential"
               },
               {
-                "type": "array"
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/VerifiableCredential"
+                }
               }
             ]
           },
@@ -297,7 +303,10 @@
                 "type": "object"
               },
               {
-                "type": "array"
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
               }
             ]
           },
@@ -730,16 +739,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "$ref": "#/components/schemas/VerifiableCredential"
-                  },
-                  {
-                    "type": "object",
-                    "$ref": "#/components/schemas/VerifiablePresentation"
-                  }
-                ]
+                "type": "object"
               }
             }
           }
