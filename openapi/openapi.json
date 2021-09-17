@@ -48,8 +48,23 @@
       }
     },
     "schemas": {
+      "Error": {
+        "description": "An API Error",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
       "Hex32": {
-        "description": "32 byte hex string. Ignoring higher base (base64) for similicity.",
+        "description": "32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec",
         "type": "string",
         "minimum": 64,
         "maximum": 64
@@ -100,10 +115,9 @@
         "example": "did:dock:xyz"
       },
       "DID": {
-        "description": "DID as fully qualified, eg. `did:dock:` or 32 byte hex string",
+        "description": "DID as 32 byte hex of fully quanlified",
         "type": "string",
-        "minimum": 32,
-        "example": "did:dock:xyz"
+        "minimum": 32
       },
       "KeyType": {
         "description": "Type of public key for DID",
@@ -450,7 +464,14 @@
             }
           },
           "404": {
-            "description": "Job id was not found."
+            "description": "Job id was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -485,7 +506,14 @@
             }
           },
           "404": {
-            "description": "DID was not found."
+            "description": "DID was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -526,10 +554,24 @@
             }
           },
           "401": {
-            "description": "Does not own the DID"
+            "description": "Does not own the DID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           },
           "404": {
-            "description": "DID does not exist"
+            "description": "DID does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -551,10 +593,24 @@
             }
           },
           "401": {
-            "description": "Does not own the DID"
+            "description": "Does not own the DID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           },
           "404": {
-            "description": "DID does not exist"
+            "description": "DID does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -621,7 +677,14 @@
             }
           },
           "400": {
-            "description": "Invalid params"
+            "description": "Invalid params",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -661,10 +724,24 @@
             }
           },
           "400": {
-            "description": "Invalid/insufficient credential params."
+            "description": "Invalid/insufficient credential params.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           },
           "401": {
-            "description": "User does not own DID."
+            "description": "User does not own DID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -718,10 +795,24 @@
             }
           },
           "400": {
-            "description": "Invalid/insufficient credential params."
+            "description": "Invalid/insufficient credential params.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           },
           "401": {
-            "description": "User does not own DID."
+            "description": "User does not own DID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -756,7 +847,14 @@
             }
           },
           "400": {
-            "description": "Invalid/insufficient credential params."
+            "description": "Invalid/insufficient credential params.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -791,7 +889,14 @@
             }
           },
           "404": {
-            "description": "Registry was not found."
+            "description": "Registry was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -813,7 +918,14 @@
             }
           },
           "404": {
-            "description": "Registry was not found."
+            "description": "Registry was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -862,10 +974,24 @@
             }
           },
           "400": {
-            "description": "Invalid params"
+            "description": "Invalid params",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Registry was not found."
+            "description": "Registry was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -930,7 +1056,14 @@
             }
           },
           "400": {
-            "description": "Invalid params like policy not supported."
+            "description": "Invalid params like policy not supported.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -979,7 +1112,14 @@
             }
           },
           "404": {
-            "description": "Registry was not found."
+            "description": "Registry was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -1022,7 +1162,14 @@
             }
           },
           "404": {
-            "description": "Schema was not found."
+            "description": "Schema was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -1079,7 +1226,14 @@
             }
           },
           "400": {
-            "description": "Invalid params like size not supported or not JSON."
+            "description": "Invalid params like size not supported or not JSON.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -1114,7 +1268,14 @@
             }
           },
           "404": {
-            "description": "Anchor was not found."
+            "description": "Anchor was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -1183,7 +1344,14 @@
             }
           },
           "400": {
-            "description": "Invalid params"
+            "description": "Invalid params",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }

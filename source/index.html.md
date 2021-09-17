@@ -167,7 +167,7 @@ Resolves a specific DID into a DID document.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The DIDDoc|[DIDDoc](#schemadiddoc)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -189,7 +189,7 @@ curl -X PATCH /dids/{did} \
 
 ```javascript
 const inputBody = '{
-  "controller": "did:dock:xyz",
+  "controller": "string",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -294,7 +294,7 @@ Updates the DID's key or controller on the blockchain.
 
 ```json
 {
-  "controller": "did:dock:xyz",
+  "controller": "string",
   "keyType": "sr25519"
 }
 ```
@@ -304,7 +304,7 @@ Updates the DID's key or controller on the blockchain.
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|Properties of DID|
-|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|» controller|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
 |did|path|[DID](#schemadid)|true|A DID|
 
@@ -329,8 +329,8 @@ Updates the DID's key or controller on the blockchain.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will update DID.|[JobId](#schemajobid)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Does not own the DID|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID does not exist|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Does not own the DID|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID does not exist|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -464,8 +464,8 @@ Deletes a DID from the blockchain, further attempts to resolve this DID will fai
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will remove DID.|[JobId](#schemajobid)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Does not own the DID|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID does not exist|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Does not own the DID|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID does not exist|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -662,8 +662,8 @@ curl -X POST /dids/ \
 
 ```javascript
 const inputBody = '{
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
+  "did": "string",
+  "controller": "string",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -768,8 +768,8 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 
 ```json
 {
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
+  "did": "string",
+  "controller": "string",
   "keyType": "sr25519"
 }
 ```
@@ -779,8 +779,8 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|Properties of DID|
-|» did|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
-|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|» did|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» controller|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
 
 #### Enumerated Values
@@ -807,7 +807,7 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create DID. DID does not exist on network as of now.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1019,8 +1019,8 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1279,8 +1279,8 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1421,7 +1421,7 @@ Deletes a specific registry
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry will be deleted|[JobStartedResult](#schemajobstartedresult)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1550,7 +1550,7 @@ Get the registry details like policy, controller(s)
 {
   "addOnly": true,
   "policy": [
-    "did:dock:xyz"
+    "string"
   ]
 }
 ```
@@ -1560,7 +1560,7 @@ Get the registry details like policy, controller(s)
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry metadata|[Registry](#schemaregistry)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1728,8 +1728,8 @@ Revoke or unrevoke one or more credential ids
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1855,7 +1855,7 @@ Get all registries created by user
     "registry": {
       "addOnly": true,
       "policy": [
-        "did:dock:xyz"
+        "string"
       ]
     }
   }
@@ -1874,7 +1874,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
 |» registry|[Registry](#schemaregistry)|false|none|Revocation registry|
 |»» addOnly|boolean|false|none|none|
 |»» policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
@@ -1901,7 +1901,7 @@ curl -X POST /registries/ \
 const inputBody = '{
   "addOnly": true,
   "policy": [
-    "did:dock:xyz"
+    "string"
   ]
 }';
 const headers = {
@@ -2008,7 +2008,7 @@ Create a Revocation registry on the blockchain
 {
   "addOnly": true,
   "policy": [
-    "did:dock:xyz"
+    "string"
   ]
 }
 ```
@@ -2037,7 +2037,7 @@ Create a Revocation registry on the blockchain
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create registry.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like policy not supported.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like policy not supported.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2178,7 +2178,7 @@ Get the revocation status of a credential
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Returns true of credential is revoked, false otherwise|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
 
 <h3 id="get-revocation-status-responseschema">Response Schema</h3>
 
@@ -2327,7 +2327,7 @@ Returns the JSON schema for a specific ID
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Schema|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Schema was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Schema was not found.|[Error](#schemaerror)|
 
 <h3 id="get-schema-responseschema">Response Schema</h3>
 
@@ -2335,7 +2335,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
 |» schema|object|false|none|none|
 
 <aside class="warning">
@@ -2612,7 +2612,7 @@ Creates a JSON schema on the blockchain
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create schema.|[JobId](#schemajobid)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like size not supported or not JSON.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like size not supported or not JSON.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2754,7 +2754,7 @@ Gets a specific anchor by ID
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Anchor|[Anchor](#schemaanchor)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Anchor was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Anchor was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3034,7 +3034,7 @@ Anchor one or more documents. If more than one docs are given, a merkle tree is 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create Anchor. Anchor does not exist on network as of now.|[JobId](#schemajobid)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3176,7 +3176,7 @@ Returns information related to the job being processed and its associated blockc
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Job desc|[JobDesc](#schemajobdesc)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Job id was not found.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Job id was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3325,7 +3325,7 @@ Verifies a VCDM credential or presentation JSON-LD object.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The verification result|[VerificationResponse](#schemaverificationresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3333,6 +3333,32 @@ accessToken
 </aside>
 
 # Schemas
+
+<h2 id="tocS_Error">Error</h2>
+<!-- backwards compatibility -->
+<a id="schemaerror"></a>
+<a id="schema_Error"></a>
+<a id="tocSerror"></a>
+<a id="tocserror"></a>
+
+```json
+{
+  "status": 0,
+  "type": "string",
+  "message": "string"
+}
+
+```
+
+An API Error
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|status|integer|false|none|none|
+|type|string|false|none|none|
+|message|string|false|none|none|
 
 <h2 id="tocS_Hex32">Hex32</h2>
 <!-- backwards compatibility -->
@@ -3346,13 +3372,13 @@ accessToken
 
 ```
 
-32 byte hex string. Ignoring higher base (base64) for similicity.
+32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
 
 <h2 id="tocS_JobStartedResult">JobStartedResult</h2>
 <!-- backwards compatibility -->
@@ -3481,17 +3507,17 @@ DID as fully qualified, eg. `did:dock:`.
 <a id="tocsdid"></a>
 
 ```json
-"did:dock:xyz"
+"string"
 
 ```
 
-DID as fully qualified, eg. `did:dock:` or 32 byte hex string
+DID as 32 byte hex of fully quanlified
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|*anonymous*|string|false|none|DID as 32 byte hex of fully quanlified|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3925,9 +3951,9 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
 
 <h2 id="tocS_Registry">Registry</h2>
 <!-- backwards compatibility -->
@@ -3940,7 +3966,7 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 {
   "addOnly": true,
   "policy": [
-    "did:dock:xyz"
+    "string"
   ]
 }
 
