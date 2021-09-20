@@ -687,7 +687,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "controller": "string",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -782,7 +782,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -809,7 +809,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 <tr>
 <td>» keyType</td>
@@ -1321,8 +1321,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
-  "did": "string",
-  "controller": "string",
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -1417,8 +1417,8 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1445,14 +1445,14 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 <tr>
 <td>» controller</td>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 <tr>
 <td>» keyType</td>
@@ -2562,7 +2562,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2914,7 +2914,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
     </span><span class="nl">"registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"string"</span><span class="w">
+        </span><span class="s2">"did:dock:xyz"</span><span class="w">
       </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2956,7 +2956,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>» registry</td>
@@ -2998,7 +2998,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -3095,7 +3095,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3525,7 +3525,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>» schema</td>
@@ -4654,7 +4654,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 
 </span></code></pre></div>
-<p>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</p>
+<p>32 byte hex string. Ignoring higher base (base64) for similicity.</p>
 <h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
@@ -4670,7 +4670,7 @@ accessToken
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 </tbody></table>
 
@@ -4889,10 +4889,10 @@ accessToken
 <a id="schema_DID"></a>
 <a id="tocSdid"></a>
 <a id="tocsdid"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
-<p>DID as 32 byte hex of fully quanlified</p>
+<p>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</p>
 <h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
@@ -4908,7 +4908,7 @@ accessToken
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>DID as 32 byte hex of fully quanlified</td>
+<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
 </tr>
 </tbody></table>
 
@@ -5910,21 +5910,21 @@ accessToken
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>blockHash</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 <tr>
 <td>root</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity. TODO -&gt; Specify hex format in spec</td>
+<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
 </tr>
 </tbody></table>
 
@@ -5939,7 +5939,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
