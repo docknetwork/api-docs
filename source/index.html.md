@@ -189,7 +189,7 @@ curl -X PATCH /dids/{did} \
 
 ```javascript
 const inputBody = '{
-  "controller": "string",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -294,7 +294,7 @@ Updates the DID's key or controller on the blockchain.
 
 ```json
 {
-  "controller": "string",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }
 ```
@@ -304,7 +304,7 @@ Updates the DID's key or controller on the blockchain.
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|Properties of DID|
-|» controller|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
 |did|path|[DID](#schemadid)|true|A DID|
 
@@ -662,8 +662,8 @@ curl -X POST /dids/ \
 
 ```javascript
 const inputBody = '{
-  "did": "string",
-  "controller": "string",
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -768,8 +768,8 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 
 ```json
 {
-  "did": "string",
-  "controller": "string",
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }
 ```
@@ -779,8 +779,8 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|Properties of DID|
-|» did|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
-|» controller|body|[DID](#schemadid)|false|DID as 32 byte hex of fully quanlified|
+|» did|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
 
 #### Enumerated Values
@@ -1550,7 +1550,7 @@ Get the registry details like policy, controller(s)
 {
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 ```
@@ -1855,7 +1855,7 @@ Get all registries created by user
     "registry": {
       "addOnly": true,
       "policy": [
-        "string"
+        "did:dock:xyz"
       ]
     }
   }
@@ -1874,7 +1874,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 |» registry|[Registry](#schemaregistry)|false|none|Revocation registry|
 |»» addOnly|boolean|false|none|none|
 |»» policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
@@ -1901,7 +1901,7 @@ curl -X POST /registries/ \
 const inputBody = '{
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }';
 const headers = {
@@ -2008,7 +2008,7 @@ Create a Revocation registry on the blockchain
 {
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 ```
@@ -2335,7 +2335,7 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 |» schema|object|false|none|none|
 
 <aside class="warning">
@@ -3372,13 +3372,13 @@ An API Error
 
 ```
 
-32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec
+32 byte hex string. Ignoring higher base (base64) for similicity.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 
 <h2 id="tocS_JobStartedResult">JobStartedResult</h2>
 <!-- backwards compatibility -->
@@ -3507,17 +3507,17 @@ DID as fully qualified, eg. `did:dock:`.
 <a id="tocsdid"></a>
 
 ```json
-"string"
+"did:dock:xyz"
 
 ```
 
-DID as 32 byte hex of fully quanlified
+DID as fully qualified, eg. `did:dock:` or 32 byte hex string
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|DID as 32 byte hex of fully quanlified|
+|*anonymous*|string|false|none|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3951,9 +3951,9 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
-|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
-|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec|
+|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
 
 <h2 id="tocS_Registry">Registry</h2>
 <!-- backwards compatibility -->
@@ -3966,7 +3966,7 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 {
   "addOnly": true,
   "policy": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 

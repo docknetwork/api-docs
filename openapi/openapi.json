@@ -64,7 +64,7 @@
         }
       },
       "Hex32": {
-        "description": "32 byte hex string. Ignoring higher base (base64) for similicity. TODO -> Specify hex format in spec",
+        "description": "32 byte hex string. Ignoring higher base (base64) for similicity.",
         "type": "string",
         "minimum": 64,
         "maximum": 64
@@ -115,9 +115,10 @@
         "example": "did:dock:xyz"
       },
       "DID": {
-        "description": "DID as 32 byte hex of fully quanlified",
+        "description": "DID as fully qualified, eg. `did:dock:` or 32 byte hex string",
         "type": "string",
-        "minimum": 32
+        "minimum": 32,
+        "example": "did:dock:xyz"
       },
       "KeyType": {
         "description": "Type of public key for DID",
