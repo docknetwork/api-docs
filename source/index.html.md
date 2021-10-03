@@ -21,14 +21,92 @@ headingLevel: 2
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
+# Introduction
 
-# Authentication
+Dock is a network that offers a complete solution for creating and managing blockchain-verifiable credentials tooling to build applications that are standards compliant, scalable, and affordable. 
+
+Please read  [Terms of Service](https://www.dock.io/terms-of-service) prior to using the Dock API.
+
+We also offers a free trial and fair monthly pricing, begin by going to: https://console.api.dock.io/.
+
+## Primary Features
+-	Create a DID
+- Issue a Credential or Presentation
+- Verify a Credential or Presentation
+- Revoke a Credential or Presentation
+
+## Other Features
+-	Easily issue, verify, manage, and revoke verifiable credentials and decentralized identities
+- Harness the security of the Dock blockchain, a network run by 50 independent validators
+- Work seamlessly across platforms with Dock’s standards-compliant, interoperable solutions
+
+# Getting Started
+
+## Prerequisites
+The Dock API uses API keys to authenticate requests. 
+
+ You must first have an account and acquire your credentials before accessing the Dock API. To register your account, you only need to provide some basic information about your application and how it will be used.
+
+ You can register account and view your API keys in our [console](https://console.api.dock.io/).
+
+## Authentication
+To use the Dock API, you must first obtain API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will uses a password-free way through email links.
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header. 
 
-<h1 id="dock-api-dids">dids</h1>
+<aside class="notice">
+API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+</aside>
+
+## Architecture Style
+Dock works with REST architecture. As a result, our API resources are accessible openly using HTTP methods (`GET`, `POST`, `PUT` and `DELETE`). 
+
+Our API methods have couple important constraints:
+- Subscription limits
+- HTTPS for all requests
+
+## Rate Limits
+We don't have rate limitations right now. However, our paid plans limit the number of calls you may make each month.
+
+## Encoding
+The encoding we use is UTF-8. Each Unicode character is encoded as a variable number of 1 to 4 octets, with the number of octets determined by the Unicode character's integer value. Because it encodes each character in the range U+0000 through U+007F as a single octet, it is an efficient encoding of Unicode texts that primarily utilize US-ASCII characters.
+
+UTF-8 is the standard encoding for XML, and it has overtaken ASCII as the most used character set on the Internet since 2010.
+
+## Error Handling
+The Dock API delivers standard HTTP error codes and includes further error information in the response body (when allowed by HTTP specification).
+
+The table below shows the most frequent HTTP error messages:
+Code | Meaning
+--------- | -----------
+400 | Bad Request -- Your request was rejected (e.g. missing mandatory field).
+401 | Unathorized -- You missing or have invalid API key in the header. 
+429 | Your subscription is exceeded.
+
+# Stakeholders
+It is essential to have a thorough grasp of Dock ecosystem's underlying concepts to use Dock API. The following are Dock ecosystem stakeholders:
+Stakeholder | Role
+--------- | -----------
+Identity Owners | Entities with a DID on the chain. 
+Issuers | Entities who issue credentials using the Dock SDK. 
+Revocation authorities | Entities who are allowed to revoke (or undo the revocation in some cases) issued credentials.
+Holders | Entities who receive credentials from issuers.
+Verifiers | Entities who verify the received presentations from the holder.
+Validators | Entities who run a full node and are in charge of producing blocks and finalizing them.
+Governing Council | A group of individuals who are part of the Dock Association, whose remit is to govern the network and manage its ongoing development while driving adoption.
+
+# Terminology
+It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
+Terminology | Description
+--------- | -----------
+DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).
+Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain, so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point of time. 
+Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential. 
+Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id which is a 32 byte long hex string. 
+DID Resolver | The tool that initiates the process of learning the DID document. 
+
+<h1 id="dock-api-dids">DIDs</h1>
 
 Operations about DIDs
 
@@ -144,7 +222,7 @@ Resolves a specific DID into a DID document.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|A DID|
+|DID|path|[DID](#schemadid)|true|A DID|
 
 > Example responses
 
@@ -306,7 +384,7 @@ Updates the DID's key or controller on the blockchain.
 |body|body|object|false|Properties of DID|
 |» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 |» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
-|did|path|[DID](#schemadid)|true|A DID|
+|DID|path|[DID](#schemadid)|true|A DID|
 
 #### Enumerated Values
 
@@ -449,7 +527,7 @@ Deletes a DID from the blockchain, further attempts to resolve this DID will fai
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|A DID|
+|DID|path|[DID](#schemadid)|true|A DID|
 
 > Example responses
 
@@ -1027,7 +1105,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-presentations">presentations</h1>
+<h1 id="dock-api-presentations">Presentations</h1>
 
 Operations about presentations
 
@@ -1287,7 +1365,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-registries">registries</h1>
+<h1 id="dock-api-registries">Registries</h1>
 
 Operations about registries
 
@@ -2193,7 +2271,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-schemas">schemas</h1>
+<h1 id="dock-api-schemas">Schemas</h1>
 
 Operations about schemas
 
@@ -2619,7 +2697,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-anchors">anchors</h1>
+<h1 id="dock-api-anchors">Anchors</h1>
 
 Operations about anchors
 
@@ -3041,7 +3119,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-jobs">jobs</h1>
+<h1 id="dock-api-jobs">Jobs</h1>
 
 Operations about jobs
 
@@ -3183,7 +3261,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-verify">verify</h1>
+<h1 id="dock-api-verify">Verification</h1>
 
 ## Verify a credential or presentation
 
