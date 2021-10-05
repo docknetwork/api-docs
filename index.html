@@ -315,10 +315,52 @@
             <a href="#dock-api" class="toc-h1 toc-link" data-title="Dock API v1">Dock API v1</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#primary-features" class="toc-h2 toc-link" data-title="Primary Features">Primary Features</a>
+                  </li>
+                  <li>
+                    <a href="#other-features" class="toc-h2 toc-link" data-title="Other Features">Other Features</a>
+                  </li>
+              </ul>
           </li>
           <li>
-            <a href="#dock-api-dids" class="toc-h1 toc-link" data-title="dids">dids</a>
+            <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#prerequisites" class="toc-h2 toc-link" data-title="Prerequisites">Prerequisites</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#architecture-style" class="toc-h2 toc-link" data-title="Architecture Style">Architecture Style</a>
+                  </li>
+                  <li>
+                    <a href="#rate-limits" class="toc-h2 toc-link" data-title="Rate Limits">Rate Limits</a>
+                  </li>
+                  <li>
+                    <a href="#encoding" class="toc-h2 toc-link" data-title="Encoding">Encoding</a>
+                  </li>
+                  <li>
+                    <a href="#error-handling" class="toc-h2 toc-link" data-title="Error Handling">Error Handling</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#stakeholders" class="toc-h1 toc-link" data-title="Stakeholders">Stakeholders</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#an-example-of-the-stakeholder-role-when-issuing-a-credential" class="toc-h2 toc-link" data-title="An example of the stakeholder role when issuing a credential">An example of the stakeholder role when issuing a credential</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#terminology" class="toc-h1 toc-link" data-title="Terminology">Terminology</a>
+          </li>
+          <li>
+            <a href="#dock-api-dids" class="toc-h1 toc-link" data-title="DIDs">DIDs</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-did" class="toc-h2 toc-link" data-title="Get DID">Get DID</a>
@@ -346,7 +388,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-presentations" class="toc-h1 toc-link" data-title="presentations">presentations</a>
+            <a href="#dock-api-presentations" class="toc-h1 toc-link" data-title="Presentations">Presentations</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#create-a-presentation" class="toc-h2 toc-link" data-title="Create a presentation">Create a presentation</a>
@@ -354,7 +396,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-registries" class="toc-h1 toc-link" data-title="registries">registries</a>
+            <a href="#dock-api-registries" class="toc-h1 toc-link" data-title="Registries">Registries</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#delete-registry" class="toc-h2 toc-link" data-title="Delete registry">Delete registry</a>
@@ -382,7 +424,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-schemas" class="toc-h1 toc-link" data-title="schemas">schemas</a>
+            <a href="#dock-api-schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-schema" class="toc-h2 toc-link" data-title="Get schema">Get schema</a>
@@ -396,7 +438,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-anchors" class="toc-h1 toc-link" data-title="anchors">anchors</a>
+            <a href="#dock-api-anchors" class="toc-h1 toc-link" data-title="Anchors">Anchors</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-anchor" class="toc-h2 toc-link" data-title="Get anchor">Get anchor</a>
@@ -410,7 +452,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-jobs" class="toc-h1 toc-link" data-title="jobs">jobs</a>
+            <a href="#dock-api-jobs" class="toc-h1 toc-link" data-title="Jobs">Jobs</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-job-status-and-data" class="toc-h2 toc-link" data-title="Get job status and data">Get job status and data</a>
@@ -418,7 +460,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-verify" class="toc-h1 toc-link" data-title="verify">verify</a>
+            <a href="#dock-api-verify" class="toc-h1 toc-link" data-title="Verification">Verification</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#verify-a-credential-or-presentation" class="toc-h2 toc-link" data-title="Verify a credential or presentation">Verify a credential or presentation</a>
@@ -505,9 +547,38 @@
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
+<h1 id='introduction'>Introduction</h1>
+<p><em> A complete solution for creating, managing, and presenting credentials. </em></p>
 
-<p>Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/</p>
-<h1 id='authentication'>Authentication</h1>
+<p>Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.</p>
+
+<p>Please read  <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
+
+<p>We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.</p>
+<h2 id='primary-features'>Primary Features</h2>
+<ul>
+<li>  Create a DID</li>
+<li>Issue a Credential or Presentation</li>
+<li>Verify a Credential or Presentation</li>
+<li>Revoke a Credential or Presentation</li>
+</ul>
+<h2 id='other-features'>Other Features</h2>
+<ul>
+<li>  Easily issue, verify, manage, and revoke verifiable credentials and decentralized identities</li>
+<li>Harness the security of the Dock blockchain, a network run by 50 independent validators</li>
+<li>Work seamlessly across platforms with Dock’s standards-compliant, interoperable solutions</li>
+</ul>
+<h1 id='getting-started'>Getting Started</h1><h2 id='prerequisites'>Prerequisites</h2>
+<p>You must first have an account and acquire your credentials before accessing the Dock API. The Dock API uses API keys to authenticate requests.  </p>
+
+<p>You can register an account and view your API keys in our <a href="https://console.api.dock.io/">console</a>.</p>
+
+<aside class="warning">
+Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available. 
+</aside>
+<h2 id='authentication'>Authentication</h2>
+<p>To use the Dock API, you must first obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.</p>
+
 <ul>
 <li>API Key (accessToken)
 
@@ -516,7 +587,85 @@
 </ul></li>
 </ul>
 
-<h1 id="dock-api-dids">dids</h1>
+<aside class="notice">
+An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+</aside>
+<h2 id='architecture-style'>Architecture Style</h2>
+<p>The Dock API is built on the <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies. </p>
+
+<p>HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail.</p>
+
+<p>The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:</p>
+
+<table><thead>
+<tr>
+<th>HTTP Method</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GET</td>
+<td>Get a representation of the target resource’s state.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Allow the representation included in the request to be processed by the target resource.</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>Create or replace the target resource&#39;s state with the state specified in the request&#39;s representation.</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Delete the state of the target resource.</td>
+</tr>
+</tbody></table>
+<h2 id='rate-limits'>Rate Limits</h2>
+<p>We limit the requests per window per IP. We allow you to make up to 100 calls/minute. </p>
+<h2 id='encoding'>Encoding</h2>
+<p>For encoding, Dock uses UTF-8. UTF-8 is a Unicode encoding scheme. It can convert any Unicode character to a matching unique binary string and then back to a Unicode character. For more information, please refer <a href="https://en.wikipedia.org/wiki/UTF-8">here</a>.</p>
+
+<p>UTF-8 is the standard encoding for XML, and it has overtaken ASCII as the most used character set on the Internet since 2010.</p>
+<h2 id='error-handling'>Error Handling</h2>
+<p>Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful. </p>
+
+<p>The table below shows the most frequent HTTP error messages:
+Code | Meaning
+--------- | -----------
+400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
+401 | Unauthorized -- You&#39;re missing or have an invalid API key in the header. 
+429 | Your subscription is exceeded.</p>
+<h1 id='stakeholders'>Stakeholders</h1>
+<p>It is essential to have a thorough grasp of Dock ecosystem&#39;s underlying concepts to use Dock API. The following are Dock ecosystem stakeholders:
+Stakeholder | Role
+--------- | -----------
+Identity Owners | Entities with a DID on the chain. 
+Issuers | Entities who issue credentials using the Dock SDK. 
+Revocation authorities | Entities who are allowed to revoke (or undo the revocation in some cases) issued credentials.
+Holders | Entities who receive credentials from issuers.
+Verifiers | Entities who verify the received presentations from the holder.
+Validators | Entities who run a full node and are in charge of producing blocks and finalizing them.
+Governing Council | A group of individuals who are part of the Dock Association, whose remit is to govern the network and manage its ongoing development while driving adoption.</p>
+<h3 id='an-example-of-the-stakeholder-role-when-issuing-a-credential'>An example of the stakeholder role when issuing a credential</h3>
+<ol>
+<li>Credentials are issued by an entity called the <strong>issuer</strong>.</li>
+<li>The <strong>Issuer</strong> issues the credential about a subject by signing the credential with his key. If the credential is revocable, the issuer must specify how and from where revocation status must be checked. It is not necessary that revocation is managed by the issuer. The issuer might designate a different authority for revocation.</li>
+<li>The <strong>Issuer</strong> gives the credential to the <strong>holder</strong>. The <strong>holder</strong> might be the same as the subject.</li>
+<li>A service provider or anyone willing to check if the <strong>holder</strong> possesses certain credentials requests a presentation about those credentials. This entity requesting the presentation is called the <strong>verifier</strong>. To protect against replay attacks, (a <strong>verifier</strong> receiving the presentation and replaying the same presentation at some other <strong>verifiers</strong>), a <strong>verifier</strong> must supply a challenge that must be embedded in the presentation.</li>
+<li><strong>Holder</strong> creates a presentation for the required credentials. The presentation must indicate which credentials it is about and must be signed by the holder of the credentials.</li>
+<li><strong>Verifier</strong> on receiving the presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the <strong>holder</strong> on the presentation which also includes his given challenge.</li>
+</ol>
+<h1 id='terminology'>Terminology</h1>
+<p>It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
+Terminology | Description
+--------- | -----------
+DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.
+Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time. 
+Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential. 
+Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string. 
+DID Resolver | The tool that initiates the process of learning the DID document. </p>
+
+<h1 id="dock-api-dids">DIDs</h1>
 
 <p>Operations about DIDs</p>
 <h2 id='get-did'>Get DID</h2>
@@ -625,7 +774,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 </tr>
 </thead><tbody>
 <tr>
-<td>did</td>
+<td>DID</td>
 <td>path</td>
 <td><a href="#schemadid">DID</a></td>
 <td>true</td>
@@ -819,7 +968,7 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <td>Type of public key for DID</td>
 </tr>
 <tr>
-<td>did</td>
+<td>DID</td>
 <td>path</td>
 <td><a href="#schemadid">DID</a></td>
 <td>true</td>
@@ -994,7 +1143,7 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 </tr>
 </thead><tbody>
 <tr>
-<td>did</td>
+<td>DID</td>
 <td>path</td>
 <td><a href="#schemadid">DID</a></td>
 <td>true</td>
@@ -1832,7 +1981,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-presentations">presentations</h1>
+<h1 id="dock-api-presentations">Presentations</h1>
 
 <p>Operations about presentations</p>
 <h2 id='create-a-presentation'>Create a presentation</h2>
@@ -2285,7 +2434,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-registries">registries</h1>
+<h1 id="dock-api-registries">Registries</h1>
 
 <p>Operations about registries</p>
 <h2 id='delete-registry'>Delete registry</h2>
@@ -3356,7 +3505,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-schemas">schemas</h1>
+<h1 id="dock-api-schemas">Schemas</h1>
 
 <p>Operations about schemas</p>
 <h2 id='get-schema'>Get schema</h2>
@@ -3827,7 +3976,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-anchors">anchors</h1>
+<h1 id="dock-api-anchors">Anchors</h1>
 
 <p>Operations about anchors</p>
 <h2 id='get-anchor'>Get anchor</h2>
@@ -4274,7 +4423,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-jobs">jobs</h1>
+<h1 id="dock-api-jobs">Jobs</h1>
 
 <p>Operations about jobs</p>
 <h2 id='get-job-status-and-data'>Get job status and data</h2>
@@ -4431,7 +4580,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-verify">verify</h1>
+<h1 id="dock-api-verify">Verification</h1>
 <h2 id='verify-a-credential-or-presentation'>Verify a credential or presentation</h2>
 <blockquote>
 <p>Code samples</p>
