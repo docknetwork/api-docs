@@ -22,12 +22,13 @@ headingLevel: 2
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
 # Introduction
+<em> A complete solution for creating, managing, and presenting credentials. </em>
 
-Dock is a network that offers a complete solution for creating and managing blockchain-verifiable credentials tooling to build applications that are standards compliant, scalable, and affordable. 
+Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.
 
-Please read  [Terms of Service](https://www.dock.io/terms-of-service) prior to using the Dock API.
+Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
-We also offers a free trial and fair monthly pricing, begin by going to: https://console.api.dock.io/.
+We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.
 
 ## Primary Features
 -	Create a DID
@@ -43,45 +44,54 @@ We also offers a free trial and fair monthly pricing, begin by going to: https:/
 # Getting Started
 
 ## Prerequisites
-The Dock API uses API keys to authenticate requests. 
+You must first have an account and acquire your credentials before accessing the Dock API. The Dock API uses API keys to authenticate requests.  
 
- You must first have an account and acquire your credentials before accessing the Dock API. To register your account, you only need to provide some basic information about your application and how it will be used.
+You can register an account and view your API keys in our [console](https://console.api.dock.io/).
 
- You can register account and view your API keys in our [console](https://console.api.dock.io/).
+<aside class="warning">
+Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available. 
+</aside>
 
 ## Authentication
-To use the Dock API, you must first obtain API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will uses a password-free way through email links.
+To use the Dock API, you must first obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header. 
 
 <aside class="notice">
-API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
 </aside>
 
 ## Architecture Style
-Dock works with REST architecture. As a result, our API resources are accessible openly using HTTP methods (`GET`, `POST`, `PUT` and `DELETE`). 
+The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies. 
 
-Our API methods have couple important constraints:
-- Subscription limits
-- HTTPS for all requests
+HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail.
+
+The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:
+
+HTTP Method | Description
+--------- | -----------
+GET | Get a representation of the target resource’s state.
+POST | Allow the representation included in the request to be processed by the target resource. 
+PUT | Create or replace the target resource's state with the state specified in the request's representation.
+DELETE | Delete the state of the target resource.
 
 ## Rate Limits
-We don't have rate limitations right now. However, our paid plans limit the number of calls you may make each month.
+We limit the requests per window per IP. We allow you to make up to 100 calls/minute. 
 
 ## Encoding
-The encoding we use is UTF-8. Each Unicode character is encoded as a variable number of 1 to 4 octets, with the number of octets determined by the Unicode character's integer value. Because it encodes each character in the range U+0000 through U+007F as a single octet, it is an efficient encoding of Unicode texts that primarily utilize US-ASCII characters.
+For encoding, Dock uses UTF-8. UTF-8 is a Unicode encoding scheme. It can convert any Unicode character to a matching unique binary string and then back to a Unicode character. For more information, please refer [here](https://en.wikipedia.org/wiki/UTF-8).
 
 UTF-8 is the standard encoding for XML, and it has overtaken ASCII as the most used character set on the Internet since 2010.
 
 ## Error Handling
-The Dock API delivers standard HTTP error codes and includes further error information in the response body (when allowed by HTTP specification).
+Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful. 
 
 The table below shows the most frequent HTTP error messages:
 Code | Meaning
 --------- | -----------
-400 | Bad Request -- Your request was rejected (e.g. missing mandatory field).
-401 | Unathorized -- You missing or have invalid API key in the header. 
+400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
+401 | Unauthorized -- You're missing or have an invalid API key in the header. 
 429 | Your subscription is exceeded.
 
 # Stakeholders
@@ -96,14 +106,23 @@ Verifiers | Entities who verify the received presentations from the holder.
 Validators | Entities who run a full node and are in charge of producing blocks and finalizing them.
 Governing Council | A group of individuals who are part of the Dock Association, whose remit is to govern the network and manage its ongoing development while driving adoption.
 
+### An example of the stakeholder role when issuing a credential
+
+1. Credentials are issued by an entity called the **issuer**.
+2. The **Issuer** issues the credential about a subject by signing the credential with his key. If the credential is revocable, the issuer must specify how and from where revocation status must be checked. It is not necessary that revocation is managed by the issuer. The issuer might designate a different authority for revocation.
+3. The **Issuer** gives the credential to the **holder**. The **holder** might be the same as the subject.
+4. A service provider or anyone willing to check if the **holder** possesses certain credentials requests a presentation about those credentials. This entity requesting the presentation is called the **verifier**. To protect against replay attacks, (a **verifier** receiving the presentation and replaying the same presentation at some other **verifiers**), a **verifier** must supply a challenge that must be embedded in the presentation.
+5. **Holder** creates a presentation for the required credentials. The presentation must indicate which credentials it is about and must be signed by the holder of the credentials.
+6. **Verifier** on receiving the presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the **holder** on the presentation which also includes his given challenge.
+
 # Terminology
 It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
 Terminology | Description
 --------- | -----------
 DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).
-Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain, so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point of time. 
+Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time. 
 Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential. 
-Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id which is a 32 byte long hex string. 
+Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string. 
 DID Resolver | The tool that initiates the process of learning the DID document. 
 
 <h1 id="dock-api-dids">DIDs</h1>
