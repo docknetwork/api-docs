@@ -23,10 +23,17 @@ headingLevel: 2
 
 Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
 
+# Endpoints
+
+For production mode, use the endpoint: https://api.dock.io
+
+For test mode, use the endpoint: https://api-testnet.dock.io
+
+
 # Authentication
 
 * API Key (accessToken)
-    - Parameter Name: **DOCK-API-TOKEN**, in: header. 
+    - Parameter Name: **DOCK-API-TOKEN**, in: header.
 
 <h1 id="dock-api-dids">dids</h1>
 
@@ -4031,10 +4038,9 @@ Default response
   "@type": "WebAPI",
   "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
 ",
-  
-  
-  
+
+
+
   "name": "Dock API"
 }
 </script>
-
