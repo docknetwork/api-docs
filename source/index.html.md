@@ -25,10 +25,12 @@ Dock provides a complete solution for creating and managing verifiable credentia
 
 # Endpoints
 
-For production mode, use the endpoint: https://api.dock.io
+The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for <strong>production</strong>. You can switch to <strong>test mode</strong> in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in test mode you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.
 
-For test mode, use the endpoint: https://api-testnet.dock.io
+- For production mode, use the endpoint: https://api.dock.io
+- For test mode, use the endpoint: https://api-testnet.dock.io
 
+PLEASE NOTE: Any transaction you perform in <strong>test mode</strong> cannot be used for <strong>production</strong>. This means that, for example, any DID created in <strong>test mode</strong> will not work for issuing or verification in <strong>production</strong>.
 
 # Authentication
 
