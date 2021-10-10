@@ -49,8 +49,16 @@ You can register an account and view your API keys in our [console](https://cons
 Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available. 
 </aside>
 
+## Endpoints
+The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
+
+For production mode, use the endpoint: https://api.dock.io
+For test mode, use the endpoint: https://api-testnet.dock.io
+
+PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
+
 ## Authentication
-The Dock API uses API keys to authenticate requests, you can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
+The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header. 
@@ -62,7 +70,7 @@ An API key may also be IP restricted - when you generate the API key, you can in
 ## Architecture Style
 The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies. 
 
-HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail.
+HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. We also support UTF-8 encoding style.
 
 The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:
 
@@ -74,7 +82,7 @@ PATCH | Be able to partially update a resource (in this case, DID's).
 DELETE | Delete the state of the target resource.
 
 ## Rate Limits
-We limit the requests per window per IP. We allow you to make up to 100 calls/minute. 
+We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request. 
 
 ## Error Handling
 Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful. 
@@ -100,7 +108,9 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 <h1 id="dock-api-dids">DIDs</h1>
 
-Operations about DIDs
+DID stands for Decentralized IDentifiers. DIDs in Dock are created by choosing a 32 byte unique (on Dock chain) identifier along with a public key. 
+
+These are the operations about DIDs:
 
 ## Get DID
 
@@ -208,13 +218,15 @@ func main() {
 
 `GET /dids/{did}`
 
-Resolves a specific DID into a DID document.
+The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
+
+This is an operation to resolves a specific DID into a DID document.
 
 <h3 id="get-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|DID|path|[DID](#schemadid)|true|represents a specific DID|
+|did|path|[DID](#schemadid)|true|represents a specific DID|
 
 An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
@@ -362,7 +374,9 @@ func main() {
 
 `PATCH /dids/{did}`
 
-Updates the DID's key or controller on the blockchain.
+The public key or the controller of an on-chain DID can be updated by preparing a signed key update. 
+
+This is an operation to updates the DID's key or controller on the blockchain.
 
 > Body parameter
 
@@ -377,9 +391,10 @@ Updates the DID's key or controller on the blockchain.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|did|path|[DID](#schemadid)|true|represents a specific DID|
 |controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
-|DID|path|[DID](#schemadid)|true|represents a specific DID|
+
 
 An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
@@ -518,13 +533,13 @@ func main() {
 
 `DELETE /dids/{did}`
 
-Deletes a DID from the blockchain, further attempts to resolve this DID will fail.
+This is an operation to delete a DID from the blockchain. However, further attempts to resolve this DID will fail.
 
 <h3 id="delete-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|DID|path|[DID](#schemadid)|true|represents a specific DID|
+|did|path|[DID](#schemadid)|true|represents a specific DID|
 
 An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
@@ -655,6 +670,8 @@ func main() {
 
 `GET /dids/`
 
+This is an operation to get all the DID's users, and the list will be resolved into DID documents.
+
 > Example responses
 
 > 200 Response
@@ -704,20 +721,8 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[DIDQualified](#schemadidqualified)(uri)|false|none|DID as fully qualified, eg. `did:dock:`.|
+|» id|[DIDQualified](#schemadidqualified)(url)|false|none|DID as fully qualified, eg. `did:dock:`.|
 |» authentication|[oneOf]|false|none|none|
-
-*oneOf*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|»» *anonymous*|object|false|none|Schemas with no identifier|
-
-*xor*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|»» *anonymous*|string|false|none|Schemas with no identifier|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -839,7 +844,7 @@ func main() {
 
 `POST /dids/`
 
-Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.
+This an operation to create a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to created as well.
 
 > Body parameter
 
@@ -890,9 +895,9 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-credentials">credentials</h1>
-
-Operations about credentials
+<h1 id="dock-api-credentials">Credentials</h1>
+ 
+ These are the operations about credentials:
 
 ## Issue a credential
 
@@ -1020,7 +1025,7 @@ func main() {
 
 `POST /credentials/`
 
-Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. This is an operation to create and issues a verifiable credential with supplied data. Remember, issuing counts as a paid transaction.
 
 > Body parameter
 
@@ -1050,18 +1055,20 @@ To view a sample of the parameter usage, please refer [here](https://dockne
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |credential|body|[Credential](#schemacredential)|false|Credential format expected by API caller. The current set of is almost complete|
+
+<h3 id="issue-a-credential-parameters">Child Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
 |id|body|string(uri)|false|DID as fully qualified, eg. did:dock:.|
 |context|body|[string]|false|Verifiable credential context|
 |type|body|[string]|false|Verifiable credential type|
 |subject|body|object|false|Verifiable credential subject|
 |issuer|body|any|false|Verifiable credential issued using DIDs|
 |»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
-|»»» *anonymous*|body|object|false|Schemas with no identifier|
 |issuanceDate|body|string(date-time)|false|The issuance date which set by default to the first initialize datetime
 |expirationDate|body|string(date-time)|false|An expiration date is not set by default as it isn't required by the specs.|
 |status|body|any|false|Revocation registry id or user supplied status object|
-|»»» *anonymous*|body|object|false|Schemas with no identifier|
-|»»» *anonymous*|body|string|false|Schemas with no identifier|
 
 > Example responses
 
@@ -1106,7 +1113,9 @@ accessToken
 
 <h1 id="dock-api-presentations">Presentations</h1>
 
-Operations about presentations
+The presentation indicates which credentials it is about and must be signed by the holder of the credentials.
+
+These are the operations about presentations:
 
 ## Create a presentation
 
@@ -1246,7 +1255,9 @@ func main() {
 
 `POST /presentations/`
 
-Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.
+The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
+
+This is an operation to create and signs a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
 
 > Body parameter
 
@@ -1289,24 +1300,22 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 |challenge|body|string|false|Presentation's Challenge string|
 |domain|body|string|false|A domain string for the proof|
 |credentials|body|[[VerifiableCredential](#schemaverifiablecredential)]|false|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
+
+<h3 id="create-a-presentation-parameters">Child Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
 |@context|body|any|false|JSON-LD context|
-|»»» *anonymous*|body|[string]|false|Schemas with no identifier|
-|»»» *anonymous*|body|string|false|Schemas with no identifier|
 |id|body|string(uri)|false|Presentation ID|
 |type|body|[string]|false|Presentation type|
 |credentialSubject|body|any|false|A credential subject|
-|»»» *anonymous*|body|object|false|Schemas with no identifier|
-|»»» *anonymous*|body|[object]|false|Schemas with no identifier|
 |issuer|body|any|false|Issuer's ID. An issuer who issued a verifiable credential|
 |»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
-|»»» *anonymous*|body|object|false|Schemas with no identifier|
 |issuanceDate|body|string(date-time)|false|The issuance date which set by default to the first initialize datetime|
 |expirationDate|body|string(date-time)|false|An expiration date is not set by default as it isn't required by the specs.|
 |credentialStatus|body|any|false|Revocation registry id or user supplied status object|
-|»»» *anonymous*|body|object|false|Schemas with no identifier|
-|»»» *anonymous*|body|string|false|Schemas with no identifier|
 |proof|body|object|false|Proof of stake chain|
-|type|body|[SigType](#Schemasigtype)|false|Type of signature|
+|»»» type|body|[SigType](#Schemasigtype)|false|Type of signature|
 |»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
 |»»» verificationMethod|body|string|false|The verification method|
 |»»» created|body|string(date-time)|false|Created date|
@@ -1319,8 +1328,8 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 |type|Sr25519Signature2020|
 |type|Ed25519Signature2018|
 |type|EcdsaSecp256k1Signature2019|
-|proofPurpose|assertionMethod|
-|proofPurpose|authentication|
+|»»» proofPurpose|assertionMethod|
+|»»» proofPurpose|authentication|
 
 > Example responses
 
@@ -1365,7 +1374,9 @@ accessToken
 
 <h1 id="dock-api-registries">Registries</h1>
 
-Operations about registries
+On Dock, credential revocation is managed with a revocation registry. There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority creates a new registry for each credential type. 
+
+These are the operations about managing the registries:
 
 ## Delete registry
 
@@ -1473,7 +1484,7 @@ func main() {
 
 `DELETE /registries/{id}`
 
-Deletes a specific registry
+A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates. This is an operation to delete a specific registry.
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
@@ -1610,7 +1621,7 @@ func main() {
 
 `GET /registries/{id}`
 
-Get the registry details like policy, controller(s)
+This is an operation to get the registry details, such as policy, add-only status, when it was last update, and controller(s).
 
 <h3 id="get-registry-parameters">Parameters</h3>
 
@@ -1759,7 +1770,7 @@ func main() {
 
 `POST /registries/{id}`
 
-Revoke or unrevoke one or more credential ids
+This is an operation to revoke or unrevoke one or more credential ids. Simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
 
 > Body parameter
 
@@ -1776,10 +1787,9 @@ Revoke or unrevoke one or more credential ids
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|Specify action and credential ids|
-|» action|body|string|false|Action taken (Revoke/Unrevoke)|
-|» credentialIds|body|[string]|false|Credential Ids|
 |id|path|[Hex32](#schemahex32)|true|Revocation registry id|
+|action|body|string|false|Action taken (Revoke/Unrevoke)|
+|credentialIds|body|[string]|false|Credential Ids|
 
 #### Enumerated Values
 
@@ -1918,7 +1928,7 @@ func main() {
 
 `GET /registries/`
 
-Get all registries created by user
+This is an operation to get all registries created by user.
 
 > Example responses
 
@@ -2076,7 +2086,9 @@ func main() {
 
 `POST /registries/`
 
-Create a Revocation registry on the blockchain
+To create a registry, first a Policy object needs to be created for which a DID is needed. It is advised that the DID is registered on chain first (else someone can look at the registry a register the DID, thus controlling the registry).
+
+This is an operation to create a Revocation registry on the blockchain
 
 > Body parameter
 
@@ -2093,7 +2105,6 @@ Create a Revocation registry on the blockchain
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|[Registry](#schemaregistry)|true|Revocation registry|
 |» addOnly|body|boolean|false|none|
 |» policy|body|[[DID](#schemadid)]|false|Only one policy supported as of now called `OneOf`|
 
@@ -2120,9 +2131,9 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-revocationstatus">revocationStatus</h1>
+<h1 id="dock-api-revocationstatus">Revocation Status</h1>
 
-Operations about revocation_status
+After the registry is being revoked or unrevoked, you can check its status. These are the operations to check revocation status.
 
 ## Get revocation status
 
@@ -2230,7 +2241,7 @@ func main() {
 
 `GET /revocationStatus/{regId}/{revId}`
 
-Get the revocation status of a credential
+This is an operation to get the revocation status of a credential, whether it is revoked or not.
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
 
@@ -2271,7 +2282,9 @@ accessToken
 
 <h1 id="dock-api-schemas">Schemas</h1>
 
-Operations about schemas
+Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. Data Encoding schemas, on the other hand, are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
+
+These are the operations about schemas:
 
 ## Get schema
 
@@ -2379,7 +2392,7 @@ func main() {
 
 `GET /schemas/{schemaId}`
 
-Returns the JSON schema for a specific ID
+This is an operation to returns the JSON schema into a specific schema ID. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
 
 <h3 id="get-schema-parameters">Parameters</h3>
 
@@ -2411,8 +2424,8 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|» schema|object|false|none|none|
+|id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|schema|object|false|none|none|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2525,7 +2538,7 @@ func main() {
 
 `GET /schemas/`
 
-Get all schemas created by user
+This is an operation to get all schemas created by user.
 
 > Example responses
 
@@ -2661,7 +2674,7 @@ func main() {
 
 `POST /schemas/`
 
-Creates a JSON schema on the blockchain
+This is an operation to create a JSON schema on the blockchain. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
 
 > Body parameter
 
@@ -2697,7 +2710,11 @@ accessToken
 
 <h1 id="dock-api-anchors">Anchors</h1>
 
-Operations about anchors
+An anchor is a digital fingerprint of external data that is included in a Blockchain transaction to verify the authenticity of the external data. 
+
+The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block. 
+
+These are the operations about anchors:
 
 ## Get anchor
 
@@ -2805,7 +2822,7 @@ func main() {
 
 `GET /anchors/{anchor}`
 
-Gets a specific anchor by ID
+This is an operation to gets a specific anchor by ID.
 
 <h3 id="get-anchor-parameters">Parameters</h3>
 
@@ -2943,7 +2960,7 @@ func main() {
 
 `GET /anchors/`
 
-Get all anchors created by user
+This is an operation to get all anchors created by user.
 
 > Example responses
 
@@ -3081,7 +3098,7 @@ func main() {
 
 `POST /anchors/`
 
-Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored
+This is an operation to create an Anchor for one or more documents. Remember, if more than one docs are given, a merkle tree is created and root is anchored.
 
 > Body parameter
 
@@ -3119,7 +3136,7 @@ accessToken
 
 <h1 id="dock-api-jobs">Jobs</h1>
 
-Operations about jobs
+This section describes API resources to get job status and data:
 
 ## Get job status and data
 
@@ -3227,7 +3244,7 @@ func main() {
 
 `GET /jobs/{id}`
 
-Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
+This is an operation to returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
@@ -3260,6 +3277,10 @@ accessToken
 </aside>
 
 <h1 id="dock-api-verify">Verify</h1>
+
+Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation which also includes his given challenge.
+
+These are the operations about verify activities:
 
 ## Verify a credential or presentation
 
@@ -3372,7 +3393,9 @@ func main() {
 
 `POST /verify/`
 
-Verifies a VCDM credential or presentation JSON-LD object.
+The Verifiable Credentials Data Model 1.0 (VCDM) specification provides a standard way to express credentials on the Web in a way that is cryptographically secure, privacy respecting, and machine-verifiable. 
+
+This is an operation to verifies a VCDM credential or presentation JSON-LD object.
 
 > Body parameter
 
@@ -3410,6 +3433,10 @@ accessToken
 
 # Schemas
 
+Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.
+
+These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.
+
 <h2 id="tocS_Error">Error</h2>
 <!-- backwards compatibility -->
 <a id="schemaerror"></a>
@@ -3426,7 +3453,7 @@ accessToken
 
 ```
 
-An API Error
+This is a schema for an API Error.
 
 ### Properties
 
@@ -3498,7 +3525,7 @@ Unique id of the background task. This id can be used to query the job status
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Unique id of the background task. This id can be used to query the job status|
+|JobId|string|false|none|Unique id of the background task. This id can be used to query the job status|
 
 <h2 id="tocS_JobStatus">JobStatus</h2>
 <!-- backwards compatibility -->
@@ -3512,22 +3539,22 @@ Unique id of the background task. This id can be used to query the job status
 
 ```
 
-Status of the job.
+This is a schema used in Job operation to get a status of the job.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Status of the job.|
+|JobStatus|string|false|none|Status of the job.|
 
 #### Enumerated Values
 
 |Property|Value|
 |---|---|
-|*anonymous*|todo|
-|*anonymous*|finalized|
-|*anonymous*|in_progress|
-|*anonymous*|error|
+|JobStatus|todo|
+|JobStatus|finalized|
+|JobStatus|in_progress|
+|JobStatus|error|
 
 <h2 id="tocS_JobDesc">JobDesc</h2>
 <!-- backwards compatibility -->
@@ -3545,7 +3572,7 @@ Status of the job.
 
 ```
 
-Description of the job including result if available
+This is a schema used in Job operation to get description of the job including result if available.
 
 ### Properties
 
@@ -3567,13 +3594,13 @@ Description of the job including result if available
 
 ```
 
-DID as fully qualified, eg. `did:dock:`.
+This is a schema used in some operations that used DID as fully qualified, eg. `did:dock:`.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string(uri)|false|none|DID as fully qualified, eg. `did:dock:`.|
+|DIDQualified|string(uri)|false|none|DID as fully qualified, eg. `did:dock:`.|
 
 <h2 id="tocS_DID">DID</h2>
 <!-- backwards compatibility -->
@@ -3593,7 +3620,7 @@ DID as fully qualified, eg. `did:dock:` or 32 byte hex string
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|DID|string|false|none|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3607,21 +3634,21 @@ DID as fully qualified, eg. `did:dock:` or 32 byte hex string
 
 ```
 
-Type of public key for DID
+This is a schema type of public key for DID.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Type of public key for DID|
+|KeyType|string|false|none|Type of public key for DID|
 
 #### Enumerated Values
 
 |Property|Value|
 |---|---|
-|*anonymous*|sr25519|
-|*anonymous*|ed25519|
-|*anonymous*|secp256k1|
+|KeyType|sr25519|
+|KeyType|ed25519|
+|KeyType|secp256k1|
 
 <h2 id="tocS_SigType">SigType</h2>
 <!-- backwards compatibility -->
@@ -3635,21 +3662,21 @@ Type of public key for DID
 
 ```
 
-Type of signature
+This is a schema used in Presentation operation that represents a type of signature.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Type of signature|
+|SigType|string|false|none|Type of signature|
 
 #### Enumerated Values
 
 |Property|Value|
 |---|---|
-|*anonymous*|Sr25519Signature2020|
-|*anonymous*|Ed25519Signature2018|
-|*anonymous*|EcdsaSecp256k1Signature2019|
+|SigType|Sr25519Signature2020|
+|SigType|Ed25519Signature2018|
+|SigType|EcdsaSecp256k1Signature2019|
 
 <h2 id="tocS_ProofPurpose">ProofPurpose</h2>
 <!-- backwards compatibility -->
@@ -3663,20 +3690,20 @@ Type of signature
 
 ```
 
-Purpose of credential
+This is a schema that represents a purpose of credential.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Purpose of credential|
+|ProofPurpose|string|false|none|Purpose of credential|
 
 #### Enumerated Values
 
 |Property|Value|
 |---|---|
-|*anonymous*|assertionMethod|
-|*anonymous*|authentication|
+|ProofPurpose|assertionMethod|
+|ProofPurpose|authentication|
 
 <h2 id="tocS_Context">Context</h2>
 <!-- backwards compatibility -->
@@ -3692,7 +3719,7 @@ Purpose of credential
 
 ```
 
-JSON-LD context
+This is a schema that represents a JSON-LD context used in DID and Presentation.
 
 ### Properties
 
@@ -3728,7 +3755,7 @@ xor
 
 ```
 
-DID document. The current set of properties is incomplete
+This is a schema that represents a DID document. The current set of properties is incomplete
 
 ### Properties
 
@@ -3775,7 +3802,7 @@ xor
 
 ```
 
-Credential format expected by API caller. The current set of is almost complete
+This is a schema that represents a credential format expected by API caller. The current set of is almost complete.
 
 ### Properties
 
@@ -3792,12 +3819,6 @@ oneOf
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» *anonymous*|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|Schemas with no identifier|
 
 continued
 
@@ -3867,7 +3888,7 @@ xor
 
 ```
 
-Verifiable (signed) Presentation returned by API. The current set of properties is almost complete
+This is a schema that represents a Verifiable (signed) Presentation returned by API. The current set of properties is almost complete
 
 ### Properties
 
@@ -3933,7 +3954,7 @@ continued
 
 ```
 
-Verifiable (signed) Credential returned by API. The current set of properties is almost complete
+This is a schema that represents a verifiable (signed) Credential returned by API. The current set of properties is almost complete.
 
 ### Properties
 
@@ -3968,12 +3989,6 @@ oneOf
 |---|---|---|---|---|
 |» *anonymous*|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
 
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|Schemas with no identifier|
-
 continued
 
 |Name|Type|Required|Restrictions|Description|
@@ -3981,18 +3996,6 @@ continued
 |issuanceDate|string(date-time)|false|none|Issuance Date|
 |expirationDate|string(date-time)|false|none|Expiration Date|
 |credentialStatus|any|false|none|Revocation registry id or user supplied status object|
-
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|Schemas with no identifier|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|string|false|none|Schemas with no identifier|
 
 continued
 
@@ -4048,7 +4051,7 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 
 ```
 
-Revocation registry
+This is a schema that represents a Revocation registry used in Revocation or Unrevocation.
 
 ### Properties
 
@@ -4071,7 +4074,7 @@ Revocation registry
 
 ```
 
-Whether a credential/presentation is verified or not
+This is a schema that used to define whether a credential/presentation is verified or not
 
 ### Properties
 
@@ -4093,7 +4096,7 @@ Whether a credential/presentation is verified or not
 
 ```
 
-Default response
+This is a schema that represents a default response for a request made.
 
 ### Properties
 
