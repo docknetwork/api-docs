@@ -844,7 +844,7 @@ func main() {
 
 `POST /dids/`
 
-This an operation to create a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to created as well.
+This an operation to create a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to be created as well.
 
 > Body parameter
 
@@ -1257,7 +1257,7 @@ func main() {
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
-This is an operation to create and signs a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
+This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
 
 > Body parameter
 
@@ -2086,7 +2086,7 @@ func main() {
 
 `POST /registries/`
 
-To create a registry, first a Policy object needs to be created for which a DID is needed. It is advised that the DID is registered on chain first (else someone can look at the registry a register the DID, thus controlling the registry).
+To create a registry, you have to create a Policy object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
 This is an operation to create a Revocation registry on the blockchain
 
@@ -3244,7 +3244,7 @@ func main() {
 
 `GET /jobs/{id}`
 
-This is an operation to returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
+This is an operation to return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
@@ -3395,7 +3395,7 @@ func main() {
 
 The Verifiable Credentials Data Model 1.0 (VCDM) specification provides a standard way to express credentials on the Web in a way that is cryptographically secure, privacy respecting, and machine-verifiable. 
 
-This is an operation to verifies a VCDM credential or presentation JSON-LD object.
+This is an operation to verify a VCDM credential or presentation JSON-LD object.
 
 > Body parameter
 
@@ -4024,7 +4024,7 @@ continued
 
 ```
 
-An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.
+An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.
 
 ### Properties
 
