@@ -844,7 +844,11 @@ func main() {
 
 `POST /dids/`
 
+<<<<<<< HEAD
 This an operation to create a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to be created as well.
+=======
+This an operation to creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to created as well.
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 > Body parameter
 
@@ -1025,7 +1029,11 @@ func main() {
 
 `POST /credentials/`
 
+<<<<<<< HEAD
 To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. This is an operation to create and issues a verifiable credential with supplied data. Remember, issuing counts as a paid transaction.
+=======
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. This is an operation to creates and issues a verifiable credential with supplied data. Remember, issuing counts as a paid transaction.
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 > Body parameter
 
@@ -1257,7 +1265,11 @@ func main() {
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
+<<<<<<< HEAD
 This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
+=======
+This is an operation to creates and signs a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 > Body parameter
 
@@ -2086,7 +2098,11 @@ func main() {
 
 `POST /registries/`
 
+<<<<<<< HEAD
 To create a registry, you have to create a Policy object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
+=======
+To create a registry, first a Policy object needs to be created for which a DID is needed. It is advised that the DID is registered on chain first (else someone can look at the registry a register the DID, thus controlling the registry).
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 This is an operation to create a Revocation registry on the blockchain
 
@@ -2674,7 +2690,11 @@ func main() {
 
 `POST /schemas/`
 
+<<<<<<< HEAD
 This is an operation to create a JSON schema on the blockchain. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
+=======
+This is an operation to creates a JSON schema on the blockchain. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 > Body parameter
 
@@ -3244,7 +3264,11 @@ func main() {
 
 `GET /jobs/{id}`
 
+<<<<<<< HEAD
 This is an operation to return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
+=======
+This is an operation to returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
@@ -3395,7 +3419,11 @@ func main() {
 
 The Verifiable Credentials Data Model 1.0 (VCDM) specification provides a standard way to express credentials on the Web in a way that is cryptographically secure, privacy respecting, and machine-verifiable. 
 
+<<<<<<< HEAD
 This is an operation to verify a VCDM credential or presentation JSON-LD object.
+=======
+This is an operation to verifies a VCDM credential or presentation JSON-LD object.
+>>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 > Body parameter
 
