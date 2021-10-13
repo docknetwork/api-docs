@@ -108,9 +108,11 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 <h1 id="dock-api-dids">DIDs</h1>
 
-DID stands for Decentralized IDentifiers. DIDs in Dock are created by choosing a 32 byte unique (on Dock chain) identifier along with a public key. 
+DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
 
-These are the operations about DIDs:
+DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key. 
+
+**As of now, a DID can have only one key at a time.**
 
 ## Get DID
 
@@ -218,17 +220,15 @@ func main() {
 
 `GET /dids/{did}`
 
-The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
+The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver. 
 
-This is an operation to resolves a specific DID into a DID document.
+Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, eg. `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 <h3 id="get-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|path|[DID](#schemadid)|true|represents a specific DID|
-
-An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 > Example responses
 
@@ -374,9 +374,9 @@ func main() {
 
 `PATCH /dids/{did}`
 
-The public key or the controller of an on-chain DID can be updated by preparing a signed key update. 
+The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain to be used for all transactions in the future. 
 
-This is an operation to updates the DID's key or controller on the blockchain.
+To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
 
 > Body parameter
 
@@ -533,7 +533,9 @@ func main() {
 
 `DELETE /dids/{did}`
 
-This is an operation to delete a DID from the blockchain. However, further attempts to resolve this DID will fail.
+A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.
+
+It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.
 
 <h3 id="delete-did-parameters">Parameters</h3>
 
@@ -670,7 +672,7 @@ func main() {
 
 `GET /dids/`
 
-This is an operation to get all the DID's users, and the list will be resolved into DID documents.
+Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
 
 > Example responses
 
@@ -844,11 +846,9 @@ func main() {
 
 `POST /dids/`
 
-<<<<<<< HEAD
-This an operation to create a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to be created as well.
-=======
-This an operation to creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified. The DID is not yet registered on the chain. Before the DID can be registered, a public key needs to created as well.
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
+A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
+
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `Sr25519,` `Ed25519,` and `EcdsaSecp256k1.` These public keys are supported by 3 classes: `PublicKeySr25519,` `PublicKeyEd25519,` and `PublicKeySecp256k1.`
 
 > Body parameter
 
@@ -901,7 +901,7 @@ accessToken
 
 <h1 id="dock-api-credentials">Credentials</h1>
  
- These are the operations about credentials:
+Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data. 
 
 ## Issue a credential
 
@@ -1029,11 +1029,9 @@ func main() {
 
 `POST /credentials/`
 
-<<<<<<< HEAD
-To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. This is an operation to create and issues a verifiable credential with supplied data. Remember, issuing counts as a paid transaction.
-=======
-To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. This is an operation to creates and issues a verifiable credential with supplied data. Remember, issuing counts as a paid transaction.
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. This DID is present in the credential in the issuer field. An example credential where both the issuer and holder have Dock DIDs. 
+
+**Issuing counts as a paid transaction.**
 
 > Body parameter
 
@@ -1121,9 +1119,9 @@ accessToken
 
 <h1 id="dock-api-presentations">Presentations</h1>
 
-The presentation indicates which credentials it is about and must be signed by the holder of the credentials.
+The presentation is signed using the holder's private key as it is being created. For the verifier to validate the presentation, he must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key. 
 
-These are the operations about presentations:
+The API allows you create and sign a verifiable presentation out of one or more Verifiable Credentials. 
 
 ## Create a presentation
 
@@ -1265,11 +1263,7 @@ func main() {
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
-<<<<<<< HEAD
 This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
-=======
-This is an operation to creates and signs a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
 
 > Body parameter
 
@@ -1386,9 +1380,9 @@ accessToken
 
 <h1 id="dock-api-registries">Registries</h1>
 
-On Dock, credential revocation is managed with a revocation registry. There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority creates a new registry for each credential type. 
+On Dock, credential revocation is managed with a revocation registry. There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. 
 
-These are the operations about managing the registries:
+Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.
 
 ## Delete registry
 
@@ -1496,7 +1490,7 @@ func main() {
 
 `DELETE /registries/{id}`
 
-A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates. This is an operation to delete a specific registry.
+A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other update's. 
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
@@ -1633,7 +1627,7 @@ func main() {
 
 `GET /registries/{id}`
 
-This is an operation to get the registry details, such as policy, add-only status, when it was last update, and controller(s).
+ Get the details of an existing registry, such as policy, add-only status, when it was last update, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.
 
 <h3 id="get-registry-parameters">Parameters</h3>
 
@@ -1782,7 +1776,11 @@ func main() {
 
 `POST /registries/{id}`
 
-This is an operation to revoke or unrevoke one or more credential ids. Simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
+Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.
+
+Similar to the replay protection mechanism for DIDs, for each registry, the last modified block number is kept, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.
+
+In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
 
 > Body parameter
 
@@ -1940,7 +1938,7 @@ func main() {
 
 `GET /registries/`
 
-This is an operation to get all registries created by user.
+Return a list of all registries created by the user. The list is returned with the registry id and policy (For now, only one policy is supported which is that each registry is owned by a single DID, called `OneOf`) of the revocation registry.
 
 > Example responses
 
@@ -2098,13 +2096,7 @@ func main() {
 
 `POST /registries/`
 
-<<<<<<< HEAD
-To create a registry, you have to create a Policy object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
-=======
-To create a registry, first a Policy object needs to be created for which a DID is needed. It is advised that the DID is registered on chain first (else someone can look at the registry a register the DID, thus controlling the registry).
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
-
-This is an operation to create a Revocation registry on the blockchain
+To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
 > Body parameter
 
@@ -2149,7 +2141,7 @@ accessToken
 
 <h1 id="dock-api-revocationstatus">Revocation Status</h1>
 
-After the registry is being revoked or unrevoked, you can check its status. These are the operations to check revocation status.
+After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.
 
 ## Get revocation status
 
@@ -2257,7 +2249,7 @@ func main() {
 
 `GET /revocationStatus/{regId}/{revId}`
 
-This is an operation to get the revocation status of a credential, whether it is revoked or not.
+To check an id is revoked or not, you can check its status with the registry id (`regId`) and revocation id (`revId`).
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
 
@@ -2298,9 +2290,11 @@ accessToken
 
 <h1 id="dock-api-schemas">Schemas</h1>
 
-Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. Data Encoding schemas, on the other hand, are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
+Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. Data Encoding schemas, on the other hand, are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof. 
 
-These are the operations about schemas:
+Before diving further into Schemas in it is important to understand the way these are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes. 
+
+The API allows you to create, get schema for a spesific id, and list all schemas.
 
 ## Get schema
 
@@ -2408,7 +2402,7 @@ func main() {
 
 `GET /schemas/{schemaId}`
 
-This is an operation to returns the JSON schema into a specific schema ID. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
+Reading a Schema from the Dock chain can easily be achieved by using the `get` method from the `Schema` class and will return the JSON schema to a specific schema ID.
 
 <h3 id="get-schema-parameters">Parameters</h3>
 
@@ -2554,7 +2548,7 @@ func main() {
 
 `GET /schemas/`
 
-This is an operation to get all schemas created by user.
+Return a list of all schemas created by user.
 
 > Example responses
 
@@ -2690,11 +2684,7 @@ func main() {
 
 `POST /schemas/`
 
-<<<<<<< HEAD
-This is an operation to create a JSON schema on the blockchain. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
-=======
-This is an operation to creates a JSON schema on the blockchain. JSON Schema can be used to require that a given JSON document (an instance) satisfies a certain number of criteria. JSON Schema validation asserts constraints on the structure of instance data.
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
+The first step to creating a Schema is to initialize it, we can do that using the `Schema` class constructor which accepts an (optional) id string as sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
 
 > Body parameter
 
@@ -2730,11 +2720,11 @@ accessToken
 
 <h1 id="dock-api-anchors">Anchors</h1>
 
-An anchor is a digital fingerprint of external data that is included in a Blockchain transaction to verify the authenticity of the external data. 
+Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents. 
 
 The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block. 
 
-These are the operations about anchors:
+The API allows you to create, get, and retrieve anchor as well as a list of all anchors created by user.
 
 ## Get anchor
 
@@ -2842,7 +2832,7 @@ func main() {
 
 `GET /anchors/{anchor}`
 
-This is an operation to gets a specific anchor by ID.
+Get a specific anchor with the given ID.
 
 <h3 id="get-anchor-parameters">Parameters</h3>
 
@@ -2980,7 +2970,7 @@ func main() {
 
 `GET /anchors/`
 
-This is an operation to get all anchors created by user.
+Return a list of all anchors created by user, whether have contributed to the batching or not.
 
 > Example responses
 
@@ -3118,7 +3108,9 @@ func main() {
 
 `POST /anchors/`
 
-This is an operation to create an Anchor for one or more documents. Remember, if more than one docs are given, a merkle tree is created and root is anchored.
+To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.
+
+The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring. 
 
 > Body parameter
 
@@ -3156,7 +3148,7 @@ accessToken
 
 <h1 id="dock-api-jobs">Jobs</h1>
 
-This section describes API resources to get job status and data:
+This section describes API resources to get job status and data with using a spesific Job id.
 
 ## Get job status and data
 
@@ -3264,11 +3256,7 @@ func main() {
 
 `GET /jobs/{id}`
 
-<<<<<<< HEAD
-This is an operation to return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
-=======
-This is an operation to returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
+To check the Job status and data, you can use the `GET` method and simply put the Job id. It will return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
@@ -3303,8 +3291,6 @@ accessToken
 <h1 id="dock-api-verify">Verify</h1>
 
 Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation which also includes his given challenge.
-
-These are the operations about verify activities:
 
 ## Verify a credential or presentation
 
@@ -3417,13 +3403,11 @@ func main() {
 
 `POST /verify/`
 
-The Verifiable Credentials Data Model 1.0 (VCDM) specification provides a standard way to express credentials on the Web in a way that is cryptographically secure, privacy respecting, and machine-verifiable. 
+Once your Verifiable Credential (VCDM credential) has been signed you can proceed to verify it with the verify method. The verify method takes an object of arguments and is optional.
 
-<<<<<<< HEAD
-This is an operation to verify a VCDM credential or presentation JSON-LD object.
-=======
-This is an operation to verifies a VCDM credential or presentation JSON-LD object.
->>>>>>> a53e7729aff2b41dcd7d268f4ca21d56a3cbc65a
+Also when your Verifiable Presentation (presentation JSON-LD object) has been signed you can proceed to verify it with the verify method. 
+
+Please note that the verification is an async process that returns an object when the promise resolves. This object contains separate results for the verification processes of the included Verifiable Credentials and the overall Verifiable Presentation.
 
 > Body parameter
 
