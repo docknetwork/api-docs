@@ -19,27 +19,102 @@ headingLevel: 2
 
 <h1 id="dock-api">Dock API v1</h1>
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+# Introduction
+<em> A complete solution for creating, managing, and presenting credentials. </em>
 
-Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
+Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.
 
-# Endpoints
+Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
-The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for <strong>production</strong>. You can switch to <strong>test mode</strong> in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in test mode you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.
+We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.
 
-- For production mode, use the endpoint: https://api.dock.io
-- For test mode, use the endpoint: https://api-testnet.dock.io
+## Primary Features
+-	Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.
+- Create and manage decentralized identities (DIDs).
+- Drop anchors on the blockchain for better validation and security.
+- Create and assign schemas to credentials for compliance.
+- Harness the security of the Dock blockchain, a network run by 50 independent validators.
+- Work seamlessly across platforms with Dock’s standards-compliant, interoperable solutions.
 
-PLEASE NOTE: Any transaction you perform in <strong>test mode</strong> cannot be used for <strong>production</strong>. This means that, for example, any DID created in <strong>test mode</strong> will not work for issuing or verification in <strong>production</strong>.
+# Getting Started
 
-# Authentication
+## Prerequisites
+You must first have an account and acquire your credentials (API keys) before accessing the Dock API.
+
+You can register an account and view your API keys in our [console](https://console.api.dock.io/).
+
+<aside class="warning">
+Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
+</aside>
+
+## Endpoints
+The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
+
+For production mode, use the endpoint: https://api.dock.io
+For test mode, use the endpoint: https://api-testnet.dock.io.
+
+PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
+
+## Authentication
+The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header.
 
-<h1 id="dock-api-dids">dids</h1>
+<aside class="notice">
+An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+</aside>
 
-Operations about DIDs
+## Architecture Style
+The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.
+
+HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. We also support UTF-8 encoding style.
+
+The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:
+
+HTTP Method | Description
+--------- | -----------
+GET | Get a representation of the target resource’s state.
+POST | Allow the representation included in the request to be processed by the target resource.
+PATCH | Be able to partially update a resource (in this case, DID's).
+DELETE | Delete the state of the target resource.
+
+## Rate Limits
+We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request.
+
+## Error Handling
+Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.
+
+The table below shows the most frequent HTTP error messages:
+Code | Meaning
+--------- | -----------
+400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
+401 | Unauthorized -- You're missing or have an invalid API key in the header.
+404 | Not Found -- The page that you're trying to open could not be found on the server.
+429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
+500 | Server Errors -- Something has gone wrong on the server. Please try to reload the page or clear both cookies and cache.
+
+# Terminology
+It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
+Terminology | Description
+--------- | -----------
+DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).
+Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time.
+Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential.
+Registries | A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. 
+Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.
+Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
+DID Resolver | The tool that initiates the process of learning the DID document.
+
+<h1 id="dock-api-dids">DIDs</h1>
+
+DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
+
+DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
+
+<aside class="notice">
+As of now, a DID can have only one key at a time.
+</aside>
 
 ## Get DID
 
@@ -147,13 +222,15 @@ func main() {
 
 `GET /dids/{did}`
 
-Resolves a specific DID into a DID document.
+The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
+
+Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 <h3 id="get-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|A DID|
+|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
 
 > Example responses
 
@@ -175,8 +252,8 @@ Resolves a specific DID into a DID document.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The DIDDoc|[DIDDoc](#schemadiddoc)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID entered in parameter was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -297,7 +374,9 @@ func main() {
 
 `PATCH /dids/{did}`
 
-Updates the DID's key or controller on the blockchain.
+The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
+
+To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
 
 > Body parameter
 
@@ -312,18 +391,17 @@ Updates the DID's key or controller on the blockchain.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|false|Properties of DID|
-|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
-|» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
-|did|path|[DID](#schemadid)|true|A DID|
+|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
+|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
+|keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
+
+An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`.
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|» keyType|sr25519|
-|» keyType|ed25519|
-|» keyType|secp256k1|
+|Parameter|Value|Description|
+|---|---|---|
+|keyType|sr25519 **or** ed25519 **or** secp256k1|keyType signature variants.
 
 > Example responses
 
@@ -337,9 +415,9 @@ Updates the DID's key or controller on the blockchain.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will update DID.|[JobId](#schemajobid)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Does not own the DID|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID does not exist|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will update DID.|[JobId](#schemajobid)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -452,13 +530,17 @@ func main() {
 
 `DELETE /dids/{did}`
 
-Deletes a DID from the blockchain, further attempts to resolve this DID will fail.
+A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.
+
+It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.
 
 <h3 id="delete-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|A DID|
+|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
+
+An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 > Example responses
 
@@ -472,9 +554,9 @@ Deletes a DID from the blockchain, further attempts to resolve this DID will fai
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will remove DID.|[JobId](#schemajobid)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Does not own the DID|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID does not exist|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove DID.|[JobId](#schemajobid)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -587,6 +669,8 @@ func main() {
 
 `GET /dids/`
 
+Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
+
 > Example responses
 
 > 200 Response
@@ -609,47 +693,7 @@ func main() {
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents|Inline|
-
-<h3 id="list-dids-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[DIDDoc](#schemadiddoc)]|false|none|[DID document. The current set of properties is incomplete]|
-|» @context|any|false|none|JSON-LD context|
-
-*oneOf*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|»» *anonymous*|[string]|false|none|none|
-
-*xor*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|»» *anonymous*|string|false|none|none|
-
-*continued*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» id|[DIDQualified](#schemadidqualified)(uri)|false|none|DID as fully qualified, eg. `did:dock:`.|
-|» authentication|[oneOf]|false|none|none|
-
-*oneOf*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|»» *anonymous*|object|false|none|none|
-
-*xor*
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|»» *anonymous*|string|false|none|none|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDoc](#schemadiddoc)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -771,7 +815,9 @@ func main() {
 
 `POST /dids/`
 
-Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.
+A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
+
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `Sr25519,` `Ed25519,` and `EcdsaSecp256k1.` These public keys are supported by 3 classes: `PublicKeySr25519,` `PublicKeyEd25519,` and `PublicKeySecp256k1.`
 
 > Body parameter
 
@@ -787,18 +833,15 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|false|Properties of DID|
-|» did|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
-|» controller|body|[DID](#schemadid)|false|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
-|» keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID|
+|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated. |
+|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
+|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is sr25519.|
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|» keyType|sr25519|
-|» keyType|ed25519|
-|» keyType|secp256k1|
+|Parameter|Value|Desctiprion
+|---|---|---|
+|keyType|sr25519 **or** ed25519 **or** secp256k1| keyType signature variants.
 
 > Example responses
 
@@ -807,7 +850,10 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -815,17 +861,17 @@ Creates a new DID on chain with an auto generated keypair, the controller will b
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create DID. DID does not exist on network as of now.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create DID. DID does not exist on network as of now.|[JobStartedResult](#schemajobstartedresult)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-credentials">credentials</h1>
+<h1 id="dock-api-credentials">Credentials</h1>
 
-Operations about credentials
+Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
 
 ## Issue a credential
 
@@ -953,7 +999,14 @@ func main() {
 
 `POST /credentials/`
 
-Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
+
+This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
+
+<aside class="notice">
+Issuing counts as a paid transaction.
+</aside>
+
 
 > Body parameter
 
@@ -978,22 +1031,11 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
+To view a sample of the parameter usage, please refer [here](https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html).
+
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema|
-|» credential|body|[Credential](#schemacredential)|false|Credential format expected by API caller. The current set of is almost complete|
-|»» id|body|string(uri)|false|none|
-|»» context|body|[string]|false|none|
-|»» type|body|[string]|false|none|
-|»» subject|body|object|false|none|
-|»» issuer|body|any|false|none|
-|»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
-|»»» *anonymous*|body|object|false|none|
-|»» issuanceDate|body|string(date-time)|false|none|
-|»» expirationDate|body|string(date-time)|false|none|
-|»» status|body|any|false|Revocation registry id or user supplied status object|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|string|false|none|
+|credential|body|[Credential](#schemacredential)|true|Credential format expected by API caller.|
 
 > Example responses
 
@@ -1027,18 +1069,20 @@ Creates and issues a verifiable credential with supplied data. Issuing counts as
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|[Error](#schemaerror)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return a Verifiable Credential.|[VerifiableCredential](#schemaverifiablecredential)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The irequest was unsuccessful, because of Invalid/insufficient credential params.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-presentations">presentations</h1>
+<h1 id="dock-api-presentations">Presentations</h1>
 
-Operations about presentations
+The presentation is signed using the holder's private key as it is being created. To validate the presentation, the verifier must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key.
+
+The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.
 
 ## Create a presentation
 
@@ -1178,7 +1222,9 @@ func main() {
 
 `POST /presentations/`
 
-Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.
+The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
+
+This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
 
 > Body parameter
 
@@ -1217,43 +1263,17 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema|
-|» holder|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
-|» challenge|body|string|false|none|
-|» domain|body|string|false|none|
-|» credentials|body|[[VerifiableCredential](#schemaverifiablecredential)]|false|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
-|»» @context|body|any|false|JSON-LD context|
-|»»» *anonymous*|body|[string]|false|none|
-|»»» *anonymous*|body|string|false|none|
-|»» id|body|string(uri)|false|none|
-|»» type|body|[string]|false|none|
-|»» credentialSubject|body|any|false|none|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|[object]|false|none|
-|»» issuer|body|any|false|none|
-|»»» *anonymous*|body|[DIDQualified](#schemadidqualified)(uri)|false|DID as fully qualified, eg. `did:dock:`.|
-|»»» *anonymous*|body|object|false|none|
-|»» issuanceDate|body|string(date-time)|false|none|
-|»» expirationDate|body|string(date-time)|false|none|
-|»» credentialStatus|body|any|false|Revocation registry id or user supplied status object|
-|»»» *anonymous*|body|object|false|none|
-|»»» *anonymous*|body|string|false|none|
-|»» proof|body|object|false|none|
-|»»» type|body|[SigType](#schemasigtype)|false|Type of signature|
-|»»» proofPurpose|body|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential|
-|»»» verificationMethod|body|string|false|none|
-|»»» created|body|string(date-time)|false|none|
-|»»» proofValue|body|string|false|none|
+|holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:`.|
+|challenge|body|string|false|Presentation's Challenge in a string format. The default valle for this is `random hex string`.|
+|domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
+|credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|»»» type|Sr25519Signature2020|
-|»»» type|Ed25519Signature2018|
-|»»» type|EcdsaSecp256k1Signature2019|
-|»»» proofPurpose|assertionMethod|
-|»»» proofPurpose|authentication|
+|Parameter|Value|Description|
+|---|---|---|
+|type|Sr25519Signature2020 **or** Ed25519Signature2018 **or** EcdsaSecp256k1Signature2019|Type of Signature.
+|proofPurpose|assertionMethod **or** authentication| The type of purpose used for the credential.
 
 > Example responses
 
@@ -1261,24 +1281,15 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 
 ```json
 {
+  
   "@context": [
-    "string"
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
   ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "did:dock:xyz",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
+  "id": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
+  "type": ["VerifiablePresentation", "CredentialManagerPresentation"],
+  "verifiableCredential": [{  }],
+  "proof": [{  }]
   }
 }
 ```
@@ -1287,18 +1298,20 @@ Creates and signs a verifiable presentation out of one or more Verifiable Creden
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A VC.|[VerifiableCredential](#schemaverifiablecredential)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|[Error](#schemaerror)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|User does not own DID.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return a Verifiable Credential.|[VerifiableCredential](#schemaverifiablecredential)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-registries">registries</h1>
+<h1 id="dock-api-registries">Registries</h1>
 
-Operations about registries
+Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.
+
+There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.
 
 ## Delete registry
 
@@ -1406,13 +1419,13 @@ func main() {
 
 `DELETE /registries/{id}`
 
-Deletes a specific registry
+A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|id|path|[Hex32](#schemahex32)|true|Revocation registry id|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
 
 > Example responses
 
@@ -1421,7 +1434,10 @@ Deletes a specific registry
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -1429,8 +1445,8 @@ Deletes a specific registry
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry will be deleted|[JobStartedResult](#schemajobstartedresult)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and revocation registry will be deleted.|[JobStartedResult](#schemajobstartedresult)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1543,13 +1559,13 @@ func main() {
 
 `GET /registries/{id}`
 
-Get the registry details like policy, controller(s)
+ Get the details of an existing registry, such as policy, add-only status, when it was last update, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.
 
 <h3 id="get-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|id|path|[Hex32](#schemahex32)|true|Revocation registry id|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
 
 > Example responses
 
@@ -1568,8 +1584,8 @@ Get the registry details like policy, controller(s)
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Revocation Registry metadata|[Registry](#schemaregistry)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the revocation registry metadata.|[Registry](#schemaregistry)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1692,7 +1708,11 @@ func main() {
 
 `POST /registries/{id}`
 
-Revoke or unrevoke one or more credential ids
+Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.
+
+Similar to the replay protection mechanism for DIDs, the last modified block number is kept for each registry, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.
+
+In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
 
 > Body parameter
 
@@ -1709,17 +1729,15 @@ Revoke or unrevoke one or more credential ids
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|Specify action and credential ids|
-|» action|body|string|false|none|
-|» credentialIds|body|[string]|false|none|
-|id|path|[Hex32](#schemahex32)|true|Revocation registry id|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
+|action|body|string|false|The action taken, either revoke or unrevoke.|
+|credentialIds|body|array|false|Represents credential Ids.|
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|» action|revoke|
-|» action|unrevoke|
+|Parameter|Value|Description|
+|---|---|---|
+|action|revoke **or** unrevoke|Action to take on the registry.
 
 > Example responses
 
@@ -1728,7 +1746,10 @@ Revoke or unrevoke one or more credential ids
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -1736,9 +1757,9 @@ Revoke or unrevoke one or more credential ids
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -1851,7 +1872,12 @@ func main() {
 
 `GET /registries/`
 
-Get all registries created by user
+Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.
+
+<aside class="notice">
+For now, only one policy is supported, and each registry is owned by a single DID, called `OneOf`.
+</aside>
+
 
 > Example responses
 
@@ -1875,18 +1901,9 @@ Get all registries created by user
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All registries by user|Inline|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by user.|Inline|
 
 <h3 id="list-registries-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|» registry|[Registry](#schemaregistry)|false|none|Revocation registry|
-|»» addOnly|boolean|false|none|none|
-|»» policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2009,7 +2026,7 @@ func main() {
 
 `POST /registries/`
 
-Create a Revocation registry on the blockchain
+To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
 > Body parameter
 
@@ -2026,9 +2043,8 @@ Create a Revocation registry on the blockchain
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|[Registry](#schemaregistry)|true|Revocation registry|
-|» addOnly|body|boolean|false|none|
-|» policy|body|[[DID](#schemadid)]|false|Only one policy supported as of now called `OneOf`|
+|addOnly|body|boolean|false|True/false options.|
+|policy|body|[[DID](#schemadid)]|false|The policy is specified in DID id. Only one policy supported as of now called `OneOf`.|
 
 > Example responses
 
@@ -2037,7 +2053,10 @@ Create a Revocation registry on the blockchain
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -2045,17 +2064,17 @@ Create a Revocation registry on the blockchain
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create registry.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like policy not supported.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create registry.|[JobStartedResult](#schemajobstartedresult)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., policy not supported.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-revocationstatus">revocationStatus</h1>
+<h1 id="dock-api-revocationstatus">Revocation Status</h1>
 
-Operations about revocation_status
+After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.
 
 ## Get revocation status
 
@@ -2163,14 +2182,14 @@ func main() {
 
 `GET /revocationStatus/{regId}/{revId}`
 
-Get the revocation status of a credential
+To check if an id is revoked or not, you can check its status with the registry id (`regId`) and revocation id (`revId`).
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|regId|path|[Hex32](#schemahex32)|true|Revocation registry id|
-|revId|path|[Hex32](#schemahex32)|true|Credential revocation id|
+|regId|path|[Hex32](#schemahex32)|true|Revocation registry id.|
+|revId|path|[Hex32](#schemahex32)|true|Credential revocation id.|
 
 > Example responses
 
@@ -2186,25 +2205,19 @@ Get the revocation status of a credential
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Returns true of credential is revoked, false otherwise|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Registry was not found.|[Error](#schemaerror)|
-
-<h3 id="get-revocation-status-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» type|boolean|false|none|none|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return **true**, if credential is revoked, **false** otherwise.|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because registry was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-schemas">schemas</h1>
+<h1 id="dock-api-schemas">Schemas</h1>
 
-Operations about schemas
+Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
+
+Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.
 
 ## Get schema
 
@@ -2312,13 +2325,13 @@ func main() {
 
 `GET /schemas/{schemaId}`
 
-Returns the JSON schema for a specific ID
+Reading a Schema from the Dock chain can easily be achieved by using the `get` method from the `Schema` class and will return the JSON schema to a specific schema ID.
 
 <h3 id="get-schema-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|schemaId|path|[Hex32](#schemahex32)|true|A schema id|
+|schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
 
 > Example responses
 
@@ -2335,17 +2348,8 @@ Returns the JSON schema for a specific ID
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Schema|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Schema was not found.|[Error](#schemaerror)|
-
-<h3 id="get-schema-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|» schema|object|false|none|none|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return a Schema.|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2458,7 +2462,7 @@ func main() {
 
 `GET /schemas/`
 
-Get all schemas created by user
+Return a list of all schemas created by user.
 
 > Example responses
 
@@ -2474,9 +2478,7 @@ Get all schemas created by user
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All schemas by user|Inline|
-
-<h3 id="list-schemas-responseschema">Response Schema</h3>
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by User.|Inline|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2594,7 +2596,7 @@ func main() {
 
 `POST /schemas/`
 
-Creates a JSON schema on the blockchain
+The first step to creating a Schema is to initialize it. We can do that using the `Schema` class constructor, which accepts an (optional) id string as the sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
 
 > Body parameter
 
@@ -2606,7 +2608,7 @@ Creates a JSON schema on the blockchain
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema|
+|body|body|object|true|JSON-schema.|
 
 > Example responses
 
@@ -2620,17 +2622,21 @@ Creates a JSON schema on the blockchain
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create schema.|[JobId](#schemajobid)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params like size not supported or not JSON.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create schema.|[JobId](#schemajobid)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-anchors">anchors</h1>
+<h1 id="dock-api-anchors">Anchors</h1>
 
-Operations about anchors
+Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.
+
+The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block.
+
+The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.
 
 ## Get anchor
 
@@ -2738,13 +2744,13 @@ func main() {
 
 `GET /anchors/{anchor}`
 
-Gets a specific anchor by ID
+Get a specific anchor with the given ID.
 
 <h3 id="get-anchor-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|anchor|path|[Hex32](#schemahex32)|true|An anchor|
+|anchor|path|[Hex32](#schemahex32)|true|An anchor id.|
 
 > Example responses
 
@@ -2762,8 +2768,8 @@ Gets a specific anchor by ID
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Anchor|[Anchor](#schemaanchor)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Anchor was not found.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return an anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -2876,7 +2882,7 @@ func main() {
 
 `GET /anchors/`
 
-Get all anchors created by user
+Return a list of all anchors created by user, whether have contributed to the batching or not.
 
 > Example responses
 
@@ -2892,9 +2898,7 @@ Get all anchors created by user
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All anchors by user|Inline|
-
-<h3 id="list-anchors-responseschema">Response Schema</h3>
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all anchors created by User.|Inline|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3014,7 +3018,9 @@ func main() {
 
 `POST /anchors/`
 
-Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored
+To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.
+
+The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
 
 > Body parameter
 
@@ -3028,7 +3034,7 @@ Anchor one or more documents. If more than one docs are given, a merkle tree is 
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|any|true|Documents|
+|body|body|any|true|Documents.|
 
 > Example responses
 
@@ -3042,17 +3048,17 @@ Anchor one or more documents. If more than one docs are given, a merkle tree is 
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Will try to create Anchor. Anchor does not exist on network as of now.|[JobId](#schemajobid)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid params|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create Anchor. Anchor does not exist on network as of now.|[JobId](#schemajobid)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-jobs">jobs</h1>
+<h1 id="dock-api-jobs">Jobs</h1>
 
-Operations about jobs
+This section describes API resources to get job status and data with using a spesific Job id.
 
 ## Get job status and data
 
@@ -3160,13 +3166,13 @@ func main() {
 
 `GET /jobs/{id}`
 
-Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
+To check the Job status and data, you can use the `GET` method and simply put the Job id. It will return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|id|path|[JobId](#schemajobid)|true|A Job id|
+|id|path|[JobId](#schemajobid)|true|Represents a Job id.|
 
 > Example responses
 
@@ -3184,15 +3190,17 @@ Returns information related to the job being processed and its associated blockc
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Job desc|[JobDesc](#schemajobdesc)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Job id was not found.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return a Job desc.|[JobDesc](#schemajobdesc)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the Job id was not found.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
 
-<h1 id="dock-api-verify">verify</h1>
+<h1 id="dock-api-verify">Verify</h1>
+
+Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
 
 ## Verify a credential or presentation
 
@@ -3305,7 +3313,11 @@ func main() {
 
 `POST /verify/`
 
-Verifies a VCDM credential or presentation JSON-LD object.
+Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.
+
+Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.
+
+Please note that the verification is an async process that returns an object when the promise resolves. This object contains separate results for the verification processes of the included Verifiable Credentials and the overall Verifiable Presentation.
 
 > Body parameter
 
@@ -3317,7 +3329,7 @@ Verifies a VCDM credential or presentation JSON-LD object.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema|
+|body|body|[VerifiableCredential](#schemaverifiablecredential) or [VerifiablePresentation](#schemaverifiablepresentation)|true|JSON-schema.|
 
 > Example responses
 
@@ -3333,8 +3345,8 @@ Verifies a VCDM credential or presentation JSON-LD object.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The verification result|[VerificationResponse](#schemaverificationresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid/insufficient credential params.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the verification result.|[VerificationResponse](#schemaverificationresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3342,6 +3354,10 @@ accessToken
 </aside>
 
 # Schemas
+
+Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.
+
+These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.
 
 <h2 id="tocS_Error">Error</h2>
 <!-- backwards compatibility -->
@@ -3359,15 +3375,15 @@ accessToken
 
 ```
 
-An API Error
+This is a schema for an API Error.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|status|integer|false|none|none|
-|type|string|false|none|none|
-|message|string|false|none|none|
+|status|integer|false|none|Status of the error.|
+|type|string|false|none|Type of the error.|
+|message|string|false|none|Message of the error.|
 
 <h2 id="tocS_Hex32">Hex32</h2>
 <!-- backwards compatibility -->
@@ -3381,13 +3397,13 @@ An API Error
 
 ```
 
-32 byte hex string. Ignoring higher base (base64) for similicity.
+32 byte hex string. Ignoring higher base (base64) for simplicity.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|Hex32|string|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
 
 <h2 id="tocS_JobStartedResult">JobStartedResult</h2>
 <!-- backwards compatibility -->
@@ -3399,19 +3415,22 @@ An API Error
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 
 ```
 
-Object containing unique id of the background task and associated data. This id can be used to query the job status
+Object containing unique id of the background task and associated data. This id can be used to query the job status.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status|
-|data|object|false|none|none|
+|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status.|
+|data|object|false|none|Data of the object.|
 
 <h2 id="tocS_JobId">JobId</h2>
 <!-- backwards compatibility -->
@@ -3431,7 +3450,7 @@ Unique id of the background task. This id can be used to query the job status
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Unique id of the background task. This id can be used to query the job status|
+|JobId|string|false|none|Unique id of the background task. This id can be used to query the job status.|
 
 <h2 id="tocS_JobStatus">JobStatus</h2>
 <!-- backwards compatibility -->
@@ -3445,22 +3464,19 @@ Unique id of the background task. This id can be used to query the job status
 
 ```
 
-Status of the job.
+This is a schema used in Job operation to get a status of the job.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Status of the job.|
+|JobStatus|string|false|none|Status of the job.|
 
 #### Enumerated Values
 
-|Property|Value|
-|---|---|
-|*anonymous*|todo|
-|*anonymous*|finalized|
-|*anonymous*|in_progress|
-|*anonymous*|error|
+|Property|Value|Description|
+|---|---|---|
+|JobStatus|todo **or** finalized **or** in_progress **or** error.|Job Status variants.
 
 <h2 id="tocS_JobDesc">JobDesc</h2>
 <!-- backwards compatibility -->
@@ -3478,15 +3494,15 @@ Status of the job.
 
 ```
 
-Description of the job including result if available
+This is a schema used in Job operation to get description of the job including result if available.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status|
+|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status.|
 |status|[JobStatus](#schemajobstatus)|false|none|Status of the job.|
-|result|object|false|none|none|
+|result|object|false|none|Result of the Job.|
 
 <h2 id="tocS_DIDQualified">DIDQualified</h2>
 <!-- backwards compatibility -->
@@ -3500,13 +3516,13 @@ Description of the job including result if available
 
 ```
 
-DID as fully qualified, eg. `did:dock:`.
+This is a schema used in some operations that used DID as fully qualified, e.g., `did:dock:`.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string(uri)|false|none|DID as fully qualified, eg. `did:dock:`.|
+|DIDQualified|string(uri)|false|none|DID as fully qualified, e.g., `did:dock:`.|
 
 <h2 id="tocS_DID">DID</h2>
 <!-- backwards compatibility -->
@@ -3520,13 +3536,13 @@ DID as fully qualified, eg. `did:dock:`.
 
 ```
 
-DID as fully qualified, eg. `did:dock:` or 32 byte hex string
+DID as fully qualified, e.g., `did:dock:`.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|DID as fully qualified, eg. `did:dock:` or 32 byte hex string|
+|DID|string|false|none|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated.|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3540,21 +3556,19 @@ DID as fully qualified, eg. `did:dock:` or 32 byte hex string
 
 ```
 
-Type of public key for DID
+This is a schema type of public key for DID.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Type of public key for DID|
+|KeyType|string|false|none|Type of public key for DID. The default value of the keyType is sr25519|
 
 #### Enumerated Values
 
-|Property|Value|
-|---|---|
-|*anonymous*|sr25519|
-|*anonymous*|ed25519|
-|*anonymous*|secp256k1|
+|Property|Value|Description|
+|---|---|---|
+|KeyType|sr25519 **or** ed25519 **or** secp256k1|keyType DID variants.
 
 <h2 id="tocS_SigType">SigType</h2>
 <!-- backwards compatibility -->
@@ -3568,21 +3582,19 @@ Type of public key for DID
 
 ```
 
-Type of signature
+This is a schema used in Presentation operation that represents a type of signature.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Type of signature|
+|SigType|string|false|none|Type of signature.|
 
 #### Enumerated Values
 
-|Property|Value|
-|---|---|
-|*anonymous*|Sr25519Signature2020|
-|*anonymous*|Ed25519Signature2018|
-|*anonymous*|EcdsaSecp256k1Signature2019|
+|Property|Value|Description|
+|---|---|---|
+|SigType|Sr25519Signature2020 **or** Ed25519Signature2018 **or** EcdsaSecp256k1Signature2019|SigType signature variants.
 
 <h2 id="tocS_ProofPurpose">ProofPurpose</h2>
 <!-- backwards compatibility -->
@@ -3596,20 +3608,19 @@ Type of signature
 
 ```
 
-Purpose of credential
+This is a schema that represents a purpose of credential.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Purpose of credential|
+|ProofPurpose|string|false|none|Purpose of credential.|
 
 #### Enumerated Values
 
-|Property|Value|
-|---|---|
-|*anonymous*|assertionMethod|
-|*anonymous*|authentication|
+|Property|Value|Description|
+|---|---|---|
+|ProofPurpose|assertionMethod **or** authentication|Purpose of credential.
 
 <h2 id="tocS_Context">Context</h2>
 <!-- backwards compatibility -->
@@ -3625,21 +3636,14 @@ Purpose of credential
 
 ```
 
-JSON-LD context
+This is a schema that represents a JSON-LD context used in DID and Presentation.
 
 ### Properties
 
-oneOf
-
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|[string]|false|none|none|
+|Context|string|false|none|JSON-LD context|
 
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|string|false|none|none|
 
 <h2 id="tocS_DIDDoc">DIDDoc</h2>
 <!-- backwards compatibility -->
@@ -3661,27 +3665,16 @@ xor
 
 ```
 
-DID document. The current set of properties is incomplete
+This is a schema that represents a DID document. The current set of properties is incomplete
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|@context|[Context](#schemacontext)|false|none|JSON-LD context|
-|id|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
-|authentication|[oneOf]|false|none|none|
+|@context|[Context](#schemacontext)|false|none|JSON-LD context.|
+|id|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, e.g., `did:dock:`.|
+|authentication|array|false|none|DID authentication.|
 
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|string|false|none|none|
 
 <h2 id="tocS_Credential">Credential</h2>
 <!-- backwards compatibility -->
@@ -3708,49 +3701,20 @@ xor
 
 ```
 
-Credential format expected by API caller. The current set of is almost complete
+This is a schema that represents a credential format expected by API caller. The current set of is almost complete.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string(uri)|false|none|none|
-|context|[string]|false|none|none|
-|type|[string]|false|none|none|
-|subject|object|false|none|none|
-|issuer|any|false|none|none|
-
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
-
-continued
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|issuanceDate|string(date-time)|false|none|none|
-|expirationDate|string(date-time)|false|none|none|
-|status|any|false|none|Revocation registry id or user supplied status object|
-
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|string|false|none|none|
+|id|string(uri)|false|none|Credential ID.|
+|context|array|false|none|Credential context.|
+|type|[string]|false|none|Credential type.|
+|subject|object|true|none|Credential subject.|
+|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`.|
+|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
+|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
+|status|object or string|false|none|Revocation registry id or user supplied status object.|
 
 <h2 id="tocS_VerifiablePresentation">VerifiablePresentation</h2>
 <!-- backwards compatibility -->
@@ -3800,39 +3764,27 @@ xor
 
 ```
 
-Verifiable (signed) Presentation returned by API. The current set of properties is almost complete
+This is a schema that represents a Verifiable (signed) Presentation returned by API. The current set of properties is almost complete
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|@context|[Context](#schemacontext)|false|none|JSON-LD context|
-|id|string(uri)|false|none|none|
-|type|[string]|false|none|none|
-|verifiableCredential|any|false|none|none|
+|@context|[Context](#schemacontext)|false|none|JSON-LD context.|
+|id|string(uri)|false|none|Verifiable (signed) presentation id.|
+|type|string|false|none|Verifiable (signed) presentation type.|
+|verifiableCredential|[VerifiableCredential](#schemaverifiablecredential)|false|none|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
+|proof|object|false|none|Proof of credential.|
 
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|[VerifiableCredential](#schemaverifiablecredential)|false|none|Verifiable (signed) Credential returned by API. The current set of properties is almost complete|
-
-xor
+<h3 id="ProofChildParameterPresentation">Child Parameters of Proof</h3>
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|» *anonymous*|[[VerifiableCredential](#schemaverifiablecredential)]|false|none|[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]|
-
-continued
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|proof|object|false|none|none|
-|» type|[SigType](#schemasigtype)|false|none|Type of signature|
-|» proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential|
-|» verificationMethod|string|false|none|none|
-|» created|string(date-time)|false|none|none|
-|» proofValue|string|false|none|none|
+|type|[SigType](#schemasigtype)|false|none|Type of signature.|
+|proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential.|
+|verificationMethod|string|false|none|Verification method.|
+|created|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was created specified in RFC 3339 format.|
+|proofValue|string|false|none|Value of credential.|
 
 <h2 id="tocS_VerifiableCredential">VerifiableCredential</h2>
 <!-- backwards compatibility -->
@@ -3866,77 +3818,31 @@ continued
 
 ```
 
-Verifiable (signed) Credential returned by API. The current set of properties is almost complete
+This is a schema that represents a verifiable (signed) Credential returned by API. The current set of properties is almost complete.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|@context|[Context](#schemacontext)|false|none|JSON-LD context|
-|id|string(uri)|false|none|none|
-|type|[string]|false|none|none|
-|credentialSubject|any|false|none|none|
+|@context|[Context](#schemacontext)|false|none|JSON-LD context.|
+|id|string(uri)|false|none|Credential id.|
+|type|[string]|false|none|Credential type.|
+|credentialSubject|any|false|none|Credential subject.|
+|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
+|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
+|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
+|credentialStatus|any|false|none|Revocation registry id or user supplied status object.|
+|proof|object|false|none|Proof of credential.|
 
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|[object]|false|none|none|
-
-continued
+<h3 id="ProofChildParameterCredentials">Child Parameters of Proof</h3>
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|issuer|any|false|none|none|
-
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, eg. `did:dock:`.|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
-
-continued
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|issuanceDate|string(date-time)|false|none|none|
-|expirationDate|string(date-time)|false|none|none|
-|credentialStatus|any|false|none|Revocation registry id or user supplied status object|
-
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|object|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» *anonymous*|string|false|none|none|
-
-continued
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|proof|object|false|none|none|
-|» type|[SigType](#schemasigtype)|false|none|Type of signature|
-|» proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential|
-|» verificationMethod|string|false|none|none|
-|» created|string(date-time)|false|none|none|
-|» proofValue|string|false|none|none|
+|type|[SigType](#schemasigtype)|false|none|Type of signature.|
+|proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential.|
+|verificationMethod|string|false|none|Verification method.|
+|created|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was created specified in RFC 3339 format.|
+|proofValue|string|false|none|Value of credential.|
 
 <h2 id="tocS_Anchor">Anchor</h2>
 <!-- backwards compatibility -->
@@ -3954,15 +3860,15 @@ continued
 
 ```
 
-An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.
+An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
-|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for similicity.|
+|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
+|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
+|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
 
 <h2 id="tocS_Registry">Registry</h2>
 <!-- backwards compatibility -->
@@ -3981,14 +3887,14 @@ An anchor. Either a batched or single. Data includes anchor, type (single, batch
 
 ```
 
-Revocation registry
+This is a schema that represents a Revocation registry used in Revocation or Unrevocation.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|addOnly|boolean|false|none|none|
-|policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`|
+|addOnly|boolean|false|none|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
+|policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`.|
 
 <h2 id="tocS_VerificationResponse">VerificationResponse</h2>
 <!-- backwards compatibility -->
@@ -4004,13 +3910,13 @@ Revocation registry
 
 ```
 
-Whether a credential/presentation is verified or not
+This is a schema that used to define whether a credential/presentation is verified or not
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|verified|boolean|false|none|none|
+|verified|boolean|false|none|Describes whether the credential/presentation is verified or not.|
 
 <h2 id="tocS_Response">Response</h2>
 <!-- backwards compatibility -->
@@ -4026,13 +3932,13 @@ Whether a credential/presentation is verified or not
 
 ```
 
-Default response
+This is a schema that represents a default response for a request made.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|code|integer|false|none|none|
+|code|integer|false|none|Represents the integer value of the code response.|
 
 <script type="application/ld+json">
 {
