@@ -44,7 +44,7 @@ You must first have an account and acquire your credentials (API keys) before ac
 You can register an account and view your API keys in our [console](https://console.api.dock.io/).
 
 <aside class="warning">
-Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available. 
+Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 
 ## Endpoints
@@ -59,14 +59,14 @@ PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **p
 The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
 
 * API Key (accessToken)
-    - Parameter Name: **DOCK-API-TOKEN**, in: header. 
+    - Parameter Name: **DOCK-API-TOKEN**, in: header.
 
 <aside class="notice">
 An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
 </aside>
 
 ## Architecture Style
-The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies. 
+The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.
 
 HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. We also support UTF-8 encoding style.
 
@@ -75,21 +75,21 @@ The table below demonstrates how HTTP methods, including RESTful APIs, are inten
 HTTP Method | Description
 --------- | -----------
 GET | Get a representation of the target resource’s state.
-POST | Allow the representation included in the request to be processed by the target resource. 
+POST | Allow the representation included in the request to be processed by the target resource.
 PATCH | Be able to partially update a resource (in this case, DID's).
 DELETE | Delete the state of the target resource.
 
 ## Rate Limits
-We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request. 
+We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request.
 
 ## Error Handling
-Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful. 
+Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.
 
 The table below shows the most frequent HTTP error messages:
 Code | Meaning
 --------- | -----------
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
-401 | Unauthorized -- You're missing or have an invalid API key in the header. 
+401 | Unauthorized -- You're missing or have an invalid API key in the header.
 404 | Not Found -- The page that you're trying to open could not be found on the server.
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
 500 | Server Errors -- Something has gone wrong on the server. Please try to reload the page or clear both cookies and cache.
@@ -99,18 +99,18 @@ It is important to fully understand all the terminologies within Dock ecosystem.
 Terminology | Description
 --------- | -----------
 DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).
-Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time. 
-Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential. 
+Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time.
+Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential.
 Registries | A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. 
-Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently. 
-Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string. 
-DID Resolver | The tool that initiates the process of learning the DID document. 
+Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.
+Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
+DID Resolver | The tool that initiates the process of learning the DID document.
 
 <h1 id="dock-api-dids">DIDs</h1>
 
 DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
 
-DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key. 
+DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
 
 <aside class="notice">
 As of now, a DID can have only one key at a time.
@@ -222,7 +222,7 @@ func main() {
 
 `GET /dids/{did}`
 
-The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver. 
+The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
 
 Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
@@ -374,7 +374,7 @@ func main() {
 
 `PATCH /dids/{did}`
 
-The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future. 
+The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
 
 To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
 
@@ -881,8 +881,8 @@ accessToken
 </aside>
 
 <h1 id="dock-api-credentials">Credentials</h1>
- 
-Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data. 
+
+Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
 
 ## Issue a credential
 
@@ -1010,7 +1010,7 @@ func main() {
 
 `POST /credentials/`
 
-To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. 
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
@@ -1091,9 +1091,9 @@ accessToken
 
 <h1 id="dock-api-presentations">Presentations</h1>
 
-The presentation is signed using the holder's private key as it is being created. To validate the presentation, the verifier must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key. 
+The presentation is signed using the holder's private key as it is being created. To validate the presentation, the verifier must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key.
 
-The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials. 
+The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.
 
 ## Create a presentation
 
@@ -1435,7 +1435,7 @@ func main() {
 
 `DELETE /registries/{id}`
 
-A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates. 
+A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
@@ -1888,7 +1888,7 @@ func main() {
 
 `GET /registries/`
 
-Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry. 
+Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.
 
 <aside class="notice">
 For now, only one policy is supported, and each registry is owned by a single DID, called `OneOf`.
@@ -2656,9 +2656,9 @@ accessToken
 
 <h1 id="dock-api-anchors">Anchors</h1>
 
-Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents. 
+Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.
 
-The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block. 
+The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block.
 
 The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.
 
@@ -3044,7 +3044,7 @@ func main() {
 
 To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.
 
-The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring. 
+The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
 
 > Body parameter
 
@@ -4002,9 +4002,9 @@ This is a schema that represents a default response for a request made.
   "@type": "WebAPI",
   "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
 ",
-  
-  
-  
+
+
+
   "name": "Dock API"
 }
 </script>
