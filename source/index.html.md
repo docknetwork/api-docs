@@ -392,13 +392,8 @@ To rotate the key of an existing DID, the current key is used to sign an update 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-<<<<<<< HEAD
 |controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
-=======
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 
 An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`.
 
@@ -838,15 +833,9 @@ It is important to have a public key of one of its three supported types. Dock s
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-<<<<<<< HEAD
 |did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated. |
 |controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is sr25519.|
-=======
-|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 
 #### Enumerated Values
 
@@ -1275,13 +1264,8 @@ This is an operation to create and sign a verifiable presentation out of one or 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:`.|
-<<<<<<< HEAD
 |challenge|body|string|false|Presentation's Challenge in a string format. The default valle for this is `random hex string`.|
 |domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
-=======
-|challenge|body|string|false|Presentation's Challenge in a string format.|
-|domain|body|string|false|A domain for the proof in a string format.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
 
 #### Enumerated Values
@@ -1920,14 +1904,6 @@ For now, only one policy is supported, and each registry is owned by a single DI
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by user.|Inline|
 
 <h3 id="list-registries-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
-|registry|[Registry](#schemaregistry)|false|none|Revocation registry.|
-
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3353,11 +3329,7 @@ Please note that the verification is an async process that returns an object whe
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-<<<<<<< HEAD
 |body|body|[VerifiableCredential](#schemaverifiablecredential) or [VerifiablePresentation](#schemaverifiablepresentation)|true|JSON-schema.|
-=======
-|body|body|object|true|JSON-schema.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 
 > Example responses
 
@@ -3564,21 +3536,13 @@ This is a schema used in some operations that used DID as fully qualified, e.g.,
 
 ```
 
-<<<<<<< HEAD
 DID as fully qualified, e.g., `did:dock:`.
-=======
-DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-<<<<<<< HEAD
 |DID|string|false|none|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated.|
-=======
-|DID|string|false|none|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3598,11 +3562,7 @@ This is a schema type of public key for DID.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-<<<<<<< HEAD
 |KeyType|string|false|none|Type of public key for DID. The default value of the keyType is sr25519|
-=======
-|KeyType|string|false|none|Type of public key for DID.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 
 #### Enumerated Values
 
@@ -3750,17 +3710,10 @@ This is a schema that represents a credential format expected by API caller. The
 |id|string(uri)|false|none|Credential ID.|
 |context|array|false|none|Credential context.|
 |type|[string]|false|none|Credential type.|
-<<<<<<< HEAD
 |subject|object|true|none|Credential subject.|
 |issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`.|
 |issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
-=======
-|subject|object|false|none|Credential subject.|
-|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`.|
-|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format.|
-|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 |status|object or string|false|none|Revocation registry id or user supplied status object.|
 
 <h2 id="tocS_VerifiablePresentation">VerifiablePresentation</h2>
@@ -3876,13 +3829,8 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 |type|[string]|false|none|Credential type.|
 |credentialSubject|any|false|none|Credential subject.|
 |issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
-<<<<<<< HEAD
 |issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
-=======
-|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format.|
-|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 |credentialStatus|any|false|none|Revocation registry id or user supplied status object.|
 |proof|object|false|none|Proof of credential.|
 
@@ -3945,11 +3893,7 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-<<<<<<< HEAD
 |addOnly|boolean|false|none|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
-=======
-|addOnly|boolean|false|none|none.|
->>>>>>> 92bc4cdc319e51ed9f01cd1e50130af265e5e4a1
 |policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`.|
 
 <h2 id="tocS_VerificationResponse">VerificationResponse</h2>
