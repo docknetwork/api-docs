@@ -19,8 +19,6 @@ headingLevel: 2
 
 <h1 id="dock-api">Dock API v1</h1>
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
-
 # Introduction
 <em> A complete solution for creating, managing, and presenting credentials. </em>
 
@@ -394,8 +392,8 @@ To rotate the key of an existing DID, the current key is used to sign an update 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID.|
+|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
+|keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
 
 An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`.
 
@@ -835,9 +833,9 @@ It is important to have a public key of one of its three supported types. Dock s
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID.|
+|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated. |
+|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
+|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is sr25519.|
 
 #### Enumerated Values
 
@@ -852,7 +850,10 @@ It is important to have a public key of one of its three supported types. Dock s
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -1263,8 +1264,8 @@ This is an operation to create and sign a verifiable presentation out of one or 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:`.|
-|challenge|body|string|false|Presentation's Challenge in a string format.|
-|domain|body|string|false|A domain for the proof in a string format.|
+|challenge|body|string|false|Presentation's Challenge in a string format. The default valle for this is `random hex string`.|
+|domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
 
 #### Enumerated Values
@@ -1280,24 +1281,15 @@ This is an operation to create and sign a verifiable presentation out of one or 
 
 ```json
 {
+  
   "@context": [
-    "string"
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
   ],
-  "id": "http://example.com",
-  "type": [
-    "string"
-  ],
-  "credentialSubject": {},
-  "issuer": "did:dock:xyz",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
-  "proof": {
-    "type": "Sr25519Signature2020",
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
+  "id": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
+  "type": ["VerifiablePresentation", "CredentialManagerPresentation"],
+  "verifiableCredential": [{  }],
+  "proof": [{  }]
   }
 }
 ```
@@ -1442,7 +1434,10 @@ A registry can be deleted, leading to all the corresponding revocation ids being
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -1751,7 +1746,10 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -2063,7 +2061,10 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 ```
 
@@ -3336,7 +3337,7 @@ Please note that the verification is an async process that returns an object whe
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema.|
+|body|body|[VerifiableCredential](#schemaverifiablecredential) or [VerifiablePresentation](#schemaverifiablepresentation)|true|JSON-schema.|
 
 > Example responses
 
@@ -3422,7 +3423,10 @@ This is a schema for an API Error.
 ```json
 {
   "id": "string",
-  "data": {}
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
 }
 
 ```
@@ -3540,13 +3544,13 @@ This is a schema used in some operations that used DID as fully qualified, e.g.,
 
 ```
 
-DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.
+DID as fully qualified, e.g., `did:dock:`.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|DID|string|false|none|DID as fully qualified, e.g., `did:dock:` or 32 byte hex string.|
+|DID|string|false|none|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated.|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3566,7 +3570,7 @@ This is a schema type of public key for DID.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|KeyType|string|false|none|Type of public key for DID.|
+|KeyType|string|false|none|Type of public key for DID. The default value of the keyType is sr25519|
 
 #### Enumerated Values
 
@@ -3714,10 +3718,10 @@ This is a schema that represents a credential format expected by API caller. The
 |id|string(uri)|false|none|Credential ID.|
 |context|array|false|none|Credential context.|
 |type|[string]|false|none|Credential type.|
-|subject|object|false|none|Credential subject.|
+|subject|object|true|none|Credential subject.|
 |issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`.|
-|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format.|
-|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format.|
+|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
+|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |status|object or string|false|none|Revocation registry id or user supplied status object.|
 
 <h2 id="tocS_VerifiablePresentation">VerifiablePresentation</h2>
@@ -3833,8 +3837,8 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 |type|[string]|false|none|Credential type.|
 |credentialSubject|any|false|none|Credential subject.|
 |issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
-|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format.|
-|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format.|
+|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
+|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |credentialStatus|any|false|none|Revocation registry id or user supplied status object.|
 |proof|object|false|none|Proof of credential.|
 
@@ -3897,7 +3901,7 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|addOnly|boolean|false|none|none.|
+|addOnly|boolean|false|none|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
 |policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`.|
 
 <h2 id="tocS_VerificationResponse">VerificationResponse</h2>
