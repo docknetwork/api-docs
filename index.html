@@ -315,13 +315,41 @@
             <a href="#dock-api" class="toc-h1 toc-link" data-title="Dock API v1">Dock API v1</a>
           </li>
           <li>
-            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#primary-features" class="toc-h2 toc-link" data-title="Primary Features">Primary Features</a>
+                  </li>
+              </ul>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#prerequisites" class="toc-h2 toc-link" data-title="Prerequisites">Prerequisites</a>
+                  </li>
+                  <li>
+                    <a href="#endpoints" class="toc-h2 toc-link" data-title="Endpoints">Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#architecture-style" class="toc-h2 toc-link" data-title="Architecture Style">Architecture Style</a>
+                  </li>
+                  <li>
+                    <a href="#rate-limits" class="toc-h2 toc-link" data-title="Rate Limits">Rate Limits</a>
+                  </li>
+                  <li>
+                    <a href="#error-handling" class="toc-h2 toc-link" data-title="Error Handling">Error Handling</a>
+                  </li>
+              </ul>
           </li>
           <li>
-            <a href="#dock-api-dids" class="toc-h1 toc-link" data-title="dids">dids</a>
+            <a href="#terminology" class="toc-h1 toc-link" data-title="Terminology">Terminology</a>
+          </li>
+          <li>
+            <a href="#dock-api-dids" class="toc-h1 toc-link" data-title="DIDs">DIDs</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-did" class="toc-h2 toc-link" data-title="Get DID">Get DID</a>
@@ -341,7 +369,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-credentials" class="toc-h1 toc-link" data-title="credentials">credentials</a>
+            <a href="#dock-api-credentials" class="toc-h1 toc-link" data-title="Credentials">Credentials</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#issue-a-credential" class="toc-h2 toc-link" data-title="Issue a credential">Issue a credential</a>
@@ -349,7 +377,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-presentations" class="toc-h1 toc-link" data-title="presentations">presentations</a>
+            <a href="#dock-api-presentations" class="toc-h1 toc-link" data-title="Presentations">Presentations</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#create-a-presentation" class="toc-h2 toc-link" data-title="Create a presentation">Create a presentation</a>
@@ -357,7 +385,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-registries" class="toc-h1 toc-link" data-title="registries">registries</a>
+            <a href="#dock-api-registries" class="toc-h1 toc-link" data-title="Registries">Registries</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#delete-registry" class="toc-h2 toc-link" data-title="Delete registry">Delete registry</a>
@@ -377,7 +405,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-revocationstatus" class="toc-h1 toc-link" data-title="revocationStatus">revocationStatus</a>
+            <a href="#dock-api-revocationstatus" class="toc-h1 toc-link" data-title="Revocation Status">Revocation Status</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-revocation-status" class="toc-h2 toc-link" data-title="Get revocation status">Get revocation status</a>
@@ -385,7 +413,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-schemas" class="toc-h1 toc-link" data-title="schemas">schemas</a>
+            <a href="#dock-api-schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-schema" class="toc-h2 toc-link" data-title="Get schema">Get schema</a>
@@ -399,7 +427,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-anchors" class="toc-h1 toc-link" data-title="anchors">anchors</a>
+            <a href="#dock-api-anchors" class="toc-h1 toc-link" data-title="Anchors">Anchors</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-anchor" class="toc-h2 toc-link" data-title="Get anchor">Get anchor</a>
@@ -413,7 +441,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-jobs" class="toc-h1 toc-link" data-title="jobs">jobs</a>
+            <a href="#dock-api-jobs" class="toc-h1 toc-link" data-title="Jobs">Jobs</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-job-status-and-data" class="toc-h2 toc-link" data-title="Get job status and data">Get job status and data</a>
@@ -421,7 +449,7 @@
               </ul>
           </li>
           <li>
-            <a href="#dock-api-verify" class="toc-h1 toc-link" data-title="verify">verify</a>
+            <a href="#dock-api-verify" class="toc-h1 toc-link" data-title="Verify">Verify</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#verify-a-credential-or-presentation" class="toc-h2 toc-link" data-title="Verify a credential or presentation">Verify a credential or presentation</a>
@@ -504,22 +532,41 @@
         <!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="dock-api">Dock API v1</h1>
+<h1 id='introduction'>Introduction</h1>
+<p><em> A complete solution for creating, managing, and presenting credentials. </em></p>
 
-<blockquote>
-<p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
-</blockquote>
+<p>Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.</p>
 
-<p>Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/</p>
-<h1 id='endpoints'>Endpoints</h1>
-<p>The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for <strong>production</strong>. You can switch to <strong>test mode</strong> in the <a href="https://console.api.dock.io/">API console</a> by clicking the &quot;test mode&quot; toggle in the top right next to your avatar icon. Once in test mode you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.</p>
+<p>Please read  <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
 
+<p>We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.</p>
+<h2 id='primary-features'>Primary Features</h2>
 <ul>
-<li>For production mode, use the endpoint: https://api.dock.io</li>
-<li>For test mode, use the endpoint: https://api-testnet.dock.io</li>
+<li>  Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.</li>
+<li>Create and manage decentralized identities (DIDs).</li>
+<li>Drop anchors on the blockchain for better validation and security.</li>
+<li>Create and assign schemas to credentials for compliance.</li>
+<li>Harness the security of the Dock blockchain, a network run by 50 independent validators.</li>
+<li>Work seamlessly across platforms with Dock’s standards-compliant, interoperable solutions.</li>
 </ul>
+<h1 id='getting-started'>Getting Started</h1><h2 id='prerequisites'>Prerequisites</h2>
+<p>You must first have an account and acquire your credentials (API keys) before accessing the Dock API.</p>
+
+<p>You can register an account and view your API keys in our <a href="https://console.api.dock.io/">console</a>.</p>
+
+<aside class="warning">
+Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
+</aside>
+<h2 id='endpoints'>Endpoints</h2>
+<p>The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to <strong>test mode</strong> in the <a href="https://console.api.dock.io/">API console</a> by clicking the &quot;test mode&quot; toggle in the top right next to your avatar icon. Once in <strong>test mode</strong> you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.</p>
+
+<p>For production mode, use the endpoint: https://api.dock.io
+For test mode, use the endpoint: https://api-testnet.dock.io.</p>
 
 <p>PLEASE NOTE: Any transaction you perform in <strong>test mode</strong> cannot be used for <strong>production</strong>. This means that, for example, any DID created in <strong>test mode</strong> will not work for issuing or verification in <strong>production</strong>.</p>
-<h1 id='authentication'>Authentication</h1>
+<h2 id='authentication'>Authentication</h2>
+<p>The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.</p>
+
 <ul>
 <li>API Key (accessToken)
 
@@ -528,9 +575,73 @@
 </ul></li>
 </ul>
 
-<h1 id="dock-api-dids">dids</h1>
+<aside class="notice">
+An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+</aside>
+<h2 id='architecture-style'>Architecture Style</h2>
+<p>The Dock API is built on the <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.</p>
 
-<p>Operations about DIDs</p>
+<p>HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. We also support UTF-8 encoding style.</p>
+
+<p>The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:</p>
+
+<table><thead>
+<tr>
+<th>HTTP Method</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GET</td>
+<td>Get a representation of the target resource’s state.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Allow the representation included in the request to be processed by the target resource.</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>Be able to partially update a resource (in this case, DID&#39;s).</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Delete the state of the target resource.</td>
+</tr>
+</tbody></table>
+<h2 id='rate-limits'>Rate Limits</h2>
+<p>We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request.</p>
+<h2 id='error-handling'>Error Handling</h2>
+<p>Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.</p>
+
+<p>The table below shows the most frequent HTTP error messages:
+Code | Meaning
+--------- | -----------
+400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
+401 | Unauthorized -- You&#39;re missing or have an invalid API key in the header.
+404 | Not Found -- The page that you&#39;re trying to open could not be found on the server.
+429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
+500 | Server Errors -- Something has gone wrong on the server. Please try to reload the page or clear both cookies and cache.</p>
+<h1 id='terminology'>Terminology</h1>
+<p>It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
+Terminology | Description
+--------- | -----------
+DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.
+Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time.
+Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential.
+Registries | A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. 
+Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.
+Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
+DID Resolver | The tool that initiates the process of learning the DID document.</p>
+
+<h1 id="dock-api-dids">DIDs</h1>
+
+<p>DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.</p>
+
+<p>DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.</p>
+
+<aside class="notice">
+As of now, a DID can have only one key at a time.
+</aside>
 <h2 id='get-did'>Get DID</h2>
 <blockquote>
 <p>Code samples</p>
@@ -623,7 +734,9 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 </code></pre></div>
 <p><code>GET /dids/{did}</code></p>
 
-<p>Resolves a specific DID into a DID document.</p>
+<p>The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.</p>
+
+<p>Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
 
 <h3 id="get-did-parameters">Parameters</h3>
 
@@ -641,7 +754,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <td>path</td>
 <td><a href="#schemadid">DID</a></td>
 <td>true</td>
-<td>A DID</td>
+<td>Represents a specific DID that uniquely identifies the key resource.</td>
 </tr>
 </tbody></table>
 
@@ -673,13 +786,13 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The DIDDoc</td>
+<td>The request was successful and will return the DID doc. To view an example of a DID doc, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
 <td><a href="#schemadiddoc">DIDDoc</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>DID was not found.</td>
+<td>DID entered in parameter was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -788,7 +901,9 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 </code></pre></div>
 <p><code>PATCH /dids/{did}</code></p>
 
-<p>Updates the DID&#39;s key or controller on the blockchain.</p>
+<p>The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <code>keyType</code> parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.</p>
+
+<p>To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -810,52 +925,41 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 </tr>
 </thead><tbody>
 <tr>
-<td>body</td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>Properties of DID</td>
-</tr>
-<tr>
-<td>» controller</td>
-<td>body</td>
-<td><a href="#schemadid">DID</a></td>
-<td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
-</tr>
-<tr>
-<td>» keyType</td>
-<td>body</td>
-<td><a href="#schemakeytype">KeyType</a></td>
-<td>false</td>
-<td>Type of public key for DID</td>
-</tr>
-<tr>
 <td>did</td>
 <td>path</td>
 <td><a href="#schemadid">DID</a></td>
 <td>true</td>
-<td>A DID</td>
+<td>Represents a specific DID that uniquely identifies the key resource.</td>
+</tr>
+<tr>
+<td>controller</td>
+<td>body</td>
+<td><a href="#schemadid">DID</a></td>
+<td>false</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the DID value.</td>
+</tr>
+<tr>
+<td>keyType</td>
+<td>body</td>
+<td><a href="#schemakeytype">KeyType</a></td>
+<td>false</td>
+<td>Type of the public key for DID. The default value of the keyType is sr25519.</td>
 </tr>
 </tbody></table>
+
+<p>An example Dock DID: <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code>.</p>
 <h4 id='enumerated-values'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>» keyType</td>
-<td>sr25519</td>
-</tr>
-<tr>
-<td>» keyType</td>
-<td>ed25519</td>
-</tr>
-<tr>
-<td>» keyType</td>
-<td>secp256k1</td>
+<td>keyType</td>
+<td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1</td>
+<td>keyType signature variants.</td>
 </tr>
 </tbody></table>
 
@@ -879,19 +983,19 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will update DID.</td>
+<td>The request was successful and will update DID.</td>
 <td><a href="#schemajobid">JobId</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Does not own the DID</td>
+<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>DID does not exist</td>
+<td>The DID does not exist.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -992,7 +1096,9 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 </code></pre></div>
 <p><code>DELETE /dids/{did}</code></p>
 
-<p>Deletes a DID from the blockchain, further attempts to resolve this DID will fail.</p>
+<p>A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.</p>
+
+<p>It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.</p>
 
 <h3 id="delete-did-parameters">Parameters</h3>
 
@@ -1010,9 +1116,11 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 <td>path</td>
 <td><a href="#schemadid">DID</a></td>
 <td>true</td>
-<td>A DID</td>
+<td>Represents a specific DID that uniquely identifies the key resource.</td>
 </tr>
 </tbody></table>
+
+<p>An example Dock DID: <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
 
 <blockquote>
 <p>Example responses</p>
@@ -1034,19 +1142,19 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will remove DID.</td>
+<td>The request was successful and will remove DID.</td>
 <td><a href="#schemajobid">JobId</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Does not own the DID</td>
+<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>DID does not exist</td>
+<td>The DID does not exist.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -1147,6 +1255,8 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /dids/</code></p>
 
+<p>Return a list of all user&#39;s DIDs you&#39;ve previously created. The DIDs are returned into a sorted DID document.</p>
+
 <blockquote>
 <p>Example responses</p>
 
@@ -1177,144 +1287,8 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>All of a user&#39;s DIDs fully resolved into DID documents</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="list-dids-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><em>anonymous</em></td>
-<td>[<a href="#schemadiddoc">DIDDoc</a>]</td>
-<td>false</td>
-<td>none</td>
-<td>[DID document. The current set of properties is incomplete]</td>
-</tr>
-<tr>
-<td>» @context</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-<td>JSON-LD context</td>
-</tr>
-</tbody></table>
-
-<p><em>oneOf</em></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>»» <em>anonymous</em></td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p><em>xor</em></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>»» <em>anonymous</em></td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p><em>continued</em></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» id</td>
-<td><a href="#schemadidqualified">DIDQualified</a>(uri)</td>
-<td>false</td>
-<td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
-</tr>
-<tr>
-<td>» authentication</td>
-<td>[oneOf]</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p><em>oneOf</em></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>»» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p><em>xor</em></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>»» <em>anonymous</em></td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
+<td>All of a user&#39;s DIDs fully resolved into DID documents.</td>
+<td><a href="#schemadiddoc">DIDDoc</a></td>
 </tr>
 </tbody></table>
 
@@ -1423,7 +1397,9 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /dids/</code></p>
 
-<p>Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.</p>
+<p>A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.</p>
+
+<p>It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: <code>Sr25519,</code> <code>Ed25519,</code> and <code>EcdsaSecp256k1.</code> These public keys are supported by 3 classes: <code>PublicKeySr25519,</code> <code>PublicKeyEd25519,</code> and <code>PublicKeySecp256k1.</code></p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -1446,32 +1422,25 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </tr>
 </thead><tbody>
 <tr>
-<td>body</td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>Properties of DID</td>
-</tr>
-<tr>
-<td>» did</td>
+<td>did</td>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>. You cannot specify your own DID, the DID value will be randomly generated.</td>
 </tr>
 <tr>
-<td>» controller</td>
+<td>controller</td>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the DID value.</td>
 </tr>
 <tr>
-<td>» keyType</td>
+<td>keyType</td>
 <td>body</td>
 <td><a href="#schemakeytype">KeyType</a></td>
 <td>false</td>
-<td>Type of public key for DID</td>
+<td>Type of public key for DID. The default value of the keyType is sr25519.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-2'>Enumerated Values</h4>
@@ -1479,19 +1448,13 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <tr>
 <th>Parameter</th>
 <th>Value</th>
+<th>Desctiprion</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>» keyType</td>
-<td>sr25519</td>
-</tr>
-<tr>
-<td>» keyType</td>
-<td>ed25519</td>
-</tr>
-<tr>
-<td>» keyType</td>
-<td>secp256k1</td>
+<td>keyType</td>
+<td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1</td>
+<td>keyType signature variants.</td>
 </tr>
 </tbody></table>
 
@@ -1502,7 +1465,10 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="err">did:dock:xyz</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">00</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="create-did-responses">Responses</h3>
@@ -1518,13 +1484,13 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will try to create DID. DID does not exist on network as of now.</td>
+<td>The request was successful and will try to create DID. DID does not exist on network as of now.</td>
 <td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid params</td>
+<td>The request was unsuccessful, because of invalid params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -1534,9 +1500,9 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-credentials">credentials</h1>
+<h1 id="dock-api-credentials">Credentials</h1>
 
-<p>Operations about credentials</p>
+<p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
 <h2 id='issue-a-credential'>Issue a credential</h2>
 <blockquote>
 <p>Code samples</p>
@@ -1649,7 +1615,13 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /credentials/</code></p>
 
-<p>Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.</p>
+<p>To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.</p>
+
+<p>This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., <code>did:dock:</code>) or an object with a property ID that is a uri/DID.</p>
+
+<aside class="notice">
+Issuing counts as a paid transaction.
+</aside>
 
 <blockquote>
 <p>Body parameter</p>
@@ -1673,6 +1645,8 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 </span></code></pre></div>
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
+<p>To view a sample of the parameter usage, please refer <a href="https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html">here</a>.</p>
+
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1683,102 +1657,11 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 </tr>
 </thead><tbody>
 <tr>
-<td>body</td>
-<td>body</td>
-<td>object</td>
-<td>true</td>
-<td>JSON-schema</td>
-</tr>
-<tr>
-<td>» credential</td>
+<td>credential</td>
 <td>body</td>
 <td><a href="#schemacredential">Credential</a></td>
-<td>false</td>
-<td>Credential format expected by API caller. The current set of is almost complete</td>
-</tr>
-<tr>
-<td>»» id</td>
-<td>body</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» context</td>
-<td>body</td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» type</td>
-<td>body</td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» subject</td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» issuer</td>
-<td>body</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td><a href="#schemadidqualified">DIDQualified</a>(uri)</td>
-<td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» issuanceDate</td>
-<td>body</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» expirationDate</td>
-<td>body</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» status</td>
-<td>body</td>
-<td>any</td>
-<td>false</td>
-<td>Revocation registry id or user supplied status object</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
+<td>true</td>
+<td>Credential format expected by API caller.</td>
 </tr>
 </tbody></table>
 
@@ -1822,19 +1705,19 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>A VC.</td>
+<td>The request was successful and return a Verifiable Credential.</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid/insufficient credential params.</td>
+<td>The irequest was unsuccessful, because of Invalid/insufficient credential params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>User does not own DID.</td>
+<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -1844,9 +1727,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-presentations">presentations</h1>
+<h1 id="dock-api-presentations">Presentations</h1>
 
-<p>Operations about presentations</p>
+<p>The presentation is signed using the holder&#39;s private key as it is being created. To validate the presentation, the verifier must also check the issuer&#39;s signature and the holder&#39;s public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key.</p>
+
+<p>The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.</p>
 <h2 id='create-a-presentation'>Create a presentation</h2>
 <blockquote>
 <p>Code samples</p>
@@ -1971,7 +1856,9 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /presentations/</code></p>
 
-<p>Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.</p>
+<p>The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer&#39;s signature, he/she needs to verify this signature as well, and for that he must know the holder&#39;s public key.</p>
+
+<p>This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -2017,193 +1904,32 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 </tr>
 </thead><tbody>
 <tr>
+<td>holder</td>
 <td>body</td>
-<td>body</td>
-<td>object</td>
+<td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>true</td>
-<td>JSON-schema</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
 <tr>
-<td>» holder</td>
-<td>body</td>
-<td><a href="#schemadidqualified">DIDQualified</a>(uri)</td>
-<td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
-</tr>
-<tr>
-<td>» challenge</td>
+<td>challenge</td>
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>Presentation&#39;s Challenge in a string format. The default valle for this is <code>random hex string</code>.</td>
 </tr>
 <tr>
-<td>» domain</td>
+<td>domain</td>
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
+<td>A domain for the proof in a string format. The default value for the domain is <code>dock.io</code>.</td>
 </tr>
 <tr>
-<td>» credentials</td>
+<td>credentials</td>
 <td>body</td>
-<td>[<a href="#schemaverifiablecredential">VerifiableCredential</a>]</td>
+<td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 <td>false</td>
-<td>[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]</td>
-</tr>
-<tr>
-<td>»» @context</td>
-<td>body</td>
-<td>any</td>
-<td>false</td>
-<td>JSON-LD context</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» id</td>
-<td>body</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» type</td>
-<td>body</td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» credentialSubject</td>
-<td>body</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>[object]</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» issuer</td>
-<td>body</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td><a href="#schemadidqualified">DIDQualified</a>(uri)</td>
-<td>false</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» issuanceDate</td>
-<td>body</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» expirationDate</td>
-<td>body</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» credentialStatus</td>
-<td>body</td>
-<td>any</td>
-<td>false</td>
-<td>Revocation registry id or user supplied status object</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» <em>anonymous</em></td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» proof</td>
-<td>body</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» type</td>
-<td>body</td>
-<td><a href="#schemasigtype">SigType</a></td>
-<td>false</td>
-<td>Type of signature</td>
-</tr>
-<tr>
-<td>»»» proofPurpose</td>
-<td>body</td>
-<td><a href="#schemaproofpurpose">ProofPurpose</a></td>
-<td>false</td>
-<td>Purpose of credential</td>
-</tr>
-<tr>
-<td>»»» verificationMethod</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» created</td>
-<td>body</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»»» proofValue</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
+<td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-3'>Enumerated Values</h4>
@@ -2211,27 +1937,18 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <tr>
 <th>Parameter</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>»»» type</td>
-<td>Sr25519Signature2020</td>
+<td>type</td>
+<td>Sr25519Signature2020 <strong>or</strong> Ed25519Signature2018 <strong>or</strong> EcdsaSecp256k1Signature2019</td>
+<td>Type of Signature.</td>
 </tr>
 <tr>
-<td>»»» type</td>
-<td>Ed25519Signature2018</td>
-</tr>
-<tr>
-<td>»»» type</td>
-<td>EcdsaSecp256k1Signature2019</td>
-</tr>
-<tr>
-<td>»»» proofPurpose</td>
-<td>assertionMethod</td>
-</tr>
-<tr>
-<td>»»» proofPurpose</td>
-<td>authentication</td>
+<td>proofPurpose</td>
+<td>assertionMethod <strong>or</strong> authentication</td>
+<td>The type of purpose used for the credential.</td>
 </tr>
 </tbody></table>
 
@@ -2241,24 +1958,15 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+
   </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"https://www.w3.org/2018/credentials/v1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519Signature2020"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"proofPurpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assertionMethod"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"verificationMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"proofValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"VerifiablePresentation"</span><span class="p">,</span><span class="w"> </span><span class="s2">"CredentialManagerPresentation"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"verifiableCredential"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">  </span><span class="p">}],</span><span class="w">
+  </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">  </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2275,19 +1983,19 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>A VC.</td>
+<td>The request was successful and return a Verifiable Credential.</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid/insufficient credential params.</td>
+<td>The request was unsuccessful, because of invalid/insufficient credential params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>User does not own DID.</td>
+<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2297,9 +2005,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-registries">registries</h1>
+<h1 id="dock-api-registries">Registries</h1>
 
-<p>Operations about registries</p>
+<p>Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.</p>
+
+<p>There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.</p>
 <h2 id='delete-registry'>Delete registry</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2392,7 +2102,7 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 </code></pre></div>
 <p><code>DELETE /registries/{id}</code></p>
 
-<p>Deletes a specific registry</p>
+<p>A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.</p>
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
@@ -2410,7 +2120,7 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>Revocation registry id</td>
+<td>Revocation registry id.</td>
 </tr>
 </tbody></table>
 
@@ -2421,7 +2131,10 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="err">did:dock:xyz</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">00</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="delete-registry-responses">Responses</h3>
@@ -2437,13 +2150,13 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Revocation Registry will be deleted</td>
+<td>The request was successful and revocation registry will be deleted.</td>
 <td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Registry was not found.</td>
+<td>The request was unsuccessful, because the registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2544,7 +2257,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 </code></pre></div>
 <p><code>GET /registries/{id}</code></p>
 
-<p>Get the registry details like policy, controller(s)</p>
+<p>Get the details of an existing registry, such as policy, add-only status, when it was last update, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.</p>
 
 <h3 id="get-registry-parameters">Parameters</h3>
 
@@ -2562,7 +2275,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>Revocation registry id</td>
+<td>Revocation registry id.</td>
 </tr>
 </tbody></table>
 
@@ -2591,13 +2304,13 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Revocation Registry metadata</td>
+<td>The request was successful and will return the revocation registry metadata.</td>
 <td><a href="#schemaregistry">Registry</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Registry was not found.</td>
+<td>The request was unsuccessful, because the registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2708,7 +2421,11 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </code></pre></div>
 <p><code>POST /registries/{id}</code></p>
 
-<p>Revoke or unrevoke one or more credential ids</p>
+<p>Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.</p>
+
+<p>Similar to the replay protection mechanism for DIDs, the last modified block number is kept for each registry, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.</p>
+
+<p>In this API, simply add Revoke/Unrevoke into the <code>action</code> parameter and input the desired credential ids.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -2732,32 +2449,25 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </tr>
 </thead><tbody>
 <tr>
-<td>body</td>
-<td>body</td>
-<td>object</td>
-<td>true</td>
-<td>Specify action and credential ids</td>
-</tr>
-<tr>
-<td>» action</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
-<td>» credentialIds</td>
-<td>body</td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-</tr>
-<tr>
 <td>id</td>
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>Revocation registry id</td>
+<td>Revocation registry id.</td>
+</tr>
+<tr>
+<td>action</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>The action taken, either revoke or unrevoke.</td>
+</tr>
+<tr>
+<td>credentialIds</td>
+<td>body</td>
+<td>array</td>
+<td>false</td>
+<td>Represents credential Ids.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-4'>Enumerated Values</h4>
@@ -2765,15 +2475,13 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <tr>
 <th>Parameter</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>» action</td>
-<td>revoke</td>
-</tr>
-<tr>
-<td>» action</td>
-<td>unrevoke</td>
+<td>action</td>
+<td>revoke <strong>or</strong> unrevoke</td>
+<td>Action to take on the registry.</td>
 </tr>
 </tbody></table>
 
@@ -2784,7 +2492,10 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="err">did:dock:xyz</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">00</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="revoke/unrevoke-credential-responses">Responses</h3>
@@ -2800,19 +2511,19 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will try to revoke/unrevoke the credential.</td>
+<td>The request was successful and will try to revoke/unrevoke the credential.</td>
 <td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid params</td>
+<td>The request was unsuccessful, because of invalid params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Registry was not found.</td>
+<td>The request was unsuccessful, because the registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2913,7 +2624,11 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /registries/</code></p>
 
-<p>Get all registries created by user</p>
+<p>Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.</p>
+
+<aside class="notice">
+For now, only one policy is supported, and each registry is owned by a single DID, called `OneOf`.
+</aside>
 
 <blockquote>
 <p>Example responses</p>
@@ -2945,53 +2660,12 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>All registries by user</td>
+<td>The request was successful and will return all registries created by user.</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
 
 <h3 id="list-registries-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» id</td>
-<td><a href="#schemahex32">Hex32</a></td>
-<td>false</td>
-<td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
-</tr>
-<tr>
-<td>» registry</td>
-<td><a href="#schemaregistry">Registry</a></td>
-<td>false</td>
-<td>none</td>
-<td>Revocation registry</td>
-</tr>
-<tr>
-<td>»» addOnly</td>
-<td>boolean</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-<tr>
-<td>»» policy</td>
-<td>[<a href="#schemadid">DID</a>]</td>
-<td>false</td>
-<td>none</td>
-<td>Only one policy supported as of now called <code>OneOf</code></td>
-</tr>
-</tbody></table>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3099,7 +2773,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /registries/</code></p>
 
-<p>Create a Revocation registry on the blockchain</p>
+<p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -3123,25 +2797,18 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </tr>
 </thead><tbody>
 <tr>
-<td>body</td>
-<td>body</td>
-<td><a href="#schemaregistry">Registry</a></td>
-<td>true</td>
-<td>Revocation registry</td>
-</tr>
-<tr>
-<td>» addOnly</td>
+<td>addOnly</td>
 <td>body</td>
 <td>boolean</td>
 <td>false</td>
-<td>none</td>
+<td>True/false options.</td>
 </tr>
 <tr>
-<td>» policy</td>
+<td>policy</td>
 <td>body</td>
 <td>[<a href="#schemadid">DID</a>]</td>
 <td>false</td>
-<td>Only one policy supported as of now called <code>OneOf</code></td>
+<td>The policy is specified in DID id. Only one policy supported as of now called <code>OneOf</code>.</td>
 </tr>
 </tbody></table>
 
@@ -3152,7 +2819,10 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="err">did:dock:xyz</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">00</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="create-registry-responses">Responses</h3>
@@ -3168,13 +2838,13 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will try to create registry.</td>
+<td>The request was successful and will try to create registry.</td>
 <td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid params like policy not supported.</td>
+<td>The request was unsuccessful, because of invalid params, e.g., policy not supported.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -3184,9 +2854,9 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-revocationstatus">revocationStatus</h1>
+<h1 id="dock-api-revocationstatus">Revocation Status</h1>
 
-<p>Operations about revocation_status</p>
+<p>After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.</p>
 <h2 id='get-revocation-status'>Get revocation status</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3279,7 +2949,7 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 </code></pre></div>
 <p><code>GET /revocationStatus/{regId}/{revId}</code></p>
 
-<p>Get the revocation status of a credential</p>
+<p>To check if an id is revoked or not, you can check its status with the registry id (<code>regId</code>) and revocation id (<code>revId</code>).</p>
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
 
@@ -3297,14 +2967,14 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>Revocation registry id</td>
+<td>Revocation registry id.</td>
 </tr>
 <tr>
 <td>revId</td>
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>Credential revocation id</td>
+<td>Credential revocation id.</td>
 </tr>
 </tbody></table>
 
@@ -3330,36 +3000,14 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Returns true of credential is revoked, false otherwise</td>
+<td>The request was successful and will return <strong>true</strong>, if credential is revoked, <strong>false</strong> otherwise.</td>
 <td>Inline</td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Registry was not found.</td>
+<td>The request was unsuccessful, because registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
-</tr>
-</tbody></table>
-
-<h3 id="get-revocation-status-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» type</td>
-<td>boolean</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
 </tr>
 </tbody></table>
 
@@ -3368,9 +3016,11 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-schemas">schemas</h1>
+<h1 id="dock-api-schemas">Schemas</h1>
 
-<p>Operations about schemas</p>
+<p>Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.</p>
+
+<p>Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a <code>Blob</code> in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.</p>
 <h2 id='get-schema'>Get schema</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3463,7 +3113,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 </code></pre></div>
 <p><code>GET /schemas/{schemaId}</code></p>
 
-<p>Returns the JSON schema for a specific ID</p>
+<p>Reading a Schema from the Dock chain can easily be achieved by using the <code>get</code> method from the <code>Schema</code> class and will return the JSON schema to a specific schema ID.</p>
 
 <h3 id="get-schema-parameters">Parameters</h3>
 
@@ -3481,7 +3131,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>A schema id</td>
+<td>A schema id.</td>
 </tr>
 </tbody></table>
 
@@ -3508,43 +3158,14 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Schema</td>
+<td>The request was successful and return a Schema.</td>
 <td>Inline</td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Schema was not found.</td>
+<td>The request was unsuccessful, because the schema was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
-</tr>
-</tbody></table>
-
-<h3 id="get-schema-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» id</td>
-<td><a href="#schemahex32">Hex32</a></td>
-<td>false</td>
-<td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
-</tr>
-<tr>
-<td>» schema</td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
 </tr>
 </tbody></table>
 
@@ -3644,7 +3265,7 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /schemas/</code></p>
 
-<p>Get all schemas created by user</p>
+<p>Return a list of all schemas created by user.</p>
 
 <blockquote>
 <p>Example responses</p>
@@ -3668,12 +3289,10 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>All schemas by user</td>
+<td>The request was successful and will return all schemas created by User.</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
-
-<h3 id="list-schemas-responseschema">Response Schema</h3>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -3776,7 +3395,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /schemas/</code></p>
 
-<p>Creates a JSON schema on the blockchain</p>
+<p>The first step to creating a Schema is to initialize it. We can do that using the <code>Schema</code> class constructor, which accepts an (optional) id string as the sole argument. When an id isn&#39;t passed, a random <code>blobId</code> will be assigned as the schema&#39;s id.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -3799,7 +3418,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 <td>body</td>
 <td>object</td>
 <td>true</td>
-<td>JSON-schema</td>
+<td>JSON-schema.</td>
 </tr>
 </tbody></table>
 
@@ -3823,13 +3442,13 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will try to create schema.</td>
+<td>The request was successful and will try to create schema.</td>
 <td><a href="#schemajobid">JobId</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid params like size not supported or not JSON.</td>
+<td>The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -3839,9 +3458,13 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-anchors">anchors</h1>
+<h1 id="dock-api-anchors">Anchors</h1>
 
-<p>Operations about anchors</p>
+<p>Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.</p>
+
+<p>The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block.</p>
+
+<p>The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.</p>
 <h2 id='get-anchor'>Get anchor</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3934,7 +3557,7 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 </code></pre></div>
 <p><code>GET /anchors/{anchor}</code></p>
 
-<p>Gets a specific anchor by ID</p>
+<p>Get a specific anchor with the given ID.</p>
 
 <h3 id="get-anchor-parameters">Parameters</h3>
 
@@ -3952,7 +3575,7 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>An anchor</td>
+<td>An anchor id.</td>
 </tr>
 </tbody></table>
 
@@ -3980,13 +3603,13 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Anchor</td>
+<td>The request was successful and return an anchor&#39;s details, e.g., <code>blockHash</code> and <code>root</code>.</td>
 <td><a href="#schemaanchor">Anchor</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Anchor was not found.</td>
+<td>The request was unsuccessful, because the anchor was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -4087,7 +3710,7 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 </code></pre></div>
 <p><code>GET /anchors/</code></p>
 
-<p>Get all anchors created by user</p>
+<p>Return a list of all anchors created by user, whether have contributed to the batching or not.</p>
 
 <blockquote>
 <p>Example responses</p>
@@ -4111,12 +3734,10 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>All anchors by user</td>
+<td>The request was successful and will return all anchors created by User.</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
-
-<h3 id="list-anchors-responseschema">Response Schema</h3>
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
@@ -4221,7 +3842,9 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /anchors/</code></p>
 
-<p>Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored</p>
+<p>To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.</p>
+
+<p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -4246,7 +3869,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 <td>body</td>
 <td>any</td>
 <td>true</td>
-<td>Documents</td>
+<td>Documents.</td>
 </tr>
 </tbody></table>
 
@@ -4270,13 +3893,13 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Will try to create Anchor. Anchor does not exist on network as of now.</td>
+<td>The request was successful and will try to create Anchor. Anchor does not exist on network as of now.</td>
 <td><a href="#schemajobid">JobId</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid params</td>
+<td>The request was unsuccessful, because of invalid params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -4286,9 +3909,9 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-jobs">jobs</h1>
+<h1 id="dock-api-jobs">Jobs</h1>
 
-<p>Operations about jobs</p>
+<p>This section describes API resources to get job status and data with using a spesific Job id.</p>
 <h2 id='get-job-status-and-data'>Get job status and data</h2>
 <blockquote>
 <p>Code samples</p>
@@ -4381,7 +4004,7 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 </code></pre></div>
 <p><code>GET /jobs/{id}</code></p>
 
-<p>Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.</p>
+<p>To check the Job status and data, you can use the <code>GET</code> method and simply put the Job id. It will return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.</p>
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
 
@@ -4399,7 +4022,7 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <td>path</td>
 <td><a href="#schemajobid">JobId</a></td>
 <td>true</td>
-<td>A Job id</td>
+<td>Represents a Job id.</td>
 </tr>
 </tbody></table>
 
@@ -4427,13 +4050,13 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Job desc</td>
+<td>The request was successful and return a Job desc.</td>
 <td><a href="#schemajobdesc">JobDesc</a></td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Job id was not found.</td>
+<td>The request was unsuccessful, because the Job id was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -4443,7 +4066,9 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="dock-api-verify">verify</h1>
+<h1 id="dock-api-verify">Verify</h1>
+
+<p>Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
 <h2 id='verify-a-credential-or-presentation'>Verify a credential or presentation</h2>
 <blockquote>
 <p>Code samples</p>
@@ -4541,7 +4166,11 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 </code></pre></div>
 <p><code>POST /verify/</code></p>
 
-<p>Verifies a VCDM credential or presentation JSON-LD object.</p>
+<p>Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.</p>
+
+<p>Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.</p>
+
+<p>Please note that the verification is an async process that returns an object when the promise resolves. This object contains separate results for the verification processes of the included Verifiable Credentials and the overall Verifiable Presentation.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -4562,9 +4191,9 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <tr>
 <td>body</td>
 <td>body</td>
-<td>object</td>
+<td><a href="#schemaverifiablecredential">VerifiableCredential</a> or <a href="#schemaverifiablepresentation">VerifiablePresentation</a></td>
 <td>true</td>
-<td>JSON-schema</td>
+<td>JSON-schema.</td>
 </tr>
 </tbody></table>
 
@@ -4590,13 +4219,13 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The verification result</td>
+<td>The request was successful and will return the verification result.</td>
 <td><a href="#schemaverificationresponse">VerificationResponse</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>Invalid/insufficient credential params.</td>
+<td>The request was unsuccessful, because of invalid/insufficient credential params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -4606,6 +4235,10 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 <h1 id='schemas'>Schemas</h1>
+<p>Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.</p>
+
+<p>These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.</p>
+
 <h2 id="tocS_Error">Error</h2>
 
 <!-- backwards compatibility -->
@@ -4621,7 +4254,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>An API Error</p>
+<p>This is a schema for an API Error.</p>
 <h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
@@ -4637,21 +4270,21 @@ accessToken
 <td>integer</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Status of the error.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Type of the error.</td>
 </tr>
 <tr>
 <td>message</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Message of the error.</td>
 </tr>
 </tbody></table>
 
@@ -4666,7 +4299,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
 
 </span></code></pre></div>
-<p>32 byte hex string. Ignoring higher base (base64) for similicity.</p>
+<p>32 byte hex string. Ignoring higher base (base64) for simplicity.</p>
 <h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
@@ -4678,11 +4311,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>Hex32</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
 </tr>
 </tbody></table>
 
@@ -4696,11 +4329,14 @@ accessToken
 <a id="tocsjobstartedresult"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="err">did:dock:xyz</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">00</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Object containing unique id of the background task and associated data. This id can be used to query the job status</p>
+<p>Object containing unique id of the background task and associated data. This id can be used to query the job status.</p>
 <h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
@@ -4716,14 +4352,14 @@ accessToken
 <td><a href="#schemajobid">JobId</a></td>
 <td>false</td>
 <td>none</td>
-<td>Unique id of the background task. This id can be used to query the job status</td>
+<td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 <tr>
 <td>data</td>
 <td>object</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Data of the object.</td>
 </tr>
 </tbody></table>
 
@@ -4750,11 +4386,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>JobId</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Unique id of the background task. This id can be used to query the job status</td>
+<td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 </tbody></table>
 
@@ -4769,7 +4405,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"todo"</span><span class="w">
 
 </span></code></pre></div>
-<p>Status of the job.</p>
+<p>This is a schema used in Job operation to get a status of the job.</p>
 <h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
@@ -4781,7 +4417,7 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>JobStatus</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
@@ -4793,23 +4429,13 @@ accessToken
 <tr>
 <th>Property</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
-<td>todo</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>finalized</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>in_progress</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>error</td>
+<td>JobStatus</td>
+<td>todo <strong>or</strong> finalized <strong>or</strong> in_progress <strong>or</strong> error.</td>
+<td>Job Status variants.</td>
 </tr>
 </tbody></table>
 
@@ -4828,7 +4454,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Description of the job including result if available</p>
+<p>This is a schema used in Job operation to get description of the job including result if available.</p>
 <h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
@@ -4844,7 +4470,7 @@ accessToken
 <td><a href="#schemajobid">JobId</a></td>
 <td>false</td>
 <td>none</td>
-<td>Unique id of the background task. This id can be used to query the job status</td>
+<td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 <tr>
 <td>status</td>
@@ -4858,7 +4484,7 @@ accessToken
 <td>object</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Result of the Job.</td>
 </tr>
 </tbody></table>
 
@@ -4873,7 +4499,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
-<p>DID as fully qualified, eg. <code>did:dock:</code>.</p>
+<p>This is a schema used in some operations that used DID as fully qualified, e.g., <code>did:dock:</code>.</p>
 <h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
@@ -4885,11 +4511,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>DIDQualified</td>
 <td>string(uri)</td>
 <td>false</td>
 <td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
 </tbody></table>
 
@@ -4904,7 +4530,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
-<p>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</p>
+<p>DID as fully qualified, e.g., <code>did:dock:</code>.</p>
 <h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
@@ -4916,11 +4542,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>DID</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code> or 32 byte hex string</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>. You cannot specify your own DID, the DID value will be randomly generated.</td>
 </tr>
 </tbody></table>
 
@@ -4935,7 +4561,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"sr25519"</span><span class="w">
 
 </span></code></pre></div>
-<p>Type of public key for DID</p>
+<p>This is a schema type of public key for DID.</p>
 <h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
@@ -4947,11 +4573,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>KeyType</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Type of public key for DID</td>
+<td>Type of public key for DID. The default value of the keyType is sr25519</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-6'>Enumerated Values</h4>
@@ -4959,19 +4585,13 @@ accessToken
 <tr>
 <th>Property</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
-<td>sr25519</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>ed25519</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>secp256k1</td>
+<td>KeyType</td>
+<td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1</td>
+<td>keyType DID variants.</td>
 </tr>
 </tbody></table>
 
@@ -4986,7 +4606,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"Sr25519Signature2020"</span><span class="w">
 
 </span></code></pre></div>
-<p>Type of signature</p>
+<p>This is a schema used in Presentation operation that represents a type of signature.</p>
 <h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
@@ -4998,11 +4618,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>SigType</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Type of signature</td>
+<td>Type of signature.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-7'>Enumerated Values</h4>
@@ -5010,19 +4630,13 @@ accessToken
 <tr>
 <th>Property</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
-<td>Sr25519Signature2020</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>Ed25519Signature2018</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>EcdsaSecp256k1Signature2019</td>
+<td>SigType</td>
+<td>Sr25519Signature2020 <strong>or</strong> Ed25519Signature2018 <strong>or</strong> EcdsaSecp256k1Signature2019</td>
+<td>SigType signature variants.</td>
 </tr>
 </tbody></table>
 
@@ -5037,7 +4651,7 @@ accessToken
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"assertionMethod"</span><span class="w">
 
 </span></code></pre></div>
-<p>Purpose of credential</p>
+<p>This is a schema that represents a purpose of credential.</p>
 <h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
@@ -5049,11 +4663,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
+<td>ProofPurpose</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>Purpose of credential</td>
+<td>Purpose of credential.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-8'>Enumerated Values</h4>
@@ -5061,15 +4675,13 @@ accessToken
 <tr>
 <th>Property</th>
 <th>Value</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
-<td>assertionMethod</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>authentication</td>
+<td>ProofPurpose</td>
+<td>assertionMethod <strong>or</strong> authentication</td>
+<td>Purpose of credential.</td>
 </tr>
 </tbody></table>
 
@@ -5086,10 +4698,8 @@ accessToken
 </span><span class="p">]</span><span class="w">
 
 </span></code></pre></div>
-<p>JSON-LD context</p>
+<p>This is a schema that represents a JSON-LD context used in DID and Presentation.</p>
 <h3 id='properties-12'>Properties</h3>
-<p>oneOf</p>
-
 <table><thead>
 <tr>
 <th>Name</th>
@@ -5100,31 +4710,11 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td><em>anonymous</em></td>
-<td>[string]</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><em>anonymous</em></td>
+<td>Context</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>JSON-LD context</td>
 </tr>
 </tbody></table>
 
@@ -5147,7 +4737,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>DID document. The current set of properties is incomplete</p>
+<p>This is a schema that represents a DID document. The current set of properties is incomplete</p>
 <h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
@@ -5163,61 +4753,21 @@ accessToken
 <td><a href="#schemacontext">Context</a></td>
 <td>false</td>
 <td>none</td>
-<td>JSON-LD context</td>
+<td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
 <td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
 <tr>
 <td>authentication</td>
-<td>[oneOf]</td>
+<td>array</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
+<td>DID authentication.</td>
 </tr>
 </tbody></table>
 
@@ -5245,7 +4795,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Credential format expected by API caller. The current set of is almost complete</p>
+<p>This is a schema that represents a credential format expected by API caller. The current set of is almost complete.</p>
 <h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
@@ -5261,149 +4811,56 @@ accessToken
 <td>string(uri)</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Credential ID.</td>
 </tr>
 <tr>
 <td>context</td>
-<td>[string]</td>
+<td>array</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Credential context.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>[string]</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Credential type.</td>
 </tr>
 <tr>
 <td>subject</td>
 <td>object</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>none</td>
+<td>Credential subject.</td>
 </tr>
 <tr>
 <td>issuer</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
 <td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
+<td>Credential issuer. DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>continued</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>issuanceDate</td>
-<td>string(date-time)</td>
+<td>string(date-time[RFC3339])</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.</td>
 </tr>
 <tr>
 <td>expirationDate</td>
-<td>string(date-time)</td>
+<td>string(date-time[RFC3339])</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.</td>
 </tr>
 <tr>
 <td>status</td>
-<td>any</td>
+<td>object or string</td>
 <td>false</td>
 <td>none</td>
-<td>Revocation registry id or user supplied status object</td>
-</tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
+<td>Revocation registry id or user supplied status object.</td>
 </tr>
 </tbody></table>
 
@@ -5454,7 +4911,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Verifiable (signed) Presentation returned by API. The current set of properties is almost complete</p>
+<p>This is a schema that represents a Verifiable (signed) Presentation returned by API. The current set of properties is almost complete</p>
 <h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
@@ -5470,123 +4927,83 @@ accessToken
 <td><a href="#schemacontext">Context</a></td>
 <td>false</td>
 <td>none</td>
-<td>JSON-LD context</td>
+<td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td>string(uri)</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Verifiable (signed) presentation id.</td>
 </tr>
 <tr>
 <td>type</td>
-<td>[string]</td>
+<td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Verifiable (signed) presentation type.</td>
 </tr>
 <tr>
 <td>verifiableCredential</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 <td>false</td>
 <td>none</td>
-<td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete</td>
+<td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete.</td>
 </tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>[<a href="#schemaverifiablecredential">VerifiableCredential</a>]</td>
-<td>false</td>
-<td>none</td>
-<td>[Verifiable (signed) Credential returned by API. The current set of properties is almost complete]</td>
-</tr>
-</tbody></table>
-
-<p>continued</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>proof</td>
 <td>object</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Proof of credential.</td>
 </tr>
+</tbody></table>
+
+<h3 id="ProofChildParameterPresentation">Child Parameters of Proof</h3>
+
+<table><thead>
 <tr>
-<td>» type</td>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
 <td><a href="#schemasigtype">SigType</a></td>
 <td>false</td>
 <td>none</td>
-<td>Type of signature</td>
+<td>Type of signature.</td>
 </tr>
 <tr>
-<td>» proofPurpose</td>
+<td>proofPurpose</td>
 <td><a href="#schemaproofpurpose">ProofPurpose</a></td>
 <td>false</td>
 <td>none</td>
-<td>Purpose of credential</td>
+<td>Purpose of credential.</td>
 </tr>
 <tr>
-<td>» verificationMethod</td>
+<td>verificationMethod</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Verification method.</td>
 </tr>
 <tr>
-<td>» created</td>
-<td>string(date-time)</td>
+<td>created</td>
+<td>string(date-time[RFC3339])</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The date and time in GMT that the credential was created specified in RFC 3339 format.</td>
 </tr>
 <tr>
-<td>» proofValue</td>
+<td>proofValue</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Value of credential.</td>
 </tr>
 </tbody></table>
 
@@ -5621,7 +5038,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Verifiable (signed) Credential returned by API. The current set of properties is almost complete</p>
+<p>This is a schema that represents a verifiable (signed) Credential returned by API. The current set of properties is almost complete.</p>
 <h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
@@ -5637,257 +5054,111 @@ accessToken
 <td><a href="#schemacontext">Context</a></td>
 <td>false</td>
 <td>none</td>
-<td>JSON-LD context</td>
+<td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td>string(uri)</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Credential id.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>[string]</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Credential type.</td>
 </tr>
 <tr>
 <td>credentialSubject</td>
 <td>any</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Credential subject.</td>
 </tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>[object]</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>continued</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>issuer</td>
-<td>any</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
 <td>none</td>
-<td>DID as fully qualified, eg. <code>did:dock:</code>.</td>
+<td>Credential issuer or DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>continued</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>issuanceDate</td>
-<td>string(date-time)</td>
+<td>string(date-time[RFC3339])</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.</td>
 </tr>
 <tr>
 <td>expirationDate</td>
-<td>string(date-time)</td>
+<td>string(date-time[RFC3339])</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.</td>
 </tr>
 <tr>
 <td>credentialStatus</td>
 <td>any</td>
 <td>false</td>
 <td>none</td>
-<td>Revocation registry id or user supplied status object</td>
+<td>Revocation registry id or user supplied status object.</td>
 </tr>
-</tbody></table>
-
-<p>oneOf</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>object</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>xor</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» <em>anonymous</em></td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>none</td>
-</tr>
-</tbody></table>
-
-<p>continued</p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>proof</td>
 <td>object</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Proof of credential.</td>
 </tr>
+</tbody></table>
+
+<h3 id="ProofChildParameterCredentials">Child Parameters of Proof</h3>
+
+<table><thead>
 <tr>
-<td>» type</td>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
 <td><a href="#schemasigtype">SigType</a></td>
 <td>false</td>
 <td>none</td>
-<td>Type of signature</td>
+<td>Type of signature.</td>
 </tr>
 <tr>
-<td>» proofPurpose</td>
+<td>proofPurpose</td>
 <td><a href="#schemaproofpurpose">ProofPurpose</a></td>
 <td>false</td>
 <td>none</td>
-<td>Purpose of credential</td>
+<td>Purpose of credential.</td>
 </tr>
 <tr>
-<td>» verificationMethod</td>
+<td>verificationMethod</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Verification method.</td>
 </tr>
 <tr>
-<td>» created</td>
-<td>string(date-time)</td>
+<td>created</td>
+<td>string(date-time[RFC3339])</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The date and time in GMT that the credential was created specified in RFC 3339 format.</td>
 </tr>
 <tr>
-<td>» proofValue</td>
+<td>proofValue</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Value of credential.</td>
 </tr>
 </tbody></table>
 
@@ -5906,7 +5177,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.</p>
+<p>An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.</p>
 <h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
@@ -5922,21 +5193,21 @@ accessToken
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
 </tr>
 <tr>
 <td>blockHash</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
 </tr>
 <tr>
 <td>root</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>false</td>
 <td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for similicity.</td>
+<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
 </tr>
 </tbody></table>
 
@@ -5956,7 +5227,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Revocation registry</p>
+<p>This is a schema that represents a Revocation registry used in Revocation or Unrevocation.</p>
 <h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
@@ -5972,14 +5243,14 @@ accessToken
 <td>boolean</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>If the <code>addOnly</code> value is true, they cannot unrevoke and delete the registry. The default value for this is <code>false</code>.</td>
 </tr>
 <tr>
 <td>policy</td>
 <td>[<a href="#schemadid">DID</a>]</td>
 <td>false</td>
 <td>none</td>
-<td>Only one policy supported as of now called <code>OneOf</code></td>
+<td>Only one policy supported as of now called <code>OneOf</code>.</td>
 </tr>
 </tbody></table>
 
@@ -5996,7 +5267,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Whether a credential/presentation is verified or not</p>
+<p>This is a schema that used to define whether a credential/presentation is verified or not</p>
 <h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
@@ -6012,7 +5283,7 @@ accessToken
 <td>boolean</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Describes whether the credential/presentation is verified or not.</td>
 </tr>
 </tbody></table>
 
@@ -6029,7 +5300,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>Default response</p>
+<p>This is a schema that represents a default response for a request made.</p>
 <h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
@@ -6045,7 +5316,7 @@ accessToken
 <td>integer</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Represents the integer value of the code response.</td>
 </tr>
 </tbody></table>
 
