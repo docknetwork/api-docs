@@ -26,6 +26,8 @@ Dock provides a range of tools incorporating blockchain technology that enable b
 
 Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
+In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples). 
+
 We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.
 
 ## Primary Features
@@ -667,7 +669,7 @@ func main() {
 
 ```
 
-`GET /dids/`
+`GET /dids`
 
 Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
 
@@ -813,7 +815,7 @@ func main() {
 
 ```
 
-`POST /dids/`
+`POST /dids`
 
 A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
@@ -997,7 +999,7 @@ func main() {
 
 ```
 
-`POST /credentials/`
+`POST /credentials`
 
 To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
 
@@ -1220,7 +1222,7 @@ func main() {
 
 ```
 
-`POST /presentations/`
+`POST /presentations`
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
@@ -1870,7 +1872,7 @@ func main() {
 
 ```
 
-`GET /registries/`
+`GET /registries`
 
 Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.
 
@@ -2024,7 +2026,7 @@ func main() {
 
 ```
 
-`POST /registries/`
+`POST /registries`
 
 To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
@@ -2460,7 +2462,7 @@ func main() {
 
 ```
 
-`GET /schemas/`
+`GET /schemas`
 
 Return a list of all schemas created by user.
 
@@ -2594,7 +2596,7 @@ func main() {
 
 ```
 
-`POST /schemas/`
+`POST /schemas`
 
 The first step to creating a Schema is to initialize it. We can do that using the `Schema` class constructor, which accepts an (optional) id string as the sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
 
@@ -2880,7 +2882,7 @@ func main() {
 
 ```
 
-`GET /anchors/`
+`GET /anchors`
 
 Return a list of all anchors created by user, whether have contributed to the batching or not.
 
@@ -3016,7 +3018,7 @@ func main() {
 
 ```
 
-`POST /anchors/`
+`POST /anchors`
 
 To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.
 
@@ -3311,7 +3313,7 @@ func main() {
 
 ```
 
-`POST /verify/`
+`POST /verify`
 
 Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.
 
