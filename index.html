@@ -539,7 +539,7 @@
 
 <p>Please read  <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
 
-<p>In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access <a href="https://github.com/docknetwork/dock-api-js/tree/main/examples">here</a>. </p>
+<p>In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access <a href="https://github.com/docknetwork/dock-api-js/tree/main/examples">here</a>.</p>
 
 <p>We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.</p>
 <h2 id='primary-features'>Primary Features</h2>
@@ -624,16 +624,43 @@ Code | Meaning
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
 500 | Server Errors -- Something has gone wrong on the server. Please try to reload the page or clear both cookies and cache.</p>
 <h1 id='terminology'>Terminology</h1>
-<p>It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
-Terminology | Description
---------- | -----------
-DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.
-Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time.
-Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential.
-Registries | A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. 
-Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.
-Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
-DID Resolver | The tool that initiates the process of learning the DID document.</p>
+<p>It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:</p>
+
+<table><thead>
+<tr>
+<th>Terminology</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>DID</td>
+<td>DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
+</tr>
+<tr>
+<td>Anchoring</td>
+<td>A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time.</td>
+</tr>
+<tr>
+<td>Data Schema</td>
+<td>The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential.</td>
+</tr>
+<tr>
+<td>Registries</td>
+<td>A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. </td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.</td>
+</tr>
+<tr>
+<td>Blob</td>
+<td>Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.</td>
+</tr>
+<tr>
+<td>DID Resolver</td>
+<td>The tool that initiates the process of learning the DID document.</td>
+</tr>
+</tbody></table>
 
 <h1 id="dock-api-dids">DIDs</h1>
 
