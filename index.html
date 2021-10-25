@@ -2495,7 +2495,7 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <td>credentialIds</td>
 <td>body</td>
 <td>array</td>
-<td>false</td>
+<td>true</td>
 <td>Represents credential Ids.</td>
 </tr>
 </tbody></table>
@@ -2836,8 +2836,8 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <td>policy</td>
 <td>body</td>
 <td>[<a href="#schemadid">DID</a>]</td>
-<td>false</td>
-<td>The policy is specified in DID id. Only one policy supported as of now called <code>OneOf</code>.</td>
+<td>true</td>
+<td>The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: <code>OneOf</code> DID in list.</td>
 </tr>
 </tbody></table>
 
@@ -4824,7 +4824,7 @@ accessToken
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This is a schema that represents a credential format expected by API caller. The current set of is almost complete.</p>
+<p>This is a schema that represents a credential format expected by API caller.</p>
 <h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
@@ -4868,7 +4868,7 @@ accessToken
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
 <td>none</td>
-<td>Credential issuer. DID as fully qualified, e.g., <code>did:dock:</code>.</td>
+<td>Credential issuer. DID as fully qualified, e.g., <code>did:dock:</code>. If not supplied the credential will not be signed.</td>
 </tr>
 <tr>
 <td>issuanceDate</td>
@@ -4954,35 +4954,35 @@ accessToken
 <tr>
 <td>@context</td>
 <td><a href="#schemacontext">Context</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td>string(uri)</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Verifiable (signed) presentation id.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Verifiable (signed) presentation type.</td>
 </tr>
 <tr>
 <td>verifiableCredential</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete.</td>
 </tr>
 <tr>
 <td>proof</td>
 <td>object</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Proof of credential.</td>
 </tr>
@@ -5002,35 +5002,35 @@ accessToken
 <tr>
 <td>type</td>
 <td><a href="#schemasigtype">SigType</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Type of signature.</td>
 </tr>
 <tr>
 <td>proofPurpose</td>
 <td><a href="#schemaproofpurpose">ProofPurpose</a></td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Purpose of credential.</td>
 </tr>
 <tr>
 <td>verificationMethod</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Verification method.</td>
 </tr>
 <tr>
 <td>created</td>
 <td>string(date-time[RFC3339])</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>The date and time in GMT that the credential was created specified in RFC 3339 format.</td>
 </tr>
 <tr>
 <td>proofValue</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
 <td>Value of credential.</td>
 </tr>
