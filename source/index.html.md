@@ -1735,7 +1735,7 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
 |---|---|---|---|---|
 |id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
 |action|body|string|false|The action taken, either revoke or unrevoke.|
-|credentialIds|body|array|false|Represents credential Ids.|
+|credentialIds|body|array|true|Represents credential Ids.|
 
 #### Enumerated Values
 
@@ -2048,7 +2048,7 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |addOnly|body|boolean|false|True/false options.|
-|policy|body|[[DID](#schemadid)]|false|The policy is specified in DID id. Only one policy supported as of now called `OneOf`.|
+|policy|body|[[DID](#schemadid)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
 
 > Example responses
 
@@ -3705,7 +3705,7 @@ This is a schema that represents a DID document. The current set of properties i
 
 ```
 
-This is a schema that represents a credential format expected by API caller. The current set of is almost complete.
+This is a schema that represents a credential format expected by API caller.
 
 ### Properties
 
@@ -3715,7 +3715,7 @@ This is a schema that represents a credential format expected by API caller. The
 |context|array|false|none|Credential context.|
 |type|[string]|false|none|Credential type.|
 |subject|object|true|none|Credential subject.|
-|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`.|
+|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |status|object or string|false|none|Revocation registry id or user supplied status object.|
@@ -3774,21 +3774,21 @@ This is a schema that represents a Verifiable (signed) Presentation returned by 
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|@context|[Context](#schemacontext)|false|none|JSON-LD context.|
-|id|string(uri)|false|none|Verifiable (signed) presentation id.|
-|type|string|false|none|Verifiable (signed) presentation type.|
-|verifiableCredential|[VerifiableCredential](#schemaverifiablecredential)|false|none|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
-|proof|object|false|none|Proof of credential.|
+|@context|[Context](#schemacontext)|true|none|JSON-LD context.|
+|id|string(uri)|true|none|Verifiable (signed) presentation id.|
+|type|string|true|none|Verifiable (signed) presentation type.|
+|verifiableCredential|[VerifiableCredential](#schemaverifiablecredential)|true|none|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
+|proof|object|true|none|Proof of credential.|
 
 <h3 id="ProofChildParameterPresentation">Child Parameters of Proof</h3>
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|type|[SigType](#schemasigtype)|false|none|Type of signature.|
-|proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential.|
-|verificationMethod|string|false|none|Verification method.|
-|created|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was created specified in RFC 3339 format.|
-|proofValue|string|false|none|Value of credential.|
+|type|[SigType](#schemasigtype)|true|none|Type of signature.|
+|proofPurpose|[ProofPurpose](#schemaproofpurpose)|true|none|Purpose of credential.|
+|verificationMethod|string|true|none|Verification method.|
+|created|string(date-time[RFC3339])|true|none|The date and time in GMT that the credential was created specified in RFC 3339 format.|
+|proofValue|string|true|none|Value of credential.|
 
 <h2 id="tocS_VerifiableCredential">VerifiableCredential</h2>
 <!-- backwards compatibility -->
