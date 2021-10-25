@@ -26,7 +26,7 @@ Dock provides a range of tools incorporating blockchain technology that enable b
 
 Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
-In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples). 
+In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
 
 We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.
 
@@ -98,6 +98,8 @@ Code | Meaning
 
 # Terminology
 It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
+
+
 Terminology | Description
 --------- | -----------
 DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).
@@ -1283,7 +1285,7 @@ This is an operation to create and sign a verifiable presentation out of one or 
 
 ```json
 {
-  
+
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
     "https://www.w3.org/2018/credentials/examples/v1"
