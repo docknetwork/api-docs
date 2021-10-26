@@ -61,7 +61,7 @@ The Dock API uses API keys to authenticate requests. You can obtain an API Key b
     - OR HTTP Bearer Authorization
 
 <aside class="notice">
-An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+When you generate an API key, you may include a list of whitelisted IP's that can use with that key.
 </aside>
 
 ## Architecture Style
