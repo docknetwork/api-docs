@@ -52,13 +52,13 @@ Keep in mind that your API keys have a lot of advantages, so keep them safe! Do 
 ## Endpoints
 The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
 
-For production mode, use the endpoint: https://api.dock.io
-For test mode, use the endpoint: https://api-testnet.dock.io.
+- For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
+- For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
 ## Authentication
-The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
+The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into [the api console](https://console.api.dock.io). For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
 
 * API Key (accessToken)
     - Parameter Name: **DOCK-API-TOKEN**, in: header.
@@ -82,7 +82,7 @@ PATCH | Be able to partially update a resource (in this case, DID's).
 DELETE | Delete the state of the target resource.
 
 ## Rate Limits
-We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request.
+We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will receive a 429 Too Many Requests response and have to wait up to a minute for the next request.
 
 ## Error Handling
 Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.
