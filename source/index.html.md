@@ -1885,8 +1885,6 @@ For now, only one policy is supported, and each registry is owned by a single DI
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by user.|Inline|
 
-<h3 id="list-registries-responseschema">Response Schema</h3>
-
 
 ## Create registry
 
