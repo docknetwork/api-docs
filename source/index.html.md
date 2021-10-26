@@ -83,6 +83,8 @@ We allow you to make up to 200 requests in a 2 minute window (avg 100 reqs/min o
 Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.
 
 The table below shows the most frequent HTTP error messages:
+
+
 Code | Meaning
 --------- | -----------
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
