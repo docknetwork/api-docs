@@ -404,6 +404,10 @@ The public key or the controller of an on-chain DID can be updated by preparing 
 
 To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -551,6 +555,10 @@ func main() {
 A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.
 
 It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="delete-did-parameters">Parameters</h3>
 
@@ -831,6 +839,10 @@ It is important to have a public key of one of its three supported types. Dock s
 }
 ```
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="create-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -1000,7 +1012,7 @@ To issue a verifiable credential, the issuer needs to have a public key that is 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
 <aside class="warning">
-This operation counts towards your monthly limits for each successful call when requesting a <strong>signed</strong> credential
+This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential
 </aside>
 
 > Body parameter
@@ -1216,7 +1228,7 @@ The holder while creating the presentation signs it with his private key. For th
 This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
 
 <aside class="warning">
-This operation counts towards your monthly limits for each successful call
+This operation counts towards your monthly transaction limits for each successful call
 </aside>
 
 > Body parameter
@@ -1407,6 +1419,10 @@ func main() {
 `DELETE /registries/{id}`
 
 A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
@@ -1698,6 +1714,10 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
   ]
 }
 ```
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
@@ -2001,6 +2021,10 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 }
 ```
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="create-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -2163,7 +2187,7 @@ To check if an id is revoked or not, you can check its status with the registry 
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because registry was not found.|[Error](#schemaerror)|
 
 
-<h1 id="schemas">Schemas</h1>
+<h1 id="credential-schemas">Credential Schemas</h1>
 
 Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
 
@@ -2541,6 +2565,10 @@ The first step to creating a Schema is to initialize it. We can do that using th
 ```json
 {}
 ```
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="create-schema-parameters">Parameters</h3>
 
@@ -2949,6 +2977,10 @@ The anchoring module is hashing algorithm and hash length agnostic. You can post
   "string"
 ]
 ```
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="create-anchor-parameters">Parameters</h3>
 
