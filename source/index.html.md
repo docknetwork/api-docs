@@ -105,6 +105,7 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
+<h1 id="dids">DIDs</h1>
 
 > Endpoints
 
