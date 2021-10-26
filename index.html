@@ -610,14 +610,35 @@ An API key may also be IP restricted - when you generate the API key, you can in
 <h2 id='error-handling'>Error Handling</h2>
 <p>Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.</p>
 
-<p>The table below shows the most frequent HTTP error messages:
-Code | Meaning
---------- | -----------
-400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
-401 | Unauthorized -- Do not own resource or have an invalid API key in the header.
-404 | Not Found -- The resource that you&#39;re trying to open could not be found on the server.
-429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
-500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.</p>
+<p>The table below shows the most frequent HTTP error messages:</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request was rejected (e.g., missing mandatory field).</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Do not own resource or have an invalid API key in the header.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The resource that you&#39;re trying to open could not be found on the server.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.</td>
+</tr>
+</tbody></table>
 <h1 id='terminology'>Terminology</h1>
 <p>It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:</p>
 
