@@ -20,15 +20,15 @@ headingLevel: 2
 <h1 id="dock-api">Dock API v1</h1>
 
 # Introduction
-<em> A complete solution for creating, managing, and presenting credentials. </em>
+<em> A complete solution for creating, managing and presenting Verifiable Credentials. </em>
 
 Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.
 
+In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
+
+We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/).
+
 Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
-
-In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
-
-We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.
 
 ## Primary Features
 -	Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.
@@ -43,10 +43,10 @@ We also offer a free trial and fair monthly pricing. Begin by going to: https://
 ## Prerequisites
 You must first have an account and acquire your credentials (API keys) before accessing the Dock API.
 
-You can register an account and view your API keys in our [console](https://console.api.dock.io/).
+You can register an account and generate a key in our [API console](https://console.api.dock.io/).
 
 <aside class="warning">
-Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
+Keep in mind that your API keys should typically be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 
 ## Endpoints
@@ -58,10 +58,11 @@ The Dock API provides two endpoints based on which mode was selected when creati
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
 ## Authentication
-The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into [the api console](https://console.api.dock.io). For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
+The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into [the api console](https://console.api.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
 
 * API Key (accessToken)
-    - Parameter Name: **DOCK-API-TOKEN**, in: header.
+    - Name: **DOCK-API-TOKEN**
+    - OR HTTP Bearer Authorization
 
 <aside class="notice">
 An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
@@ -70,19 +71,17 @@ An API key may also be IP restricted - when you generate the API key, you can in
 ## Architecture Style
 The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.
 
-HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. We also support UTF-8 encoding style.
-
-The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:
+HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. JSON requests should typically be encoded as UTF-8.
 
 HTTP Method | Description
 --------- | -----------
-GET | Get a representation of the target resource’s state.
-POST | Allow the representation included in the request to be processed by the target resource.
-PATCH | Be able to partially update a resource (in this case, DID's).
-DELETE | Delete the state of the target resource.
+GET | Get one or many resources
+POST | Creates a new resources
+PATCH | Partially update a resource
+DELETE | Delete a resource
 
 ## Rate Limits
-We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will receive a 429 Too Many Requests response and have to wait up to a minute for the next request.
+We allow you to make up to 200 requests in a 2 minute window (avg 100 reqs/min or 1.6 reqs/second). If you exceed beyond that, you will receive a 429 Too Many Requests response and have to wait up to a minute for the next request depending on when you hit the limit. If you require higher rate limits, please [contact us](mailto:contact@dock.io).
 
 ## Error Handling
 Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.
@@ -91,10 +90,10 @@ The table below shows the most frequent HTTP error messages:
 Code | Meaning
 --------- | -----------
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
-401 | Unauthorized -- You're missing or have an invalid API key in the header.
-404 | Not Found -- The page that you're trying to open could not be found on the server.
+401 | Unauthorized -- Do not own resource or have an invalid API key in the header.
+404 | Not Found -- The resource that you're trying to open could not be found on the server.
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
-500 | Server Errors -- Something has gone wrong on the server. Please try to reload the page or clear both cookies and cache.
+500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.
 
 # Terminology
 It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
@@ -146,7 +145,7 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
 
-DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
+DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
 
 <aside class="notice">
 As of now, a DID can have only one key at a time.
