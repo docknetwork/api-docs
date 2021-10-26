@@ -112,6 +112,38 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 <h1 id="dock-api-dids">DIDs</h1>
 
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+    <a href="#create-did">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
+    <a href="#list-did">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids/
+    </a>
+    <br />
+    <a href="#get-did">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids/{did}
+    </a>
+    <br />
+    <a href="#update-did">
+      <span class="nt">PATCH</span>&nbsp;
+      /dids/{did}
+    </a>
+    <br />
+    <a href="#delete-did">
+      <span class="kd">DELETE</span>
+      /dids/{did}
+    </a>
+  </div>
+</div>
+
+
 DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
 
 DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
@@ -120,9 +152,10 @@ DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier
 As of now, a DID can have only one key at a time.
 </aside>
 
+
 ## Get DID
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /dids/{did}</span>
 
 ```shell
 # You can also use wget
@@ -224,8 +257,6 @@ func main() {
 
 ```
 
-`GET /dids/{did}`
-
 The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
 
 Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
@@ -235,8 +266,6 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-
-> Example responses
 
 > 200 Response
 
@@ -266,7 +295,7 @@ accessToken
 
 ## Update DID
 
-> Code samples
+> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span>
 
 ```shell
 # You can also use wget
@@ -376,8 +405,6 @@ func main() {
 
 ```
 
-`PATCH /dids/{did}`
-
 The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
 
 To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
@@ -407,8 +434,6 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 |---|---|---|
 |keyType|sr25519 **or** ed25519 **or** secp256k1|keyType signature variants.
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -430,7 +455,7 @@ accessToken
 
 ## Delete DID
 
-> Code samples
+> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span>
 
 ```shell
 # You can also use wget
@@ -532,8 +557,6 @@ func main() {
 
 ```
 
-`DELETE /dids/{did}`
-
 A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.
 
 It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.
@@ -545,8 +568,6 @@ It should be noted that the accounts used to send the transactions are unrelated
 |did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
 
 An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
-
-> Example responses
 
 > 200 Response
 
@@ -569,7 +590,7 @@ accessToken
 
 ## List DIDs
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /dids</span>
 
 ```shell
 # You can also use wget
@@ -671,11 +692,7 @@ func main() {
 
 ```
 
-`GET /dids`
-
 Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
-
-> Example responses
 
 > 200 Response
 
@@ -706,7 +723,7 @@ accessToken
 
 ## Create DID
 
-> Code samples
+> <span class="highlight"><span class="nt">POST</span> /dids</span>
 
 ```shell
 # You can also use wget
@@ -817,8 +834,6 @@ func main() {
 
 ```
 
-`POST /dids`
-
 A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
 It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `Sr25519,` `Ed25519,` and `EcdsaSecp256k1.` These public keys are supported by 3 classes: `PublicKeySr25519,` `PublicKeyEd25519,` and `PublicKeySecp256k1.`
@@ -846,8 +861,6 @@ It is important to have a public key of one of its three supported types. Dock s
 |Parameter|Value|Desctiprion
 |---|---|---|
 |keyType|sr25519 **or** ed25519 **or** secp256k1| keyType signature variants.
-
-> Example responses
 
 > 200 Response
 
@@ -1040,8 +1053,6 @@ To view a sample of the parameter usage, please refer [here](https://dockne
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |credential|body|[Credential](#schemacredential)|true|Credential format expected by API caller.|
-
-> Example responses
 
 > 200 Response
 
@@ -1279,8 +1290,6 @@ This is an operation to create and sign a verifiable presentation out of one or 
 |type|Sr25519Signature2020 **or** Ed25519Signature2018 **or** EcdsaSecp256k1Signature2019|Type of Signature.
 |proofPurpose|assertionMethod **or** authentication| The type of purpose used for the credential.
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -1431,8 +1440,6 @@ A registry can be deleted, leading to all the corresponding revocation ids being
 |---|---|---|---|---|
 |id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -1570,8 +1577,6 @@ func main() {
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
-
-> Example responses
 
 > 200 Response
 
@@ -1743,8 +1748,6 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
 |---|---|---|
 |action|revoke **or** unrevoke|Action to take on the registry.
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -1882,8 +1885,6 @@ Return a list of all registries created by the user. The list is returned with t
 For now, only one policy is supported, and each registry is owned by a single DID, called `OneOf`.
 </aside>
 
-
-> Example responses
 
 > 200 Response
 
@@ -2050,8 +2051,6 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 |addOnly|body|boolean|false|True/false options.|
 |policy|body|[[DID](#schemadid)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -2195,8 +2194,6 @@ To check if an id is revoked or not, you can check its status with the registry 
 |regId|path|[Hex32](#schemahex32)|true|Revocation registry id.|
 |revId|path|[Hex32](#schemahex32)|true|Credential revocation id.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -2337,8 +2334,6 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 |---|---|---|---|---|
 |schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -2467,8 +2462,6 @@ func main() {
 `GET /schemas`
 
 Return a list of all schemas created by user.
-
-> Example responses
 
 > 200 Response
 
@@ -2614,8 +2607,6 @@ The first step to creating a Schema is to initialize it. We can do that using th
 |---|---|---|---|---|
 |body|body|object|true|JSON-schema.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -2756,8 +2747,6 @@ Get a specific anchor with the given ID.
 |---|---|---|---|---|
 |anchor|path|[Hex32](#schemahex32)|true|An anchor id.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -2887,8 +2876,6 @@ func main() {
 `GET /anchors`
 
 Return a list of all anchors created by user, whether have contributed to the batching or not.
-
-> Example responses
 
 > 200 Response
 
@@ -3040,8 +3027,6 @@ The anchoring module is hashing algorithm and hash length agnostic. You can post
 |---|---|---|---|---|
 |body|body|any|true|Documents.|
 
-> Example responses
-
 > 200 Response
 
 ```json
@@ -3177,8 +3162,6 @@ To check the Job status and data, you can use the `GET` method and simply put th
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |id|path|[JobId](#schemajobid)|true|Represents a Job id.|
-
-> Example responses
 
 > 200 Response
 
@@ -3334,8 +3317,6 @@ Please note that the verification is an async process that returns an object whe
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[VerifiableCredential](#schemaverifiablecredential) or [VerifiablePresentation](#schemaverifiablepresentation)|true|JSON-schema.|
-
-> Example responses
 
 > 200 Response
 
