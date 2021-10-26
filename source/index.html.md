@@ -825,7 +825,11 @@ func main() {
 
 A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
-It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `Sr25519,` `Ed25519,` and `EcdsaSecp256k1.` These public keys are supported by 3 classes: `PublicKeySr25519,` `PublicKeyEd25519,` and `PublicKeySecp256k1.`
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`. These public keys are supported by 3 classes: `PublicKeySr25519`, `PublicKeyEd25519`, and `PublicKeySecp256k1`.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 > Body parameter
 
@@ -836,10 +840,6 @@ It is important to have a public key of one of its three supported types. Dock s
   "keyType": "sr25519"
 }
 ```
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-did-parameters">Parameters</h3>
 
@@ -1702,6 +1702,10 @@ Similar to the replay protection mechanism for DIDs, the last modified block num
 
 In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -1712,10 +1716,6 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
   ]
 }
 ```
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
@@ -2008,6 +2008,10 @@ func main() {
 
 To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -2018,10 +2022,6 @@ To create a registry, you have to create a `policy` object for which a DID is ne
   ]
 }
 ```
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-registry-parameters">Parameters</h3>
 
@@ -2558,15 +2558,15 @@ func main() {
 
 The first step to creating a Schema is to initialize it. We can do that using the `Schema` class constructor, which accepts an (optional) id string as the sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
 {}
 ```
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-schema-parameters">Parameters</h3>
 
@@ -2968,6 +2968,10 @@ To create an anchor, you can use more than one docs; it is called Batching. Batc
 
 The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -2975,10 +2979,6 @@ The anchoring module is hashing algorithm and hash length agnostic. You can post
   "string"
 ]
 ```
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-anchor-parameters">Parameters</h3>
 
