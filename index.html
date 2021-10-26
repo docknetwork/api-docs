@@ -282,7 +282,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-2f4da208.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-10387b97.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-bc273177.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-a9fde460.js"></script>
 
@@ -664,6 +664,39 @@ Code | Meaning
 
 <h1 id="dock-api-dids">DIDs</h1>
 
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+    <a href="#create-did">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
+    <a href="#list-did">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids/
+    </a>
+    <br />
+    <a href="#get-did">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids/{did}
+    </a>
+    <br />
+    <a href="#update-did">
+      <span class="nt">PATCH</span>&nbsp;
+      /dids/{did}
+    </a>
+    <br />
+    <a href="#delete-did">
+      <span class="kd">DELETE</span>
+      /dids/{did}
+    </a>
+  </div>
+</div>
+
 <p>DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.</p>
 
 <p>DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.</p>
@@ -673,7 +706,7 @@ As of now, a DID can have only one key at a time.
 </aside>
 <h2 id='get-did'>Get DID</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /dids/{did}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
@@ -761,8 +794,6 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /dids/{did}</code></p>
-
 <p>The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.</p>
 
 <p>Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
@@ -788,8 +819,6 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -832,7 +861,7 @@ accessToken
 </aside>
 <h2 id='update-did'>Update DID</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
@@ -928,8 +957,6 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>PATCH /dids/{did}</code></p>
-
 <p>The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <code>keyType</code> parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.</p>
 
 <p>To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.</p>
@@ -993,8 +1020,6 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
@@ -1035,7 +1060,7 @@ accessToken
 </aside>
 <h2 id='delete-did'>Delete DID</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
@@ -1123,8 +1148,6 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>DELETE /dids/{did}</code></p>
-
 <p>A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.</p>
 
 <p>It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.</p>
@@ -1152,8 +1175,6 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 <p>An example Dock DID: <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
@@ -1194,7 +1215,7 @@ accessToken
 </aside>
 <h2 id='list-dids'>List DIDs</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /dids</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
@@ -1282,13 +1303,9 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /dids</code></p>
-
 <p>Return a list of all user&#39;s DIDs you&#39;ve previously created. The DIDs are returned into a sorted DID document.</p>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
@@ -1327,7 +1344,7 @@ accessToken
 </aside>
 <h2 id='create-did'>Create DID</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="nt">POST</span> /dids</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
@@ -1424,8 +1441,6 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /dids</code></p>
-
 <p>A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.</p>
 
 <p>It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: <code>Sr25519,</code> <code>Ed25519,</code> and <code>EcdsaSecp256k1.</code> These public keys are supported by 3 classes: <code>PublicKeySr25519,</code> <code>PublicKeyEd25519,</code> and <code>PublicKeySecp256k1.</code></p>
@@ -1488,8 +1503,6 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -1695,8 +1708,6 @@ Issuing counts as a paid transaction.
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -1982,8 +1993,6 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -2154,8 +2163,6 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -2309,8 +2316,6 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -2515,8 +2520,6 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -2660,8 +2663,6 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </aside>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
@@ -2842,8 +2843,6 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -3008,8 +3007,6 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -3165,8 +3162,6 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -3297,8 +3292,6 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 <p>Return a list of all schemas created by user.</p>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
@@ -3452,8 +3445,6 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
@@ -3609,8 +3600,6 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -3742,8 +3731,6 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 <p>Return a list of all anchors created by user, whether have contributed to the batching or not.</p>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
@@ -3903,8 +3890,6 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
@@ -4056,8 +4041,6 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -4227,8 +4210,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 </tbody></table>
 
 <blockquote>
-<p>Example responses</p>
-
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
