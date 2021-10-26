@@ -148,7 +148,7 @@ DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique i
 DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
 
 <aside class="notice">
-As of now, a DID can have only one key at a time.
+Currently a DID can have only one key at a time as a controller, soon we will support multiple keys per DID.
 </aside>
 
 
