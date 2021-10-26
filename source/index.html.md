@@ -2998,7 +2998,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create Anchor. Anchor does not exist on network as of now.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create an anchor on the blockchain.|[JobId](#schemajobid)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 
@@ -3284,7 +3284,7 @@ Please note that the verification is an async process that returns an object whe
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the verification result.|[VerificationResponse](#schemaverificationresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid credential params.|[Error](#schemaerror)|
 
 
 # Schemas
