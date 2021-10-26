@@ -15,20 +15,14 @@ headingLevel: 2
 
 ---
 
-<!-- Generator: Widdershins v4.0.1 -->
+# The Dock API
+<em> A complete solution for creating, managing and presenting Verifiable Credentials. </em>
 
-<h1 id="dock-api">Dock API v1</h1>
+Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create and use verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. We provide a range of open-source software on [GitHub](https://github.com/docknetwork) that can be used alongside the API.
 
-# Introduction
-<em> A complete solution for creating, managing, and presenting credentials. </em>
+In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
 
-Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.
-
-Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
-
-In addition to the code samples shown on this doc, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
-
-We also offer a free trial and fair monthly pricing. Begin by going to: https://console.api.dock.io/.
+We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read  [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
 ## Primary Features
 -	Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.
@@ -43,58 +37,59 @@ We also offer a free trial and fair monthly pricing. Begin by going to: https://
 ## Prerequisites
 You must first have an account and acquire your credentials (API keys) before accessing the Dock API.
 
-You can register an account and view your API keys in our [console](https://console.api.dock.io/).
+You can register an account and generate a key in our [API console](https://console.api.dock.io/).
 
 <aside class="warning">
-Keep in mind that your API keys have a lot of advantages, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
+Keep in mind that your API keys should typically be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 
 ## Endpoints
 The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
 
-For production mode, use the endpoint: https://api.dock.io
-For test mode, use the endpoint: https://api-testnet.dock.io.
+- For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
+- For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
 ## Authentication
-The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into https://console.api.dock.io. For requests, the API Key has to be included in the header, and the website will use a password-free way through email links.
+The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into [the api console](https://console.api.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
 
 * API Key (accessToken)
-    - Parameter Name: **DOCK-API-TOKEN**, in: header.
+    - Name: **DOCK-API-TOKEN**
+    - OR HTTP Bearer Authorization
 
 <aside class="notice">
-An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+When you generate an API key, you may include a list of whitelisted IP's that can use with that key.
 </aside>
 
 ## Architecture Style
 The Dock API is built on the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.
 
-HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. We also support UTF-8 encoding style.
-
-The table below demonstrates how HTTP methods, including RESTful APIs, are intended to be used in HTTP APIs:
+HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. JSON requests should typically be encoded as UTF-8.
 
 HTTP Method | Description
 --------- | -----------
-GET | Get a representation of the target resource’s state.
-POST | Allow the representation included in the request to be processed by the target resource.
-PATCH | Be able to partially update a resource (in this case, DID's).
-DELETE | Delete the state of the target resource.
+GET | Get one or many resources
+POST | Creates a new resources
+PATCH | Partially update a resource
+DELETE | Delete a resource
 
 ## Rate Limits
-We limit the requests per window per IP. We allow you to make up to 100 calls/minute. If you exceed beyond that, you will reveive a 429 Too Many Requests response and have to wait up to a minute for the next request.
+We allow you to make up to 200 requests in a 2 minute window (avg 100 reqs/min or 1.6 reqs/second). If you exceed beyond that, you will receive a 429 Too Many Requests response and have to wait up to a minute for the next request depending on when you hit the limit. If you require higher rate limits, please [contact us](mailto:contact@dock.io).
 
 ## Error Handling
 Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.
 
 The table below shows the most frequent HTTP error messages:
+
+
 Code | Meaning
 --------- | -----------
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
-401 | Unauthorized -- You're missing or have an invalid API key in the header.
-404 | Not Found -- The page that you're trying to open could not be found on the server.
+401 | Unauthorized -- Do not own resource or have an invalid API key in the header.
+404 | Not Found -- The resource that you're trying to open could not be found on the server.
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
-500 | Server Errors -- Something has gone wrong on the server. Please try to reload the page or clear both cookies and cache.
+500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.
 
 # Terminology
 It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:
@@ -105,12 +100,11 @@ Terminology | Description
 DID | DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).
 Anchoring | A feature that allows users to store a digest of one or more credentials (or any files) on our blockchain so that they are associated with immutable timestamps and hence can be proven to have been created at a certain point in time.
 Data Schema | The structure that describes the logical view of the data. It is useful to enforce a specific structure on a collection of data like a Verifiable Credential.
-Registries | A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. 
+Registries | A process to verify credentials in such a way that each verified credential has its own unique number. This process references a credential definition and specifies how revocation of that credential type will be handled. 
 Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
-<h1 id="dock-api-dids">DIDs</h1>
 
 > Endpoints
 
@@ -146,10 +140,10 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
 
-DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. To create a DID, a public key needs to be created as well. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
+DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
 
 <aside class="notice">
-As of now, a DID can have only one key at a time.
+Currently a DID can have only one key at a time as a controller, soon we will support multiple keys per DID.
 </aside>
 
 
@@ -288,10 +282,6 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID entered in parameter was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Update DID
 
@@ -409,6 +399,10 @@ The public key or the controller of an on-chain DID can be updated by preparing 
 
 To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -426,7 +420,7 @@ To rotate the key of an existing DID, the current key is used to sign an update 
 |controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
 
-An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`.
+An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 #### Enumerated Values
 
@@ -448,10 +442,6 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Delete DID
 
@@ -561,6 +551,10 @@ A DID can be deleted from the blockchain by sending the corresponding message si
 
 It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="delete-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -583,10 +577,6 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## List DIDs
 
@@ -716,10 +706,6 @@ Return a list of all user's DIDs you've previously created. The DIDs are returne
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDoc](#schemadiddoc)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Create DID
 
@@ -834,9 +820,13 @@ func main() {
 
 ```
 
-A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
+A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
-It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `Sr25519,` `Ed25519,` and `EcdsaSecp256k1.` These public keys are supported by 3 classes: `PublicKeySr25519,` `PublicKeyEd25519,` and `PublicKeySecp256k1.`
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`. These public keys are supported by 3 classes: `PublicKeySr25519`, `PublicKeyEd25519`, and `PublicKeySecp256k1`.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 > Body parameter
 
@@ -881,12 +871,8 @@ It is important to have a public key of one of its three supported types. Dock s
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create DID. DID does not exist on network as of now.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-credentials">Credentials</h1>
+<h1 id="credentials">Credentials</h1>
 
 Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
 
@@ -1019,10 +1005,9 @@ To issue a verifiable credential, the issuer needs to have a public key that is 
 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
-<aside class="notice">
-Issuing counts as a paid transaction.
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential
 </aside>
-
 
 > Body parameter
 
@@ -1087,12 +1072,8 @@ To view a sample of the parameter usage, please refer [here](https://docknetwork
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The irequest was unsuccessful, because of Invalid/insufficient credential params.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-presentations">Presentations</h1>
+<h1 id="presentations">Presentations</h1>
 
 The presentation is signed using the holder's private key as it is being created. To validate the presentation, the verifier must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key.
 
@@ -1238,6 +1219,10 @@ The holder while creating the presentation signs it with his private key. For th
 
 This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -1312,12 +1297,8 @@ This is an operation to create and sign a verifiable presentation out of one or 
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-registries">Registries</h1>
+<h1 id="registries">Registries</h1>
 
 Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.
 
@@ -1430,6 +1411,10 @@ func main() {
 
 A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="delete-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -1454,11 +1439,6 @@ A registry can be deleted, leading to all the corresponding revocation ids being
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and revocation registry will be deleted.|[JobStartedResult](#schemajobstartedresult)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Get registry
 
@@ -1591,10 +1571,6 @@ func main() {
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the revocation registry metadata.|[Registry](#schemaregistry)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Revoke/unrevoke credential
 
@@ -1717,6 +1693,10 @@ Similar to the replay protection mechanism for DIDs, the last modified block num
 
 In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -1762,10 +1742,6 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## List registries
 
@@ -1901,12 +1877,6 @@ For now, only one policy is supported, and each registry is owned by a single DI
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by user.|Inline|
 
-<h3 id="list-registries-responseschema">Response Schema</h3>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Create registry
 
@@ -2024,6 +1994,10 @@ func main() {
 
 To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -2061,12 +2035,8 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create registry.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., policy not supported.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-revocationstatus">Revocation Status</h1>
+<h1 id="revocationstatus">Revocation Status</h1>
 
 After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.
 
@@ -2198,12 +2168,8 @@ To check if an id is revoked or not, you can check its status with the registry 
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return **true**, if credential is revoked, **false** otherwise.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because registry was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-schemas">Schemas</h1>
+<h1 id="credential-schemas">Credential Schemas</h1>
 
 Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
 
@@ -2337,10 +2303,6 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return a Schema.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## List schemas
 
@@ -2464,10 +2426,6 @@ Return a list of all schemas created by user.
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by User.|Inline|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Create schema
 
@@ -2580,6 +2538,10 @@ func main() {
 
 The first step to creating a Schema is to initialize it. We can do that using the `Schema` class constructor, which accepts an (optional) id string as the sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -2605,12 +2567,8 @@ The first step to creating a Schema is to initialize it. We can do that using th
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create schema.|[JobId](#schemajobid)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-anchors">Anchors</h1>
+<h1 id="anchors">Anchors</h1>
 
 Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.
 
@@ -2748,10 +2706,6 @@ Get a specific anchor with the given ID.
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return an anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## List anchors
 
@@ -2873,10 +2827,6 @@ Return a list of all anchors created by user, whether have contributed to the ba
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all anchors created by User.|Inline|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 ## Create anchor
 
@@ -2995,6 +2945,10 @@ To create an anchor, you can use more than one docs; it is called Batching. Batc
 
 The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -3019,15 +2973,11 @@ The anchoring module is hashing algorithm and hash length agnostic. You can post
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create Anchor. Anchor does not exist on network as of now.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create an anchor on the blockchain.|[JobId](#schemajobid)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-jobs">Jobs</h1>
+<h1 id="jobs">Jobs</h1>
 
 This section describes API resources to get job status and data with using a spesific Job id.
 
@@ -3161,12 +3111,8 @@ To check the Job status and data, you can use the `GET` method and simply put th
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return a Job desc.|[JobDesc](#schemajobdesc)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the Job id was not found.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
-<h1 id="dock-api-verify">Verify</h1>
+<h1 id="verify">Verify</h1>
 
 Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
 
@@ -3311,12 +3257,8 @@ Please note that the verification is an async process that returns an object whe
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the verification result.|[VerificationResponse](#schemaverificationresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid credential params.|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 # Schemas
 
