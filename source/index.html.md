@@ -15,11 +15,7 @@ headingLevel: 2
 
 ---
 
-<!-- Generator: Widdershins v4.0.1 -->
-
-<h1 id="dock-api">Dock API v1</h1>
-
-# Introduction
+# The Dock API
 <em> A complete solution for creating, managing and presenting Verifiable Credentials. </em>
 
 Dock provides a range of tools incorporating blockchain technology that enable businesses and developers to create verifiable credentials. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. It is also open source and licensed under permissive, developer-friendly terms.
