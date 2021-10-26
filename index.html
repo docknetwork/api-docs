@@ -282,7 +282,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-10387b97.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-85b59729.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-bc273177.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-a9fde460.js"></script>
 
@@ -575,7 +575,7 @@ Keep in mind that your API keys should typically be kept private, so keep them s
 </ul>
 
 <aside class="notice">
-An API key may also be IP restricted - when you generate the API key, you can include a list of IP's that are linked with that key.
+When you generate an API key, you may include a list of whitelisted IP's that can use with that key.
 </aside>
 <h2 id='architecture-style'>Architecture Style</h2>
 <p>The Dock API is built on the <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.</p>
@@ -1447,7 +1447,11 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </code></pre></div>
 <p>A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.</p>
 
-<p>It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: <code>Sr25519,</code> <code>Ed25519,</code> and <code>EcdsaSecp256k1.</code> These public keys are supported by 3 classes: <code>PublicKeySr25519,</code> <code>PublicKeyEd25519,</code> and <code>PublicKeySecp256k1.</code></p>
+<p>It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: <code>sr25519</code>, <code>ed25519</code>, and <code>secp256k1</code>. These public keys are supported by 3 classes: <code>PublicKeySr25519</code>, <code>PublicKeyEd25519</code>, and <code>PublicKeySecp256k1</code>.</p>
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <blockquote>
 <p>Body parameter</p>
@@ -1458,10 +1462,6 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="create-did-parameters">Parameters</h3>
 
 <table><thead>
@@ -2452,6 +2452,10 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 
 <p>In this API, simply add Revoke/Unrevoke into the <code>action</code> parameter and input the desired credential ids.</p>
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -2462,10 +2466,6 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
 <table><thead>
@@ -2790,6 +2790,10 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 
 <p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.</p>
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -2800,10 +2804,6 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="create-registry-parameters">Parameters</h3>
 
 <table><thead>
@@ -3388,15 +3388,15 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 
 <p>The first step to creating a Schema is to initialize it. We can do that using the <code>Schema</code> class constructor, which accepts an (optional) id string as the sole argument. When an id isn&#39;t passed, a random <code>blobId</code> will be assigned as the schema&#39;s id.</p>
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
 </span></code></pre></div>
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="create-schema-parameters">Parameters</h3>
 
 <table><thead>
@@ -3820,6 +3820,10 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 
 <p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
 
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
@@ -3827,10 +3831,6 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
   </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="create-anchor-parameters">Parameters</h3>
 
 <table><thead>
