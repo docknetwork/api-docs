@@ -855,11 +855,6 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='update-did'>Update DID</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></p>
@@ -1054,11 +1049,6 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='delete-did'>Delete DID</h2>
 <blockquote>
 <p><span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span></p>
@@ -1209,11 +1199,6 @@ curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span cl
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='list-dids'>List DIDs</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /dids</span></p>
@@ -1338,11 +1323,6 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <td><a href="#schemadiddoc">DIDDoc</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='create-did'>Create DID</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /dids</span></p>
@@ -1538,11 +1518,6 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="dock-api-credentials">Credentials</h1>
 
 <p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
@@ -1662,8 +1637,8 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 
 <p>This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., <code>did:dock:</code>) or an object with a property ID that is a uri/DID.</p>
 
-<aside class="notice">
-Issuing counts as a paid transaction.
+<aside class="warning">
+This operation counts towards your monthly limits for each successful call when requesting a **signed** credential
 </aside>
 
 <blockquote>
@@ -1762,11 +1737,6 @@ Issuing counts as a paid transaction.
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 <h1 id="dock-api-presentations">Presentations</h1>
 
@@ -2039,11 +2009,6 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="dock-api-registries">Registries</h1>
 
 <p>Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.</p>
@@ -2197,11 +2162,6 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='get-registry'>Get registry</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2349,11 +2309,6 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='revoke-unrevoke-credential'>Revoke/unrevoke credential</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2560,11 +2515,6 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='list-registries'>List registries</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2697,11 +2647,6 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </tbody></table>
 
 <h3 id="list-registries-responseschema">Response Schema</h3>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='create-registry'>Create registry</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2878,11 +2823,6 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="dock-api-revocationstatus">Revocation Status</h1>
 
 <p>After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.</p>
@@ -3038,11 +2978,6 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="dock-api-schemas">Schemas</h1>
 
 <p>Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.</p>
@@ -3193,11 +3128,6 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='list-schemas'>List schemas</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3316,11 +3246,6 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 <td>Inline</td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='create-schema'>Create schema</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3473,11 +3398,6 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 <h1 id="dock-api-anchors">Anchors</h1>
 
@@ -3632,11 +3552,6 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='list-anchors'>List anchors</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3755,11 +3670,6 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 <td>Inline</td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h2 id='create-anchor'>Create anchor</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3919,11 +3829,6 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="dock-api-jobs">Jobs</h1>
 
 <p>This section describes API resources to get job status and data with using a spesific Job id.</p>
@@ -4073,11 +3978,6 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 
 <h1 id="dock-api-verify">Verify</h1>
 
@@ -4240,11 +4140,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h1 id='schemas'>Schemas</h1>
 <p>Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.</p>
 
