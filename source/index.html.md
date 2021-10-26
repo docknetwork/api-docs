@@ -109,7 +109,7 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
-<h1 id="dock-api-dids">DIDs</h1>
+<h1 id="dids">DIDs</h1>
 
 > Endpoints
 
@@ -865,7 +865,7 @@ It is important to have a public key of one of its three supported types. Dock s
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-credentials">Credentials</h1>
+<h1 id="credentials">Credentials</h1>
 
 Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
 
@@ -1000,7 +1000,7 @@ To issue a verifiable credential, the issuer needs to have a public key that is 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
 <aside class="warning">
-This operation counts towards your monthly limits for each successful call when requesting a **signed** credential
+This operation counts towards your monthly limits for each successful call when requesting a <strong>signed</strong> credential
 </aside>
 
 > Body parameter
@@ -1067,7 +1067,7 @@ To view a sample of the parameter usage, please refer [here](https://dockne
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-presentations">Presentations</h1>
+<h1 id="presentations">Presentations</h1>
 
 The presentation is signed using the holder's private key as it is being created. To validate the presentation, the verifier must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key.
 
@@ -1215,6 +1215,10 @@ The holder while creating the presentation signs it with his private key. For th
 
 This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.
 
+<aside class="warning">
+This operation counts towards your monthly limits for each successful call
+</aside>
+
 > Body parameter
 
 ```json
@@ -1290,7 +1294,7 @@ This is an operation to create and sign a verifiable presentation out of one or 
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-registries">Registries</h1>
+<h1 id="registries">Registries</h1>
 
 Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.
 
@@ -2024,7 +2028,7 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., policy not supported.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-revocationstatus">Revocation Status</h1>
+<h1 id="revocationstatus">Revocation Status</h1>
 
 After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.
 
@@ -2159,7 +2163,7 @@ To check if an id is revoked or not, you can check its status with the registry 
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because registry was not found.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-schemas">Schemas</h1>
+<h1 id="schemas">Schemas</h1>
 
 Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
 
@@ -2558,7 +2562,7 @@ The first step to creating a Schema is to initialize it. We can do that using th
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-anchors">Anchors</h1>
+<h1 id="anchors">Anchors</h1>
 
 Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.
 
@@ -2966,7 +2970,7 @@ The anchoring module is hashing algorithm and hash length agnostic. You can post
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-jobs">Jobs</h1>
+<h1 id="jobs">Jobs</h1>
 
 This section describes API resources to get job status and data with using a spesific Job id.
 
@@ -3102,7 +3106,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the Job id was not found.|[Error](#schemaerror)|
 
 
-<h1 id="dock-api-verify">Verify</h1>
+<h1 id="verify">Verify</h1>
 
 Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
 
