@@ -2939,7 +2939,7 @@ func main() {
 ```
 
 
-To create an anchor, you can use more than one doc; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.
+To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.
 
 The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
 
@@ -2977,7 +2977,9 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="jobs">Jobs</h1>
 
-API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. You can track the current job status by querying the job id returned as part of the 
+API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. 
+
+You can track the current job status by querying the job id returned as part of the 
 initial API response that triggered the job.
 
 ## Get job status and data
