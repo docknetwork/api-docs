@@ -1,0 +1,1107 @@
+{
+	"info": {
+		"_postman_id": "f06d2c69-5149-4040-b538-bcefb7691c9d",
+		"name": "Issuer API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Credential",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com/39\",\n    \"context\": [\"https://www.w3.org/2018/credentials/examples/v1\"],\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"subject\": {\n        \"id\": \"did:dock:5FfiPJQhz3Hbw4iMC92kRg15r9mvZXS192FkU2F8F51nNGLi\"\n    },\n    \"issuer\": {\n        \"id\": \"did:dock:5DYL3d3E435ZL2G1vFcA4McDBbFe3rZHMUsSR1Du3dXmyN5s\",\n        \"name\": \"my issuer\"\n    },\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/credentials/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"credentials",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Credential or Presentation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com\",\n    \"type\": [\n      \"string\"\n    ],\n    \"subject\": {},\n    \"issuer\": \"did:dock:5EMMLthSYaLfo8K2LFRwVvJCKNieoW6ALC6c92A9g5ZS1GfP\",\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\",\n    \"status\": {\n        \"id\": \"rev-reg:dock:0x8ba36623b61c3e780c487bd3c02949b9024785d1ab88c1aa1af9f6a774736548\",\n        \"type\": \"CredentialStatusList2017\"\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/credentials/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"credentials",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Presentation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"challenge\": \"my challenge\",\n  \"domain\": \"dock.io\",\n  \"holder\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ\",\n  \"credentials\": [{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": [\n        {\n            \"id\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ\"\n        }\n    ],\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\",\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-06-30T15:57:19Z\",\n        \"verificationMethod\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z5yS3zSYCe1FKTX6RJcqsCCeYT6yHNtWu996KaCvnhG13rxrPbkU6zb4YAG4gBpCjyzg4NY9JQN5T4SsebJcxqgm9\"\n    },\n    \"issuer\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ\"\n}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/presentations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"presentations",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Registry",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjIiLCJpYXQiOjE2MTk2NDM3NzksImV4cCI6MzI2OTI1Mzk3Nzl9.WlVFqhC8YtnxxzXUJUM78uUuaGh1it2xkJz4xwC2vXYvx3ypZ7bwGEChXq1cy_S8E2PiAySk99ToMnQUQGBEwQ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"addOnly\": true,\n  \"policy\": [\n    \"0xbf34569bbba71d7d03752d7a062bb13e2a1286c82788050b0bb8dc627d079110\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registries/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registries",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revoke Credential",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjIiLCJpYXQiOjE2MTk2NDM3NzksImV4cCI6MzI2OTI1Mzk3Nzl9.WlVFqhC8YtnxxzXUJUM78uUuaGh1it2xkJz4xwC2vXYvx3ypZ7bwGEChXq1cy_S8E2PiAySk99ToMnQUQGBEwQ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"addOnly\": true,\n  \"policy\": [\n    \"0xbf34569bbba71d7d03752d7a062bb13e2a1286c82788050b0bb8dc627d079110\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registries/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registries",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create DID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-testnet.dock.io/dids/",
+					"protocol": "https",
+					"host": [
+						"api-testnet",
+						"dock",
+						"io"
+					],
+					"path": [
+						"dids",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Schema",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjIiLCJpYXQiOjE2MTk2NDM3NzksImV4cCI6MzI2OTI1Mzk3Nzl9.WlVFqhC8YtnxxzXUJUM78uUuaGh1it2xkJz4xwC2vXYvx3ypZ7bwGEChXq1cy_S8E2PiAySk99ToMnQUQGBEwQ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"$schema\":\"http://json-schema.org/draft-07/schema#\",\n    \"description\":\"Dock Schema Example\",\n    \"type\":\"object\",\n    \"properties\":{\"id\":{\"type\":\"string\"},\n    \"emailAddress\":{\"type\":\"string\",\"format\":\"email\"},\n    \"alumniOf\":{\"type\":\"string\"}},\n    \"required\":[\"emailAddress\",\"alumniOf\"],\n    \"additionalProperties\":false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/schemas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"schemas",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create anchor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"dGhpcyBpcyBteSBkb2N1bWVudA==\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/anchors/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"anchors",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update DID key",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjIiLCJpYXQiOjE2MTk2NDM3NzksImV4cCI6MzI2OTI1Mzk3Nzl9.WlVFqhC8YtnxxzXUJUM78uUuaGh1it2xkJz4xwC2vXYvx3ypZ7bwGEChXq1cy_S8E2PiAySk99ToMnQUQGBEwQ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com\",\n    \"type\": [\n      \"string\"\n    ],\n    \"subject\": {},\n    \"issuer\": \"did:key:z6MksshGJFBxLzZyjH1qSQvd87aPw3xTXr2t4WuUpfy5R33q\",\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\",\n    \"status\": {}\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dids/5204ed141e284bddeb36fe8c92ff69c24b154994d14f2f5573450967a253b869",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dids",
+						"5204ed141e284bddeb36fe8c92ff69c24b154994d14f2f5573450967a253b869"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all schemas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/schemas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"schemas",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all anchors",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/anchors/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"anchors",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all DIDs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dids/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dids",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all registries",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjEiLCJpYXQiOjE2MjAwNTY1NDYsImV4cCI6MzI2OTI5NTI1NDZ9.u46dq4u_x552L6q_3UjS2pEa53Bxpz96YkpJEnnznDgAQTuZZgW2n62RVKLQtueWkHBILuc8bzIGkC1zuaOFNA",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registries/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registries",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Schema by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjEiLCJpYXQiOjE2MjAwNTY1NDYsImV4cCI6MzI2OTI5NTI1NDZ9.u46dq4u_x552L6q_3UjS2pEa53Bxpz96YkpJEnnznDgAQTuZZgW2n62RVKLQtueWkHBILuc8bzIGkC1zuaOFNA",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/schemas/b43b88bda0ade34fb801682ef9d05940803e6b9f62d6fe7dc604c9341c917211",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"schemas",
+						"b43b88bda0ade34fb801682ef9d05940803e6b9f62d6fe7dc604c9341c917211"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get DID by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dids/9c8d01ec9d6a5c80af7e2d6e09a254490b962dae22aa52523bb93ac724eac320",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dids",
+						"9c8d01ec9d6a5c80af7e2d6e09a254490b962dae22aa52523bb93ac724eac320"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get registry by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjEiLCJpYXQiOjE2MjAwNTY1NDYsImV4cCI6MzI2OTI5NTI1NDZ9.u46dq4u_x552L6q_3UjS2pEa53Bxpz96YkpJEnnznDgAQTuZZgW2n62RVKLQtueWkHBILuc8bzIGkC1zuaOFNA",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registries/78208cd3088f6508d812460fa7e91bc376aafcb4dd75ca0167f2b928da3095be",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registries",
+						"78208cd3088f6508d812460fa7e91bc376aafcb4dd75ca0167f2b928da3095be"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get anchor by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/anchors/a3eb7dc9dce31984fd78e51a574940517db870db8b2cc377c8bc7471fb3c34d6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"anchors",
+						"a3eb7dc9dce31984fd78e51a574940517db870db8b2cc377c8bc7471fb3c34d6"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get credential revocation status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/revocationStatus/4978587b2064331631df79795007f5b49b05ab8e7c7ff7edaaa187940db9aa2a/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"revocationStatus",
+						"4978587b2064331631df79795007f5b49b05ab8e7c7ff7edaaa187940db9aa2a",
+						""
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get job by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/jobs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jobs",
+						"1"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete registry",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOlsiYWxsIl0sInN1YiI6IjEiLCJpYXQiOjE2MjAwNTY1NDYsImV4cCI6MzI2OTI5NTI1NDZ9.u46dq4u_x552L6q_3UjS2pEa53Bxpz96YkpJEnnznDgAQTuZZgW2n62RVKLQtueWkHBILuc8bzIGkC1zuaOFNA",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "DOCK-API-TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registries/4396cd61e7b5adc229d14fd18cb3e9c74cdac31e1ceb3b57178ad25cbf840e92",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registries",
+						"4396cd61e7b5adc229d14fd18cb3e9c74cdac31e1ceb3b57178ad25cbf840e92"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete DID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dids/2566e5ba2fa6aa88e5100d42774b00a69c16d552e8e12c5105deb25766fdc6df",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dids",
+						"2566e5ba2fa6aa88e5100d42774b00a69c16d552e8e12c5105deb25766fdc6df"
+					],
+					"query": [
+						{
+							"key": "headers",
+							"value": "headers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GH test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Limits test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"sshellawell@gmail.com 100\",\n    \"command\": \"/setlimit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/admin/limits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"limits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mailer webhook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n      \"user\": \"27\",\n      \"type\": \"nearing-tx-limit\",\n      \"planRelated\": true,\n      \"text\": \"text\"\n  },\n  \"token\": \"AtufeKegbCtCFO93Kb3DquHRJpfLAVCsV00wxrWCQKJ\",\n  \"type\": \"customer.subscription.deleted\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/admin/mailer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"mailer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tmp get new users for lambda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n      \"user\": \"27\",\n      \"type\": \"nearing-tx-limit\",\n      \"planRelated\": true,\n      \"text\": \"text\"\n  },\n  \"token\": \"AtufeKegbCtCFO93Kb3DquHRJpfLAVCsV00wxrWCQKJ\",\n  \"type\": \"customer.subscription.deleted\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/admin/mailer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"mailer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invoice webhook",
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"followRedirects": false
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"evt_1JFRxvF2g0IvlasY4EYPOLgv\",\n  \"object\": \"event\",\n  \"api_version\": \"2020-08-27\",\n  \"created\": 1626822186,\n  \"data\": {\n    \"object\": {\n      \"id\": \"in_1JFRxtF2g0IvlasYrGIFLso4\",\n      \"object\": \"invoice\",\n      \"account_country\": \"US\",\n      \"account_name\": \"Dock\",\n      \"account_tax_ids\": null,\n      \"amount_due\": 70000,\n      \"amount_paid\": 0,\n      \"amount_remaining\": 70000,\n      \"application_fee_amount\": null,\n      \"attempt_count\": 0,\n      \"attempted\": true,\n      \"auto_advance\": true,\n      \"automatic_tax\": {\n        \"enabled\": true,\n        \"status\": \"complete\"\n      },\n      \"billing_reason\": \"subscription_update\",\n      \"charge\": null,\n      \"collection_method\": \"charge_automatically\",\n      \"created\": 1626822185,\n      \"currency\": \"usd\",\n      \"custom_fields\": null,\n      \"customer\": \"cus_JqwYKi6Sfsm1Xn\",\n      \"customer_address\": {\n        \"city\": \"Orlando\",\n        \"country\": \"US\",\n        \"line1\": \"12340 Boggy Creek Road\",\n        \"line2\": \"Orange County\",\n        \"postal_code\": \"32824\",\n        \"state\": \"FL\"\n      },\n      \"customer_email\": \"sshellawell+plsbillme@gmail.com\",\n      \"customer_name\": \"sam tet\",\n      \"customer_phone\": null,\n      \"customer_shipping\": null,\n      \"customer_tax_exempt\": \"none\",\n      \"customer_tax_ids\": [\n      ],\n      \"default_payment_method\": null,\n      \"default_source\": null,\n      \"default_tax_rates\": [\n      ],\n      \"description\": null,\n      \"discount\": null,\n      \"discounts\": [\n      ],\n      \"due_date\": null,\n      \"ending_balance\": 0,\n      \"footer\": null,\n      \"hosted_invoice_url\": \"https://invoice.stripe.com/i/acct_1Ixg39F2g0IvlasY/invst_JtEQobINKAAZRYclh1uzRsjyR1lhesp\",\n      \"invoice_pdf\": \"https://pay.stripe.com/invoice/acct_1Ixg39F2g0IvlasY/invst_JtEQobINKAAZRYclh1uzRsjyR1lhesp/pdf\",\n      \"last_finalization_error\": null,\n      \"lines\": {\n        \"object\": \"list\",\n        \"data\": [\n          {\n            \"id\": \"il_1JFRxtF2g0IvlasYXW3ET61U\",\n            \"object\": \"line_item\",\n            \"amount\": 70000,\n            \"currency\": \"usd\",\n            \"description\": \"1 × Business (at $700.00 / day)\",\n            \"discount_amounts\": [\n            ],\n            \"discountable\": true,\n            \"discounts\": [\n            ],\n            \"livemode\": false,\n            \"metadata\": {\n            },\n            \"period\": {\n              \"end\": 1626908584,\n              \"start\": 1626822184\n            },\n            \"plan\": {\n              \"id\": \"price_1JBL9tF2g0IvlasYBz4ARdbh\",\n              \"object\": \"plan\",\n              \"active\": true,\n              \"aggregate_usage\": null,\n              \"amount\": 70000,\n              \"amount_decimal\": \"70000\",\n              \"billing_scheme\": \"per_unit\",\n              \"created\": 1625842709,\n              \"currency\": \"usd\",\n              \"interval\": \"day\",\n              \"interval_count\": 1,\n              \"livemode\": false,\n              \"metadata\": {\n              },\n              \"nickname\": null,\n              \"product\": \"prod_JmQH0eDh2EPT1u\",\n              \"tiers_mode\": null,\n              \"transform_usage\": null,\n              \"trial_period_days\": null,\n              \"usage_type\": \"licensed\"\n            },\n            \"price\": {\n              \"id\": \"price_1JBL9tF2g0IvlasYBz4ARdbh\",\n              \"object\": \"price\",\n              \"active\": true,\n              \"billing_scheme\": \"per_unit\",\n              \"created\": 1625842709,\n              \"currency\": \"usd\",\n              \"livemode\": false,\n              \"lookup_key\": null,\n              \"metadata\": {\n              },\n              \"nickname\": null,\n              \"product\": \"prod_JmQH0eDh2EPT1u\",\n              \"recurring\": {\n                \"aggregate_usage\": null,\n                \"interval\": \"day\",\n                \"interval_count\": 1,\n                \"trial_period_days\": null,\n                \"usage_type\": \"licensed\"\n              },\n              \"tax_behavior\": \"exclusive\",\n              \"tiers_mode\": null,\n              \"transform_quantity\": null,\n              \"type\": \"recurring\",\n              \"unit_amount\": 70000,\n              \"unit_amount_decimal\": \"70000\"\n            },\n            \"proration\": false,\n            \"quantity\": 1,\n            \"subscription\": \"sub_JqwYjSfo1mkYIe\",\n            \"subscription_item\": \"si_JrM0OUoP67z7C0\",\n            \"tax_amounts\": [\n              {\n                \"amount\": 0,\n                \"inclusive\": false,\n                \"tax_rate\": \"txr_1JDEfWF2g0IvlasYvmDECKVt\"\n              }\n            ],\n            \"tax_rates\": [\n            ],\n            \"type\": \"subscription\"\n          },\n          {\n            \"id\": \"il_1JFRxtF2g0IvlasYMP61H3ZM\",\n            \"object\": \"line_item\",\n            \"amount\": 0,\n            \"currency\": \"usd\",\n            \"description\": \"0 transaction × API Overages (at $1.00 / day)\",\n            \"discount_amounts\": [\n            ],\n            \"discountable\": true,\n            \"discounts\": [\n            ],\n            \"livemode\": false,\n            \"metadata\": {\n            },\n            \"period\": {\n              \"end\": 1626821885,\n              \"start\": 1626821630\n            },\n            \"plan\": {\n              \"id\": \"price_1JBRFnF2g0IvlasYbHod8oXD\",\n              \"object\": \"plan\",\n              \"active\": true,\n              \"aggregate_usage\": \"sum\",\n              \"amount\": 100,\n              \"amount_decimal\": \"100\",\n              \"billing_scheme\": \"per_unit\",\n              \"created\": 1625866139,\n              \"currency\": \"usd\",\n              \"interval\": \"day\",\n              \"interval_count\": 1,\n              \"livemode\": false,\n              \"metadata\": {\n              },\n              \"nickname\": null,\n              \"product\": \"prod_JeaEmuugjmM5un\",\n              \"tiers_mode\": null,\n              \"transform_usage\": null,\n              \"trial_period_days\": null,\n              \"usage_type\": \"metered\"\n            },\n            \"price\": {\n              \"id\": \"price_1JBRFnF2g0IvlasYbHod8oXD\",\n              \"object\": \"price\",\n              \"active\": true,\n              \"billing_scheme\": \"per_unit\",\n              \"created\": 1625866139,\n              \"currency\": \"usd\",\n              \"livemode\": false,\n              \"lookup_key\": null,\n              \"metadata\": {\n              },\n              \"nickname\": null,\n              \"product\": \"prod_JeaEmuugjmM5un\",\n              \"recurring\": {\n                \"aggregate_usage\": \"sum\",\n                \"interval\": \"day\",\n                \"interval_count\": 1,\n                \"trial_period_days\": null,\n                \"usage_type\": \"metered\"\n              },\n              \"tax_behavior\": \"exclusive\",\n              \"tiers_mode\": null,\n              \"transform_quantity\": null,\n              \"type\": \"recurring\",\n              \"unit_amount\": 100,\n              \"unit_amount_decimal\": \"100\"\n            },\n            \"proration\": false,\n            \"quantity\": 0,\n            \"subscription\": \"sub_JqwYjSfo1mkYIe\",\n            \"subscription_item\": \"si_JqwYbc4SkRnhDg\",\n            \"tax_amounts\": [\n              {\n                \"amount\": 0,\n                \"inclusive\": false,\n                \"tax_rate\": \"txr_1JDEfWF2g0IvlasYvmDECKVt\"\n              }\n            ],\n            \"tax_rates\": [\n            ],\n            \"type\": \"subscription\"\n          }\n        ],\n        \"has_more\": false,\n        \"total_count\": 2,\n        \"url\": \"/v1/invoices/in_1JFRxtF2g0IvlasYrGIFLso4/lines\"\n      },\n      \"livemode\": false,\n      \"metadata\": {\n      },\n      \"next_payment_attempt\": null,\n      \"number\": null,\n      \"on_behalf_of\": null,\n      \"paid\": false,\n      \"payment_intent\": \"pi_1JFRxtF2g0IvlasYdkH8L9uM\",\n      \"payment_settings\": {\n        \"payment_method_options\": null,\n        \"payment_method_types\": null\n      },\n      \"period_end\": 1626822184,\n      \"period_start\": 1626822184,\n      \"post_payment_credit_notes_amount\": 0,\n      \"pre_payment_credit_notes_amount\": 0,\n      \"quote\": null,\n      \"receipt_number\": null,\n      \"starting_balance\": 0,\n      \"statement_descriptor\": null,\n      \"status\": \"open\",\n      \"status_transitions\": {\n        \"finalized_at\": 1626822184,\n        \"marked_uncollectible_at\": null,\n        \"paid_at\": null,\n        \"voided_at\": null\n      },\n      \"subscription\": \"sub_JqwYjSfo1mkYIe\",\n      \"subtotal\": 70000,\n      \"tax\": 0,\n      \"total\": 70000,\n      \"total_discount_amounts\": [\n      ],\n      \"total_tax_amounts\": [\n        {\n          \"amount\": 0,\n          \"inclusive\": false,\n          \"tax_rate\": \"txr_1JDEfWF2g0IvlasYvmDECKVt\"\n        }\n      ],\n      \"transfer_data\": null,\n      \"webhooks_delivered_at\": null\n    }\n  },\n  \"livemode\": false,\n  \"pending_webhooks\": 1,\n  \"request\": {\n    \"id\": \"req_wBcD9X8l6RvhaD\",\n    \"idempotency_key\": null\n  },\n  \"type\": \"invoice.payment_failed\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/stripe/webhook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"stripe",
+						"webhook"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "eyJzY29wZXMiOlsidGVzdCIsImFsbCJdLCJzdWIiOiIxMiIsImlhdCI6MTYzMzM3NDYyMywiZXhwIjo0NzEyNjcwNjIzfQ.rs9AKhnMAyslMJcVzqf0J0YeLHa-2FmnndmzzFcneBDzRr7YZ8QnSGm4iDUlvvh4M1X62AC8aBMFl1nIKYgyAw",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "DOCK-API-TOKEN",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostnmae",
+			"value": "http://localhost:8080"
+		}
+	]
+}
