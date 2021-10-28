@@ -3334,10 +3334,10 @@ Object containing unique id of the background task and associated data. This id 
 
 ### Properties
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|id|[JobId](#schemajobid)|false|Unique id of the background task. This id can be used to query the job status.|
-|data|object|false|Data of the object.|
+|Name|Type|Description|
+|---|---|---|
+|id|[JobId](#schemajobid)|Unique id of the background task. This id can be used to query the job status.|
+|data|object|Data of the object.|
 
 <h2 id="tocS_JobId">JobId</h2>
 <!-- backwards compatibility -->
@@ -3353,11 +3353,6 @@ Object containing unique id of the background task and associated data. This id 
 
 Unique id of the background task. This id can be used to query the job status
 
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|JobId|string|false|Unique id of the background task. This id can be used to query the job status.|
 
 <h2 id="tocS_JobStatus">JobStatus</h2>
 <!-- backwards compatibility -->
@@ -3399,10 +3394,10 @@ This is a schema used in Job operation to get description of the job including r
 
 ### Properties
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|id|[JobId](#schemajobid)|false|Unique id of the background task. This id can be used to query the job status.|
-|status|[JobStatus](#schemajobstatus)|false|Status of the job.|
+|Name|Type|Description|
+|---|---|---|
+|id|[JobId](#schemajobid)|Unique id of the background task. This id can be used to query the job status.|
+|status|[JobStatus](#schemajobstatus)|Status of the job.|
 |result|object|false|Result of the Job.|
 
 <h2 id="tocS_DIDQualified">DIDQualified</h2>
@@ -3459,11 +3454,7 @@ DID as fully qualified, e.g., `did:dock:`.
 
 This is a schema type of public key for DID.
 
-### Properties
 
-|Name|Type|Required|Description|
-|---|---|---|---|
-|KeyType|string|false|Type of public key for DID. The default value of the keyType is sr25519|
 
 #### Enumerated Values
 
@@ -3529,11 +3520,6 @@ This is a schema that represents a purpose of credential.
 
 This is a schema that represents a JSON-LD context used in DID and Presentation.
 
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|Context|string|false|JSON-LD context|
 
 
 <h2 id="tocS_DIDDoc">DIDDoc</h2>
@@ -3600,7 +3586,7 @@ This is a schema that represents a credential format expected by API caller.
 |---|---|---|---|
 |id|string(uri)|false|Credential ID. The default value is a creds.dock.io uri with random ID.|
 |context|array|false|Credential context. The default value is https://www.w3.org/2018/credentials/v1.|
-|type|[string]|false|Credential type.|
+|type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object|true|Credential subject.|
 |issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
