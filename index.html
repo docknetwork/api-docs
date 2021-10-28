@@ -4257,20 +4257,17 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 <tr>
 <th>Name</th>
 <th>Type</th>
-<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>id</td>
 <td><a href="#schemajobid">JobId</a></td>
-<td>false</td>
 <td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 <tr>
 <td>data</td>
 <td>object</td>
-<td>false</td>
 <td>Data of the object.</td>
 </tr>
 </tbody></table>
@@ -4287,22 +4284,6 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>Unique id of the background task. This id can be used to query the job status</p>
-<h3 id='properties-4'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>JobId</td>
-<td>string</td>
-<td>false</td>
-<td>Unique id of the background task. This id can be used to query the job status.</td>
-</tr>
-</tbody></table>
 
 <h2 id="tocS_JobStatus">JobStatus</h2>
 
@@ -4347,32 +4328,28 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get description of the job including result if available.</p>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
-<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>id</td>
 <td><a href="#schemajobid">JobId</a></td>
-<td>false</td>
 <td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 <tr>
 <td>status</td>
 <td><a href="#schemajobstatus">JobStatus</a></td>
-<td>false</td>
 <td>Status of the job.</td>
 </tr>
 <tr>
 <td>result</td>
 <td>object</td>
 <td>false</td>
-<td>Result of the Job.</td>
 </tr>
 </tbody></table>
 
@@ -4388,7 +4365,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema used in some operations that used DID as fully qualified, e.g., <code>did:dock:</code>.</p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4417,7 +4394,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>DID as fully qualified, e.g., <code>did:dock:</code>.</p>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4446,22 +4423,6 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema type of public key for DID.</p>
-<h3 id='properties-8'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>KeyType</td>
-<td>string</td>
-<td>false</td>
-<td>Type of public key for DID. The default value of the keyType is sr25519</td>
-</tr>
-</tbody></table>
 <h4 id='enumerated-values-6'>Enumerated Values</h4>
 <table><thead>
 <tr>
@@ -4545,22 +4506,6 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a JSON-LD context used in DID and Presentation.</p>
-<h3 id='properties-9'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Context</td>
-<td>string</td>
-<td>false</td>
-<td>JSON-LD context</td>
-</tr>
-</tbody></table>
 
 <h2 id="tocS_DIDDoc">DIDDoc</h2>
 
@@ -4582,7 +4527,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a DID document. The current set of properties is incomplete</p>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4636,7 +4581,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a credential format expected by API caller.</p>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4661,7 +4606,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 <td>type</td>
 <td>[string]</td>
 <td>false</td>
-<td>Credential type.</td>
+<td>Credential type. The default value is [&#39;VerifiableCredential&#39;]</td>
 </tr>
 <tr>
 <td>subject</td>
@@ -4743,7 +4688,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a Verifiable (signed) Presentation returned by API. The current set of properties is almost complete</p>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4858,7 +4803,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a verifiable (signed) Credential returned by API. The current set of properties is almost complete.</p>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4999,7 +4944,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a Revocation registry used in Revocation or Unrevocation.</p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
