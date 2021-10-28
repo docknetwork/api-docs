@@ -691,7 +691,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
     <br />
     <a href="#list-did">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /dids/
+      /dids
     </a>
     <br />
     <a href="#get-did">
@@ -858,7 +858,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return the DID doc. To view an example of a DID doc, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
+<td>The request was successful and will return the DID doc. To view an example of a DID doc, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
 <td><a href="#schemadiddoc">DIDDoc</a></td>
 </tr>
 <tr>
@@ -1225,7 +1225,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p><span class="highlight"><span class="na">GET</span> /dids</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
+curl <span class="nt">-X</span> GET /dids <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
@@ -1235,7 +1235,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dids/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dids</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
 
@@ -1253,7 +1253,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/dids/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/dids'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -1272,7 +1272,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/dids/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/dids'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -1349,7 +1349,7 @@ curl <span class="nt">-X</span> GET /dids/ <span class="se">\</span>
 <p><span class="highlight"><span class="nt">POST</span> /dids</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
+curl <span class="nt">-X</span> POST /dids <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
@@ -1365,7 +1365,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dids/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dids</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
@@ -1384,7 +1384,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/dids/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/dids'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -1404,7 +1404,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/dids/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/dids'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -1434,7 +1434,7 @@ curl <span class="nt">-X</span> POST /dids/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/dids/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/dids"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -1548,7 +1548,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
 <h2 id='issue-a-credential'>Issue a credential</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /credentials</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
@@ -1578,7 +1578,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/credentials/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/credentials</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
@@ -1597,7 +1597,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/credentials/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/credentials'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -1617,7 +1617,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/credentials/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/credentials'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -1647,7 +1647,7 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/credentials/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/credentials"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -1656,8 +1656,6 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /credentials</code></p>
-
 <p>To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.</p>
 
 <p>This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., <code>did:dock:</code>) or an object with a property ID that is a uri/DID.</p>
@@ -1688,7 +1686,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </span></code></pre></div>
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
-<p>To view a sample of the parameter usage, please refer <a href="https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html">here</a>.</p>
+<p>To view a sample of the parameter usage, please refer <a href="https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html">here</a>.</p>
 
 <table><thead>
 <tr>
@@ -1770,7 +1768,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.</p>
 <h2 id='create-a-presentation'>Create a presentation</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /presentations</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
@@ -1812,7 +1810,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/presentations/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/presentations</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
@@ -1831,7 +1829,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/presentations/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/presentations'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -1851,7 +1849,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/presentations/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/presentations'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -1881,7 +1879,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/presentations/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/presentations"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -1890,8 +1888,6 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /presentations</code></p>
-
 <p>The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer&#39;s signature, he/she needs to verify this signature as well, and for that he must know the holder&#39;s public key.</p>
 
 <p>This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.</p>
@@ -2045,7 +2041,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.</p>
 <h2 id='delete-registry'>Delete registry</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">DELETE</span> /registries/{id}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
@@ -2133,8 +2129,6 @@ curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>DELETE /registries/{id}</code></p>
-
 <p>A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.</p>
 
 <aside class="warning">
@@ -2197,7 +2191,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='get-registry'>Get registry</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /registries/{id}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
@@ -2285,8 +2279,6 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /registries/{id}</code></p>
-
 <p>Get the details of an existing registry, such as policy, add-only status, when it was last update, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.</p>
 
 <h3 id="get-registry-parameters">Parameters</h3>
@@ -2344,7 +2336,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 </tbody></table>
 <h2 id='revoke-unrevoke-credential'>Revoke/unrevoke credential</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /registries/{id}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
@@ -2442,8 +2434,6 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /registries/{id}</code></p>
-
 <p>Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.</p>
 
 <p>Similar to the replay protection mechanism for DIDs, the last modified block number is kept for each registry, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.</p>
@@ -2487,7 +2477,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>The action taken, either revoke or unrevoke.</td>
+<td>The action taken, either revoke or unrevoke. The default value is &quot;revoke&quot;</td>
 </tr>
 <tr>
 <td>credentialIds</td>
@@ -2554,7 +2544,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='list-registries'>List registries</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /registries</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
@@ -2567,7 +2557,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/registries/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/registries</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
 
@@ -2585,7 +2575,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/registries/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/registries'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -2604,7 +2594,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/registries/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/registries'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -2633,7 +2623,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/registries/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/registries"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -2642,8 +2632,6 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /registries</code></p>
-
 <p>Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.</p>
 
 <aside class="notice">
@@ -2684,7 +2672,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </tbody></table>
 <h2 id='create-registry'>Create registry</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /registries</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
@@ -2704,7 +2692,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/registries/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/registries</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
@@ -2723,7 +2711,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/registries/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/registries'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -2743,7 +2731,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/registries/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/registries'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -2773,7 +2761,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/registries/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/registries"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -2782,8 +2770,6 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /registries</code></p>
-
 <p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.</p>
 
 <aside class="warning">
@@ -2816,7 +2802,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td>boolean</td>
 <td>false</td>
-<td>True/false options.</td>
+<td>True/false options. The default value is &quot;false&quot;.</td>
 </tr>
 <tr>
 <td>policy</td>
@@ -2867,7 +2853,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.</p>
 <h2 id='get-revocation-status'>Get revocation status</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>regId<span class="o">}</span>/<span class="o">{</span>revId<span class="o">}</span> <span class="se">\</span>
@@ -2955,8 +2941,6 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /revocationStatus/{regId}/{revId}</code></p>
-
 <p>To check if an id is revoked or not, you can check its status with the registry id (<code>regId</code>) and revocation id (<code>revId</code>).</p>
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
@@ -3024,7 +3008,7 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 <p>Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a <code>Blob</code> in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.</p>
 <h2 id='get-schema'>Get schema</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<span class="o">}</span> <span class="se">\</span>
@@ -3112,8 +3096,6 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /schemas/{schemaId}</code></p>
-
 <p>Reading a Schema from the Dock chain can easily be achieved by using the <code>get</code> method from the <code>Schema</code> class and will return the JSON schema to a specific schema ID.</p>
 
 <h3 id="get-schema-parameters">Parameters</h3>
@@ -3169,10 +3151,10 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 </tbody></table>
 <h2 id='list-schemas'>List schemas</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /schemas</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
+curl <span class="nt">-X</span> GET /schemas <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
@@ -3182,7 +3164,7 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/schemas/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/schemas</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
 
@@ -3219,7 +3201,7 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/schemas/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/schemas'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -3248,7 +3230,7 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/schemas/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/schemas"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -3257,8 +3239,6 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /schemas</code></p>
-
 <p>Return a list of all schemas created by user.</p>
 
 <blockquote>
@@ -3287,10 +3267,10 @@ curl <span class="nt">-X</span> GET /schemas/ <span class="se">\</span>
 </tbody></table>
 <h2 id='create-schema'>Create schema</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /schemas</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
+curl <span class="nt">-X</span> POST /schemas <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
@@ -3302,7 +3282,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/schemas/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/schemas</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
@@ -3321,7 +3301,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/schemas/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/schemas'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -3341,7 +3321,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/schemas/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/schemas'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -3371,7 +3351,7 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/schemas/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/schemas"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -3380,8 +3360,6 @@ curl <span class="nt">-X</span> POST /schemas/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /schemas</code></p>
-
 <p>The first step to creating a Schema is to initialize it. We can do that using the <code>Schema</code> class constructor, which accepts an (optional) id string as the sole argument. When an id isn&#39;t passed, a random <code>blobId</code> will be assigned as the schema&#39;s id.</p>
 
 <aside class="warning">
@@ -3451,7 +3429,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.</p>
 <h2 id='get-anchor'>Get anchor</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span class="o">}</span> <span class="se">\</span>
@@ -3539,8 +3517,6 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /anchors/{anchor}</code></p>
-
 <p>Get a specific anchor with the given ID.</p>
 
 <h3 id="get-anchor-parameters">Parameters</h3>
@@ -3597,10 +3573,10 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 </tbody></table>
 <h2 id='list-anchors'>List anchors</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /anchors</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
+curl <span class="nt">-X</span> GET /anchors <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
@@ -3610,7 +3586,7 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
   <span class="dl">'</span><span class="s1">DOCK-API-TOKEN</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
 <span class="p">};</span>
 
-<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/anchors/</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/anchors</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
 
@@ -3628,7 +3604,7 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/anchors/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/anchors'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -3647,7 +3623,7 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/anchors/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/anchors'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -3676,7 +3652,7 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/anchors/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/anchors"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -3685,8 +3661,6 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /anchors</code></p>
-
 <p>Return a list of all anchors created by user, whether have contributed to the batching or not.</p>
 
 <blockquote>
@@ -3715,10 +3689,10 @@ curl <span class="nt">-X</span> GET /anchors/ <span class="se">\</span>
 </tbody></table>
 <h2 id='create-anchor'>Create anchor</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /anchors</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
+curl <span class="nt">-X</span> POST /anchors <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
@@ -3751,7 +3725,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/anchors/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/anchors'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -3771,7 +3745,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/anchors/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/anchors'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -3801,7 +3775,7 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/anchors/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/anchors"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -3810,8 +3784,6 @@ curl <span class="nt">-X</span> POST /anchors/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /anchors</code></p>
-
 <p>To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.</p>
 
 <p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
@@ -3881,7 +3853,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>This section describes API resources to get job status and data with using a spesific Job id.</p>
 <h2 id='get-job-status-and-data'>Get job status and data</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
@@ -3969,8 +3941,6 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>GET /jobs/{id}</code></p>
-
 <p>To check the Job status and data, you can use the <code>GET</code> method and simply put the Job id. It will return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.</p>
 
 <h3 id="get-job-status-and-data-parameters">Parameters</h3>
@@ -4031,10 +4001,10 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <p>Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
 <h2 id='verify-a-credential-or-presentation'>Verify a credential or presentation</h2>
 <blockquote>
-<p>Code samples</p>
+<p><span class="highlight"><span class="na">POST</span> /verify</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
-curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
+curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
@@ -4065,7 +4035,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
   <span class="s">'DOCK-API-TOKEN'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
 <span class="p">}</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/verify/'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'/verify'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -4085,7 +4055,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/verify/'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/verify'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
         <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
        <span class="p">)</span>
@@ -4115,7 +4085,7 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
     <span class="p">}</span>
 
     <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
-    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/verify/"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"POST"</span><span class="p">,</span> <span class="s">"/verify"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
 
     <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
@@ -4124,8 +4094,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p><code>POST /verify</code></p>
-
 <p>Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.</p>
 
 <p>Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.</p>
@@ -4214,7 +4182,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4222,21 +4189,18 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>status</td>
 <td>integer</td>
 <td>false</td>
-<td>none</td>
 <td>Status of the error.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>Type of the error.</td>
 </tr>
 <tr>
 <td>message</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>Message of the error.</td>
 </tr>
 </tbody></table>
@@ -4259,7 +4223,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4267,7 +4230,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>Hex32</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
 </tr>
 </tbody></table>
@@ -4296,7 +4258,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4304,14 +4265,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>id</td>
 <td><a href="#schemajobid">JobId</a></td>
 <td>false</td>
-<td>none</td>
 <td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 <tr>
 <td>data</td>
 <td>object</td>
 <td>false</td>
-<td>none</td>
 <td>Data of the object.</td>
 </tr>
 </tbody></table>
@@ -4334,7 +4293,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4342,7 +4300,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>JobId</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 </tbody></table>
@@ -4359,24 +4316,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get a status of the job.</p>
-<h3 id='properties-5'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>JobStatus</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>Status of the job.</td>
-</tr>
-</tbody></table>
 <h4 id='enumerated-values-5'>Enumerated Values</h4>
 <table><thead>
 <tr>
@@ -4408,13 +4347,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get description of the job including result if available.</p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4422,21 +4360,18 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>id</td>
 <td><a href="#schemajobid">JobId</a></td>
 <td>false</td>
-<td>none</td>
 <td>Unique id of the background task. This id can be used to query the job status.</td>
 </tr>
 <tr>
 <td>status</td>
 <td><a href="#schemajobstatus">JobStatus</a></td>
 <td>false</td>
-<td>none</td>
 <td>Status of the job.</td>
 </tr>
 <tr>
 <td>result</td>
 <td>object</td>
 <td>false</td>
-<td>none</td>
 <td>Result of the Job.</td>
 </tr>
 </tbody></table>
@@ -4453,13 +4388,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema used in some operations that used DID as fully qualified, e.g., <code>did:dock:</code>.</p>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4467,7 +4401,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>DIDQualified</td>
 <td>string(uri)</td>
 <td>false</td>
-<td>none</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
 </tbody></table>
@@ -4484,13 +4417,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>DID as fully qualified, e.g., <code>did:dock:</code>.</p>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4498,7 +4430,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>DID</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>. You cannot specify your own DID, the DID value will be randomly generated.</td>
 </tr>
 </tbody></table>
@@ -4515,13 +4446,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema type of public key for DID.</p>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4529,7 +4459,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>KeyType</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>Type of public key for DID. The default value of the keyType is sr25519</td>
 </tr>
 </tbody></table>
@@ -4560,24 +4489,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema used in Presentation operation that represents a type of signature.</p>
-<h3 id='properties-10'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>SigType</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>Type of signature.</td>
-</tr>
-</tbody></table>
 <h4 id='enumerated-values-7'>Enumerated Values</h4>
 <table><thead>
 <tr>
@@ -4605,24 +4516,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a purpose of credential.</p>
-<h3 id='properties-11'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ProofPurpose</td>
-<td>string</td>
-<td>false</td>
-<td>none</td>
-<td>Purpose of credential.</td>
-</tr>
-</tbody></table>
 <h4 id='enumerated-values-8'>Enumerated Values</h4>
 <table><thead>
 <tr>
@@ -4652,13 +4545,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a JSON-LD context used in DID and Presentation.</p>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4666,7 +4558,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>Context</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>JSON-LD context</td>
 </tr>
 </tbody></table>
@@ -4691,13 +4582,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a DID document. The current set of properties is incomplete</p>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4705,21 +4595,18 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>@context</td>
 <td><a href="#schemacontext">Context</a></td>
 <td>false</td>
-<td>none</td>
 <td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
-<td>none</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
 <tr>
 <td>authentication</td>
 <td>array</td>
 <td>false</td>
-<td>none</td>
 <td>DID authentication.</td>
 </tr>
 </tbody></table>
@@ -4749,13 +4636,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a credential format expected by API caller.</p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4763,56 +4649,48 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>id</td>
 <td>string(uri)</td>
 <td>false</td>
-<td>none</td>
-<td>Credential ID.</td>
+<td>Credential ID. The default value is a creds.dock.io uri with random ID.</td>
 </tr>
 <tr>
 <td>context</td>
 <td>array</td>
 <td>false</td>
-<td>none</td>
-<td>Credential context.</td>
+<td>Credential context. The default value is https://www.w3.org/2018/credentials/v1.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>[string]</td>
 <td>false</td>
-<td>none</td>
 <td>Credential type.</td>
 </tr>
 <tr>
 <td>subject</td>
 <td>object</td>
 <td>true</td>
-<td>none</td>
 <td>Credential subject.</td>
 </tr>
 <tr>
 <td>issuer</td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
-<td>none</td>
 <td>Credential issuer. DID as fully qualified, e.g., <code>did:dock:</code>. If not supplied the credential will not be signed.</td>
 </tr>
 <tr>
 <td>issuanceDate</td>
 <td>string(date-time[RFC3339])</td>
 <td>false</td>
-<td>none</td>
 <td>The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.</td>
 </tr>
 <tr>
 <td>expirationDate</td>
 <td>string(date-time[RFC3339])</td>
 <td>false</td>
-<td>none</td>
 <td>The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.</td>
 </tr>
 <tr>
 <td>status</td>
 <td>object or string</td>
 <td>false</td>
-<td>none</td>
 <td>Revocation registry id or user supplied status object.</td>
 </tr>
 </tbody></table>
@@ -4865,13 +4743,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a Verifiable (signed) Presentation returned by API. The current set of properties is almost complete</p>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4879,47 +4756,41 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>@context</td>
 <td><a href="#schemacontext">Context</a></td>
 <td>true</td>
-<td>none</td>
 <td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td>string(uri)</td>
 <td>true</td>
-<td>none</td>
 <td>Verifiable (signed) presentation id.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>string</td>
 <td>true</td>
-<td>none</td>
 <td>Verifiable (signed) presentation type.</td>
 </tr>
 <tr>
 <td>verifiableCredential</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 <td>true</td>
-<td>none</td>
 <td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete.</td>
 </tr>
 <tr>
 <td>proof</td>
 <td>object</td>
 <td>true</td>
-<td>none</td>
 <td>Proof of credential.</td>
 </tr>
 </tbody></table>
 
-<h3 id="ProofChildParameterPresentation">Child Parameters of Proof</h3>
+<h3 id="ProofChildPropertiesPresentation">Child Properties of Proof</h3>
 
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -4927,28 +4798,24 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>type</td>
 <td><a href="#schemasigtype">SigType</a></td>
 <td>true</td>
-<td>none</td>
 <td>Type of signature.</td>
 </tr>
 <tr>
 <td>proofPurpose</td>
 <td><a href="#schemaproofpurpose">ProofPurpose</a></td>
 <td>true</td>
-<td>none</td>
 <td>Purpose of credential.</td>
 </tr>
 <tr>
 <td>verificationMethod</td>
 <td>string</td>
 <td>true</td>
-<td>none</td>
 <td>Verification method.</td>
 </tr>
 <tr>
 <td>created</td>
 <td>string(date-time[RFC3339])</td>
 <td>true</td>
-<td>none</td>
 <td>The date and time in GMT that the credential was created specified in RFC 3339 format.</td>
 </tr>
 <tr>
@@ -4956,7 +4823,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>Value of credential.</td>
 </tr>
 </tbody></table>
 
@@ -4992,13 +4858,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a verifiable (signed) Credential returned by API. The current set of properties is almost complete.</p>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -5006,75 +4871,65 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>@context</td>
 <td><a href="#schemacontext">Context</a></td>
 <td>false</td>
-<td>none</td>
 <td>JSON-LD context.</td>
 </tr>
 <tr>
 <td>id</td>
 <td>string(uri)</td>
 <td>false</td>
-<td>none</td>
 <td>Credential id.</td>
 </tr>
 <tr>
 <td>type</td>
 <td>[string]</td>
 <td>false</td>
-<td>none</td>
 <td>Credential type.</td>
 </tr>
 <tr>
 <td>credentialSubject</td>
 <td>any</td>
 <td>false</td>
-<td>none</td>
 <td>Credential subject.</td>
 </tr>
 <tr>
 <td>issuer</td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>false</td>
-<td>none</td>
 <td>Credential issuer or DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
 <tr>
 <td>issuanceDate</td>
 <td>string(date-time[RFC3339])</td>
 <td>false</td>
-<td>none</td>
 <td>The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.</td>
 </tr>
 <tr>
 <td>expirationDate</td>
 <td>string(date-time[RFC3339])</td>
 <td>false</td>
-<td>none</td>
 <td>The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.</td>
 </tr>
 <tr>
 <td>credentialStatus</td>
 <td>any</td>
 <td>false</td>
-<td>none</td>
 <td>Revocation registry id or user supplied status object.</td>
 </tr>
 <tr>
 <td>proof</td>
 <td>object</td>
 <td>false</td>
-<td>none</td>
 <td>Proof of credential.</td>
 </tr>
 </tbody></table>
 
-<h3 id="ProofChildParameterCredentials">Child Parameters of Proof</h3>
+<h3 id="ProofChildPropertiesCredentials">Child Properties of Proof</h3>
 
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -5082,35 +4937,30 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>type</td>
 <td><a href="#schemasigtype">SigType</a></td>
 <td>false</td>
-<td>none</td>
 <td>Type of signature.</td>
 </tr>
 <tr>
 <td>proofPurpose</td>
 <td><a href="#schemaproofpurpose">ProofPurpose</a></td>
 <td>false</td>
-<td>none</td>
 <td>Purpose of credential.</td>
 </tr>
 <tr>
 <td>verificationMethod</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>Verification method.</td>
 </tr>
 <tr>
 <td>created</td>
 <td>string(date-time[RFC3339])</td>
 <td>false</td>
-<td>none</td>
 <td>The date and time in GMT that the credential was created specified in RFC 3339 format.</td>
 </tr>
 <tr>
 <td>proofValue</td>
 <td>string</td>
 <td>false</td>
-<td>none</td>
 <td>Value of credential.</td>
 </tr>
 </tbody></table>
@@ -5131,38 +4981,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.</p>
-<h3 id='properties-17'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>anchor</td>
-<td><a href="#schemahex32">Hex32</a></td>
-<td>false</td>
-<td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
-</tr>
-<tr>
-<td>blockHash</td>
-<td><a href="#schemahex32">Hex32</a></td>
-<td>false</td>
-<td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
-</tr>
-<tr>
-<td>root</td>
-<td><a href="#schemahex32">Hex32</a></td>
-<td>false</td>
-<td>none</td>
-<td>32 byte hex string. Ignoring higher base (base64) for simplicity.</td>
-</tr>
-</tbody></table>
 
 <h2 id="tocS_Registry">Registry</h2>
 
@@ -5181,13 +4999,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a Revocation registry used in Revocation or Unrevocation.</p>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Required</th>
-<th>Restrictions</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -5195,14 +5012,12 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 <td>addOnly</td>
 <td>boolean</td>
 <td>false</td>
-<td>none</td>
 <td>If the <code>addOnly</code> value is true, they cannot unrevoke and delete the registry. The default value for this is <code>false</code>.</td>
 </tr>
 <tr>
 <td>policy</td>
 <td>[<a href="#schemadid">DID</a>]</td>
 <td>false</td>
-<td>none</td>
 <td>Only one policy supported as of now called <code>OneOf</code>.</td>
 </tr>
 </tbody></table>
@@ -5221,24 +5036,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that used to define whether a credential/presentation is verified or not</p>
-<h3 id='properties-19'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>verified</td>
-<td>boolean</td>
-<td>false</td>
-<td>none</td>
-<td>Describes whether the credential/presentation is verified or not.</td>
-</tr>
-</tbody></table>
 
 <h2 id="tocS_Response">Response</h2>
 
@@ -5254,24 +5051,6 @@ curl <span class="nt">-X</span> POST /verify/ <span class="se">\</span>
 
 </span></code></pre></div>
 <p>This is a schema that represents a default response for a request made.</p>
-<h3 id='properties-20'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Restrictions</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>code</td>
-<td>integer</td>
-<td>false</td>
-<td>none</td>
-<td>Represents the integer value of the code response.</td>
-</tr>
-</tbody></table>
 
 <script type="application/ld+json">
 {
