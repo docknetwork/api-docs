@@ -533,7 +533,7 @@
 
 <p>In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access <a href="https://github.com/docknetwork/dock-api-js/tree/main/examples">here</a>.</p>
 
-<p>We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and <a href="https://console.api.dock.io/">start issuing credentials with our API console</a>. Please read  <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
+<p>We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and <a href="https://console.api.dock.io/">start issuing credentials with our API console</a>. Please read our <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
 <h2 id='primary-features'>Primary Features</h2>
 <ul>
 <li>  Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.</li>
@@ -576,7 +576,7 @@ Keep in mind that your API keys should typically be kept private, so keep them s
 When you generate an API key, you may include a list of whitelisted IP's that can use with that key.
 </aside>
 <h2 id='architecture-style'>Architecture Style</h2>
-<p>The Dock API is built on the <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.</p>
+<p>The Dock API is built using a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.</p>
 
 <p>HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. JSON requests should typically be encoded as UTF-8.</p>
 
@@ -626,7 +626,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The resource that you&#39;re trying to open could not be found on the server.</td>
+<td>Not Found -- The resource that you&#39;re trying to interact with could not be found on the server.</td>
 </tr>
 <tr>
 <td>429</td>
@@ -638,7 +638,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 </tr>
 </tbody></table>
 <h1 id='terminology'>Terminology</h1>
-<p>It is important to fully understand all the terminologies within Dock ecosystem. The following are common terminologies within our ecosystem:</p>
+<p>It is important to fully understand all the terminologies within the Dock ecosystem. The following are common terminologies within our ecosystem:</p>
 
 <table><thead>
 <tr>
@@ -648,7 +648,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 </thead><tbody>
 <tr>
 <td>DID</td>
-<td>DID stands for Decentralized Identifiers. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
+<td>DID stands for Decentralized Identifier. It is a new type of identifier that enables verifiable, decentralized digital identity. A DID refers to any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) as determined by the controller of the DID. For more information, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
 </tr>
 <tr>
 <td>Anchoring</td>
@@ -864,7 +864,7 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>DID entered in parameter was not found.</td>
+<td>The requested DID was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -1532,7 +1532,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will try to create DID. DID does not exist on network as of now.</td>
+<td>The request was successful and will try to create DID. NOTE: DID does not exist on network until the job identified in the response is complete.</td>
 <td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
@@ -1545,7 +1545,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="credentials">Credentials</h1>
 
-<p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and fraud prevention. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
+<p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
 <h2 id='issue-a-credential'>Issue a credential</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">POST</span> /credentials</span></p>
@@ -1686,8 +1686,6 @@ This operation counts towards your monthly transaction limits for each successfu
 </span></code></pre></div>
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
-<p>To view a sample of the parameter usage, please refer <a href="https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html">here</a>.</p>
-
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1744,19 +1742,19 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and return a Verifiable Credential.</td>
+<td>The request was successful and returns the created Verifiable Credential.</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>The irequest was unsuccessful, because of Invalid/insufficient credential params.</td>
+<td>The request was unsuccessful, because of invalid/insufficient credential params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
+<td>The request was unsuccessful, either because the authorization token was missing/invalid or you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -1890,7 +1888,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
 </code></pre></div>
 <p>The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer&#39;s signature, he/she needs to verify this signature as well, and for that he must know the holder&#39;s public key.</p>
 
-<p>This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. Remember, signing counts as a paid transaction.</p>
+<p>This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. </p>
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -1944,14 +1942,14 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td><a href="#schemadidqualified">DIDQualified</a></td>
 <td>true</td>
-<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:...</code>.</td>
 </tr>
 <tr>
 <td>challenge</td>
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>Presentation&#39;s Challenge in a string format. The default valle for this is <code>random hex string</code>.</td>
+<td>Presentation&#39;s Challenge in a string format. The default value for this is <code>random hex string</code>.</td>
 </tr>
 <tr>
 <td>domain</td>
@@ -1965,7 +1963,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
 <td>false</td>
-<td>Verifiable (signed) Credential returned by API. The current set of properties is almost complete.</td>
+<td>Verifiable (signed) Credential returned by API.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-3'>Enumerated Values</h4>
@@ -1984,7 +1982,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>proofPurpose</td>
 <td>assertionMethod <strong>or</strong> authentication</td>
-<td>The type of purpose used for the credential.</td>
+<td>The purpose the credential will be used for.</td>
 </tr>
 </tbody></table>
 
@@ -2017,19 +2015,19 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and return a Verifiable Credential.</td>
-<td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
+<td>The request was successful and returns a Verifiable Presentation.</td>
+<td><a href="#schemaverifiablepresentation">VerifiablePresentation</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>The request was unsuccessful, because of invalid/insufficient credential params.</td>
+<td>The request was unsuccessful, because of invalid/insufficient parameters.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
+<td>The request was unsuccessful, either because of a missing/invalid auth header or you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2279,7 +2277,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 <span class="p">}</span>
 
 </code></pre></div>
-<p>Get the details of an existing registry, such as policy, add-only status, when it was last update, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.</p>
+<p>Get the details of an existing registry, such as policy, add-only status, when it was last updated, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.</p>
 
 <h3 id="get-registry-parameters">Parameters</h3>
 
@@ -2484,7 +2482,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td>array</td>
 <td>true</td>
-<td>Represents credential Ids.</td>
+<td>The list of credential ids to act upon.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-4'>Enumerated Values</h4>
@@ -2635,7 +2633,7 @@ curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
 <p>Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.</p>
 
 <aside class="notice">
-For now, only one policy is supported, and each registry is owned by a single DID, called `OneOf`.
+For now, only one policy is supported, and each registry is owned by a single DID.
 </aside>
 
 <blockquote>
@@ -2666,7 +2664,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return all registries created by user.</td>
+<td>The request was successful and will return all registries created by the user.</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
@@ -2770,7 +2768,7 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.</p>
+<p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.</p>
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -2837,7 +2835,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will try to create registry.</td>
+<td>The request was successful and will try to create the registry.</td>
 <td><a href="#schemajobstartedresult">JobStartedResult</a></td>
 </tr>
 <tr>
@@ -2850,7 +2848,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="revocationstatus">Revocation Status</h1>
 
-<p>After the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.</p>
+<p>Once the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.</p>
 <h2 id='get-revocation-status'>Get revocation status</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></p>
@@ -2990,13 +2988,13 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return <strong>true</strong>, if credential is revoked, <strong>false</strong> otherwise.</td>
+<td>The request was successful and will return <strong>true</strong>, if the credential is revoked, <strong>false</strong> otherwise.</td>
 <td>Inline</td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>The request was unsuccessful, because registry was not found.</td>
+<td>The request was unsuccessful, because the registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -3096,7 +3094,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <span class="p">}</span>
 
 </code></pre></div>
-<p>Reading a Schema from the Dock chain can easily be achieved by using the <code>get</code> method from the <code>Schema</code> class and will return the JSON schema to a specific schema ID.</p>
+<p>Reading a Schema from the Dock chain can easily be achieved by using the <code>get</code> method which will return the JSON schema to a specific schema ID.</p>
 
 <h3 id="get-schema-parameters">Parameters</h3>
 
@@ -3139,7 +3137,7 @@ curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<sp
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and return a Schema.</td>
+<td>The request was successful and returns the requested Schema.</td>
 <td>Inline</td>
 </tr>
 <tr>
@@ -3239,7 +3237,7 @@ curl <span class="nt">-X</span> GET /schemas <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>Return a list of all schemas created by user.</p>
+<p>Return a list of all schemas created by the authenticated user.</p>
 
 <blockquote>
 <p>200 Response</p>
@@ -3261,7 +3259,7 @@ curl <span class="nt">-X</span> GET /schemas <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return all schemas created by User.</td>
+<td>The request was successful and will return all schemas created by the user.</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
@@ -3561,7 +3559,7 @@ curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and return an anchor&#39;s details, e.g., <code>blockHash</code> and <code>root</code>.</td>
+<td>The request was successful and returns the anchor&#39;s details, e.g., <code>blockHash</code> and <code>root</code>.</td>
 <td><a href="#schemaanchor">Anchor</a></td>
 </tr>
 <tr>
@@ -3661,7 +3659,7 @@ curl <span class="nt">-X</span> GET /anchors <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>Return a list of all anchors created by user, whether have contributed to the batching or not.</p>
+<p>Return a list of all anchors created by the authenticated user, regardless of whether they have contributed to the batching or not.</p>
 
 <blockquote>
 <p>200 Response</p>
@@ -3683,7 +3681,7 @@ curl <span class="nt">-X</span> GET /anchors <span class="se">\</span>
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return all anchors created by User.</td>
+<td>The request was successful and will return all anchors created by the user.</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
@@ -3784,7 +3782,7 @@ curl <span class="nt">-X</span> POST /anchors <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.</p>
+<p>To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.</p>
 
 <p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
 
@@ -3850,7 +3848,9 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="jobs">Jobs</h1>
 
-<p>This section describes API resources to get job status and data with using a spesific Job id.</p>
+<p>API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. </p>
+
+<p>You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.</p>
 <h2 id='get-job-status-and-data'>Get job status and data</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></p>
@@ -3985,7 +3985,7 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and return a Job desc.</td>
+<td>The request was successful and return the job description.</td>
 <td><a href="#schemajobdesc">JobDesc</a></td>
 </tr>
 <tr>
@@ -3998,7 +3998,7 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 
 <h1 id="verify">Verify</h1>
 
-<p>Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
+<p>A Verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
 <h2 id='verify-a-credential-or-presentation'>Verify a credential or presentation</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">POST</span> /verify</span></p>
@@ -4327,7 +4327,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This is a schema used in Job operation to get description of the job including result if available.</p>
+<p>This is a schema used in Job operation to get description of the job including the result if it is available.</p>
 <h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
@@ -4364,7 +4364,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
-<p>This is a schema used in some operations that used DID as fully qualified, e.g., <code>did:dock:</code>.</p>
+<p>This is a schema used in some operations that used DID as fully qualified, e.g., <code>did:dock:xyz</code>.</p>
 <h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
@@ -4378,7 +4378,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 <td>DIDQualified</td>
 <td>string(uri)</td>
 <td>false</td>
-<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:xyz</code>.</td>
 </tr>
 </tbody></table>
 
