@@ -118,7 +118,7 @@ DID Resolver | The tool that initiates the process of learning the DID document.
     <br />
     <a href="#list-did">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /dids/
+      /dids
     </a>
     <br />
     <a href="#get-did">
@@ -280,7 +280,7 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID entered in parameter was not found.|[Error](#schemaerror)|
 
 
@@ -585,7 +585,7 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 ```shell
 # You can also use wget
-curl -X GET /dids/ \
+curl -X GET /dids \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
 
@@ -598,7 +598,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/dids/',
+fetch('/dids',
 {
   method: 'GET',
 
@@ -619,7 +619,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.get('/dids/', headers = headers)
+r = requests.get('/dids', headers = headers)
 
 print(r.json())
 
@@ -641,7 +641,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('GET','/dids/', array(
+    $response = $client->request('GET','/dids', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -714,7 +714,7 @@ Return a list of all user's DIDs you've previously created. The DIDs are returne
 
 ```shell
 # You can also use wget
-curl -X POST /dids/ \
+curl -X POST /dids \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -733,7 +733,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/dids/',
+fetch('/dids',
 {
   method: 'POST',
   body: inputBody,
@@ -755,7 +755,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/dids/', headers = headers)
+r = requests.post('/dids', headers = headers)
 
 print(r.json())
 
@@ -778,7 +778,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/dids/', array(
+    $response = $client->request('POST','/dids', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -811,7 +811,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/dids/", data)
+    req, err := http.NewRequest("POST", "/dids", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -879,7 +879,7 @@ Blockchain Credentials are credentials that have been recorded on the blockchain
 
 ## Issue a credential
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /credentials</span>
 
 ```shell
 # You can also use wget
@@ -913,7 +913,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/credentials/',
+fetch('/credentials',
 {
   method: 'POST',
   body: inputBody,
@@ -935,7 +935,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/credentials/', headers = headers)
+r = requests.post('/credentials', headers = headers)
 
 print(r.json())
 
@@ -958,7 +958,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/credentials/', array(
+    $response = $client->request('POST','/credentials', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -991,7 +991,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/credentials/", data)
+    req, err := http.NewRequest("POST", "/credentials", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1001,7 +1001,6 @@ func main() {
 
 ```
 
-`POST /credentials`
 
 To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
 
@@ -1034,7 +1033,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
-To view a sample of the parameter usage, please refer [here](https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html).
+To view a sample of the parameter usage, please refer [here](https://docknetwork.github.io/sdk/tutorials/tutorial_ipv.html).
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1083,7 +1082,7 @@ The API allows you to create and sign a verifiable presentation out of one or mo
 
 ## Create a presentation
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /presentations</span>
 
 ```shell
 # You can also use wget
@@ -1129,7 +1128,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/presentations/',
+fetch('/presentations',
 {
   method: 'POST',
   body: inputBody,
@@ -1151,7 +1150,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/presentations/', headers = headers)
+r = requests.post('/presentations', headers = headers)
 
 print(r.json())
 
@@ -1174,7 +1173,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/presentations/', array(
+    $response = $client->request('POST','/presentations', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -1207,7 +1206,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/presentations/", data)
+    req, err := http.NewRequest("POST", "/presentations", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1216,8 +1215,6 @@ func main() {
 }
 
 ```
-
-`POST /presentations`
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
@@ -1310,7 +1307,7 @@ There can be multiple registries on the chain, and each registry has a unique id
 
 ## Delete registry
 
-> Code samples
+> <span class="highlight"><span class="na">DELETE</span> /registries/{id}</span>
 
 ```shell
 # You can also use wget
@@ -1412,7 +1409,6 @@ func main() {
 
 ```
 
-`DELETE /registries/{id}`
 
 A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
 
@@ -1447,7 +1443,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Get registry
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /registries/{id}</span>
 
 ```shell
 # You can also use wget
@@ -1549,7 +1545,6 @@ func main() {
 
 ```
 
-`GET /registries/{id}`
 
  Get the details of an existing registry, such as policy, add-only status, when it was last update, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.
 
@@ -1580,7 +1575,7 @@ func main() {
 
 ## Revoke/unrevoke credential
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /registries/{id}</span>
 
 ```shell
 # You can also use wget
@@ -1692,7 +1687,6 @@ func main() {
 
 ```
 
-`POST /registries/{id}`
 
 Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.
 
@@ -1720,8 +1714,8 @@ This operation counts towards your monthly transaction limits for each successfu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
-|action|body|string|false|The action taken, either revoke or unrevoke.|
-|credentialIds|body|array|true|Represents credential Ids.|
+|action|body|string|false|The action taken, either revoke or unrevoke. The default value is "revoke"|
+|credentialIds|body|array|true|Represents credential Ids. |
 
 #### Enumerated Values
 
@@ -1752,7 +1746,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List registries
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /registries</span>
 
 ```shell
 # You can also use wget
@@ -1769,7 +1763,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/registries/',
+fetch('/registries',
 {
   method: 'GET',
 
@@ -1790,7 +1784,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.get('/registries/', headers = headers)
+r = requests.get('/registries', headers = headers)
 
 print(r.json())
 
@@ -1812,7 +1806,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('GET','/registries/', array(
+    $response = $client->request('GET','/registries', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -1844,7 +1838,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/registries/", data)
+    req, err := http.NewRequest("GET", "/registries", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1854,7 +1848,6 @@ func main() {
 
 ```
 
-`GET /registries`
 
 Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.
 
@@ -1888,7 +1881,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 
 ## Create registry
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /registries</span>
 
 ```shell
 # You can also use wget
@@ -1912,7 +1905,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/registries/',
+fetch('/registries',
 {
   method: 'POST',
   body: inputBody,
@@ -1934,7 +1927,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/registries/', headers = headers)
+r = requests.post('/registries', headers = headers)
 
 print(r.json())
 
@@ -1957,7 +1950,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/registries/', array(
+    $response = $client->request('POST','/registries', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -1990,7 +1983,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/registries/", data)
+    req, err := http.NewRequest("POST", "/registries", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1999,8 +1992,6 @@ func main() {
 }
 
 ```
-
-`POST /registries`
 
 To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry a register the DID, thus controlling the registry.
 
@@ -2023,7 +2014,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|addOnly|body|boolean|false|True/false options.|
+|addOnly|body|boolean|false|True/false options. The default value is "false".|
 |policy|body|[[DID](#schemadid)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
 
 > 200 Response
@@ -2052,7 +2043,7 @@ After the registry is being revoked or unrevoked, you can check its status with 
 
 ## Get revocation status
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span>
 
 ```shell
 # You can also use wget
@@ -2154,8 +2145,6 @@ func main() {
 
 ```
 
-`GET /revocationStatus/{regId}/{revId}`
-
 To check if an id is revoked or not, you can check its status with the registry id (`regId`) and revocation id (`revId`).
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
@@ -2189,7 +2178,7 @@ Before diving further into Schemas, it is important to understand how they are s
 
 ## Get schema
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
 
 ```shell
 # You can also use wget
@@ -2291,8 +2280,6 @@ func main() {
 
 ```
 
-`GET /schemas/{schemaId}`
-
 Reading a Schema from the Dock chain can easily be achieved by using the `get` method from the `Schema` class and will return the JSON schema to a specific schema ID.
 
 <h3 id="get-schema-parameters">Parameters</h3>
@@ -2320,11 +2307,12 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 
 ## List schemas
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /schemas</span>
+
 
 ```shell
 # You can also use wget
-curl -X GET /schemas/ \
+curl -X GET /schemas \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
 
@@ -2337,7 +2325,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/schemas/',
+fetch('/schemas',
 {
   method: 'GET',
 
@@ -2380,7 +2368,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('GET','/schemas/', array(
+    $response = $client->request('GET','/schemas', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -2412,7 +2400,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/schemas/", data)
+    req, err := http.NewRequest("GET", "/schemas", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2422,7 +2410,6 @@ func main() {
 
 ```
 
-`GET /schemas`
 
 Return a list of all schemas created by user.
 
@@ -2443,11 +2430,11 @@ Return a list of all schemas created by user.
 
 ## Create schema
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /schemas</span>
 
 ```shell
 # You can also use wget
-curl -X POST /schemas/ \
+curl -X POST /schemas \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -2462,7 +2449,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/schemas/',
+fetch('/schemas',
 {
   method: 'POST',
   body: inputBody,
@@ -2484,7 +2471,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/schemas/', headers = headers)
+r = requests.post('/schemas', headers = headers)
 
 print(r.json())
 
@@ -2507,7 +2494,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/schemas/', array(
+    $response = $client->request('POST','/schemas', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -2540,7 +2527,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/schemas/", data)
+    req, err := http.NewRequest("POST", "/schemas", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2549,8 +2536,6 @@ func main() {
 }
 
 ```
-
-`POST /schemas`
 
 The first step to creating a Schema is to initialize it. We can do that using the `Schema` class constructor, which accepts an (optional) id string as the sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
 
@@ -2594,7 +2579,7 @@ The API allows you to create, get, and retrieve anchors as well as a list of all
 
 ## Get anchor
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span>
 
 ```shell
 # You can also use wget
@@ -2696,7 +2681,6 @@ func main() {
 
 ```
 
-`GET /anchors/{anchor}`
 
 Get a specific anchor with the given ID.
 
@@ -2726,11 +2710,11 @@ Get a specific anchor with the given ID.
 
 ## List anchors
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /anchors</span>
 
 ```shell
 # You can also use wget
-curl -X GET /anchors/ \
+curl -X GET /anchors \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
 
@@ -2743,7 +2727,7 @@ const headers = {
   'DOCK-API-TOKEN':'API_KEY'
 };
 
-fetch('/anchors/',
+fetch('/anchors',
 {
   method: 'GET',
 
@@ -2764,7 +2748,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.get('/anchors/', headers = headers)
+r = requests.get('/anchors', headers = headers)
 
 print(r.json())
 
@@ -2786,7 +2770,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('GET','/anchors/', array(
+    $response = $client->request('GET','/anchors', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -2818,7 +2802,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/anchors/", data)
+    req, err := http.NewRequest("GET", "/anchors", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2827,8 +2811,6 @@ func main() {
 }
 
 ```
-
-`GET /anchors`
 
 Return a list of all anchors created by user, whether have contributed to the batching or not.
 
@@ -2849,11 +2831,11 @@ Return a list of all anchors created by user, whether have contributed to the ba
 
 ## Create anchor
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /anchors</span>
 
 ```shell
 # You can also use wget
-curl -X POST /anchors/ \
+curl -X POST /anchors \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -2892,7 +2874,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/anchors/', headers = headers)
+r = requests.post('/anchors', headers = headers)
 
 print(r.json())
 
@@ -2915,7 +2897,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/anchors/', array(
+    $response = $client->request('POST','/anchors', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -2948,7 +2930,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/anchors/", data)
+    req, err := http.NewRequest("POST", "/anchors", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2958,7 +2940,6 @@ func main() {
 
 ```
 
-`POST /anchors`
 
 To create an anchor, you can use more than one docs; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a merkle tree root.
 
@@ -3002,7 +2983,7 @@ This section describes API resources to get job status and data with using a spe
 
 ## Get job status and data
 
-> Code samples
+> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span>
 
 ```shell
 # You can also use wget
@@ -3104,7 +3085,6 @@ func main() {
 
 ```
 
-`GET /jobs/{id}`
 
 To check the Job status and data, you can use the `GET` method and simply put the Job id. It will return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.
 
@@ -3138,11 +3118,11 @@ Verifier on receiving the presentation verifies the validity of each credential 
 
 ## Verify a credential or presentation
 
-> Code samples
+> <span class="highlight"><span class="na">POST</span> /verify</span>
 
 ```shell
 # You can also use wget
-curl -X POST /verify/ \
+curl -X POST /verify \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -3179,7 +3159,7 @@ headers = {
   'DOCK-API-TOKEN': 'API_KEY'
 }
 
-r = requests.post('/verify/', headers = headers)
+r = requests.post('/verify', headers = headers)
 
 print(r.json())
 
@@ -3202,7 +3182,7 @@ $client = new \GuzzleHttp\Client();
 $request_body = array();
 
 try {
-    $response = $client->request('POST','/verify/', array(
+    $response = $client->request('POST','/verify', array(
         'headers' => $headers,
         'json' => $request_body,
        )
@@ -3235,7 +3215,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/verify/", data)
+    req, err := http.NewRequest("POST", "/verify", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -3245,7 +3225,6 @@ func main() {
 
 ```
 
-`POST /verify`
 
 Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.
 
@@ -3307,11 +3286,11 @@ This is a schema for an API Error.
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|status|integer|false|none|Status of the error.|
-|type|string|false|none|Type of the error.|
-|message|string|false|none|Message of the error.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|status|integer|false|Status of the error.|
+|type|string|false|Type of the error.|
+|message|string|false|Message of the error.|
 
 <h2 id="tocS_Hex32">Hex32</h2>
 <!-- backwards compatibility -->
@@ -3329,9 +3308,9 @@ This is a schema for an API Error.
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Hex32|string|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|Hex32|string|false|32 byte hex string. Ignoring higher base (base64) for simplicity.|
 
 <h2 id="tocS_JobStartedResult">JobStartedResult</h2>
 <!-- backwards compatibility -->
@@ -3355,10 +3334,10 @@ Object containing unique id of the background task and associated data. This id 
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status.|
-|data|object|false|none|Data of the object.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|id|[JobId](#schemajobid)|false|Unique id of the background task. This id can be used to query the job status.|
+|data|object|false|Data of the object.|
 
 <h2 id="tocS_JobId">JobId</h2>
 <!-- backwards compatibility -->
@@ -3376,9 +3355,9 @@ Unique id of the background task. This id can be used to query the job status
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|JobId|string|false|none|Unique id of the background task. This id can be used to query the job status.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|JobId|string|false|Unique id of the background task. This id can be used to query the job status.|
 
 <h2 id="tocS_JobStatus">JobStatus</h2>
 <!-- backwards compatibility -->
@@ -3393,12 +3372,6 @@ Unique id of the background task. This id can be used to query the job status
 ```
 
 This is a schema used in Job operation to get a status of the job.
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|JobStatus|string|false|none|Status of the job.|
 
 #### Enumerated Values
 
@@ -3426,11 +3399,11 @@ This is a schema used in Job operation to get description of the job including r
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|[JobId](#schemajobid)|false|none|Unique id of the background task. This id can be used to query the job status.|
-|status|[JobStatus](#schemajobstatus)|false|none|Status of the job.|
-|result|object|false|none|Result of the Job.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|id|[JobId](#schemajobid)|false|Unique id of the background task. This id can be used to query the job status.|
+|status|[JobStatus](#schemajobstatus)|false|Status of the job.|
+|result|object|false|Result of the Job.|
 
 <h2 id="tocS_DIDQualified">DIDQualified</h2>
 <!-- backwards compatibility -->
@@ -3448,9 +3421,9 @@ This is a schema used in some operations that used DID as fully qualified, e.g.,
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|DIDQualified|string(uri)|false|none|DID as fully qualified, e.g., `did:dock:`.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|DIDQualified|string(uri)|false|DID as fully qualified, e.g., `did:dock:`.|
 
 <h2 id="tocS_DID">DID</h2>
 <!-- backwards compatibility -->
@@ -3468,9 +3441,9 @@ DID as fully qualified, e.g., `did:dock:`.
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|DID|string|false|none|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|DID|string|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated.|
 
 <h2 id="tocS_KeyType">KeyType</h2>
 <!-- backwards compatibility -->
@@ -3488,9 +3461,9 @@ This is a schema type of public key for DID.
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|KeyType|string|false|none|Type of public key for DID. The default value of the keyType is sr25519|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|KeyType|string|false|Type of public key for DID. The default value of the keyType is sr25519|
 
 #### Enumerated Values
 
@@ -3512,11 +3485,6 @@ This is a schema type of public key for DID.
 
 This is a schema used in Presentation operation that represents a type of signature.
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|SigType|string|false|none|Type of signature.|
 
 #### Enumerated Values
 
@@ -3538,11 +3506,6 @@ This is a schema used in Presentation operation that represents a type of signat
 
 This is a schema that represents a purpose of credential.
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|ProofPurpose|string|false|none|Purpose of credential.|
 
 #### Enumerated Values
 
@@ -3568,9 +3531,9 @@ This is a schema that represents a JSON-LD context used in DID and Presentation.
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Context|string|false|none|JSON-LD context|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|Context|string|false|JSON-LD context|
 
 
 <h2 id="tocS_DIDDoc">DIDDoc</h2>
@@ -3597,11 +3560,11 @@ This is a schema that represents a DID document. The current set of properties i
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|@context|[Context](#schemacontext)|false|none|JSON-LD context.|
-|id|[DIDQualified](#schemadidqualified)|false|none|DID as fully qualified, e.g., `did:dock:`.|
-|authentication|array|false|none|DID authentication.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|@context|[Context](#schemacontext)|false|JSON-LD context.|
+|id|[DIDQualified](#schemadidqualified)|false|DID as fully qualified, e.g., `did:dock:`.|
+|authentication|array|false|DID authentication.|
 
 
 <h2 id="tocS_Credential">Credential</h2>
@@ -3633,16 +3596,16 @@ This is a schema that represents a credential format expected by API caller.
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string(uri)|false|none|Credential ID.|
-|context|array|false|none|Credential context.|
-|type|[string]|false|none|Credential type.|
-|subject|object|true|none|Credential subject.|
-|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
-|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
-|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
-|status|object or string|false|none|Revocation registry id or user supplied status object.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|id|string(uri)|false|Credential ID. The default value is a creds.dock.io uri with random ID.|
+|context|array|false|Credential context. The default value is https://www.w3.org/2018/credentials/v1.|
+|type|[string]|false|Credential type.|
+|subject|object|true|Credential subject.|
+|issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
+|issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
+|expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
+|status|object or string|false|Revocation registry id or user supplied status object.|
 
 <h2 id="tocS_VerifiablePresentation">VerifiablePresentation</h2>
 <!-- backwards compatibility -->
@@ -3696,22 +3659,22 @@ This is a schema that represents a Verifiable (signed) Presentation returned by 
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|@context|[Context](#schemacontext)|true|none|JSON-LD context.|
-|id|string(uri)|true|none|Verifiable (signed) presentation id.|
-|type|string|true|none|Verifiable (signed) presentation type.|
-|verifiableCredential|[VerifiableCredential](#schemaverifiablecredential)|true|none|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
-|proof|object|true|none|Proof of credential.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|@context|[Context](#schemacontext)|true|JSON-LD context.|
+|id|string(uri)|true|Verifiable (signed) presentation id.|
+|type|string|true|Verifiable (signed) presentation type.|
+|verifiableCredential|[VerifiableCredential](#schemaverifiablecredential)|true|Verifiable (signed) Credential returned by API. The current set of properties is almost complete.|
+|proof|object|true|Proof of credential.|
 
-<h3 id="ProofChildParameterPresentation">Child Parameters of Proof</h3>
+<h3 id="ProofChildPropertiesPresentation">Child Properties of Proof</h3>
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|type|[SigType](#schemasigtype)|true|none|Type of signature.|
-|proofPurpose|[ProofPurpose](#schemaproofpurpose)|true|none|Purpose of credential.|
-|verificationMethod|string|true|none|Verification method.|
-|created|string(date-time[RFC3339])|true|none|The date and time in GMT that the credential was created specified in RFC 3339 format.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|[SigType](#schemasigtype)|true|Type of signature.|
+|proofPurpose|[ProofPurpose](#schemaproofpurpose)|true|Purpose of credential.|
+|verificationMethod|string|true|Verification method.|
+|created|string(date-time[RFC3339])|true|The date and time in GMT that the credential was created specified in RFC 3339 format.|
 |proofValue|string|true|none|Value of credential.|
 
 <h2 id="tocS_VerifiableCredential">VerifiableCredential</h2>
@@ -3750,27 +3713,27 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|@context|[Context](#schemacontext)|false|none|JSON-LD context.|
-|id|string(uri)|false|none|Credential id.|
-|type|[string]|false|none|Credential type.|
-|credentialSubject|any|false|none|Credential subject.|
-|issuer|[DIDQualified](#schemadidqualified)|false|none|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
-|issuanceDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
-|expirationDate|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
-|credentialStatus|any|false|none|Revocation registry id or user supplied status object.|
-|proof|object|false|none|Proof of credential.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|@context|[Context](#schemacontext)|false|JSON-LD context.|
+|id|string(uri)|false|Credential id.|
+|type|[string]|false|Credential type.|
+|credentialSubject|any|false|Credential subject.|
+|issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
+|issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
+|expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
+|credentialStatus|any|false|Revocation registry id or user supplied status object.|
+|proof|object|false|Proof of credential.|
 
-<h3 id="ProofChildParameterCredentials">Child Parameters of Proof</h3>
+<h3 id="ProofChildPropertiesCredentials">Child Properties of Proof</h3>
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|type|[SigType](#schemasigtype)|false|none|Type of signature.|
-|proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|none|Purpose of credential.|
-|verificationMethod|string|false|none|Verification method.|
-|created|string(date-time[RFC3339])|false|none|The date and time in GMT that the credential was created specified in RFC 3339 format.|
-|proofValue|string|false|none|Value of credential.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|[SigType](#schemasigtype)|false|Type of signature.|
+|proofPurpose|[ProofPurpose](#schemaproofpurpose)|false|Purpose of credential.|
+|verificationMethod|string|false|Verification method.|
+|created|string(date-time[RFC3339])|false|The date and time in GMT that the credential was created specified in RFC 3339 format.|
+|proofValue|string|false|Value of credential.|
 
 <h2 id="tocS_Anchor">Anchor</h2>
 <!-- backwards compatibility -->
@@ -3790,13 +3753,6 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 
 An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|anchor|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
-|blockHash|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
-|root|[Hex32](#schemahex32)|false|none|32 byte hex string. Ignoring higher base (base64) for simplicity.|
 
 <h2 id="tocS_Registry">Registry</h2>
 <!-- backwards compatibility -->
@@ -3819,10 +3775,10 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|addOnly|boolean|false|none|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
-|policy|[[DID](#schemadid)]|false|none|Only one policy supported as of now called `OneOf`.|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|addOnly|boolean|false|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
+|policy|[[DID](#schemadid)]|false|Only one policy supported as of now called `OneOf`.|
 
 <h2 id="tocS_VerificationResponse">VerificationResponse</h2>
 <!-- backwards compatibility -->
@@ -3840,12 +3796,6 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 
 This is a schema that used to define whether a credential/presentation is verified or not
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|verified|boolean|false|none|Describes whether the credential/presentation is verified or not.|
-
 <h2 id="tocS_Response">Response</h2>
 <!-- backwards compatibility -->
 <a id="schemaresponse"></a>
@@ -3862,11 +3812,6 @@ This is a schema that used to define whether a credential/presentation is verifi
 
 This is a schema that represents a default response for a request made.
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer|false|none|Represents the integer value of the code response.|
 
 <script type="application/ld+json">
 {
