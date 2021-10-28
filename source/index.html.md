@@ -2979,8 +2979,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. 
 
-You can track the current job status by querying the job id returned as part of the 
-initial API response that triggered the job.
+You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.
 
 ## Get job status and data
 
