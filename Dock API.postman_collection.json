@@ -849,7 +849,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1808,7 +1808,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
