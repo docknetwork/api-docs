@@ -198,7 +198,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"controller\": \"did:dock:5Cde8QWRBxfagcZggvgGNJzDaK4oviq9a3MgApyf7GgwGyau\",\n\"keyType\": \"sr25519\"\n}",
+							"raw": "{\n\"controller\": \"{{did}}\",\n\"keyType\": \"sr25519\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
