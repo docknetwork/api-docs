@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "82cdbb00-69fc-4eec-b682-0cc423f99b40",
-		"name": "Issuer API",
+		"name": "Dock API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -10,18 +10,25 @@
 			"item": [
 				{
 					"name": "Create DID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -32,14 +39,7 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -50,12 +50,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/dids",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/dids",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"dids"
@@ -82,7 +79,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -109,16 +106,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/dids/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/dids",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"dids",
-								""
+								"dids"
 							],
 							"query": [
 								{
@@ -142,7 +135,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -156,7 +149,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,16 +157,62 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/dids/did:dock:5G6WBEcouTHEqKcxmCmEWLrjYydHZqjjsToSqVBDkMqGfqFq",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/dids/{{did}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"dids",
-								"did:dock:5G6WBEcouTHEqKcxmCmEWLrjYydHZqjjsToSqVBDkMqGfqFq"
+								"{{did}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update DID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{ApiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "DOCK-API-TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"controller\": \"did:dock:5Cde8QWRBxfagcZggvgGNJzDaK4oviq9a3MgApyf7GgwGyau\",\n\"keyType\": \"sr25519\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids/{{did}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids",
+								"{{did}}"
 							],
 							"query": [
 								{
@@ -194,7 +233,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -221,16 +260,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/dids/did:dock:5CDbSaR63n3AnG4rDwv98AYoEwjEDWpdP7mm6iYgdriJWoTC",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/dids/{{did}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"dids",
-								"did:dock:5CDbSaR63n3AnG4rDwv98AYoEwjEDWpdP7mm6iYgdriJWoTC"
+								"{{did}}"
 							],
 							"query": [
 								{
@@ -242,58 +278,29 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				},
 				{
-					"name": "Update DID",
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"controller\": \"did:dock:5Cde8QWRBxfagcZggvgGNJzDaK4oviq9a3MgApyf7GgwGyau\",\n\"keyType\": \"sr25519\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api-testnet.dock.io/dids/did:dock:5G6WBEcouTHEqKcxmCmEWLrjYydHZqjjsToSqVBDkMqGfqFq",
-							"protocol": "https",
-							"host": [
-								"api-testnet",
-								"dock",
-								"io"
-							],
-							"path": [
-								"dids",
-								"did:dock:5G6WBEcouTHEqKcxmCmEWLrjYydHZqjjsToSqVBDkMqGfqFq"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -308,7 +315,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -329,7 +336,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"$schema\":\"http://json-schema.org/draft-07/schema#\",\n    \"description\":\"Dock Schema Example\",\n    \"type\":\"object\",\n    \"properties\":{\"id\":{\"type\":\"string\"},\n    \"emailAddress\":{\"type\":\"string\",\"format\":\"email\"},\n    \"alumniOf\":{\"type\":\"string\"}},\n    \"required\":[\"emailAddress\",\"alumniOf\"],\n    \"additionalProperties\":false\n}",
+							"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com/39\",\n    \"context\": [\"https://www.w3.org/2018/credentials/examples/v1\"],\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"subject\": {\n        \"id\": \"{{did}}\"\n    },\n    \"issuer\": {\n        \"id\": \"{{did}}\",\n        \"name\": \"Issuer Name\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -337,16 +344,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/schemas/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/credentials",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"schemas",
-								""
+								"credentials"
 							],
 							"query": [
 								{
@@ -360,14 +363,14 @@
 					"response": []
 				},
 				{
-					"name": "Create Signed Credential Without Past Dates",
+					"name": "Create Signed Credential With Past Dates",
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -388,7 +391,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com/39\",\n    \"context\": [\"https://www.w3.org/2018/credentials/examples/v1\"],\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"subject\": {\n        \"id\": \"did:dock:5FfiPJQhz3Hbw4iMC92kRg15r9mvZXS192FkU2F8F51nNGLi\"\n    },\n    \"issuer\": {\n        \"id\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\",\n        \"name\": \"my issuer\"\n    },\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\"\n  }\n}",
+							"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com/39\",\n    \"context\": [\"https://www.w3.org/2018/credentials/examples/v1\"],\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"subject\": {\n        \"id\": \"{{did}}\"\n    },\n    \"issuer\": {\n       \"id\": \"{{did}}\",\n        \"name\": \"Issuer Name\"\n    },\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -396,16 +399,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/credentials/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/credentials",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"credentials",
-								""
+								"credentials"
 							],
 							"query": [
 								{
@@ -426,7 +425,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -447,7 +446,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"anchor\": true,\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"the guy\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\",\n        \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n    }\n}",
+							"raw": "{\n    \"anchor\": true,\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\",\n        \"issuer\": \"{{did}}\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -455,16 +454,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/credentials/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/credentials",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"credentials",
-								""
+								"credentials"
 							],
 							"query": [
 								{
@@ -485,7 +480,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -506,7 +501,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"the guy\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\"\n    }\n}",
+							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -514,16 +509,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/credentials/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/credentials",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"credentials",
-								""
+								"credentials"
 							],
 							"query": [
 								{
@@ -544,7 +535,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -565,7 +556,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": {\n        \"id\": \"did:dock:5FfiPJQhz3Hbw4iMC92kRg15r9mvZXS192FkU2F8F51nNGLi\"\n    },\n    \"issuanceDate\": \"2021-10-20T18:37:56.943Z\",\n    \"proof\": {\n        \"type\": \"Ed25519Signature2018\",\n        \"created\": \"2021-10-20T18:37:56Z\",\n        \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z4MT7vvRmACzko6WcXRv9uZ2dyetvNNhVwvwomtDy3F3axgEarymhe4N9ZHxjoJJiPgFFdiM8Bk7BSFTg9494jGVJ\"\n    },\n    \"issuer\": {\n        \"id\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\",\n        \"name\": \"my issuer\"\n    }\n}",
+							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": {\n        \"id\": \"{{did}}\"\n    },\n    \"issuanceDate\": \"2021-10-29T09:15:48.951Z\",\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-10-29T09:15:48Z\",\n        \"verificationMethod\": \"{{did}}#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z2yL9T3dL8UmsKu73Yo4YTR1RvQRCgrWvwawKqSUV9om7EHFcVK4pyamYB51LwtXy7MLK828DvaKfMJUehdRqPKjA\"\n    },\n    \"issuer\": {\n        \"id\": \"{{did}}\",\n        \"name\": \"my issuer\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -573,75 +564,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/verify/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/verify",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"verify",
-								""
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create a signed verifiable presentation from multiple VCs",
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"verifiableCredential\": [\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"https://creds.dock.io/credential/be98f4e570fe5de13baa7c61d4d618e7\",\n            \"type\": [\n                \"VerifiableCredential\",\n                \"MyCredential\"\n            ],\n            \"credentialSubject\": {\n                \"id\": \"the guy\"\n            },\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Ed25519Signature2018\",\n                \"created\": \"2021-10-20T16:41:29Z\",\n                \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z4iNgBHkgWipyKaafogwQn8JNJ1VXwStGJ4e8QrevGVBrPdr8XkouX61KDcXVVCevB1T3JQqpKEH2LwQhKfkJ4K7x\"\n            },\n            \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n        },\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"https://creds.dock.io/credential/db99afb38b22397af58b7f99853446ec\",\n            \"type\": [\n                \"VerifiableCredential\",\n                \"MyCredential\"\n            ],\n            \"credentialSubject\": {\n                \"id\": \"secondary\"\n            },\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Ed25519Signature2018\",\n                \"created\": \"2021-10-20T16:41:30Z\",\n                \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z5p8qYAqgdJvbYf1yJvBygd9F6rX2KWTAZJoi1uM9iT2S5aQTZxSoKA2didsgNbyHYLS4DWzecmbki17EcUhcyviN\"\n            },\n            \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n        }\n    ],\n    \"id\": \"https://creds.dock.io/presentation/1ea662861ccce37fb383c113b76daf8b\",\n    \"type\": [\n        \"VerifiablePresentation\"\n    ],\n    \"proof\": {\n        \"type\": \"Ed25519Signature2018\",\n        \"created\": \"2021-10-20T16:41:30Z\",\n        \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n        \"proofPurpose\": \"authentication\",\n        \"challenge\": \"my challenge\",\n        \"domain\": \"dock.io\",\n        \"proofValue\": \"zoMCeqWmT4QHVNXLu9YDDCc44ipcnDEk7BeAhjUJ1uRMx4Ns58GdWFWfvcM8Cpi6A7ZVeJ8v3CNWrhJ9ARXt47nQ\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api-testnet.dock.io/verify/",
-							"protocol": "https",
-							"host": [
-								"api-testnet",
-								"dock",
-								"io"
-							],
-							"path": [
-								"verify",
-								""
+								"verify"
 							],
 							"query": [
 								{
@@ -662,7 +590,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -683,7 +611,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"verifiableCredential\": [\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"https://creds.dock.io/credential/52800d6e1b49e318c67b04304bed5060\",\n            \"type\": [\n                \"VerifiableCredential\",\n                \"MyCredential\"\n            ],\n            \"credentialSubject\": {\n                \"id\": \"the guy\"\n            },\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Ed25519Signature2018\",\n                \"created\": \"2021-10-20T16:41:27Z\",\n                \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z33qPWZmoT3yhamyRPehkSMqMRXS8CXq6otnxFp1Kk8Q6KuMG1ubSqjePu1RsknDszTPpdSgNpE6jDcn8PQXgA8fR\"\n            },\n            \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n        }\n    ],\n    \"id\": \"https://creds.dock.io/presentation/e97cd5dcba282a445501d60dca41c684\",\n    \"type\": [\n        \"VerifiablePresentation\"\n    ],\n    \"proof\": {\n        \"type\": \"Ed25519Signature2018\",\n        \"created\": \"2021-10-20T16:41:28Z\",\n        \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n        \"proofPurpose\": \"authentication\",\n        \"challenge\": \"my challenge\",\n        \"domain\": \"dock.io\",\n        \"proofValue\": \"z2CF2GoS8n4CXZxhHXr3cWuLKR3hfC9Qe1cmU3hvHiFSSCm7JzA6eAtEeecLCeCFcGv6QYvykFJ9MzsoE1Pxi9beh\"\n    }\n}",
+							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"verifiableCredential\": [\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"https://creds.dock.io/credential/52800d6e1b49e318c67b04304bed5060\",\n            \"type\": [\n                \"VerifiableCredential\",\n                \"MyCredential\"\n            ],\n            \"credentialSubject\": {\n                \"id\": \"{{did}}\"\n            },\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Ed25519Signature2018\",\n                \"created\": \"2021-10-20T16:41:27Z\",\n                \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z33qPWZmoT3yhamyRPehkSMqMRXS8CXq6otnxFp1Kk8Q6KuMG1ubSqjePu1RsknDszTPpdSgNpE6jDcn8PQXgA8fR\"\n            },\n            \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n        }\n    ],\n    \"id\": \"https://creds.dock.io/presentation/e97cd5dcba282a445501d60dca41c684\",\n    \"type\": [\n        \"VerifiablePresentation\"\n    ],\n    \"proof\": {\n        \"type\": \"Ed25519Signature2018\",\n        \"created\": \"2021-10-20T16:41:28Z\",\n        \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n        \"proofPurpose\": \"authentication\",\n        \"challenge\": \"my challenge\",\n        \"domain\": \"dock.io\",\n        \"proofValue\": \"z2CF2GoS8n4CXZxhHXr3cWuLKR3hfC9Qe1cmU3hvHiFSSCm7JzA6eAtEeecLCeCFcGv6QYvykFJ9MzsoE1Pxi9beh\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -691,16 +619,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/verify/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/verify",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"verify",
-								""
+								"verify"
 							],
 							"query": [
 								{
@@ -724,7 +648,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -738,7 +662,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -746,17 +670,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/revocationStatus/4978587b2064331631df79795007f5b49b05ab8e7c7ff7edaaa187940db9aa2a/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/revocationStatus/{{did}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"revocationStatus",
-								"4978587b2064331631df79795007f5b49b05ab8e7c7ff7edaaa187940db9aa2a",
-								""
+								"{{did}}"
 							],
 							"query": [
 								{
@@ -777,7 +697,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -798,7 +718,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"the guy\"\n        },\n        \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n    }\n}",
+							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuer\": \"{{did}}\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -806,12 +726,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/credentials/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/credentials/",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"credentials",
@@ -844,7 +761,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -863,7 +780,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -871,16 +788,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/ba3b3fc83bb57b5c36f31a262a673b2cc768ade8067e16b9f226e2fff7d2cb1a",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors/{{anchorId}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"anchors",
-								"ba3b3fc83bb57b5c36f31a262a673b2cc768ade8067e16b9f226e2fff7d2cb1a"
+								"{{anchorId}}"
 							],
 							"query": [
 								{
@@ -894,7 +808,19 @@
 					"response": []
 				},
 				{
-					"name": "Get Anchor by giving Root info in URI",
+					"name": "Get Anchor by Root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorId\", jsonData.anchor);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -904,7 +830,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -931,16 +857,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/ba3b3fc83bb57b5c36f31a262a673b2cc768ade8067e16b9f226e2fff7d2cb1a",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors/{{anchorRoot}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"anchors",
-								"ba3b3fc83bb57b5c36f31a262a673b2cc768ade8067e16b9f226e2fff7d2cb1a"
+								"{{anchorRoot}}"
 							],
 							"query": [
 								{
@@ -955,6 +878,17 @@
 				},
 				{
 					"name": "Get all Anchors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -964,7 +898,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -983,7 +917,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -991,16 +925,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"anchors",
-								""
+								"anchors"
 							],
 							"query": [
 								{
@@ -1015,13 +945,25 @@
 				},
 				{
 					"name": "Can drop an anchor from a single JSON document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1040,7 +982,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\"id\":\"0.w7d83l16bgdl\",\"example\":\"document\"}]",
+							"raw": "[{\"id\":\"{{$timestamp}}\",\"example\":\"document\"}]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1048,16 +990,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"anchors",
-								""
+								"anchors"
 							],
 							"query": [
 								{
@@ -1072,13 +1010,25 @@
 				},
 				{
 					"name": "Can drop an anchor from a multiple JSON documents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1097,7 +1047,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n  {\n    \"id\": \"0.46zlb1ox50iJ\",\n    \"example\": \"document\"\n  },\n  {\n    \"example\": \"withnoid\"\n  }\n]",
+							"raw": "[\n  {\n    \"id\": \"{{$timestamp}}\",\n    \"example\": \"document\"\n  },\n  {\n    \"example\": \"withnoid\"\n  }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1105,16 +1055,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"anchors",
-								""
+								"anchors"
 							],
 							"query": [
 								{
@@ -1129,13 +1075,25 @@
 				},
 				{
 					"name": "Can drop an anchor from a Arbitrary string",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1154,7 +1112,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n  \"hello world0.gou8s70jbq7\",\n  \"{\\\\\\\",example\\\\\\\",:\\\\\\\",document\\\\\\\",\\\\\\\",randomBytesStr\\\\\\\",:\\\\\\\",0.gou8s70jbq7\\\\\\\"}\"\n]",
+							"raw": "[\n  \"hello {{$timestamp}}\",\n  \"{\\\\\\\",example\\\\\\\",:\\\\\\\",document\\\\\\\",\\\\\\\",randomBytesStr\\\\\\\",:\\\\\\\",{{$timestamp}}\\\\\\\"}\"\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1162,16 +1120,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"anchors",
-								""
+								"anchors"
 							],
 							"query": [
 								{
@@ -1186,13 +1140,25 @@
 				},
 				{
 					"name": "Create anchor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "eyJzY29wZXMiOlsidGVzdCIsImFsbCJdLCJzdWIiOiI5ODYiLCJpYXQiOjE2MzM1NDU4NTMsImV4cCI6NDcxMjg0MTg1M30.uzg11r0mC9q5xqpa95C38_q_LBaGO7NP9Nr9Q3NuI6FSy91lycmzzf1ssXbW88BiVPWYqXkG8AYMYhdBjFOrmQ",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1208,17 +1174,10 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\"dGhpcyBpcyBteSBkb2N1bWVudA==\"]",
+							"raw": "[\"TestAnchor{{$randomInt}}==\"]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1226,16 +1185,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/anchors/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/anchors",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"anchors",
-								""
+								"anchors"
 							],
 							"query": [
 								{
@@ -1255,13 +1210,25 @@
 			"item": [
 				{
 					"name": "Create Registry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"registryId\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1282,7 +1249,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"addOnly\": false,\n  \"policy\": [\n    \"did:dock:5F52bBdxxioxU2LXCDwZgFfYy8q5etonNH9CDyYGhaV87vGu\"\n  ]\n}",
+							"raw": "{\n  \"addOnly\": false,\n  \"policy\": [\n    \"{{did}}\"\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1290,12 +1257,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/registries",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/registries",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"registries"
@@ -1322,7 +1286,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1344,12 +1308,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/registries",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/registries",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"registries"
@@ -1376,7 +1337,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1390,7 +1351,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1398,16 +1359,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/registries/567685cb97f4956d05e8938cc8af0180610ddbc85717f047b83f800526504af6",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"registries",
-								"567685cb97f4956d05e8938cc8af0180610ddbc85717f047b83f800526504af6"
+								"{{registryId}}"
 							],
 							"query": [
 								{
@@ -1428,7 +1386,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1445,16 +1403,13 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/registries/146ba76b15b1d5acf42ee970296e1e08a7d96bb1e53d156a5ca675fcd5a25317",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"registries",
-								"146ba76b15b1d5acf42ee970296e1e08a7d96bb1e53d156a5ca675fcd5a25317"
+								"{{registryId}}"
 							],
 							"query": [
 								{
@@ -1475,7 +1430,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1504,16 +1459,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/registries/6940c7ca79a50a2f01bf7b8a91e55e6b8fd09b6499c623885e16300ecfdc51fd",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"registries",
-								"6940c7ca79a50a2f01bf7b8a91e55e6b8fd09b6499c623885e16300ecfdc51fd"
+								"{{registryId}}"
 							],
 							"query": [
 								{
@@ -1527,14 +1479,14 @@
 					"response": []
 				},
 				{
-					"name": "Unrevoke Credential By Registry ID Copy",
+					"name": "Unrevoke Credential By Registry ID",
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1563,16 +1515,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/registries/6940c7ca79a50a2f01bf7b8a91e55e6b8fd09b6499c623885e16300ecfdc51fd",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"registries",
-								"6940c7ca79a50a2f01bf7b8a91e55e6b8fd09b6499c623885e16300ecfdc51fd"
+								"{{registryId}}"
 							],
 							"query": [
 								{
@@ -1598,7 +1547,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1619,7 +1568,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"challenge\": \"my challenge\",\n  \"domain\": \"dock.io\",\n  \"holder\": \"did:dock:5EncrTiZ69AZptPJSJCeev1inay2NJcrXkFsxuSyfTALo96J\",\n  \"credentials\": [{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": [\n        {\n            \"id\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ\"\n        }\n    ],\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\",\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-06-30T15:57:19Z\",\n        \"verificationMethod\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z5yS3zSYCe1FKTX6RJcqsCCeYT6yHNtWu996KaCvnhG13rxrPbkU6zb4YAG4gBpCjyzg4NY9JQN5T4SsebJcxqgm9\"\n    },\n    \"issuer\": \"did:dock:5DPw1htx8qCWcg3VtD3it82p4PFHjFqo2hPMGggmri32UDCF\"\n}]\n}",
+							"raw": "{\n  \"challenge\": \"my challenge\",\n  \"domain\": \"dock.io\",\n  \"holder\": \"did:dock:5EncrTiZ69AZptPJSJCeev1inay2NJcrXkFsxuSyfTALo96J\",\n  \"credentials\": [{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": [\n        {\n            \"id\": \"{{did}}\"\n        }\n    ],\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\",\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-06-30T15:57:19Z\",\n        \"verificationMethod\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z5yS3zSYCe1FKTX6RJcqsCCeYT6yHNtWu996KaCvnhG13rxrPbkU6zb4YAG4gBpCjyzg4NY9JQN5T4SsebJcxqgm9\"\n    },\n    \"issuer\": \"did:dock:5DPw1htx8qCWcg3VtD3it82p4PFHjFqo2hPMGggmri32UDCF\"\n}]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1627,15 +1576,67 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/presentations",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/presentations",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"presentations"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Presentation",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{ApiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "DOCK-API-TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"verifiableCredential\": [\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"http://example.com/39\",\n            \"type\": [\n                \"VerifiableCredential\"\n            ],\n            \"credentialSubject\": [\n                {\n                    \"id\": \"{{did}}\"\n                }\n            ],\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Sr25519Signature2020\",\n                \"created\": \"2021-06-30T15:57:19Z\",\n                \"verificationMethod\": \"{{did}}#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z5yS3zSYCe1FKTX6RJcqsCCeYT6yHNtWu996KaCvnhG13rxrPbkU6zb4YAG4gBpCjyzg4NY9JQN5T4SsebJcxqgm9\"\n            },\n            \"issuer\": \"{{did}}\"\n        }\n    ],\n    \"id\": \"https://creds.dock.io/presentation/b6cbcfa0828ced293b3e548de0329202\",\n    \"type\": [\n        \"VerifiablePresentation\"\n    ],\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-10-29T11:24:12Z\",\n        \"verificationMethod\": \"did:dock:5EncrTiZ69AZptPJSJCeev1inay2NJcrXkFsxuSyfTALo96J#keys-1\",\n        \"proofPurpose\": \"authentication\",\n        \"challenge\": \"my challenge\",\n        \"domain\": \"dock.io\",\n        \"proofValue\": \"z4Az3SjavkjnDqcR6KHPreyg1a8FVkZmbtWThUYw3nbFY5wbFKTyURpvbvZQUVvVmSuvJP8bi1aSpkwaLWzw2BqWS\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/verify",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"verify"
 							],
 							"query": [
 								{
@@ -1655,13 +1656,25 @@
 			"item": [
 				{
 					"name": "Create Schema",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"schemaId\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "apikey",
 							"apikey": [
 								{
 									"key": "value",
-									"value": "eyJzY29wZXMiOlsidGVzdCIsImFsbCJdLCJzdWIiOiI5ODYiLCJpYXQiOjE2MzM1NDU4NTMsImV4cCI6NDcxMjg0MTg1M30.uzg11r0mC9q5xqpa95C38_q_LBaGO7NP9Nr9Q3NuI6FSy91lycmzzf1ssXbW88BiVPWYqXkG8AYMYhdBjFOrmQ",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1682,7 +1695,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"description\": \"Dock Schema Example\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"emailAddress\": {\n      \"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"alumniOf\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"emailAddress\",\n    \"alumniOf\"\n  ],\n  \"additionalProperties\": false,\n  \"author\": \"did:dock:5GTwCdzbe5GVEunWe4N1teCG8AdcprmNSdm5HcB3LoAXFkkX\"\n}",
+							"raw": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"description\": \"Dock Schema Example\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"emailAddress\": {\n      \"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"alumniOf\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"emailAddress\",\n    \"alumniOf\"\n  ],\n  \"additionalProperties\": false,\n  \"author\": \"{{did}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1690,12 +1703,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/schemas",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/schemas",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"schemas"
@@ -1722,7 +1732,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1736,7 +1746,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1744,16 +1754,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/schemas/",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/schemas",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
-								"schemas",
-								""
+								"schemas"
 							],
 							"query": [
 								{
@@ -1768,6 +1774,17 @@
 				},
 				{
 					"name": "Get Schema by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1777,7 +1794,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "",
+									"value": "{{ApiKey}}",
 									"type": "string"
 								},
 								{
@@ -1799,16 +1816,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://api-testnet.dock.io/schemas/37ad6cf1c51a33ba25f50a8f106e2b06f9e1963296c5bfd914c0d71b7bad42e6",
-							"protocol": "https",
+							"raw": "{{BaseUrl}}/schemas/{{schemaId}}",
 							"host": [
-								"api-testnet",
-								"dock",
-								"io"
+								"{{BaseUrl}}"
 							],
 							"path": [
 								"schemas",
-								"37ad6cf1c51a33ba25f50a8f106e2b06f9e1963296c5bfd914c0d71b7bad42e6"
+								"{{schemaId}}"
 							],
 							"query": [
 								{
@@ -1829,7 +1843,7 @@
 		"apikey": [
 			{
 				"key": "value",
-				"value": "",
+				"value": "{{ApiKey}}",
 				"type": "string"
 			},
 			{
@@ -1861,8 +1875,12 @@
 	],
 	"variable": [
 		{
-			"key": "hostnmae",
-			"value": "http://localhost:8080"
+			"key": "BaseUrl",
+			"value": "https://api-testnet.dock.io"
+		},
+		{
+			"key": "ApiKey",
+			"value": "eyJzY29wZXMiOlsidGVzdCIsImFsbCJdLCJzdWIiOiI5ODYiLCJpYXQiOjE2MzM1NDU4NTMsImV4cCI6NDcxMjg0MTg1M30.uzg11r0mC9q5xqpa95C38_q_LBaGO7NP9Nr9Q3NuI6FSy91lycmzzf1ssXbW88BiVPWYqXkG8AYMYhdBjFOrmQ"
 		}
 	]
 }
