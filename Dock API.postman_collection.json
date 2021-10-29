@@ -74,26 +74,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -198,7 +178,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"controller\": \"{{did}}\",\n\"keyType\": \"sr25519\"\n}",
+							"raw": "{\n\"controller\": \"did:dock:5Cde8QWRBxfagcZggvgGNJzDaK4oviq9a3MgApyf7GgwGyau\",\n\"keyType\": \"sr25519\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -281,7 +261,19 @@
 				}
 			],
 			"auth": {
-				"type": "noauth"
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "{{ApiKey}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "DOCK-API-TOKEN",
+						"type": "string"
+					}
+				]
 			},
 			"event": [
 				{
@@ -310,21 +302,6 @@
 				{
 					"name": "Create Signed Credential",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -365,21 +342,6 @@
 				{
 					"name": "Create Signed Credential With Past Dates",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -420,21 +382,6 @@
 				{
 					"name": "Create Signed Credential with Anchor",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -475,21 +422,6 @@
 				{
 					"name": "Create Unsigned Credential",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -530,21 +462,6 @@
 				{
 					"name": "Verify Credential",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -585,21 +502,6 @@
 				{
 					"name": "Verify Credentials from single VC",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -643,21 +545,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -692,21 +579,6 @@
 				{
 					"name": "Create Signed Credential Without Dates",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -756,26 +628,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -825,26 +677,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -893,26 +725,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -958,26 +770,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1023,26 +815,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1088,26 +860,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1153,26 +905,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "in",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1223,21 +955,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1281,21 +998,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -1332,21 +1034,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -1381,21 +1068,6 @@
 				{
 					"name": "Delete registry",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -1425,21 +1097,6 @@
 				{
 					"name": "Revoke Credential By Registry ID",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1481,21 +1138,6 @@
 				{
 					"name": "Unrevoke Credential By Registry ID",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1542,21 +1184,6 @@
 				{
 					"name": "Create Presentation",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1597,21 +1224,6 @@
 				{
 					"name": "Verify Presentation",
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1669,21 +1281,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1727,21 +1324,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -1789,21 +1371,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
