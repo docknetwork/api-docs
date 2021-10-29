@@ -110,21 +110,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
