@@ -111,17 +111,7 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 <div class="highlight">
   <div class="highlight shell align-code">
-    <a href="#create-did">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /dids
-    </a>
-    <br />
-    <a href="#list-did">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /dids
-    </a>
-    <br />
-    <a href="#get-did">
+   <a href="#get-did">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids/{did}
     </a>
@@ -135,6 +125,17 @@ DID Resolver | The tool that initiates the process of learning the DID document.
       <span class="kd">DELETE</span>
       /dids/{did}
     </a>
+    <br />
+    <a href="#list-did">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
+    <a href="#create-did">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
   </div>
 </div>
 
@@ -879,7 +880,7 @@ Blockchain Credentials are credentials that have been recorded on the blockchain
 
 ## Issue a credential
 
-> <span class="highlight"><span class="na">POST</span> /credentials</span>
+> <span class="highlight"><span class="nt">POST</span> /credentials</span>
 
 ```shell
 # You can also use wget
@@ -1082,7 +1083,7 @@ The API allows you to create and sign a verifiable presentation out of one or mo
 
 ## Create a presentation
 
-> <span class="highlight"><span class="na">POST</span> /presentations</span>
+> <span class="highlight"><span class="nt">POST</span> /presentations</span>
 
 ```shell
 # You can also use wget
@@ -1301,13 +1302,45 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="registries">Registries</h1>
 
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+   <a href="#delete-registries">
+      <span class="kd">DELETE</span>
+      /registries/{id}
+    </a>
+    <br />
+      <a href="#get-registries">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /registries/{id}
+    </a>
+    <br />
+    <a href="#revoke/unrevoke-credentials">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /registries/{id}
+    </a>
+    <br />
+    <a href="#list-registries">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /registries
+    </a>
+    <br />
+    <a href="#create-registries">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /registries
+    </a>
+    <br />
+  </div>
+</div>
+
 Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.
 
 There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.
 
 ## Delete registry
 
-> <span class="highlight"><span class="na">DELETE</span> /registries/{id}</span>
+> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span>
 
 ```shell
 # You can also use wget
@@ -1575,7 +1608,7 @@ func main() {
 
 ## Revoke/unrevoke credential
 
-> <span class="highlight"><span class="na">POST</span> /registries/{id}</span>
+> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span>
 
 ```shell
 # You can also use wget
@@ -1881,7 +1914,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 
 ## Create registry
 
-> <span class="highlight"><span class="na">POST</span> /registries</span>
+> <span class="highlight"><span class="nt">POST</span> /registries</span>
 
 ```shell
 # You can also use wget
@@ -2172,6 +2205,28 @@ To check if an id is revoked or not, you can check its status with the registry 
 
 <h1 id="credential-schemas">Credential Schemas</h1>
 
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#get-schema">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /schemas/{schemaId}
+    </a>
+    <br />
+        <a href="#list-schema">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
+        <a href="#create-schema">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
+  </div>
+</div>
+
 Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
 
 Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.
@@ -2430,7 +2485,7 @@ Return a list of all schemas created by user.
 
 ## Create schema
 
-> <span class="highlight"><span class="na">POST</span> /schemas</span>
+> <span class="highlight"><span class="nt">POST</span> /schemas</span>
 
 ```shell
 # You can also use wget
@@ -2537,7 +2592,7 @@ func main() {
 
 ```
 
-The first step to creating a Schema is to initialize it. We can do that using the `Schema` class constructor, which accepts an (optional) id string as the sole argument. When an id isn't passed, a random `blobId` will be assigned as the schema's id.
+Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -2570,6 +2625,28 @@ This operation counts towards your monthly transaction limits for each successfu
 
 
 <h1 id="anchors">Anchors</h1>
+
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#get-anchor">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors/{anchor}
+    </a>
+    <br />
+        <a href="#list-anchors">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors
+    </a>
+    <br />
+        <a href="#create-anchor">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /anchors
+    </a>
+    <br />
+  </div>
+</div>
 
 Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.
 
@@ -2831,7 +2908,7 @@ Return a list of all anchors created by user, whether have contributed to the ba
 
 ## Create anchor
 
-> <span class="highlight"><span class="na">POST</span> /anchors</span>
+> <span class="highlight"><span class="nt">POST</span> /anchors</span>
 
 ```shell
 # You can also use wget
@@ -2979,6 +3056,18 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="jobs">Jobs</h1>
 
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#get-anchor">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /jobs/{Id}
+    </a>
+    <br />
+  </div>
+</div>
+
 This section describes API resources to get job status and data with using a spesific Job id.
 
 ## Get job status and data
@@ -3114,11 +3203,23 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 <h1 id="verify">Verify</h1>
 
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#revoke/unrevoke-credentials">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /verify
+    </a>
+    <br />
+  </div>
+</div>
+
 Verifier on receiving the presentation verifies the validity of each credential in the presentation. This includes checking correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
 
 ## Verify a credential or presentation
 
-> <span class="highlight"><span class="na">POST</span> /verify</span>
+> <span class="highlight"><span class="nt">POST</span> /verify</span>
 
 ```shell
 # You can also use wget
@@ -3229,8 +3330,6 @@ func main() {
 Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.
 
 Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.
-
-Please note that the verification is an async process that returns an object when the promise resolves. This object contains separate results for the verification processes of the included Verifiable Credentials and the overall Verifiable Presentation.
 
 > Body parameter
 
