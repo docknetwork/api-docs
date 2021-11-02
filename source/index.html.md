@@ -1306,27 +1306,27 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <div class="highlight">
   <div class="highlight shell align-code">
-   <a href="#delete-registries">
+   <a href="#delete-registry-responses">
       <span class="kd">DELETE</span>
       /registries/{id}
     </a>
     <br />
-      <a href="#get-registries">
+      <a href="#get-registry-parameters">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /registries/{id}
     </a>
     <br />
-    <a href="#revoke/unrevoke-credentials">
+    <a href="#revoke/unrevoke-credential-parameters">
       <span class="nt">POST</span>&nbsp;&nbsp;
       /registries/{id}
     </a>
     <br />
-    <a href="#list-registries">
+    <a href="#list-registries-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /registries
     </a>
     <br />
-    <a href="#create-registries">
+    <a href="#create-registry-parameters">
       <span class="nt">POST</span>&nbsp;&nbsp;
       /registries
     </a>
@@ -2209,17 +2209,17 @@ To check if an id is revoked or not, you can check its status with the registry 
 
 <div class="highlight">
   <div class="highlight shell align-code">
-  <a href="#get-schema">
+  <a href="#get-schema-parameters">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /schemas/{schemaId}
     </a>
     <br />
-        <a href="#list-schema">
+        <a href="#list-schemas-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /schemas
     </a>
     <br />
-        <a href="#create-schema">
+        <a href="#create-schema-responses">
       <span class="nt">POST</span>&nbsp;&nbsp;
       /schemas
     </a>
@@ -2630,17 +2630,17 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <div class="highlight">
   <div class="highlight shell align-code">
-  <a href="#get-anchor">
+  <a href="#get-anchor-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /anchors/{anchor}
     </a>
     <br />
-        <a href="#list-anchors">
+        <a href="#list-anchors-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /anchors
     </a>
     <br />
-        <a href="#create-anchor">
+        <a href="#create-anchor-responses">
       <span class="nt">POST</span>&nbsp;&nbsp;
       /anchors
     </a>
@@ -3060,7 +3060,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <div class="highlight">
   <div class="highlight shell align-code">
-  <a href="#get-anchor">
+  <a href="#get-job-status-and-data-parameters">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /jobs/{Id}
     </a>
@@ -3207,7 +3207,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 <div class="highlight">
   <div class="highlight shell align-code">
-  <a href="#revoke/unrevoke-credentials">
+  <a href="#verify-a-credential-or-presentation-parameters">
       <span class="nt">POST</span>&nbsp;&nbsp;
       /verify
     </a>
