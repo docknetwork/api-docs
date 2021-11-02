@@ -684,17 +684,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 
 <div class="highlight">
   <div class="highlight shell align-code">
-    <a href="#create-did">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /dids
-    </a>
-    <br />
-    <a href="#list-did">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /dids
-    </a>
-    <br />
-    <a href="#get-did">
+   <a href="#get-did">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids/{did}
     </a>
@@ -708,6 +698,17 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
       <span class="kd">DELETE</span>
       /dids/{did}
     </a>
+    <br />
+    <a href="#list-did">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
+    <a href="#create-did">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
   </div>
 </div>
 
@@ -1548,7 +1549,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
 <h2 id='issue-a-credential'>Issue a credential</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /credentials</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /credentials</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
@@ -1766,7 +1767,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.</p>
 <h2 id='create-a-presentation'>Create a presentation</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /presentations</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /presentations</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
@@ -2034,12 +2035,46 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="registries">Registries</h1>
 
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+   <a href="#delete-registry-responses">
+      <span class="kd">DELETE</span>
+      /registries/{id}
+    </a>
+    <br />
+      <a href="#get-registry-parameters">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /registries/{id}
+    </a>
+    <br />
+    <a href="#revoke/unrevoke-credential-parameters">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /registries/{id}
+    </a>
+    <br />
+    <a href="#list-registries-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /registries
+    </a>
+    <br />
+    <a href="#create-registry-parameters">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /registries
+    </a>
+    <br />
+  </div>
+</div>
+
 <p>Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.</p>
 
 <p>There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.</p>
 <h2 id='delete-registry'>Delete registry</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">DELETE</span> /registries/{id}</span></p>
+<p><span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
@@ -2334,7 +2369,7 @@ curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span cl
 </tbody></table>
 <h2 id='revoke-unrevoke-credential'>Revoke/unrevoke credential</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /registries/{id}</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /registries/{id}</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
@@ -2670,7 +2705,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </tbody></table>
 <h2 id='create-registry'>Create registry</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /registries</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /registries</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
@@ -3001,6 +3036,30 @@ curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>re
 
 <h1 id="credential-schemas">Credential Schemas</h1>
 
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#get-schema-parameters">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /schemas/{schemaId}
+    </a>
+    <br />
+        <a href="#list-schemas-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
+        <a href="#create-schema-responses">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
+  </div>
+</div>
+
 <p>Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.</p>
 
 <p>Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a <code>Blob</code> in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.</p>
@@ -3265,7 +3324,7 @@ curl <span class="nt">-X</span> GET /schemas <span class="se">\</span>
 </tbody></table>
 <h2 id='create-schema'>Create schema</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /schemas</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /schemas</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /schemas <span class="se">\</span>
@@ -3358,7 +3417,7 @@ curl <span class="nt">-X</span> POST /schemas <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>The first step to creating a Schema is to initialize it. We can do that using the <code>Schema</code> class constructor, which accepts an (optional) id string as the sole argument. When an id isn&#39;t passed, a random <code>blobId</code> will be assigned as the schema&#39;s id.</p>
+<p>Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.</p>
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -3419,6 +3478,30 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 
 <h1 id="anchors">Anchors</h1>
+
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#get-anchor-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors/{anchor}
+    </a>
+    <br />
+        <a href="#list-anchors-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors
+    </a>
+    <br />
+        <a href="#create-anchor-responses">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /anchors
+    </a>
+    <br />
+  </div>
+</div>
 
 <p>Anchoring allows users to store a digest of one or more credentials (or any files) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.</p>
 
@@ -3687,7 +3770,7 @@ curl <span class="nt">-X</span> GET /anchors <span class="se">\</span>
 </tbody></table>
 <h2 id='create-anchor'>Create anchor</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /anchors</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /anchors</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /anchors <span class="se">\</span>
@@ -3848,6 +3931,20 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="jobs">Jobs</h1>
 
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#get-job-status-and-data-parameters">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /jobs/{Id}
+    </a>
+    <br />
+  </div>
+</div>
+
 <p>API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. </p>
 
 <p>You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.</p>
@@ -3998,10 +4095,24 @@ curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="n
 
 <h1 id="verify">Verify</h1>
 
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+  <a href="#verify-a-credential-or-presentation-parameters">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /verify
+    </a>
+    <br />
+  </div>
+</div>
+
 <p>A Verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
 <h2 id='verify-a-credential-or-presentation'>Verify a credential or presentation</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">POST</span> /verify</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /verify</span></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
@@ -4097,8 +4208,6 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
 <p>Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.</p>
 
 <p>Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.</p>
-
-<p>Please note that the verification is an async process that returns an object when the promise resolves. This object contains separate results for the verification processes of the included Verifiable Credentials and the overall Verifiable Presentation.</p>
 
 <blockquote>
 <p>Body parameter</p>
