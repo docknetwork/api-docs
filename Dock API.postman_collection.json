@@ -1,0 +1,1438 @@
+{
+	"info": {
+		"_postman_id": "82cdbb00-69fc-4eec-b682-0cc423f99b40",
+		"name": "Dock API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dids",
+			"item": [
+				{
+					"name": "Create DID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{ApiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "DOCK-API-TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all DIDs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get DID by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids/{{did}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids",
+								"{{did}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update DID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{ApiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "DOCK-API-TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"controller\": \"{{did}}\",\n\"keyType\": \"sr25519\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids/{{did}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids",
+								"{{did}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete DID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{ApiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "DOCK-API-TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids/{{did}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids",
+								"{{did}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "{{ApiKey}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "DOCK-API-TOKEN",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "Create Signed Credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com/39\",\n    \"context\": [\"https://www.w3.org/2018/credentials/examples/v1\"],\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"subject\": {\n        \"id\": \"{{did}}\"\n    },\n    \"issuer\": {\n        \"id\": \"{{did}}\",\n        \"name\": \"Issuer Name\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/credentials",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"credentials"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Signed Credential With Past Dates",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"credential\": {\n    \"id\": \"http://example.com/39\",\n    \"context\": [\"https://www.w3.org/2018/credentials/examples/v1\"],\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"subject\": {\n        \"id\": \"{{did}}\"\n    },\n    \"issuer\": {\n       \"id\": \"{{did}}\",\n        \"name\": \"Issuer Name\"\n    },\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/credentials",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"credentials"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Signed Credential with Anchor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"anchor\": true,\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\",\n        \"issuer\": \"{{did}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/credentials",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"credentials"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Unsigned Credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/credentials",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"credentials"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": {\n        \"id\": \"{{did}}\"\n    },\n    \"issuanceDate\": \"2021-10-29T09:15:48.951Z\",\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-10-29T09:15:48Z\",\n        \"verificationMethod\": \"{{did}}#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z2yL9T3dL8UmsKu73Yo4YTR1RvQRCgrWvwawKqSUV9om7EHFcVK4pyamYB51LwtXy7MLK828DvaKfMJUehdRqPKjA\"\n    },\n    \"issuer\": {\n        \"id\": \"{{did}}\",\n        \"name\": \"my issuer\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/verify",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"verify"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Credentials from single VC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"verifiableCredential\": [\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"https://creds.dock.io/credential/52800d6e1b49e318c67b04304bed5060\",\n            \"type\": [\n                \"VerifiableCredential\",\n                \"MyCredential\"\n            ],\n            \"credentialSubject\": {\n                \"id\": \"{{did}}\"\n            },\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Ed25519Signature2018\",\n                \"created\": \"2021-10-20T16:41:27Z\",\n                \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z33qPWZmoT3yhamyRPehkSMqMRXS8CXq6otnxFp1Kk8Q6KuMG1ubSqjePu1RsknDszTPpdSgNpE6jDcn8PQXgA8fR\"\n            },\n            \"issuer\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2\"\n        }\n    ],\n    \"id\": \"https://creds.dock.io/presentation/e97cd5dcba282a445501d60dca41c684\",\n    \"type\": [\n        \"VerifiablePresentation\"\n    ],\n    \"proof\": {\n        \"type\": \"Ed25519Signature2018\",\n        \"created\": \"2021-10-20T16:41:28Z\",\n        \"verificationMethod\": \"did:dock:5F4w22xpYkH49UBsfUsuZNqoUjjPvXD3LCzAjaehZcByoVo2#keys-1\",\n        \"proofPurpose\": \"authentication\",\n        \"challenge\": \"my challenge\",\n        \"domain\": \"dock.io\",\n        \"proofValue\": \"z2CF2GoS8n4CXZxhHXr3cWuLKR3hfC9Qe1cmU3hvHiFSSCm7JzA6eAtEeecLCeCFcGv6QYvykFJ9MzsoE1Pxi9beh\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/verify",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"verify"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revocation Status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/revocationStatus/{{did}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"revocationStatus",
+								"{{did}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Signed Credential Without Dates",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuer\": \"{{did}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/credentials/",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"credentials",
+								""
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Anchor",
+			"item": [
+				{
+					"name": "Get Anchor by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors/{{anchorId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors",
+								"{{anchorId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Anchor by Root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorId\", jsonData.anchor);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors/{{anchorRoot}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors",
+								"{{anchorRoot}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Anchors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Can drop an anchor from a single JSON document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"id\":\"{{$timestamp}}\",\"example\":\"document\"}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Can drop an anchor from a multiple JSON documents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"id\": \"{{$timestamp}}\",\n    \"example\": \"document\"\n  },\n  {\n    \"example\": \"withnoid\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Can drop an anchor from a Arbitrary string",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  \"hello {{$timestamp}}\",\n  \"{\\\\\\\",example\\\\\\\",:\\\\\\\",document\\\\\\\",\\\\\\\",randomBytesStr\\\\\\\",:\\\\\\\",{{$timestamp}}\\\\\\\"}\"\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create anchor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"TestAnchor{{$randomInt}}==\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Registeries",
+			"item": [
+				{
+					"name": "Create Registry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"registryId\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"addOnly\": false,\n  \"policy\": [\n    \"{{did}}\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/registries",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"registries"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all registries",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/registries",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"registries"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Single Registery by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"registries",
+								"{{registryId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registry",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"registries",
+								"{{registryId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Credential By Registry ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"revoke\",\n  \"credentialIds\": [\n    \"https://credentials.dock.io/3e343b80ebaefb40d8f9d99ec27a885e\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"registries",
+								"{{registryId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unrevoke Credential By Registry ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"unrevoke\",\n  \"credentialIds\": [\n    \"https://credentials.dock.io/3e343b80ebaefb40d8f9d99ec27a885e\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/registries/{{registryId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"registries",
+								"{{registryId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Presentations",
+			"item": [
+				{
+					"name": "Create Presentation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"challenge\": \"my challenge\",\n  \"domain\": \"dock.io\",\n  \"holder\": \"did:dock:5EncrTiZ69AZptPJSJCeev1inay2NJcrXkFsxuSyfTALo96J\",\n  \"credentials\": [{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        \"https://www.w3.org/2018/credentials/examples/v1\"\n    ],\n    \"id\": \"http://example.com/39\",\n    \"type\": [\n        \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": [\n        {\n            \"id\": \"{{did}}\"\n        }\n    ],\n    \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n    \"expirationDate\": \"2019-08-24T14:15:22Z\",\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-06-30T15:57:19Z\",\n        \"verificationMethod\": \"did:dock:5G3a3PapJ5hM9qE4HDGnAZRT7d35KKVyHfajSkGMAtvtx2PQ#keys-1\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z5yS3zSYCe1FKTX6RJcqsCCeYT6yHNtWu996KaCvnhG13rxrPbkU6zb4YAG4gBpCjyzg4NY9JQN5T4SsebJcxqgm9\"\n    },\n    \"issuer\": \"did:dock:5DPw1htx8qCWcg3VtD3it82p4PFHjFqo2hPMGggmri32UDCF\"\n}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/presentations",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"presentations"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Presentation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"verifiableCredential\": [\n        {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                \"https://www.w3.org/2018/credentials/examples/v1\"\n            ],\n            \"id\": \"http://example.com/39\",\n            \"type\": [\n                \"VerifiableCredential\"\n            ],\n            \"credentialSubject\": [\n                {\n                    \"id\": \"{{did}}\"\n                }\n            ],\n            \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n            \"expirationDate\": \"2019-08-24T14:15:22Z\",\n            \"proof\": {\n                \"type\": \"Sr25519Signature2020\",\n                \"created\": \"2021-06-30T15:57:19Z\",\n                \"verificationMethod\": \"{{did}}#keys-1\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"proofValue\": \"z5yS3zSYCe1FKTX6RJcqsCCeYT6yHNtWu996KaCvnhG13rxrPbkU6zb4YAG4gBpCjyzg4NY9JQN5T4SsebJcxqgm9\"\n            },\n            \"issuer\": \"{{did}}\"\n        }\n    ],\n    \"id\": \"https://creds.dock.io/presentation/b6cbcfa0828ced293b3e548de0329202\",\n    \"type\": [\n        \"VerifiablePresentation\"\n    ],\n    \"proof\": {\n        \"type\": \"Sr25519Signature2020\",\n        \"created\": \"2021-10-29T11:24:12Z\",\n        \"verificationMethod\": \"did:dock:5EncrTiZ69AZptPJSJCeev1inay2NJcrXkFsxuSyfTALo96J#keys-1\",\n        \"proofPurpose\": \"authentication\",\n        \"challenge\": \"my challenge\",\n        \"domain\": \"dock.io\",\n        \"proofValue\": \"z4Az3SjavkjnDqcR6KHPreyg1a8FVkZmbtWThUYw3nbFY5wbFKTyURpvbvZQUVvVmSuvJP8bi1aSpkwaLWzw2BqWS\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/verify",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"verify"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schema",
+			"item": [
+				{
+					"name": "Create Schema",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"schemaId\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"description\": \"Dock Schema Example\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"emailAddress\": {\n      \"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"alumniOf\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"emailAddress\",\n    \"alumniOf\"\n  ],\n  \"additionalProperties\": false,\n  \"author\": \"{{did}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/schemas",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"schemas"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all schemas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/schemas",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"schemas"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schema by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/schemas/{{schemaId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"schemas",
+								"{{schemaId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{ApiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "DOCK-API-TOKEN",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "https://api-testnet.dock.io"
+		},
+		{
+			"key": "ApiKey",
+			"value": ""
+		}
+	]
+}
