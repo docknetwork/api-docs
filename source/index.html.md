@@ -8,6 +8,7 @@ language_tabs:
   - go: Go
 toc_footers:
   - <a href="https://console.api.dock.io/">Sign up for an API Key</a>
+  - <a href="https://swagger.api.dock.io/">Swagger specification</a>
 includes: []
 search: true
 highlight_theme: darkula
@@ -22,7 +23,7 @@ Dock provides a range of tools incorporating blockchain technology that enable b
 
 In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
 
-We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
+We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API. You can inspect and try out our [swagger console here](https://swagger.api.dock.io/).
 
 ## Primary Features
 -	Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.
