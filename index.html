@@ -366,10 +366,13 @@
               </ul>
           </li>
           <li>
-            <a href="#credentials" class="toc-h1 toc-link" data-title="Credentials">Credentials</a>
+            <a href="#credentials" class="toc-h1 toc-link" data-title="Issue credentials">Issue credentials</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#issue-a-credential" class="toc-h2 toc-link" data-title="Issue a credential">Issue a credential</a>
+                    <a href="#issue-a-credential-parameters" class="toc-h2 toc-link" data-title="Parameters">Parameters</a>
+                  </li>
+                  <li>
+                    <a href="#issue-a-credential-responses" class="toc-h2 toc-link" data-title="Responses">Responses</a>
                   </li>
               </ul>
           </li>
@@ -1545,10 +1548,8 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 </tbody></table>
 
-<h1 id="credentials">Credentials</h1>
+<h1 id="credentials">Issue credentials</h1>
 
-<p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
-<h2 id='issue-a-credential'>Issue a credential</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /credentials</span></p>
 </blockquote>
@@ -1658,12 +1659,14 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
+<p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
+
 <p>To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.</p>
 
 <p>This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., <code>did:dock:</code>) or an object with a property ID that is a uri/DID.</p>
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential
+This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
 </aside>
 
 <blockquote>
