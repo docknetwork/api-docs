@@ -875,11 +875,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 
-<h1 id="credentials">Credentials</h1>
-
-Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
-
-## Issue a credential
+<h1 id="credentials">Issue credentials</h1>
 
 > <span class="highlight"><span class="nt">POST</span> /credentials</span>
 
@@ -1004,12 +1000,14 @@ func main() {
 ```
 
 
+Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
+
 To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential
+This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
 </aside>
 
 > Body parameter
