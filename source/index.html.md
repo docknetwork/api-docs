@@ -107,7 +107,7 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 
 # Postman collection
 You can run Dock API collection in Postman by simply follow the steps below:
-* Download Postman [here](* Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
+* Download Postman [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
 * Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
 * Import Dock Collection in Postman. 
 * Enable the **Test mode**. 
