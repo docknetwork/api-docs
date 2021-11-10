@@ -105,6 +105,33 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
+# Postman collection
+You can run Dock API collection in Postman by simply follow the steps below:
+* Download Postman [here](* Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
+* Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
+* Import Dock Collection in Postman. 
+* Enable the **Test mode**. 
+* In your Postman environment, define the `ApiKey` initial value and current value.
+
+## Simple E2E Create Credentials/Presentation Flow
+To create a simple E2E Credentials/Presentation Flow, following steps are required:
+* Create a new DID.
+> <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids</span>
+* Verify if the new DID has been registered.
+> <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids/{{did}}</span>
+* Create a Signed Credential using the new DID.
+> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/credentials</span>
+* Verify if the Signed Credential has been created successfully.
+> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/verify</span>
+* Create a new Presentation by using the new Signed Credential.
+> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/presentations</span>
+* Check if the new Presentation has been verified as `true`.
+> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/verify</span>
+
+
+
+
+
 <h1 id="dids">DIDs</h1>
 
 > Endpoints
