@@ -8,6 +8,7 @@ language_tabs:
   - go: Go
 toc_footers:
   - <a href="https://console.api.dock.io/">Sign up for an API Key</a>
+  - <a href="https://swagger.api.dock.io/">Swagger specification</a>
 includes: []
 search: true
 highlight_theme: darkula
@@ -22,7 +23,7 @@ Dock provides a range of tools incorporating blockchain technology that enable b
 
 In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
 
-We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
+We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API. You can inspect and try out our [swagger console here](https://swagger.api.dock.io/).
 
 ## Primary Features
 -	Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.
@@ -1092,13 +1093,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 
-<h1 id="credentials">Credentials</h1>
-
-Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
-
-For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
-
-## Issue a credential
+<h1 id="credentials">Issue credentials</h1>
 
 > <span class="highlight"><span class="nt">POST</span> /credentials</span>
 
@@ -1223,12 +1218,14 @@ func main() {
 ```
 
 
+Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
+
 To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential
+This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
 </aside>
 
 > Body parameter
