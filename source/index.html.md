@@ -122,11 +122,12 @@ You can run Dock API collection in Postman by simply follow the steps below:
 
 
 ## Simple E2E Create Credentials/Presentation Flow
-To create a simple E2E Credentials/Presentation Flow, following steps are required:
 
 <aside class="notice">
 Before you start, please ensure that you have changed the environment to be the new enviornment that you have created based on the previous steps. Please double-check the `ApiKey` and `BaseUrl` to ensure that you can follow the following steps properly.
 </aside>
+
+To create a simple E2E Credentials/Presentation Flow, following steps are required:
 
 * To create a new DID, go to **Create DID** and click **Send**.
 > <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids</span>
