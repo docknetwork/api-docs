@@ -342,7 +342,7 @@ If you encounter an error when following this step, please wait for a couple sec
       /dids/{did}
     </a>
     <br />
-    <a href="#list-did">
+    <a href="#list-dids-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids
     </a>
@@ -359,6 +359,8 @@ If you encounter an error when following this step, please wait for a couple sec
 DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique identifiers that allow their owner to prove cryptographic control over them. A DID identifies any subject (e.g., a person, organization, thing, data model, abstract entity, etc.) that the controller of the DID decides that it identifies.
 
 DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
+
+For a detailed example of the DIDs workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/didFlow.js).
 
 <aside class="notice">
 Currently a DID can have only one key at a time as a controller, soon we will support multiple keys per DID.
@@ -1094,6 +1096,8 @@ This operation counts towards your monthly transaction limits for each successfu
 
 Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
 
+For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
+
 ## Issue a credential
 
 > <span class="highlight"><span class="nt">POST</span> /credentials</span>
@@ -1294,6 +1298,8 @@ This operation counts towards your monthly transaction limits for each successfu
 The presentation is signed using the holder's private key as it is being created. To validate the presentation, the verifier must also check the issuer's signature and the holder's public key. One way to achieve this is to make the holder have a DID too, so that the verifier can look up the DID on the chain and learn the public key.
 
 The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.
+
+For a detailed example of the presentations workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/presentationsFlow.js).
 
 ## Create a presentation
 
@@ -1551,6 +1557,8 @@ This operation counts towards your monthly transaction limits for each successfu
 Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.
 
 There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.
+
+For a detailed example of the registry workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/registryFlow.js).
 
 ## Delete registry
 
@@ -2868,6 +2876,8 @@ The Dock Blockchain includes a module explicitly intended for proof of existence
 
 The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.
 
+For a detailed example of the anchor workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/anchorsFlow.js).
+
 ## Get anchor
 
 > <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span>
@@ -3584,6 +3594,8 @@ Also, when your Verifiable Presentation (presentation JSON-LD object) has been s
 Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.
 
 These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.
+
+For a detailed example of the schema workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/schemaFlow.js).
 
 <h2 id="tocS_Error">Error</h2>
 <!-- backwards compatibility -->
