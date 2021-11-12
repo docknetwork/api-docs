@@ -130,7 +130,8 @@ Before you start, please ensure that you have changed the environment to be the 
 To create a simple E2E Credentials/Presentation Flow, following steps are required:
 
 * To create a new DID, go to **Create DID** and click **Send**.
-> <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids</span>
+> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/dids</span>
+
 > 200 Response
 
 ```json
