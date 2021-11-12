@@ -109,7 +109,6 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 You can run Dock API collection in Postman by simply follow the steps below:
 * Download Postman [here](https://www.postman.com/downloads/).
 * Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
-* Open and Login to your Postman account. 
 * Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detail instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
 * Login to [Dock API console](https://console.api.dock.io/). 
 * Enable the **Test mode** in your API console. 
@@ -147,7 +146,7 @@ To create a simple E2E Credentials/Presentation Flow, following steps are requir
 * To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
 
 <aside class="notice">
-If you encounter an error when following this step, please wait for a couple seconds and try again. It takes about five seconds to register a new DID.
+Creating a DID submits a transaction to the blockchain, this could take sometime to process but typically resolves in about five seconds. Please check the job status properly to see if it's finalized or not.
 </aside>
 
 > <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids/{{did}}</span>
