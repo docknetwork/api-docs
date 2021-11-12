@@ -1223,6 +1223,8 @@ To issue a verifiable credential, the issuer needs to have a public key that is 
 
 This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
 
+For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
+
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
 </aside>
