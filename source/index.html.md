@@ -109,24 +109,211 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 You can run Dock API collection in Postman by simply follow the steps below:
 * Download Postman [here](https://www.postman.com/downloads/).
 * Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
-* Import Dock Collection in Postman. 
-* Enable the **Test mode**. 
-* In your Postman environment, define the `ApiKey` initial value and current value.
+* Open and Login to your Postman account. 
+* Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detail instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+* Login to [Dock API console](https://console.api.dock.io/). 
+* Enable the **Test mode** in your API console. 
+* Generate the `ApiKey`. 
+* Create a new environment in Postman. For the detail instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
+* In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
+* Set `ApiKey` initial and current values with the value that you generated in the API console.
+* Set `BaseUrl` initial and current values with https://api-testnet.dock.io
+
+
 
 ## Simple E2E Create Credentials/Presentation Flow
 To create a simple E2E Credentials/Presentation Flow, following steps are required:
-* Create a new DID.
+
+<aside class="notice">
+Before you start, please ensure that you have changed the environment to be the new enviornment that you have created based on the previous steps. Please double-check the `ApiKey` and `BaseUrl` to ensure that you can follow the following steps properly.
+</aside>
+
+* To create a new DID, go to **Create DID** and click **Send**.
 > <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids</span>
-* Verify if the new DID has been registered.
+> 200 Response
+
+```json
+{
+    "id": "823",
+    "data": {
+        "did": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+        "hexDid": "0x8b3997a95f86c80e5eb8a4ab67dbb164d5cc19ea24c072a85a3eb0d552fa837f",
+        "controller": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
+    }
+}
+```
+* To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
+
+<aside class="notice">
+If you encounter an error when following this step, please wait for a couple seconds and try again. It takes about five seconds to register a new DID.
+</aside>
+
 > <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids/{{did}}</span>
-* Create a Signed Credential using the new DID.
+
+> 200 Response
+
+```json
+{
+    "@context": "https://www.w3.org/ns/did/v1",
+    "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+    "authentication": [
+        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+    ],
+    "assertionMethod": [
+        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+    ],
+    "publicKey": [
+        {
+            "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
+            "type": "Sr25519VerificationKey2020",
+            "controller": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+            "publicKeyBase58": "J6xSBWTMSWB411ZeUP9itigsdURNQjdAUAJ11N7miEFo"
+        }
+    ]
+}
+```
+
+* To create a Signed Credential using the new DID, go to **Create Signed Credential** and click **Send**.
 > <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/credentials</span>
-* Verify if the Signed Credential has been created successfully.
+
+> 200 Response
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/2018/credentials/examples/v1"
+    ],
+    "id": "http://example.com/39",
+    "type": [
+        "VerifiableCredential"
+    ],
+    "credentialSubject": {
+        "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
+    },
+    "issuanceDate": "2021-11-12T14:43:46.504Z",
+    "proof": {
+        "type": "Sr25519Signature2020",
+        "created": "2021-11-12T14:43:46Z",
+        "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4ea8h9yVjQjoKxX4AWA6NNHVuJR59vEdqXFvWc7vgGJxfxvtwZcxiLGwfK5Z5CRPVvtme1GZBzu12yAxCLceZDFv"
+    },
+    "issuer": {
+        "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+        "name": "Issuer Name"
+    }
+}
+```
+
+* To verify if the Signed Credential has been created successfully, go to **Verify Signed Credential** and click **Send**.
 > <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/verify</span>
-* Create a new Presentation by using the new Signed Credential.
+
+> 200 Response
+
+```json
+{
+    "verified": true,
+    "results": [
+        {
+            "proof": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://www.w3.org/2018/credentials/examples/v1"
+                ],
+                "type": "Sr25519Signature2020",
+                "created": "2021-11-12T14:43:46Z",
+                "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
+                "proofPurpose": "assertionMethod",
+                "proofValue": "z4ea8h9yVjQjoKxX4AWA6NNHVuJR59vEdqXFvWc7vgGJxfxvtwZcxiLGwfK5Z5CRPVvtme1GZBzu12yAxCLceZDFv"
+            },
+            "verified": true,
+            "verificationMethod": {
+                "@context": "https://w3id.org/security/v2",
+                "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
+                "type": "sec:Sr25519VerificationKey2020",
+                "controller": {
+                    "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+                    "assertionMethod": [
+                        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+                    ],
+                    "authentication": [
+                        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+                    ],
+                    "publicKey": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+                },
+                "publicKeyBase58": "J6xSBWTMSWB411ZeUP9itigsdURNQjdAUAJ11N7miEFo"
+            }
+        }
+    ]
+}
+```
+
+* To create a new Presentation by using the new Signed Credential, go to **Create Presentation** and click **Send**.
 > <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/presentations</span>
-* Check if the new Presentation has been verified as `true`.
+
+> 200 Response
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1"
+    ],
+    "verifiableCredential": [
+        {
+            "@context": [
+                "https://www.w3.org/2018/credentials/v1",
+                "https://www.w3.org/2018/credentials/examples/v1"
+            ],
+            "id": "http://example.com/39",
+            "type": [
+                "VerifiableCredential"
+            ],
+            "credentialSubject": {
+                "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
+            },
+            "issuanceDate": "2021-11-12T14:43:46.504Z",
+            "proof": {
+                "type": "Sr25519Signature2020",
+                "created": "2021-11-12T14:43:46Z",
+                "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
+                "proofPurpose": "assertionMethod",
+                "proofValue": "z4ea8h9yVjQjoKxX4AWA6NNHVuJR59vEdqXFvWc7vgGJxfxvtwZcxiLGwfK5Z5CRPVvtme1GZBzu12yAxCLceZDFv"
+            },
+            "issuer": {
+                "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+                "name": "Issuer Name"
+            }
+        }
+    ],
+    "id": "https://creds.dock.io/presentation/adfb13f1a4b8934d0e94d2aa507e006c",
+    "type": [
+        "VerifiablePresentation"
+    ],
+    "proof": {
+        "type": "Sr25519Signature2020",
+        "created": "2021-11-12T14:45:16Z",
+        "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
+        "proofPurpose": "authentication",
+        "challenge": "my challenge",
+        "domain": "dock.io",
+        "proofValue": "z4yQ8CPNgwnBApDphMxx28rpZAquHkGGwdFfoAkjd37xUGbc8WwBWWuriVsoGnfrR1Emj5L62wzoCpc3amNrcNPAM"
+    }
+}
+```
+
+* To check if the new Presentation has been verified as `true`, go to **Verify Presentation** and click **Send**.
 > <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/verify</span>
+
+> 200 Response
+
+```json
+{
+    "verified": true,
+    "results": []
+}
+```
+
 
 
 
