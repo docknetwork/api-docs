@@ -110,16 +110,19 @@ DID Resolver | The tool that initiates the process of learning the DID document.
 You can run Dock API collection in Postman by simply follow the steps below:
 * Download Postman [here](https://www.postman.com/downloads/).
 * Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
-* Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detail instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+* Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detailed instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
 * Login to [Dock API console](https://console.api.dock.io/). 
 * Enable the **Test mode** in your API console. 
-* Generate the `ApiKey`. 
-* Create a new environment in Postman. For the detail instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
+* In your API Console dashboard, click **Create API key** > **Continue** to generate the `ApiKey`. 
+* Create a new environment in Postman. For the detailed instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
 * In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
-* Set `ApiKey` initial and current values with the value that you generated in the API console.
+* Set `ApiKey` initial and current values with the value that you generated in the API console by double-clicking the `ApiKey` that you want to copy within your API console and paste it to Postman.
 * Set `BaseUrl` initial and current values with https://api-testnet.dock.io
 
 
+<aside class="notice">
+The dock collection you imported before includes the Postman scripts that automatically propagate results into the next request bodies when you follow the Simple E2E Create Credentials/Presentation Flow steps.
+</aside>
 
 ## Simple E2E Create Credentials/Presentation Flow
 
@@ -127,7 +130,7 @@ You can run Dock API collection in Postman by simply follow the steps below:
 Before you start, please ensure that you have changed the environment to be the new enviornment that you have created based on the previous steps. Please double-check the `ApiKey` and `BaseUrl` to ensure that you can follow the following steps properly.
 </aside>
 
-To create a simple E2E Credentials/Presentation Flow, following steps are required:
+To create a simple E2E Credentials/Presentation Flow, the following steps are required:
 
 * To create a new DID, go to **Create DID** and click **Send**.
 > <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/dids</span>
@@ -147,7 +150,7 @@ To create a simple E2E Credentials/Presentation Flow, following steps are requir
 * To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
 
 <aside class="notice">
-Creating a DID submits a transaction to the blockchain, this could take sometime to process but typically resolves in about five seconds. Please check the job status properly to see if it's finalized or not.
+Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
 
 > <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids/{{did}}</span>
@@ -481,7 +484,7 @@ func main() {
 
 A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
-It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`. These public keys are supported by 3 classes: `PublicKeySr25519`, `PublicKeyEd25519`, and `PublicKeySecp256k1`.
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`. 
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -636,7 +639,7 @@ func main() {
 
 ```
 
-The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
+The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves it is called the resolver.
 
 Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
@@ -1091,7 +1094,7 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove DID.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove the DID.|[JobId](#schemajobid)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
