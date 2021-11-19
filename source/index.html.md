@@ -92,7 +92,7 @@ Code | Meaning
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
 500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.
 
-# Terminology
+## Terminology
 It is important to fully understand all the terminologies within the Dock ecosystem. The following are common terminologies within our ecosystem:
 
 
@@ -106,15 +106,161 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
+# Postman collection
+Download and use our [Postman Collection](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json) to experiment with basic API flows:
+
+- Download Postman [here](https://www.postman.com/downloads/).
+- Download our [API collection here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
+- Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detailed instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+- Create a new environment in Postman. For the detailed instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
+- In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
+- Login to [Dock API console](https://console.api.dock.io/).
+- Enable the **Test mode** in your API console to use the sandbox environment.
+- In your API Console dashboard, click **Create API key** to generate the key, copy and save it.
+- Set `ApiKey` initial and current values with the value that you generated in the API console.
+- Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
+
+## Create credential and presentation flow
+
+This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
+
+> DID Create - 200 Response
+
+```json
+{
+    "id": "823",
+    "data": {
+        "did": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+        "hexDid": "0x8b3997a95f86c80e5eb8a4ab67dbb164d5cc19ea24c072a85a3eb0d552fa837f",
+        "controller": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
+    }
+}
+```
+
+* To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
+
+
+<aside class="notice">
+Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
+</aside>
+
+> DID Created and resolved - 200 Response
+
+```json
+{
+    "@context": "https://www.w3.org/ns/did/v1",
+    "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
+    "authentication": [
+        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+    ],
+    "assertionMethod": [
+        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
+    ],
+    "publicKey": [ ... ]
+}
+```
+
+* To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
+
+<aside class="notice">
+You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
+</aside>
+
+* To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
+
+> CREDENTIAL ISSUED - 200 Response
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/2018/credentials/examples/v1"
+    ],
+    "id": "http://example.com/39",
+    "type": [
+        "VerifiableCredential"
+    ],
+    "credentialSubject": {
+        "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
+    },
+    "issuanceDate": "2021-11-12T14:43:46.504Z",
+    "proof": { ... },
+    "issuer": { ... }
+}
+```
+
+* To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
+
+> CREDENTIAL VERIFIED - 200 Response
+
+```json
+{
+    "verified": true,
+    "results": [ ... ]
+}
+```
+
+<aside class="notice">
+The next steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+</aside>
+
+* To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
+
+> PRESENTATION CREATED - 200 Response
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1"
+    ],
+    "verifiableCredential": [
+        {
+            "@context": [
+                "https://www.w3.org/2018/credentials/v1",
+                "https://www.w3.org/2018/credentials/examples/v1"
+            ],
+            "id": "http://example.com/39",
+            "type": [
+                "VerifiableCredential"
+            ],
+            "credentialSubject": {
+                "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
+            },
+            "issuanceDate": "2021-11-12T14:43:46.504Z",
+            "proof": { ... },
+            "issuer": { ... }
+        }
+    ],
+    "id": "https://creds.dock.io/presentation/adfb13f1a4b8934d0e94d2aa507e006c",
+    "type": [
+        "VerifiablePresentation"
+    ],
+    "proof": { ... }
+}
+```
+
+* The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
+
+
 <h1 id="dids">DIDs</h1>
 
 > Endpoints
 
 <div class="highlight">
   <div class="highlight shell align-code">
+   <a href="#create-did">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /dids
+    </a>
+    <br />
    <a href="#get-did">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids/{did}
+    </a>
+    <br />
+    <a href="#list-dids-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /dids
     </a>
     <br />
     <a href="#update-did">
@@ -127,17 +273,7 @@ DID Resolver | The tool that initiates the process of learning the DID document.
       /dids/{did}
     </a>
     <br />
-    <a href="#list-did">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /dids
-    </a>
-    <br />
-    <a href="#create-did">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /dids
-    </a>
-    <br />
-  </div>
+   </div>
 </div>
 
 
@@ -145,9 +281,176 @@ DID stands for Decentralized IDentifiers. DIDs are meant to be globally unique i
 
 DIDs in Dock are created by choosing a 32-byte unique (on Dock chain) identifier along with a public key. You can update and delete a DID as well as list all DIDs. DID is identified by a unique, random key.
 
+For a detailed example of the DIDs workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/didFlow.js).
+
 <aside class="notice">
 Currently a DID can have only one key at a time as a controller, soon we will support multiple keys per DID.
 </aside>
+
+## Create DID
+
+> <span class="highlight"><span class="nt">POST</span> /dids</span>
+
+```shell
+# You can also use wget
+curl -X POST /dids \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
+  "keyType": "sr25519"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/dids',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.post('/dids', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/dids', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/dids", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
+
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
+> Body parameter
+
+```json
+{
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
+  "keyType": "sr25519"
+}
+```
+
+<h3 id="create-did-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated. |
+|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
+|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is sr25519.|
+
+### Enumerated Values
+
+|Parameter|Value|Desctiprion
+|---|---|---|
+|keyType|sr25519 **or** ed25519 **or** secp256k1| keyType signature variants.
+
+> 200 Response
+
+```json
+{
+  "id": "string",
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
+}
+```
+
+<h3 id="create-did-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create DID. NOTE: DID does not exist on network until the job identified in the response is complete.|[JobStartedResult](#schemajobstartedresult)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
+
 
 
 ## Get DID
@@ -254,7 +557,7 @@ func main() {
 
 ```
 
-The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves is called the resolver.
+The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves it is called the resolver.
 
 Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
@@ -284,6 +587,139 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The requested DID was not found.|[Error](#schemaerror)|
+
+## List DIDs
+
+> <span class="highlight"><span class="na">GET</span> /dids</span>
+
+```shell
+# You can also use wget
+curl -X GET /dids \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/dids',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.get('/dids', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/dids', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/dids/", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
+
+> 200 Response
+
+```json
+[
+  {
+    "@context": [
+      "string"
+    ],
+    "id": "did:dock:xyz",
+    "authentication": [
+      {}
+    ]
+  }
+]
+```
+
+<h3 id="list-dids-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDoc](#schemadiddoc)|
+
+
+
+
+
 
 
 ## Update DID
@@ -423,9 +859,9 @@ This operation counts towards your monthly transaction limits for each successfu
 |controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
 
-An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
+An example Dock DID:`did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
-#### Enumerated Values
+### Enumerated Values
 
 |Parameter|Value|Description|
 |---|---|---|
@@ -576,306 +1012,15 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove DID.|[JobId](#schemajobid)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove the DID.|[JobId](#schemajobid)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
 
-## List DIDs
 
-> <span class="highlight"><span class="na">GET</span> /dids</span>
 
-```shell
-# You can also use wget
-curl -X GET /dids \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
 
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/dids',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.get('/dids', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('GET','/dids', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/dids/", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
-
-> 200 Response
-
-```json
-[
-  {
-    "@context": [
-      "string"
-    ],
-    "id": "did:dock:xyz",
-    "authentication": [
-      {}
-    ]
-  }
-]
-```
-
-<h3 id="list-dids-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDoc](#schemadiddoc)|
-
-
-## Create DID
-
-> <span class="highlight"><span class="nt">POST</span> /dids</span>
-
-```shell
-# You can also use wget
-curl -X POST /dids \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-const inputBody = '{
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/dids',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.post('/dids', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Content-Type' => 'application/json',
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('POST','/dids', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/dids", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
-
-It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`. These public keys are supported by 3 classes: `PublicKeySr25519`, `PublicKeyEd25519`, and `PublicKeySecp256k1`.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-> Body parameter
-
-```json
-{
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}
-```
-
-<h3 id="create-did-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated. |
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is sr25519.|
-
-#### Enumerated Values
-
-|Parameter|Value|Desctiprion
-|---|---|---|
-|keyType|sr25519 **or** ed25519 **or** secp256k1| keyType signature variants.
-
-> 200 Response
-
-```json
-{
-  "id": "string",
-  "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
-  }
-}
-```
-
-<h3 id="create-did-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create DID. NOTE: DID does not exist on network until the job identified in the response is complete.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
-
-
-<h1 id="credentials">Issue credentials</h1>
+<h1 id="credentials">Credentials</h1>
 
 > <span class="highlight"><span class="nt">POST</span> /credentials</span>
 
@@ -1002,9 +1147,13 @@ func main() {
 
 Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
 
-To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain.
+<h2 id="issue-credentials">Issue Credentials</h2>
 
-This DID may be found in the issuer field of the credential. Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a uri/DID.
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. This DID may be found in the issuer field of the credential.
+
+Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a URI/DID.
+
+For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
@@ -1078,7 +1227,9 @@ The presentation is signed using the holder's private key as it is being created
 
 The API allows you to create and sign a verifiable presentation out of one or more Verifiable Credentials.
 
-## Create a presentation
+For a detailed example of the presentations workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/presentationsFlow.js).
+
+<h2 id="create-a-presentation">Create a Presentation</h2>
 
 > <span class="highlight"><span class="nt">POST</span> /presentations</span>
 
@@ -1216,7 +1367,7 @@ func main() {
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
-This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. 
+This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -1264,7 +1415,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API.|
 
-#### Enumerated Values
+### Enumerated Values
 
 |Parameter|Value|Description|
 |---|---|---|
@@ -1303,12 +1454,17 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <div class="highlight">
   <div class="highlight shell align-code">
-   <a href="#delete-registry-responses">
-      <span class="kd">DELETE</span>
-      /registries/{id}
+    <a href="#create-registry-parameters">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /registries
     </a>
     <br />
-      <a href="#get-registry-parameters">
+     <a href="#list-registries-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /registries
+    </a>
+    <br />
+     <a href="#get-registry-parameters">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /registries/{id}
     </a>
@@ -1318,14 +1474,9 @@ This operation counts towards your monthly transaction limits for each successfu
       /registries/{id}
     </a>
     <br />
-    <a href="#list-registries-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /registries
-    </a>
-    <br />
-    <a href="#create-registry-parameters">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /registries
+   <a href="#delete-registry-responses">
+      <span class="kd">DELETE</span>
+      /registries/{id}
     </a>
     <br />
   </div>
@@ -1335,581 +1486,9 @@ Revocation means deleting or updating a credential. On Dock, credential revocati
 
 There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.
 
-## Delete registry
+For a detailed example of the registry workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/registryFlow.js).
 
-> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span>
-
-```shell
-# You can also use wget
-curl -X DELETE /registries/{id} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/registries/{id}',
-{
-  method: 'DELETE',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.delete('/registries/{id}', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('DELETE','/registries/{id}', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "/registries/{id}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-
-A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-<h3 id="delete-registry-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
-
-> 200 Response
-
-```json
-{
-  "id": "string",
-  "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
-  }
-}
-```
-
-<h3 id="delete-registry-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and revocation registry will be deleted.|[JobStartedResult](#schemajobstartedresult)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-
-## Get registry
-
-> <span class="highlight"><span class="na">GET</span> /registries/{id}</span>
-
-```shell
-# You can also use wget
-curl -X GET /registries/{id} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/registries/{id}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.get('/registries/{id}', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('GET','/registries/{id}', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/registries/{id}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-
- Get the details of an existing registry, such as policy, add-only status, when it was last updated, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.
-
-<h3 id="get-registry-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
-
-> 200 Response
-
-```json
-{
-  "addOnly": true,
-  "policy": [
-    "did:dock:xyz"
-  ]
-}
-```
-
-<h3 id="get-registry-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the revocation registry metadata.|[Registry](#schemaregistry)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-
-
-## Revoke/unrevoke credential
-
-> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span>
-
-```shell
-# You can also use wget
-curl -X POST /registries/{id} \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-const inputBody = '{
-  "action": "revoke",
-  "credentialIds": [
-    "http://example.com"
-  ]
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/registries/{id}',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.post('/registries/{id}', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Content-Type' => 'application/json',
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('POST','/registries/{id}', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/registries/{id}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-
-Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.
-
-Similar to the replay protection mechanism for DIDs, the last modified block number is kept for each registry, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.
-
-In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-> Body parameter
-
-```json
-{
-  "action": "revoke",
-  "credentialIds": [
-    "http://example.com"
-  ]
-}
-```
-
-<h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
-|action|body|string|false|The action taken, either revoke or unrevoke. The default value is "revoke"|
-|credentialIds|body|array|true|The list of credential ids to act upon. |
-
-#### Enumerated Values
-
-|Parameter|Value|Description|
-|---|---|---|
-|action|revoke **or** unrevoke|Action to take on the registry.
-
-> 200 Response
-
-```json
-{
-  "id": "string",
-  "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
-  }
-}
-```
-
-<h3 id="revoke/unrevoke-credential-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-
-
-## List registries
-
-> <span class="highlight"><span class="na">GET</span> /registries</span>
-
-```shell
-# You can also use wget
-curl -X GET /registries/ \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json',
-  'DOCK-API-TOKEN':'API_KEY'
-};
-
-fetch('/registries',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json',
-  'DOCK-API-TOKEN': 'API_KEY'
-}
-
-r = requests.get('/registries', headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Accept' => 'application/json',
-    'DOCK-API-TOKEN' => 'API_KEY',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('GET','/registries', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        "DOCK-API-TOKEN": []string{"API_KEY"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/registries", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-
-Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.
-
-<aside class="notice">
-For now, only one policy is supported, and each registry is owned by a single DID.
-</aside>
-
-
-> 200 Response
-
-```json
-[
-  {
-    "id": "string",
-    "registry": {
-      "addOnly": true,
-      "policy": [
-        "did:dock:xyz"
-      ]
-    }
-  }
-]
-```
-
-<h3 id="list-registries-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by the user.|Inline|
-
-
-## Create registry
+## Create Registry
 
 > <span class="highlight"><span class="nt">POST</span> /registries</span>
 
@@ -2066,12 +1645,587 @@ This operation counts towards your monthly transaction limits for each successfu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create the registry.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., policy not supported.|[Error](#schemaerror)|
 
+## List Registries
+
+> <span class="highlight"><span class="na">GET</span> /registries</span>
+
+```shell
+# You can also use wget
+curl -X GET /registries/ \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/registries',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.get('/registries', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/registries', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/registries", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+
+Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.
+
+<aside class="notice">
+For now, only one policy is supported, and each registry is owned by a single DID.
+</aside>
+
+
+> 200 Response
+
+```json
+[
+  {
+    "id": "string",
+    "registry": {
+      "addOnly": true,
+      "policy": [
+        "did:dock:xyz"
+      ]
+    }
+  }
+]
+```
+
+<h3 id="list-registries-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by the user.|Inline|
+
+## Get Registry
+
+> <span class="highlight"><span class="na">GET</span> /registries/{id}</span>
+
+```shell
+# You can also use wget
+curl -X GET /registries/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/registries/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.get('/registries/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/registries/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/registries/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+
+ Get the details of an existing registry, such as policy, add-only status, when it was last updated, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.
+
+<h3 id="get-registry-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
+
+> 200 Response
+
+```json
+{
+  "addOnly": true,
+  "policy": [
+    "did:dock:xyz"
+  ]
+}
+```
+
+<h3 id="get-registry-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the revocation registry metadata.|[Registry](#schemaregistry)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
+
+
+## Revoke/Unrevoke Credential
+
+> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span>
+
+```shell
+# You can also use wget
+curl -X POST /registries/{id} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{
+  "action": "revoke",
+  "credentialIds": [
+    "http://example.com"
+  ]
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/registries/{id}',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.post('/registries/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/registries/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/registries/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+
+Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.
+
+Similar to the replay protection mechanism for DIDs, the last modified block number is kept for each registry, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.
+
+In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
+> Body parameter
+
+```json
+{
+  "action": "revoke",
+  "credentialIds": [
+    "http://example.com"
+  ]
+}
+```
+
+<h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
+|action|body|string|false|The action taken, either revoke or unrevoke. The default value is "revoke"|
+|credentialIds|body|array|true|The list of credential ids to act upon. |
+
+### Enumerated Values
+
+|Parameter|Value|Description|
+|---|---|---|
+|action|revoke **or** unrevoke|Action to take on the registry.
+
+> 200 Response
+
+```json
+{
+  "id": "string",
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
+}
+```
+
+<h3 id="revoke/unrevoke-credential-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
+
+
+
+## Delete Registry
+
+> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span>
+
+```shell
+# You can also use wget
+curl -X DELETE /registries/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'DOCK-API-TOKEN':'API_KEY'
+};
+
+fetch('/registries/{id}',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'DOCK-API-TOKEN': 'API_KEY'
+}
+
+r = requests.delete('/registries/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'DOCK-API-TOKEN' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/registries/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "DOCK-API-TOKEN": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/registries/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+
+A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
+<h3 id="delete-registry-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|[Hex32](#schemahex32)|true|Revocation registry id.|
+
+> 200 Response
+
+```json
+{
+  "id": "string",
+  "data": {
+    "did": did:dock:xyz,
+    "hexDid": 0x00,
+  }
+}
+```
+
+<h3 id="delete-registry-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and revocation registry will be deleted.|[JobStartedResult](#schemajobstartedresult)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
+
+
 
 <h1 id="revocationstatus">Revocation Status</h1>
 
 Once the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.
 
-## Get revocation status
+## Get Revocation Status
 
 > <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span>
 
@@ -2228,7 +2382,7 @@ Schemas are useful when enforcing a specific structure on a collection of data l
 
 Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.
 
-## Get schema
+## Get Schema
 
 > <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
 
@@ -2357,7 +2511,7 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
 
 
-## List schemas
+## List Schemas
 
 > <span class="highlight"><span class="na">GET</span> /schemas</span>
 
@@ -2480,7 +2634,7 @@ Return a list of all schemas created by the authenticated user.
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by the user.|Inline|
 
 
-## Create schema
+## Create Schema
 
 > <span class="highlight"><span class="nt">POST</span> /schemas</span>
 
@@ -2598,7 +2752,29 @@ This operation counts towards your monthly transaction limits for each successfu
 > Body parameter
 
 ```json
-{}
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "description": "Dock Schema Example",
+ "type": "object",
+ "properties": {
+  "id": {
+    "type": "string"
+ },
+ "emailAddress": {
+  "type": "string",
+  "format": "email"
+ },
+ "alumniOf": {
+  "type": "string"
+ }
+ },
+ "required": [
+  "emailAddress",
+  "alumniOf"
+ ],
+ "additionalProperties": false,
+ "author": "{{did}}"
+}
 ```
 
 <h3 id="create-schema-parameters">Parameters</h3>
@@ -2651,7 +2827,9 @@ The Dock Blockchain includes a module explicitly intended for proof of existence
 
 The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.
 
-## Get anchor
+For a detailed example of the anchor workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/anchorsFlow.js).
+
+## Get Anchor
 
 > <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span>
 
@@ -2782,7 +2960,7 @@ Get a specific anchor with the given ID.
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
 
 
-## List anchors
+## List Anchors
 
 > <span class="highlight"><span class="na">GET</span> /anchors</span>
 
@@ -2892,7 +3070,29 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 
 ```json
 [
-  {}
+  {
+    "anchor": "5ec890117e7f8b5dda9930b1e19c27c2e27009d21b2f3aa0c42146655bfdf826",
+    "type": "single",
+    "data": {
+      "proofs": [],
+      "root":"0x5ec890117e7f8b5dda9930b1e19c27c2e27009d21b2f3aa0c42146655bfdf826"
+  },
+    "created_at": "2021-11-01T17:39:21.692Z",
+    "job_id": "658"
+ },
+ {
+  "anchor":"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
+  "type": "single",
+  "data": {
+    "proofs": [],
+    "root":"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
+    "documentIds": [
+      "https://creds.dock.io/credential/d1ed680d3d2d8167cc31bc4913e9c511"
+    ]
+   },
+ "created_at": "2021-11-12T13:53:51.640Z",
+ "job_id": "827"
+ }
 ]
 ```
 
@@ -2903,7 +3103,7 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all anchors created by the user.|Inline|
 
 
-## Create anchor
+## Create Anchor
 
 > <span class="highlight"><span class="nt">POST</span> /anchors</span>
 
@@ -3027,7 +3227,13 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 [
-  "string"
+  {
+  "id": "829",
+  "data": {
+  "root": "0xdfc3cd9ff7836143746c292d4099e62277fac4c2b6a1c004d784adcbc0319634",
+  "proofs": []
+    }
+  }
 ]
 ```
 
@@ -3066,12 +3272,12 @@ This operation counts towards your monthly transaction limits for each successfu
 </div>
 
 
-API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. 
+API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously.
 
 You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.
 
 
-## Get job status and data
+## Get Job Status and Data
 
 > <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span>
 
@@ -3220,7 +3426,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 A Verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
 
 
-## Verify a credential or presentation
+## Presentation/Credential Verification
 
 > <span class="highlight"><span class="nt">POST</span> /verify</span>
 
@@ -3368,6 +3574,8 @@ Data Schemas are useful when enforcing a specific structure on a collection of d
 
 These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.
 
+For a detailed example of the schema workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/schemaFlow.js).
+
 <h2 id="tocS_Error">Error</h2>
 <!-- backwards compatibility -->
 <a id="schemaerror"></a>
@@ -3470,7 +3678,7 @@ Unique id of the background task. This id can be used to query the job status
 
 This is a schema used in Job operation to get a status of the job.
 
-#### Enumerated Values
+### Enumerated Values
 
 |Property|Value|Description|
 |---|---|---|
@@ -3558,7 +3766,7 @@ This is a schema type of public key for DID.
 
 
 
-#### Enumerated Values
+### Enumerated Values
 
 |Property|Value|Description|
 |---|---|---|
@@ -3579,7 +3787,7 @@ This is a schema type of public key for DID.
 This is a schema used in Presentation operation that represents a type of signature.
 
 
-#### Enumerated Values
+### Enumerated Values
 
 |Property|Value|Description|
 |---|---|---|
@@ -3600,7 +3808,7 @@ This is a schema used in Presentation operation that represents a type of signat
 This is a schema that represents a purpose of credential.
 
 
-#### Enumerated Values
+### Enumerated Values
 
 |Property|Value|Description|
 |---|---|---|
@@ -3839,7 +4047,7 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 
 ```
 
-An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.
+An anchor, either a batched or single is the information that constitutes the credentials' proof of existence. The schema includes anchor, type (single, batch), block hash, block number and accompanying data (root, proofs) if any. It depends if the anchor was created using API or not.
 
 
 <h2 id="tocS_Registry">Registry</h2>
@@ -3882,7 +4090,7 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 
 ```
 
-This is a schema that used to define whether a credential/presentation is verified or not
+This is a schema that is used to define whether a credential/presentation is verified or not
 
 <h2 id="tocS_Response">Response</h2>
 <!-- backwards compatibility -->
