@@ -92,7 +92,7 @@ Code | Meaning
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
 500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.
 
-# Terminology
+## Terminology
 It is important to fully understand all the terminologies within the Dock ecosystem. The following are common terminologies within our ecosystem:
 
 
@@ -107,35 +107,24 @@ Blob | Blob stands for Binary Large OBject. It is a collection of binary data st
 DID Resolver | The tool that initiates the process of learning the DID document.
 
 # Postman collection
-You can run Dock API collection in Postman by simply follow the steps below:
-* Download Postman [here](https://www.postman.com/downloads/).
-* Download our API collection [here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
-* Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detailed instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
-* Login to [Dock API console](https://console.api.dock.io/). 
-* Enable the **Test mode** in your API console. 
-* In your API Console dashboard, click **Create API key** > **Continue** to generate the `ApiKey`. 
-* Create a new environment in Postman. For the detailed instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
-* In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
-* Set `ApiKey` initial and current values with the value that you generated in the API console by double-clicking the `ApiKey` that you want to copy within your API console and paste it to Postman.
-* Set `BaseUrl` initial and current values with https://api-testnet.dock.io
+Download and use our [Postman Collection](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json) to experiment with basic API flows:
 
+- Download Postman [here](https://www.postman.com/downloads/).
+- Download our [API collection here](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json).
+- Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detailed instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+- Create a new environment in Postman. For the detailed instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
+- In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
+- Login to [Dock API console](https://console.api.dock.io/).
+- Enable the **Test mode** in your API console to use the sandbox environment.
+- In your API Console dashboard, click **Create API key** to generate the key, copy and save it.
+- Set `ApiKey` initial and current values with the value that you generated in the API console.
+- Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
-<aside class="notice">
-The dock collection you imported before includes the Postman scripts that automatically propagate results into the next request bodies when you follow the Simple E2E Create Credentials/Presentation Flow steps.
-</aside>
+## Create credential and presentation flow
 
-## Simple E2E Create Credentials/Presentation Flow
+This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
 
-<aside class="notice">
-Before you start, please ensure that you have changed the environment to be the new enviornment that you have created based on the previous steps. Please double-check the `ApiKey` and `BaseUrl` to ensure that you can follow the following steps properly.
-</aside>
-
-To create a simple E2E Credentials/Presentation Flow, the following steps are required:
-
-* To create a new DID, go to **Create DID** and click **Send**.
-> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/dids</span>
-
-> 200 Response
+> DID Create - 200 Response
 
 ```json
 {
@@ -147,15 +136,15 @@ To create a simple E2E Credentials/Presentation Flow, the following steps are re
     }
 }
 ```
-* To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
+
+* To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
+
 
 <aside class="notice">
 Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
 
-> <span class="highlight"><span class="na">GET</span> {{BaseUrl}}/dids/{{did}}</span>
-
-> 200 Response
+> DID Created and resolved - 200 Response
 
 ```json
 {
@@ -167,21 +156,19 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
     "assertionMethod": [
         "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
     ],
-    "publicKey": [
-        {
-            "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
-            "type": "Sr25519VerificationKey2020",
-            "controller": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
-            "publicKeyBase58": "J6xSBWTMSWB411ZeUP9itigsdURNQjdAUAJ11N7miEFo"
-        }
-    ]
+    "publicKey": [ ... ]
 }
 ```
 
-* To create a Signed Credential using the new DID, go to **Create Signed Credential** and click **Send**.
-> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/credentials</span>
+* To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
 
-> 200 Response
+<aside class="notice">
+You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
+</aside>
+
+* To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
+
+> CREDENTIAL ISSUED - 200 Response
 
 ```json
 {
@@ -197,67 +184,29 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
         "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
     },
     "issuanceDate": "2021-11-12T14:43:46.504Z",
-    "proof": {
-        "type": "Sr25519Signature2020",
-        "created": "2021-11-12T14:43:46Z",
-        "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z4ea8h9yVjQjoKxX4AWA6NNHVuJR59vEdqXFvWc7vgGJxfxvtwZcxiLGwfK5Z5CRPVvtme1GZBzu12yAxCLceZDFv"
-    },
-    "issuer": {
-        "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
-        "name": "Issuer Name"
-    }
+    "proof": { ... },
+    "issuer": { ... }
 }
 ```
 
-* To verify if the Signed Credential has been created successfully, go to **Verify Signed Credential** and click **Send**.
-> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/verify</span>
+* To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
 
-> 200 Response
+> CREDENTIAL VERIFIED - 200 Response
 
 ```json
 {
     "verified": true,
-    "results": [
-        {
-            "proof": {
-                "@context": [
-                    "https://www.w3.org/2018/credentials/v1",
-                    "https://www.w3.org/2018/credentials/examples/v1"
-                ],
-                "type": "Sr25519Signature2020",
-                "created": "2021-11-12T14:43:46Z",
-                "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
-                "proofPurpose": "assertionMethod",
-                "proofValue": "z4ea8h9yVjQjoKxX4AWA6NNHVuJR59vEdqXFvWc7vgGJxfxvtwZcxiLGwfK5Z5CRPVvtme1GZBzu12yAxCLceZDFv"
-            },
-            "verified": true,
-            "verificationMethod": {
-                "@context": "https://w3id.org/security/v2",
-                "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
-                "type": "sec:Sr25519VerificationKey2020",
-                "controller": {
-                    "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
-                    "assertionMethod": [
-                        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
-                    ],
-                    "authentication": [
-                        "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
-                    ],
-                    "publicKey": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1"
-                },
-                "publicKeyBase58": "J6xSBWTMSWB411ZeUP9itigsdURNQjdAUAJ11N7miEFo"
-            }
-        }
-    ]
+    "results": [ ... ]
 }
 ```
 
-* To create a new Presentation by using the new Signed Credential, go to **Create Presentation** and click **Send**.
-> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/presentations</span>
+<aside class="notice">
+The next steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+</aside>
 
-> 200 Response
+* To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
+
+> PRESENTATION CREATED - 200 Response
 
 ```json
 {
@@ -278,50 +227,19 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
                 "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"
             },
             "issuanceDate": "2021-11-12T14:43:46.504Z",
-            "proof": {
-                "type": "Sr25519Signature2020",
-                "created": "2021-11-12T14:43:46Z",
-                "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
-                "proofPurpose": "assertionMethod",
-                "proofValue": "z4ea8h9yVjQjoKxX4AWA6NNHVuJR59vEdqXFvWc7vgGJxfxvtwZcxiLGwfK5Z5CRPVvtme1GZBzu12yAxCLceZDFv"
-            },
-            "issuer": {
-                "id": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg",
-                "name": "Issuer Name"
-            }
+            "proof": { ... },
+            "issuer": { ... }
         }
     ],
     "id": "https://creds.dock.io/presentation/adfb13f1a4b8934d0e94d2aa507e006c",
     "type": [
         "VerifiablePresentation"
     ],
-    "proof": {
-        "type": "Sr25519Signature2020",
-        "created": "2021-11-12T14:45:16Z",
-        "verificationMethod": "did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg#keys-1",
-        "proofPurpose": "authentication",
-        "challenge": "my challenge",
-        "domain": "dock.io",
-        "proofValue": "z4yQ8CPNgwnBApDphMxx28rpZAquHkGGwdFfoAkjd37xUGbc8WwBWWuriVsoGnfrR1Emj5L62wzoCpc3amNrcNPAM"
-    }
+    "proof": { ... }
 }
 ```
 
-* To check if the new Presentation has been verified as `true`, go to **Verify Presentation** and click **Send**.
-> <span class="highlight"><span class="nt">POST</span> {{BaseUrl}}/verify</span>
-
-> 200 Response
-
-```json
-{
-    "verified": true,
-    "results": []
-}
-```
-
-
-
-
+* The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
 
 
 <h1 id="dids">DIDs</h1>
@@ -484,7 +402,7 @@ func main() {
 
 A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
-It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`. 
+It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`.
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -1231,7 +1149,7 @@ Blockchain Credentials are credentials that have been recorded on the blockchain
 
 <h2 id="issue-credentials">Issue Credentials</h2>
 
-To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. This DID may be found in the issuer field of the credential. 
+To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. This DID may be found in the issuer field of the credential.
 
 Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a URI/DID.
 
@@ -1449,7 +1367,7 @@ func main() {
 
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
-This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials. 
+This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -3354,7 +3272,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </div>
 
 
-API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously. 
+API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously.
 
 You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.
 
