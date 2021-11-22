@@ -107,7 +107,7 @@ Blob | Blob stands for Binary Large OBject. It is a collection of binary data st
 DID Resolver | The tool that initiates the process of learning the DID document.
 
 # Webhook
-We provide webhooks to send an alert to your application whenever webhook event occurs. It's triggered by an event in a web application. It allows you to send real-time data from the application where the event originally occured to your application that handles the data. To use our webhook, you need to set the webhook URL that act as a receiver that receive the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange. 
+We provide webhooks to send an alert to your application whenever webhook event occurs. It's triggered by an event in a web application. It allows you to send real-time data from the application where the event originally occurred to your application that handles the data. To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange. 
 
 ## Webhook events
 You can configure the following events to trigger the HTTP request to send the data to your application.
