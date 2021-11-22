@@ -45,10 +45,10 @@ Keep in mind that your API keys should typically be kept private, so keep them s
 </aside>
 
 ## Endpoints
-The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the "test mode" toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
+The Dock API provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
 
-- For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
-- For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
+- For the production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
+- For the test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
@@ -70,10 +70,10 @@ HTTPS is required for all API requests. Requests performed via plain HTTP will b
 
 HTTP Method | Description
 --------- | -----------
-GET | Get one or many resources
+GET | Gets one or many resources
 POST | Creates a new resources
 PATCH | Partially update a resource
-DELETE | Delete a resource
+DELETE | Deletes a resource
 
 ## Rate Limits
 We allow you to make up to 200 requests in a 2 minute window (avg 100 reqs/min or 1.6 reqs/second). If you exceed beyond that, you will receive a 429 Too Many Requests response and have to wait up to a minute for the next request depending on when you hit the limit. If you require higher rate limits, please [contact us](mailto:contact@dock.io).
@@ -105,6 +105,40 @@ Registries | A process to verify credentials in such a way that each verified cr
 Schema | The structure of credentials which are shareable among issuers as they do not contain any cryptographic material and thus are created less frequently.
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
+
+# Webhook
+We provide webhooks to send an alert to your application whenever webhook event occurs. It's triggered by an event in a web application. It allows you to send real-time data from the application where the event originally occured to your application that handles the data. To use our webhook, you need to set the webhook URL that act as a receiver that receive the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange. 
+
+## Webhook events
+You can configure the following events to trigger the HTTP request to send the data to your application.
+
+Resource | Events | Description
+--------- | ----------- | ----------- 
+anchor | anchor_create | An anchor has been created. 
+credential | credential_create | A credential has been created.
+credential | credential_issued | A credential has been issued.
+credential | credential_revoke | A credential has been revoked.
+credential | credential_unrevoke | A credential has been unrevoked.
+did | did_create | A DID has been created.
+did | did_delete | A DID has been deleted.
+did | did_update_controller | A controller value within a DID has been updated.
+did | did_update_key | A keyType value within a DID has been updated.
+presentation | presentation_created | A presentation has been created.
+registry | registry_create | A registry has been created.
+registry | registry_delete | A registry has been created.
+schema | schema_create | A schema has been created.
+
+## How to set up webhook
+To setup webhook, simply follow the steps below:
+- Go to **Webhooks** in the API console.
+- Click **Add Endpoint**.
+- Fill in the **Endpoint URL** and select **Endpoint Events** for the webhook events.
+- Click **Create Webhook**.
+
+<aside class="notice">
+You can subcribe to all events by clicking **Receive All** next to **Endpoint Events**.
+</aside>
+
 
 # Postman collection
 Download and use our [Postman Collection](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json) to experiment with basic API flows:
@@ -856,7 +890,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
+|controller|body|[DID](#schemadid)|true|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
 
 An example Dock DID:`did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
@@ -878,6 +912,7 @@ An example Dock DID:`did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will update DID.|[JobId](#schemajobid)|
+|400|[Bad Request](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1)|The controller value is incorrect.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
