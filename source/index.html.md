@@ -45,10 +45,10 @@ Keep in mind that your API keys should typically be kept private, so keep them s
 </aside>
 
 ## Endpoints
-The Dock API provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
+The Dock API provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API console dashboard. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
 
-- For the production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
-- For the test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
+- For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
+- For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
@@ -107,33 +107,301 @@ Blob | Blob stands for Binary Large OBject. It is a collection of binary data st
 DID Resolver | The tool that initiates the process of learning the DID document.
 
 # Webhook
-We provide webhooks to send an alert to your application whenever webhook event occurs. It's triggered by an event in a web application. It allows you to send real-time data from the application where the event originally occurred to your application that handles the data. To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange. 
+We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange.
 
-## Webhook events
+## Webhook Events
 You can configure the following events to trigger the HTTP request to send the data to your application.
 
-Resource | Events | Description
---------- | ----------- | ----------- 
-anchor | anchor_create | An anchor has been created. 
-credential | credential_create | A credential has been created.
-credential | credential_issued | A credential has been issued.
-credential | credential_revoke | A credential has been revoked.
-credential | credential_unrevoke | A credential has been unrevoked.
-did | did_create | A DID has been created.
-did | did_delete | A DID has been deleted.
-did | did_update_controller | A controller value within a DID has been updated.
-did | did_update_key | A keyType value within a DID has been updated.
-presentation | presentation_created | A presentation has been created.
-registry | registry_create | A registry has been created.
-registry | registry_delete | A registry has been created.
-schema | schema_create | A schema has been created.
+### ANCHOR_CREATE
+This event indicates an anchor has been created. It will send a POST message to webhook whenever an anchor has been created.
 
-## How to set up webhook
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "anchor_create",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0x90040f008082f112f7575ff922ffa2290c9b11e071cc45a79b3cc1d3de66d0be819fe7e808",
+    "result": {
+      "InBlock": "0xbaf1bfcc5b629b775a4d03c9baa0b0d6d7197fe1ab1805993d38da3447661c76"
+    }
+  }
+}
+```
+
+### CREDENTIAL_CREATE
+This event indicates a credential has been created. It will send a POST message to webhook whenever a credential has been created.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "credential_create",
+  "data": {
+    "id": "http://example.com/39",
+    "signingOps": 1,
+    "byteSize": 727,
+    "key": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy#5GsBC74MW9DxHkFUYDVGPnbtioEaFgPgkdytQU3cRTQcHJCz",
+    "credential": {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/2018/credentials/examples/v1"
+      ],
+      "id": "http://example.com/39",
+      "type": [
+        "VerifiableCredential"
+      ],
+      "credentialSubject": {
+        "id": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
+      },
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "created": "2021-11-23T03:16:47Z",
+        "verificationMethod": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy#keys-1",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jUYjc4CyQSfVCivjjTpngjg9TsSL5GkdNesqQFBxwtZwgruophe7xaAzFMSx2gZt4CmXhhhWz4aEyA9wtpqwhdn"
+      },
+      "issuer": {
+        "id": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy",
+        "name": "Issuer Name"
+      }
+    }
+  }
+}
+```
+
+### CREDENTIAL_ISSUED
+This event indicates a credential has been issued. It will send a POST message to webhook whenever a credential has been issued.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "credential_issued",
+  "data": {
+    "id": "http://example.com/39",
+    "signingOps": 1,
+    "byteSize": 691,
+    "key": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy#5GsBC74MW9DxHkFUYDVGPnbtioEaFgPgkdytQU3cRTQcHJCz",
+    "credential": {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/2018/credentials/examples/v1"
+      ],
+      "id": "http://example.com/39",
+      "type": [
+        "VerifiableCredential"
+      ],
+      "credentialSubject": {
+        "id": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
+      },
+      "issuanceDate": "2021-11-23T03:16:25.321Z",
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "created": "2021-11-23T03:16:25Z",
+        "verificationMethod": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy#keys-1",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z41DNxuUzSvKz68L2YkXehR3nQ9PWoAfj6zk44gUzFXKK7pd2zEQByYAUGGg5TT2cZCxiYAmg49NGMX8tRLyf9W1G"
+      },
+      "issuer": {
+        "id": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy",
+        "name": "Issuer Name"
+      }
+    }
+  }
+}
+```
+
+### CREDENTIAL_REVOKE
+This event indicates a credential has been revoked. It will send a POST message to webhook whenever a credential has been revoked.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "credential_revoke",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0xa902040a0153b52f6bac3d812853d8aad9c94eb98b4a5dd632c5bf805dc4140965c753641e04aff1aa6770d43d684690c0ad679a8608d5b7576feb3fdc1d6712decf73ca44efd3ec3b0004483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed00787db3a6322a4d81ab64848fdb4ec7f76404ad2360075b64e2de1c3d4bb0f2624d4684d073e528367a2dba2379254a50be816afa7eb731fa4f4807f1c6b4548f",
+    "result": {
+      "InBlock": "0x759314aa18d741335ac809ca2d877aed0a00375c3ba4a7dfc398d80dbc7bf2d5"
+    }
+  }
+}
+```
+
+### CREDENTIAL_UNREVOKE
+This event indicates a credential has been unrevoked. It will send a POST message to webhook whenever a credential has been unrevoked.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "credential_unrevoke",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0xa902040a0253b52f6bac3d812853d8aad9c94eb98b4a5dd632c5bf805dc4140965c753641e04aff1aa6770d43d684690c0ad679a8608d5b7576feb3fdc1d6712decf73ca44ef45ed3b0004483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed0052ced1926bc978029cf9ebe9107450961ca8f0aed21033b61087a901271e1451c67a1f8feb7851f8dda0913223fc3bb5a26b9550014dccce61b5392e9a5e3181",
+    "result": {
+      "InBlock": "0x4279f477c280d1721efaee8a3ee621f3d96068fe978811db73d4ab27fecc687a"
+    }
+  }
+}
+```
+
+### DID_CREATE
+This event indicates a DID has been created. It will send a POST message to webhook whenever a DID has been created.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "did_create",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0x91010409004e0d07d7121cbfb78be48fea337f7afd6f90aa233e33c17ab8137c4873c7da924e0d07d7121cbfb78be48fea337f7afd6f90aa233e33c17ab8137c4873c7da920012e604ac480aa06981c9b5dae4fc0e0bd8961fd858584e0a53f8a66e9b5e1648",
+    "result": {
+      "InBlock": "0xe5f17466a3c4b2ac3f455d923367e6e2baf9970583c2ed56299280d3a269a471"
+    }
+  }
+}
+```
+
+### DID_UPDATE_KEY
+This event indicates a `keyType` value within the DID has been updated. It will send a POST message to webhook whenever the `keyType` value has been updated.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "did_update_key",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0xa902040901c7f54544fc24f652c4bfd1eded6e26d4400cd2cc91f130f85076aee6f1f6efb2001eabe8649baa2de3ee613dd488a433f743ed36854843e2aef4317a924118487201483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed15293c000030af292a54c9ac95c999dd746ae61b6f35e1b8e610a637ef7d8710c093826e6d7a01d665bbcc8e4825830711371dade0f78b604b39fa864e92911ed030e15181",
+    "result": {
+      "InBlock": "0x8c876bd6fe0dbbadc91ed04a5d9f811dca02850f95dda409e558034df24177bb"
+    }
+  }
+}
+```
+
+### DID_UPDATE_CONTROLLER
+This event indicates a `controller` value within the DID has been updated. It will send a POST message to webhook whenever the `controller` value has been updated.
+
+<aside class="notice">
+When you update both `controller` and `keyType`, you will receive `did_update_controller` event notification too on your webhook since updating `controller` value will update the `keyType` value.
+</aside>
+
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "did_update_controller",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0xad02040901c81cd739fdd090d889280f04ddec47cad8240290e974319eaf1a7d7f10213c500203d5dc1a348b80aa06673fc36b8d1c0405125ad61d90c43e157815cc0779a8696801483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed822b3c000139a87a45eaf9ada41c964bada887ebffa7bf34d66aec88821fb7a6d2177d634e83ab7a45f685835add00cebcc96a8c572e2833ad01d6dcacb0f72fb9bf80fa0a",
+    "result": {
+      "InBlock": "0x47c6640633a8a22df1de8fdc8e80f36dc403e735975e6f14d1a30419a18a6abd"
+    }
+  }
+}
+```
+
+### DID_DELETE
+This event indicates a DID has been deleted. It will send a POST message to webhook whenever a DID has been deleted.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "did_delete",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0xa1010409024e0d07d7121cbfb78be48fea337f7afd6f90aa233e33c17ab8137c4873c7da92c0ea3b000008dcdfb22efd01604ca38facdb6c1086f2d76c2a36425f293e4c687e48f0ea295e02162e8af53f334544676bbf906f12f60d36a0b42dad89e169bc2816d68a85",
+    "result": {
+      "InBlock": "0x588b2170d114f68f47d697b92c4c2184db26deada7e114f205a6bb95a157a3bd"
+    }
+  }
+}
+```
+
+### REGISTRY_CREATE
+This event indicates a registry has been created. It will send a POST message to webhook whenever a registry has been created.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "registry_create",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0x1901040a0035cbd5b17285e74b86b198543f712c03c99b75d7e2ed82923fa1fde7f1129ef40004483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed00",
+    "result": {
+      "InBlock": "0x2407aa20e16ae915698888ed84f41d1bc06d3733ed17c89041b897e91ecf8fac"
+    }
+  }
+}
+```
+
+### REGISTRY_DELETE
+This event indicates a registry has been deleted. It will send a POST message to webhook whenever a registry has been deleted.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "registry_delete",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0x2502040a0335cbd5b17285e74b86b198543f712c03c99b75d7e2ed82923fa1fde7f1129ef443ec3b0004483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed00405a766d239405e6e3c63104581168cbb831e32299f7af72e39b5e8774631674f41595542249599a454ce957374be99fc061ec40200d380a8df1776e4417fa82",
+    "result": {
+      "InBlock": "0x4c58ebd08823a2dd5d776eaed526bfeddacf988d79c8e85cd807e8765622de7a"
+    }
+  }
+}
+```
+### SCHEMA_CREATE
+This event indicates a schema has been created. It will send a POST message to webhook whenever a schema has been created.
+
+> SAMPLE JSON PAYLOAD
+
+```json
+{
+  "token": "4A_Z0fYD19q1qKZ03qAfB0zTu8XYuLPpGk0oHfP8OrvGGDi5Jz8C86F6EVz8Wd2c",
+  "event": "schema_create",
+  "data": {
+    "status": "finalized",
+    "encodedTx": "0xa106040b00e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca489047b2224736368656d61223a22687474703a2f2f6a736f6e2d736368656d612e6f72672f64726166742d30372f736368656d6123222c226164646974696f6e616c50726f70657274696573223a66616c73652c226465736372697074696f6e223a22446f636b20536368656d61204578616d706c65222c2270726f70657274696573223a7b22616c756d6e694f66223a7b2274797065223a22737472696e67227d2c22656d61696c41646472657373223a7b22666f726d6174223a22656d61696c222c2274797065223a22737472696e67227d2c226964223a7b2274797065223a22737472696e67227d7d2c227265717569726564223a5b22656d61696c41646472657373222c22616c756d6e694f66225d2c2274797065223a226f626a656374227d483fc667eb8a63f8e040bb91cd23f6c650fb668d0152390a026620d05c5168ed00c2d11f1a68160f1a7d926c7c89a937866d70fdd0b5d350a6b2be88ad099a8776c6518e1d798553f596baff8d3be36d0172860e7a9b1368019339c7da05bf3485",
+    "result": {
+      "InBlock": "0x8b7042e52223334929e1cb2507e9be5b35014573dbe693bbcda2952f6254934f"
+    }
+  }
+}
+```
+
+
+## How to Setup Webhook
 To setup webhook, simply follow the steps below:
 - Go to **Webhooks** in the API console.
 - Click **Add Endpoint**.
 - Fill in the **Endpoint URL** and select **Endpoint Events** for the webhook events.
 - Click **Create Webhook**.
+- Once webhook is created you will see a secret token. This token is sent in the webook POST request for you to validate that the webhook came from Dock.
+
 
 <aside class="notice">
 You can subcribe to all events by clicking **Receive All** next to **Endpoint Events**.
@@ -154,11 +422,20 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
-## Create credential and presentation flow
+## How to Create a Simple Verifiable Presentation Flow
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
 
-> DID Create - 200 Response
+### 1. Create a DID
+
+To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
+
+<aside class="notice">
+Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
+</aside>
+
+
+> DID CREATED - 200 Response
 
 ```json
 {
@@ -171,14 +448,16 @@ This flow refers to Postman, but the general steps are the same however you use 
 }
 ```
 
-* To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
+### 2. Verify the New DID
 
+To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
 
 <aside class="notice">
-Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
+You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
 </aside>
 
-> DID Created and resolved - 200 Response
+
+> DID VERIFIED - 200 Response
 
 ```json
 {
@@ -194,13 +473,9 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
 }
 ```
 
-* To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
+### 3. Create a Signed Credential
 
-<aside class="notice">
-You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
-</aside>
-
-* To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
+To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
 
 > CREDENTIAL ISSUED - 200 Response
 
@@ -222,8 +497,9 @@ You only need to create a DID once and then you can issue many credentials with 
     "issuer": { ... }
 }
 ```
+### 4. Verify the Signed Credential
 
-* To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
+To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
 
 > CREDENTIAL VERIFIED - 200 Response
 
@@ -238,7 +514,9 @@ You only need to create a DID once and then you can issue many credentials with 
 The next steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
 </aside>
 
-* To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
+### 5. Create a Presentation
+
+To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
 
 > PRESENTATION CREATED - 200 Response
 
@@ -273,8 +551,18 @@ The next steps involve using the API to create presentations on behalf of your h
 }
 ```
 
-* The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
+### 6. Verify the Presentation
 
+The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
+
+> PRESENTATION VERIFIED - 200 Response
+
+```json
+{
+    "verified": true,
+    "results": []
+}
+```
 
 <h1 id="dids">DIDs</h1>
 
@@ -868,12 +1156,14 @@ func main() {
 
 ```
 
+The update DID operation means that you can update either or both the controller or the keyType. To do so, you need to provide a different value for **at least** one of them to update the DID. 
+
 The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
 
 To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
+This operation counts towards your monthly transaction limits for each successful call.
 </aside>
 
 > Body parameter
@@ -890,8 +1180,8 @@ This operation counts towards your monthly transaction limits for each successfu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-|controller|body|[DID](#schemadid)|true|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of the public key for DID. The default value of the keyType is sr25519.|
+|controller|body|[DID](#schemadid)|optional|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the [List DID](#list-dids-responses) operation.|
+|keyType|body|[KeyType](#schemakeytype)|optional|Type of the public key for DID. The default value of the keyType is sr25519. If you want to update the keyType when performing the update DID, you need to set a different keyType value from the assigned keyType that you currently have. For example, if you previously used `sr25519`, you need to replace it with either `ed25519` or `secp256k1`.|
 
 An example Dock DID:`did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
