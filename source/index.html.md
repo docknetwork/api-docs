@@ -301,8 +301,6 @@ curl -X POST /dids \
 
 ```json-doc
 {
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }
 ```
@@ -1892,6 +1890,7 @@ This is a schema that represents a credential format expected by API caller.
 |context|array|false|Credential context. The default value is https://www.w3.org/2018/credentials/v1.|
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object|true|Credential subject.|
+|schema|string|false|Schema ID returned by create schema route|
 |issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
