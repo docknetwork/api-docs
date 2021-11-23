@@ -706,8 +706,6 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
 </aside>
 <h2 id='webhook-events'>Webhook Events</h2>
 <p>You can configure the following events to trigger the HTTP request to send the data to your application.</p>
-<h3 id='anchor_create'>anchor_create</h3>
-<p>This event indicates an anchor has been created. It will fire when an anchor has been created.</p>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -723,8 +721,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='credential_create'>credential_create</h3>
-<p>This event indicates a credential has been created. It will fire when a credential has been created.</p>
+</span></code></pre></div><h3 id='anchor_create'>anchor_create</h3>
+<p>This event indicates an anchor has been created. It will fire when an anchor has been created.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -765,8 +765,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='credential_issued'>credential_issued</h3>
-<p>This event indicates a credential has been issued. It will fire when a credential has been issued.</p>
+</span></code></pre></div><h3 id='credential_create'>credential_create</h3>
+<p>This event indicates a credential has been created. It will fire when a credential has been created.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -806,8 +808,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='credential_revoke'>credential_revoke</h3>
-<p>This event indicates a credential has been revoked. It will fire when a credential has been revoked.</p>
+</span></code></pre></div><h3 id='credential_issued'>credential_issued</h3>
+<p>This event indicates a credential has been issued. It will fire when a credential has been issued.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -823,8 +827,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='credential_unrevoke'>credential_unrevoke</h3>
-<p>This event indicates a credential has been unrevoked. It will fire when a credential has been unrevoked.</p>
+</span></code></pre></div><h3 id='credential_revoke'>credential_revoke</h3>
+<p>This event indicates a credential has been revoked. It will fire when a credential has been revoked.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -840,8 +846,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='did_create'>did_create</h3>
-<p>This event indicates a DID has been created. It will fire when a DID has been created.</p>
+</span></code></pre></div><h3 id='credential_unrevoke'>credential_unrevoke</h3>
+<p>This event indicates a credential has been unrevoked. It will fire when a credential has been unrevoked.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -857,8 +865,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='did_update_key'>did_update_key</h3>
-<p>This event indicates a <code>keyType</code> value within the DID has been updated. It will fire when the <code>keyType</code> value has been updated.</p>
+</span></code></pre></div><h3 id='did_create'>did_create</h3>
+<p>This event indicates a DID has been created. It will fire when a DID has been created.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -874,12 +884,10 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='did_update_controller'>did_update_controller</h3>
-<p>This event indicates a <code>controller</code> value within the DID has been updated. It will fire when the <code>controller</code> value has been updated.</p>
+</span></code></pre></div><h3 id='did_update_key'>did_update_key</h3>
+<p>This event indicates a <code>keyType</code> value within the DID has been updated. It will fire when the <code>keyType</code> value has been updated.</p>
 
-<aside class="notice">
-When you update both <code>controller</code> and <code>keyType</code>, you will receive <code>did_update_controller</code> event notification too on your webhook since updating <code>controller</code> value will update the <code>keyType</code> value.
-</aside>
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -895,8 +903,14 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='did_delete'>did_delete</h3>
-<p>This event indicates a DID has been deleted. It will fire when a DID has been deleted.</p>
+</span></code></pre></div><h3 id='did_update_controller'>did_update_controller</h3>
+<p>This event indicates a <code>controller</code> value within the DID has been updated. It will fire when the <code>controller</code> value has been updated.</p>
+
+<aside class="notice">
+When you update both <code>controller</code> and <code>keyType</code>, you will receive <code>did_update_controller</code> event notification too on your webhook since updating <code>controller</code> value will update the <code>keyType</code> value.
+</aside>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -912,8 +926,10 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='registry_create'>registry_create</h3>
-<p>This event indicates a registry has been created. It will fire when a registry has been created.</p>
+</span></code></pre></div><h3 id='did_delete'>did_delete</h3>
+<p>This event indicates a DID has been deleted. It will fire when a DID has been deleted.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -929,8 +945,10 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='registry_delete'>registry_delete</h3>
-<p>This event indicates a registry has been deleted. It will fire when a registry has been deleted.</p>
+</span></code></pre></div><h3 id='registry_create'>registry_create</h3>
+<p>This event indicates a registry has been created. It will fire when a registry has been created.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -946,8 +964,10 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='schema_create'>schema_create</h3>
-<p>This event indicates a schema has been created. It will fire when a schema has been created.</p>
+</span></code></pre></div><h3 id='registry_delete'>registry_delete</h3>
+<p>This event indicates a registry has been deleted. It will fire when a registry has been deleted.</p>
+
+<div style="clear:both"></div>
 
 <blockquote>
 <p>SAMPLE JSON PAYLOAD</p>
@@ -963,7 +983,11 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='postman-collection'>Postman collection</h1>
+</span></code></pre></div><h3 id='schema_create'>schema_create</h3>
+<p>This event indicates a schema has been created. It will fire when a schema has been created.</p>
+
+<div style="clear:both"></div>
+<h1 id='postman-collection'>Postman collection</h1>
 <p>Download and use our <a href="https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json">Postman Collection</a> to experiment with basic API flows:</p>
 
 <ul>
