@@ -596,7 +596,7 @@ The API supports resolving many DID methods, some examples are:
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc.
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The requested DID was not found.|[Error](#schemaerror)|
 
 ## List DIDs
