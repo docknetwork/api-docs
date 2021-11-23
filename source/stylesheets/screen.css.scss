@@ -603,6 +603,7 @@ html, body {
         text-transform: none;
         background-color: transparent!important;
         @extend %code-font;
+        font-size: 12px;
       }
 
       code {
