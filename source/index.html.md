@@ -1197,6 +1197,10 @@ The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always re
 
 To sign a credential, an `issuer` must be supplied as either a fully qualified DID string or an object with at least an `id` property which is a fully qualified DID. (e.g: `did:dock:xyz`)
 
+<aside class="notice">
+The <code>issuer</code> property <strong>must</strong> be a DID that you control on the Dock API.
+</aside>
+
 By default, Dock does not store the credential contents at all - only minimal credential metadata. You can choose to set the `persist` value to `true` and provide a `password` string which will store the credential contents encrypted on our platform. The following metadata is stored on each issuance:
 
 - Credential ID property
