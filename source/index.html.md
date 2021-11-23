@@ -874,7 +874,10 @@ An example Dock DID:`did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "1",
+  "data": { ... }
+}
 ```
 
 <h3 id="update-did-responses">Responses</h3>
@@ -1008,7 +1011,10 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "1",
+  "data": { ... }
+}
 ```
 
 <h3 id="delete-did-responses">Responses</h3>
@@ -2805,7 +2811,10 @@ This operation counts towards your monthly transaction limits for each successfu
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "1",
+  "data": { ... }
+}
 ```
 
 <h3 id="create-schema-responses">Responses</h3>
