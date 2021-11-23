@@ -2248,7 +2248,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="revocationstatus">Revocation Status</h1>
 
-Once the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.
+Credentials can be revoked or unrevoked, and as such they contain a revocation status so that verifiers/issuers can check if the credential is still valid. Once a revocation registry has been created and credentials issued with it, you can check the revocation status. Verifiers will do this automatically.
 
 ## Get Revocation Status
 
@@ -3280,10 +3280,9 @@ This operation counts towards your monthly transaction limits for each successfu
   </div>
 </div>
 
+In the Dock API, "jobs" are blockchain transactions that we submit on your behalf. You can choose to either register a webhook or poll the API to receive job information. Certain things in the API, such as revoking a credential, require a blockchain transaction to finalize before the job can be considered "done". The time to wait varies on network load and other factors, but typically is within 5-10 seconds.
 
-API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously.
-
-You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.
+You can track the current job status by querying the job id returned as part of the initial API response that triggered the job. The work is done asynchronously.
 
 
 ## Get Job Status and Data
@@ -3690,7 +3689,7 @@ Unique id of the background task. This id can be used to query the job status
 <a id="tocsjobstatus"></a>
 
 ```json
-"todo"
+"in_progress"
 
 ```
 
