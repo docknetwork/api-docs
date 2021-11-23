@@ -1488,8 +1488,6 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>Type of the public key for DID. The default value of the keyType is sr25519.</td>
 </tr>
 </tbody></table>
-
-<p>An example Dock DID:<code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
 <h3 id='enumerated-values-2'>Enumerated Values</h3>
 <table><thead>
 <tr>
@@ -1631,9 +1629,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <span class="p">}</span>
 
 </code></pre></div>
-<p>A DID can be deleted from the blockchain by sending the corresponding message signed with the current key. However, further attempts to resolve this DID will fail.</p>
-
-<p>It should be noted that the accounts used to send the transactions are unrelated to the keys connected with the DID. As a result, the DID may have been created with one account, updated, and deleted with another account. In the data model, the accounts are irrelevant, and they are not connected with the DID in the chain state.</p>
+<p>Deletes a DID and its metadata from the blockchain and our platform. This will also delete the associated keypair from the key management system meaning that you cannot sign messages or credentials with it after this operation. The DID will no longer be able to be resolved. This operation is not reversible.</p>
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
@@ -1658,8 +1654,6 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>Represents a specific DID that uniquely identifies the key resource.</td>
 </tr>
 </tbody></table>
-
-<p>An example Dock DID: <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
 
 <blockquote>
 <p>200 Response</p>
