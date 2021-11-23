@@ -699,7 +699,7 @@ func main() {
 
 ```
 
-Return a list of all user's DIDs you've previously created as DID documents. Pagination is not yet supported.
+Return a list of all DIDs that your user account controls as fully resolved DID documents. Pagination is not yet supported.
 
 > 200 Response
 
