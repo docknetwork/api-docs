@@ -1669,8 +1669,8 @@ This operation counts towards your monthly transaction limits for each successfu
 {
   "id": "1",
   "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
+    "did": "did:dock:xyz",
+    "hexDid": "0x00",
   }
 }
 ```
