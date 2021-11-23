@@ -433,7 +433,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "string",
+  "id": "1",
   "data": {
     "did": "did:dock:xyz",
     "hexDid": "0x00",
@@ -1667,7 +1667,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "string",
+  "id": "1",
   "data": {
     "did": did:dock:xyz,
     "hexDid": 0x00,
@@ -1798,7 +1798,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 ```json
 [
   {
-    "id": "string",
+    "id": "1",
     "registry": {
       "addOnly": true,
       "policy": [
@@ -2097,10 +2097,10 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "string",
+  "id": "1",
   "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
+    "did": "did:dock:xyz",
+    "hexDid": "0x00",
   }
 }
 ```
@@ -2235,10 +2235,10 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "string",
+  "id": "1",
   "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
+    "did": "did:dock:xyz",
+    "hexDid": "0x00",
   }
 }
 ```
@@ -3408,9 +3408,11 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 ```json
 {
-  "id": "string",
-  "status": "todo",
-  "result": {}
+  "id": "123",
+  "status": "finalized",
+  "result": {
+    "InBlock": "0x00"
+  }
 }
 ```
 
@@ -3644,8 +3646,8 @@ This is a schema for an API Error.
 {
   "id": "string",
   "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
+    "did": "did:dock:xyz",
+    "hexDid": "0x00",
   }
 }
 
