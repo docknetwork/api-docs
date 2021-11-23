@@ -1052,6 +1052,7 @@ You can create and sign Verifiable Credentials on the Dock API. By default, Dock
 ```json-doc
 {
   "persist": false,
+  "anchor": true,
   "credential": {
     "id": "http://example.com",
     "context": ["https://www.w3.org/2018/credentials/examples/v1"],
@@ -1218,6 +1219,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|anchor|body|boolean|false|Whether to anchor the credential on the blockchain as soon as it is issued. Defaults to false.|
 |persist|body|boolean|false|Whether to store an encrypted version of this credential with us. Defaults to false, if true you must supply password.|
 |password|body|string|false|Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.|
 |credential|body|[Credential](#schemacredential)|true|Credential object as described in the [schema](#schemacredential).|
