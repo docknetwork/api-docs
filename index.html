@@ -456,7 +456,7 @@
             <a href="#verify" class="toc-h1 toc-link" data-title="Verify">Verify</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#presentation-credential-verification" class="toc-h2 toc-link" data-title="Presentation/Credential Verification">Presentation/Credential Verification</a>
+                    <a href="#vcdm-verification" class="toc-h2 toc-link" data-title="VCDM Verification">VCDM Verification</a>
                   </li>
               </ul>
           </li>
@@ -4324,23 +4324,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 
 <h1 id="verify">Verify</h1>
-
-<blockquote>
-<p>Endpoints</p>
-</blockquote>
-
-<div class="highlight">
-  <div class="highlight shell align-code">
-  <a href="#verify-a-credential-or-presentation-parameters">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /verify
-    </a>
-    <br />
-  </div>
-</div>
-
-<p>A Verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
-<h2 id='presentation-credential-verification'>Presentation/Credential Verification</h2>
+<h2 id='vcdm-verification'>VCDM Verification</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /verify</span></p>
 </blockquote>
@@ -4433,11 +4417,37 @@ This operation counts towards your monthly transaction limits for each successfu
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{}</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"https://www.w3.org/2018/credentials/v1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creds.dock.io/credential/93a1cd57a46fd5e6e641f0288e2f8b44"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"VerifiableCredential"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5Gwh4PxDjLUXnfqExALYTju9UpZTHzBLNb7j8Ug8NhTKivUe"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-18T19:28:49.840Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EcdsaSecp256k1Signature2019"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-18T19:28:51Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"verificationMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT#keys-1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"proofPurpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assertionMethod"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"proofValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zAN1rKvtics5d8AZ5rvm9n9DNjfXGtFegv48PorsWvQdeVKPkzSSyKJzdN3jjnfTNqFDg5FWpXeYhubsFKnX8zLNiBsb3D32k3"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my issuer"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.</p>
+<p>A verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer&#39;s signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.</p>
 
-<p>Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.</p>
+<p>You can verify issued/received credentials and presentations using this route. Verification will check that the JSON-LD document&#39;s cryptographic proof is correct and that it has not been revoked. It will return a verification status with a boolean verified result.</p>
 
 <h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
@@ -4455,7 +4465,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a> or <a href="#schemaverifiablepresentation">VerifiablePresentation</a></td>
 <td>true</td>
-<td>JSON-schema.</td>
+<td>Provide as the body a Verifiable Credential or Verifiable Presentation JSON-LD document.</td>
 </tr>
 </tbody></table>
 
