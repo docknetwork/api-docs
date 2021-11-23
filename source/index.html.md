@@ -104,13 +104,29 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
-# Webhook
+# webhooks
 We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange.
+
+
+## How to Setup Webhook
+To setup webhook, simply follow the steps below:
+
+- Go to **Webhooks** in the API console.
+- Click **Add Endpoint**.
+- Fill in the **Endpoint URL** and select **Endpoint Events** for the webhook events.
+- Click **Create Webhook**.
+- Once webhook is created you will see a secret token. This token is sent in the webook POST request for you to validate that the webhook came from Dock.
+
+
+<aside class="notice">
+You can subcribe to all events by clicking <strong>Receive All</strong> next to <strong>Endpoint Events</strong>
+</aside>
+
 
 ## Webhook Events
 You can configure the following events to trigger the HTTP request to send the data to your application.
 
-### ANCHOR_CREATE
+### anchor_create
 This event indicates an anchor has been created. It will send a POST message to webhook whenever an anchor has been created.
 
 > SAMPLE JSON PAYLOAD
@@ -129,7 +145,7 @@ This event indicates an anchor has been created. It will send a POST message to 
 }
 ```
 
-### CREDENTIAL_CREATE
+### credential_create
 This event indicates a credential has been created. It will send a POST message to webhook whenever a credential has been created.
 
 > SAMPLE JSON PAYLOAD
@@ -173,7 +189,7 @@ This event indicates a credential has been created. It will send a POST message 
 }
 ```
 
-### CREDENTIAL_ISSUED
+### credential_issued
 This event indicates a credential has been issued. It will send a POST message to webhook whenever a credential has been issued.
 
 > SAMPLE JSON PAYLOAD
@@ -216,7 +232,7 @@ This event indicates a credential has been issued. It will send a POST message t
 }
 ```
 
-### CREDENTIAL_REVOKE
+### credential_revoke
 This event indicates a credential has been revoked. It will send a POST message to webhook whenever a credential has been revoked.
 
 > SAMPLE JSON PAYLOAD
@@ -235,7 +251,7 @@ This event indicates a credential has been revoked. It will send a POST message 
 }
 ```
 
-### CREDENTIAL_UNREVOKE
+### credential_unrevoke
 This event indicates a credential has been unrevoked. It will send a POST message to webhook whenever a credential has been unrevoked.
 
 > SAMPLE JSON PAYLOAD
@@ -254,7 +270,7 @@ This event indicates a credential has been unrevoked. It will send a POST messag
 }
 ```
 
-### DID_CREATE
+### did_create
 This event indicates a DID has been created. It will send a POST message to webhook whenever a DID has been created.
 
 > SAMPLE JSON PAYLOAD
@@ -273,7 +289,7 @@ This event indicates a DID has been created. It will send a POST message to webh
 }
 ```
 
-### DID_UPDATE_KEY
+### did_update_key
 This event indicates a `keyType` value within the DID has been updated. It will send a POST message to webhook whenever the `keyType` value has been updated.
 
 > SAMPLE JSON PAYLOAD
@@ -292,11 +308,11 @@ This event indicates a `keyType` value within the DID has been updated. It will 
 }
 ```
 
-### DID_UPDATE_CONTROLLER
+### did_update_controller
 This event indicates a `controller` value within the DID has been updated. It will send a POST message to webhook whenever the `controller` value has been updated.
 
 <aside class="notice">
-When you update both `controller` and `keyType`, you will receive `did_update_controller` event notification too on your webhook since updating `controller` value will update the `keyType` value.
+When you update both <code>controller</code> and <code>keyType</code>, you will receive <code>did_update_controller</code> event notification too on your webhook since updating <code>controller</code> value will update the <code>keyType</code> value.
 </aside>
 
 
@@ -316,7 +332,7 @@ When you update both `controller` and `keyType`, you will receive `did_update_co
 }
 ```
 
-### DID_DELETE
+### did_delete
 This event indicates a DID has been deleted. It will send a POST message to webhook whenever a DID has been deleted.
 
 > SAMPLE JSON PAYLOAD
@@ -335,7 +351,7 @@ This event indicates a DID has been deleted. It will send a POST message to webh
 }
 ```
 
-### REGISTRY_CREATE
+### registry_create
 This event indicates a registry has been created. It will send a POST message to webhook whenever a registry has been created.
 
 > SAMPLE JSON PAYLOAD
@@ -354,7 +370,7 @@ This event indicates a registry has been created. It will send a POST message to
 }
 ```
 
-### REGISTRY_DELETE
+### registry_delete
 This event indicates a registry has been deleted. It will send a POST message to webhook whenever a registry has been deleted.
 
 > SAMPLE JSON PAYLOAD
@@ -372,7 +388,7 @@ This event indicates a registry has been deleted. It will send a POST message to
   }
 }
 ```
-### SCHEMA_CREATE
+### schema_create
 This event indicates a schema has been created. It will send a POST message to webhook whenever a schema has been created.
 
 > SAMPLE JSON PAYLOAD
@@ -390,20 +406,6 @@ This event indicates a schema has been created. It will send a POST message to w
   }
 }
 ```
-
-
-## How to Setup Webhook
-To setup webhook, simply follow the steps below:
-- Go to **Webhooks** in the API console.
-- Click **Add Endpoint**.
-- Fill in the **Endpoint URL** and select **Endpoint Events** for the webhook events.
-- Click **Create Webhook**.
-- Once webhook is created you will see a secret token. This token is sent in the webook POST request for you to validate that the webhook came from Dock.
-
-
-<aside class="notice">
-You can subcribe to all events by clicking **Receive All** next to **Endpoint Events**.
-</aside>
 
 
 # Postman collection
@@ -785,7 +787,7 @@ curl -X PATCH /dids/{did} \
 }
 ```
 
-The update DID operation means that you can update either or both the controller or the keyType. To do so, you need to provide a different value for **at least** one of them to update the DID. 
+The update DID operation means that you can update either or both the controller or the keyType. To do so, you need to provide a different value for **at least** one of them to update the DID.
 
 The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
 
