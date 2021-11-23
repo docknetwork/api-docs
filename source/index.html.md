@@ -301,8 +301,6 @@ curl -X POST /dids \
 
 ```javascript
 const inputBody = '{
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }';
 const headers = {
@@ -401,8 +399,6 @@ func main() {
 
 ```json-doc
 {
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
   "keyType": "sr25519"
 }
 ```
