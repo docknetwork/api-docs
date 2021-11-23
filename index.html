@@ -282,14 +282,14 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-85b59729.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-9392fcd1.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-bc273177.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-a9fde460.js"></script>
 
     <link href="images/favicon-a3839363.png" rel="icon" type="image/png" />
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;python&quot;,&quot;php&quot;,&quot;go&quot;]">
+  <body class="index" data-languages="[&quot;json-doc&quot;,&quot;shell&quot;,&quot;javascript&quot;,&quot;python&quot;,&quot;php&quot;,&quot;go&quot;]">
     <a href="#" id="nav-button">
       <span>
         <img src="images/navbar-6ad8e2f4.svg" alt="" />
@@ -300,6 +300,7 @@
         <img src="images/dracula-3789f912.svg" class="logo" alt="" />
       </div>
         <div class="lang-selector">
+              <a href="#" data-language-name="json-doc">Payload</a>
               <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="javascript">JavaScript</a>
               <a href="#" data-language-name="python">Python</a>
@@ -360,7 +361,7 @@
                     <a href="#create-did" class="toc-h2 toc-link" data-title="Create DID">Create DID</a>
                   </li>
                   <li>
-                    <a href="#get-did" class="toc-h2 toc-link" data-title="Get DID">Get DID</a>
+                    <a href="#resolve-did" class="toc-h2 toc-link" data-title="Resolve DID">Resolve DID</a>
                   </li>
                   <li>
                     <a href="#list-dids" class="toc-h2 toc-link" data-title="List DIDs">List DIDs</a>
@@ -377,7 +378,7 @@
             <a href="#credentials" class="toc-h1 toc-link" data-title="Credentials">Credentials</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#issue-credentials" class="toc-h2 toc-link" data-title="Issue Credentials">Issue Credentials</a>
+                    <a href="#issue-credentials" class="toc-h2 toc-link" data-title="Issue Credential">Issue Credential</a>
                   </li>
               </ul>
           </li>
@@ -385,7 +386,7 @@
             <a href="#presentations" class="toc-h1 toc-link" data-title="Presentations">Presentations</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-a-presentation" class="toc-h2 toc-link" data-title="Create a Presentation">Create a Presentation</a>
+                    <a href="#create-a-presentation" class="toc-h2 toc-link" data-title="Create Presentation">Create Presentation</a>
                   </li>
               </ul>
           </li>
@@ -968,7 +969,12 @@ curl <span class="nt">-X</span> POST /dids <span class="se">\</span>
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.</p>
 
 <p>It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: <code>sr25519</code>, <code>ed25519</code>, and <code>secp256k1</code>.</p>
@@ -977,15 +983,6 @@ curl <span class="nt">-X</span> POST /dids <span class="se">\</span>
 This operation counts towards your monthly transaction limits for each successful call
 </aside>
 
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <h3 id="create-did-parameters">Parameters</h3>
 
 <table><thead>
@@ -1002,21 +999,21 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, e.g., <code>did:dock:</code>. You cannot specify your own DID, the DID value will be randomly generated.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>. Default value will is a randomly generated DID.</td>
 </tr>
 <tr>
 <td>controller</td>
 <td>body</td>
 <td><a href="#schemadid">DID</a></td>
 <td>false</td>
-<td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the DID value.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the <code>did</code> property.</td>
 </tr>
 <tr>
 <td>keyType</td>
 <td>body</td>
 <td><a href="#schemakeytype">KeyType</a></td>
 <td>false</td>
-<td>Type of public key for DID. The default value of the keyType is sr25519.</td>
+<td>Type of public key for DID. The default value of the keyType is <code>sr25519</code>.</td>
 </tr>
 </tbody></table>
 <h3 id='enumerated-values'>Enumerated Values</h3>
@@ -1040,8 +1037,8 @@ This operation counts towards your monthly transaction limits for each successfu
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="err">did:dock:xyz</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">00</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1068,7 +1065,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-<h2 id='get-did'>Get DID</h2>
+<h2 id='resolve-did'>Resolve DID</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /dids/{did}</span></p>
 </blockquote>
@@ -1158,9 +1155,14 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <span class="p">}</span>
 
 </code></pre></div>
-<p>The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves it is called the resolver.</p>
+<p>When a DID is provided in the path, the API will attempt to resolve that DID into a <a href="https://www.w3.org/TR/did-core/#dfn-did-documents">DID document</a>. This document contains the public keys and more information relating to that DID, check <a href="https://identity.foundation/.well-known/resources/did-configuration/">the identity foundation did configuration</a> document to learn more.</p>
 
-<p>Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., <code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code></p>
+<p>The API supports resolving many DID methods, some examples are:</p>
+
+<ul>
+<li><code>did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW</code> - resolves through the Dock blockchain</li>
+<li><code>did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd</code> - the public key is embedded in the DID</li>
+</ul>
 
 <h3 id="get-did-parameters">Parameters</h3>
 
@@ -1186,12 +1188,21 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.w3.org/ns/did/v1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{}</span><span class="w">
+    </span><span class="s2">"did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"assertionMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519VerificationKey2020"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicKeyBase58"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZY7vx2Jg1NSpEyrfGpDm7mRxNZyoYtbjjCjhHbhPtzM"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1208,8 +1219,8 @@ curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return the DID doc. To view an example of a DID doc, please refer <a href="https://docknetwork.github.io/sdk/tutorials/concepts_did.html">here</a>.</td>
-<td><a href="#schemadiddoc">DIDDoc</a></td>
+<td>The request was successful and will return the DID doc.</td>
+<td></td>
 </tr>
 <tr>
 <td>404</td>
@@ -1308,7 +1319,7 @@ curl <span class="nt">-X</span> GET /dids <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>Return a list of all user&#39;s DIDs you&#39;ve previously created. The DIDs are returned into a sorted DID document.</p>
+<p>Return a list of all user&#39;s DIDs you&#39;ve previously created as DID documents. Pagination is not yet supported.</p>
 
 <blockquote>
 <p>200 Response</p>
@@ -1439,7 +1450,11 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <code>keyType</code> parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.</p>
 
 <p>To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.</p>
@@ -1448,14 +1463,6 @@ curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span cla
 This operation counts towards your monthly transaction limits for each successful call
 </aside>
 
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <h3 id="update-did-parameters">Parameters</h3>
 
 <table><thead>
@@ -1698,9 +1705,44 @@ This operation counts towards your monthly transaction limits for each successfu
 <h1 id="credentials">Credentials</h1>
 
 <blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+    <a href="#issue-credentials">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /credentials
+    </a>
+    <br />
+  </div>
+</div>
+
+<p>You can create and sign Verifiable Credentials on the Dock API. By default, Dock does not store the credential - only its metadata. You can choose to persist a credential, in which case we will encrypt and store the credential for later retrieval using a password. Verifiable Credentials are cryptographically secure and tamper-proof. Once issued, they cannot be edited.</p>
+
+<h2 id="issue-credentials">Issue Credential</h2>
+
+<blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /credentials</span></p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"UniversityDegreeCredential"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"degree"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BachelorDegree"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bachelor of Science and Arts"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-08-24T14:15:22Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
 curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
@@ -1806,40 +1848,29 @@ curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
 <span class="p">}</span>
 
 </code></pre></div>
-<p>Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.</p>
+<p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property.</p>
 
-<h2 id="issue-credentials">Issue Credentials</h2>
+<aside class="notice">
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default if you don't specify your own <code>context</code> values.
+</aside>
 
-<p>To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. This DID may be found in the issuer field of the credential.</p>
+<p>To sign a credential, an <code>issuer</code> must be supplied as either a fully qualified DID string or an object with at least an <code>id</code> property which is a fully qualified DID. (e.g: <code>did:dock:xyz</code>)</p>
 
-<p>Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., <code>did:dock:</code>) or an object with a property ID that is a URI/DID.</p>
+<p>By default, Dock does not store the credential contents at all - only minimal credential metadata. You can choose to set the <code>persist</code> value to <code>true</code> and provide a <code>password</code> string which will store the credential contents encrypted on our platform. The following metadata is stored on each issuance:</p>
+
+<ul>
+<li>Credential ID property</li>
+<li>Credential size in bytes</li>
+<li>Issuer DID</li>
+<li>Issuance date</li>
+</ul>
 
 <p>For a detailed example of the credential workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js">here</a>.</p>
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
+This operation counts towards your monthly transaction limits for each successful call
 </aside>
 
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-    </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
 <table><thead>
@@ -1852,11 +1883,25 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 </thead><tbody>
 <tr>
+<td>persist</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to store an encrypted version of this credential with us. Defaults to false, if true you must supply password.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.</td>
+</tr>
+<tr>
 <td>credential</td>
 <td>body</td>
 <td><a href="#schemacredential">Credential</a></td>
 <td>true</td>
-<td>Credential format expected by API caller.</td>
+<td>Credential object as described in the <a href="#schemacredential">schema</a>.</td>
 </tr>
 </tbody></table>
 
@@ -1865,24 +1910,30 @@ This operation counts towards your monthly transaction limits for each successfu
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"https://www.w3.org/2018/credentials/v1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"string"</span><span class="w">
+    </span><span class="s2">"VerifiableCredential"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"UniversityDegreeCredential"</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"credentialStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"credentialSubject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"degree"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BachelorDegree"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bachelor of Science and Arts"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519Signature2020"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EcdsaSecp256k1Signature2019"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-22T22:51:08Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"verificationMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT#keys-1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"proofPurpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assertionMethod"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"verificationMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"proofValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"proofValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zAN1rKrjNqYSr6mjbNEohqhCAnEoLWFgJutBmYMkXZYG8RatBuCv7ymFHEchufa1vjiM4JkHCkasswjukYVVJT3rBmTaRaUDHT"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="issue-a-credential-responses">Responses</h3>
@@ -1923,7 +1974,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <p>For a detailed example of the presentations workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/presentationsFlow.js">here</a>.</p>
 
-<h2 id="create-a-presentation">Create a Presentation</h2>
+<h2 id="create-a-presentation">Create Presentation</h2>
 
 <blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /presentations</span></p>
@@ -2045,19 +2096,7 @@ curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
-<p>The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer&#39;s signature, he/she needs to verify this signature as well, and for that he must know the holder&#39;s public key.</p>
-
-<p>This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.</p>
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"holder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"challenge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2086,6 +2125,14 @@ This operation counts towards your monthly transaction limits for each successfu
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer&#39;s signature, he/she needs to verify this signature as well, and for that he must know the holder&#39;s public key.</p>
+
+<p>This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.</p>
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="create-a-presentation-parameters">Parameters</h3>
 
 <table><thead>
@@ -2332,23 +2379,19 @@ curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
-<p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.</p>
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"did:dock:xyz"</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.</p>
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="create-registry-parameters">Parameters</h3>
 
 <table><thead>
@@ -2782,7 +2825,13 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"revoke"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"credentialIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"http://example.com"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.</p>
 
 <p>Similar to the replay protection mechanism for DIDs, the last modified block number is kept for each registry, which is updated each time a credential is revoked or unrevoked. Unrevoking an unrevoked credential has no effect.</p>
@@ -2793,16 +2842,6 @@ curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span c
 This operation counts towards your monthly transaction limits for each successful call
 </aside>
 
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"revoke"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"credentialIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"http://example.com"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
 <table><thead>
@@ -3577,17 +3616,7 @@ curl <span class="nt">-X</span> POST /schemas <span class="se">\</span>
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
-<p>Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.</p>
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
  </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
@@ -3611,6 +3640,12 @@ This operation counts towards your monthly transaction limits for each successfu
  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{did}}"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.</p>
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="create-schema-parameters">Parameters</h3>
 
 <table><thead>
@@ -4071,19 +4106,7 @@ curl <span class="nt">-X</span> POST /anchors <span class="se">\</span>
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
-<p>To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.</p>
-
-<p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"829"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -4093,6 +4116,14 @@ This operation counts towards your monthly transaction limits for each successfu
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
+<p>To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.</p>
+
+<p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
 <h3 id="create-anchor-parameters">Parameters</h3>
 
 <table><thead>
@@ -4417,16 +4448,12 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
     <span class="c">// ...</span>
 <span class="p">}</span>
 
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{}</span><span class="w">
+</span></code></pre></div>
 <p>Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.</p>
 
 <p>Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.</p>
 
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
-</span></code></pre></div>
 <h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
 <table><thead>
@@ -5337,6 +5364,7 @@ curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
+                <a href="#" data-language-name="json-doc">Payload</a>
                 <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="javascript">JavaScript</a>
                 <a href="#" data-language-name="python">Python</a>
