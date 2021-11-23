@@ -293,7 +293,6 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 > <span class="highlight"><span class="nt">POST</span> /dids</span>
 
 ```shell
-# You can also use wget
 curl -X POST /dids \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -457,7 +456,6 @@ This operation counts towards your monthly transaction limits for each successfu
 > <span class="highlight"><span class="na">GET</span> /dids/{did}</span>
 
 ```shell
-# You can also use wget
 curl -X GET /dids/{did} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -604,7 +602,6 @@ The API supports resolving many DID methods, some examples are:
 > <span class="highlight"><span class="na">GET</span> /dids</span>
 
 ```shell
-# You can also use wget
 curl -X GET /dids \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -738,7 +735,6 @@ Return a list of all user's DIDs you've previously created as DID documents. Pag
 > <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span>
 
 ```shell
-# You can also use wget
 curl -X PATCH /dids/{did} \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -896,7 +892,6 @@ An example Dock DID:`did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 > <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span>
 
 ```shell
-# You can also use wget
 curl -X DELETE /dids/{did} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -1071,7 +1066,6 @@ You can create and sign Verifiable Credentials on the Dock API. By default, Dock
 ```
 
 ```shell
-# You can also use wget
 curl -X POST /credentials/ \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -1278,7 +1272,6 @@ For a detailed example of the presentations workflow. Please refer [here](https:
 > <span class="highlight"><span class="nt">POST</span> /presentations</span>
 
 ```shell
-# You can also use wget
 curl -X POST /presentations/ \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -1535,7 +1528,6 @@ For a detailed example of the registry workflow. Please refer [here](https://git
 > <span class="highlight"><span class="nt">POST</span> /registries</span>
 
 ```shell
-# You can also use wget
 curl -X POST /registries/ \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -1690,7 +1682,6 @@ This operation counts towards your monthly transaction limits for each successfu
 > <span class="highlight"><span class="na">GET</span> /registries</span>
 
 ```shell
-# You can also use wget
 curl -X GET /registries/ \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -1824,7 +1815,6 @@ For now, only one policy is supported, and each registry is owned by a single DI
 > <span class="highlight"><span class="na">GET</span> /registries/{id}</span>
 
 ```shell
-# You can also use wget
 curl -X GET /registries/{id} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -1956,7 +1946,6 @@ func main() {
 > <span class="highlight"><span class="nt">POST</span> /registries/{id}</span>
 
 ```shell
-# You can also use wget
 curl -X POST /registries/{id} \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -2126,7 +2115,6 @@ This operation counts towards your monthly transaction limits for each successfu
 > <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span>
 
 ```shell
-# You can also use wget
 curl -X DELETE /registries/{id} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -2268,7 +2256,6 @@ Once the registry is being revoked or unrevoked, you can check its status with t
 > <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span>
 
 ```shell
-# You can also use wget
 curl -X GET /revocationStatus/{regId}/{revId} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -2425,7 +2412,6 @@ Before diving further into Schemas, it is important to understand how they are s
 > <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
 
 ```shell
-# You can also use wget
 curl -X GET /schemas/{schemaId} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -2555,7 +2541,6 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 
 
 ```shell
-# You can also use wget
 curl -X GET /schemas \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -2677,7 +2662,6 @@ Return a list of all schemas created by the authenticated user.
 > <span class="highlight"><span class="nt">POST</span> /schemas</span>
 
 ```shell
-# You can also use wget
 curl -X POST /schemas \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -2870,7 +2854,6 @@ For a detailed example of the anchor workflow. Please refer [here](https://githu
 > <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span>
 
 ```shell
-# You can also use wget
 curl -X GET /anchors/{anchor} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -3001,7 +2984,6 @@ Get a specific anchor with the given ID.
 > <span class="highlight"><span class="na">GET</span> /anchors</span>
 
 ```shell
-# You can also use wget
 curl -X GET /anchors \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -3107,28 +3089,18 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 ```json
 [
   {
-    "anchor": "5ec890117e7f8b5dda9930b1e19c27c2e27009d21b2f3aa0c42146655bfdf826",
+    "anchor":"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
     "type": "single",
     "data": {
       "proofs": [],
-      "root":"0x5ec890117e7f8b5dda9930b1e19c27c2e27009d21b2f3aa0c42146655bfdf826"
-  },
-    "created_at": "2021-11-01T17:39:21.692Z",
-    "job_id": "658"
- },
- {
-  "anchor":"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
-  "type": "single",
-  "data": {
-    "proofs": [],
-    "root":"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
-    "documentIds": [
-      "https://creds.dock.io/credential/d1ed680d3d2d8167cc31bc4913e9c511"
-    ]
-   },
- "created_at": "2021-11-12T13:53:51.640Z",
- "job_id": "827"
- }
+      "root":"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
+      "documentIds": [
+        "https://creds.dock.io/credential/b1ed680d3d2d8167dc31bc4913e9c511"
+      ]
+     },
+     "created_at": "2021-11-12T13:53:51.640Z",
+     "job_id": "827"
+  }
 ]
 ```
 
@@ -3144,7 +3116,6 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 > <span class="highlight"><span class="nt">POST</span> /anchors</span>
 
 ```shell
-# You can also use wget
 curl -X POST /anchors \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
@@ -3252,12 +3223,9 @@ func main() {
 
 ```json-doc
 [
+  "can be a string",
   {
-  "id": "829",
-  "data": {
-  "root": "0xdfc3cd9ff7836143746c292d4099e62277fac4c2b6a1c004d784adcbc0319634",
-  "proofs": []
-    }
+    "or": "a JSON document"
   }
 ]
 ```
@@ -3274,12 +3242,18 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|any|true|Documents.|
+|body|body|array of strings or JSON|true|Supply an array of strings or JSON documents to be hashed and anchored to the blockchain. For credentials, send the Verifiable Credential document(s) or anchor when issuing.|
 
 > 200 Response
 
 ```json
-"string"
+{
+  "id": "829",
+  "data": {
+    "root": "0xdfc3cd9ff7836143746c292d4099e62277fac4c2b6a1c004d784adcbc0319634",
+    "proofs": []
+  }
+}
 ```
 
 <h3 id="create-anchor-responses">Responses</h3>
@@ -3315,7 +3289,6 @@ You can track the current job status by querying the job id returned as part of 
 > <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span>
 
 ```shell
-# You can also use wget
 curl -X GET /jobs/{id} \
   -H 'Accept: application/json' \
   -H 'DOCK-API-TOKEN: API_KEY'
@@ -3464,7 +3437,6 @@ A Verifier upon receiving a verifiable presentation verifies the validity of eac
 > <span class="highlight"><span class="nt">POST</span> /verify</span>
 
 ```shell
-# You can also use wget
 curl -X POST /verify \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
