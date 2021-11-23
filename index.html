@@ -3079,7 +3079,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <h1 id="revocationstatus">Revocation Status</h1>
 
-<p>Once the registry is being revoked or unrevoked, you can check its status with the registry id and revocation id.</p>
+<p>Credentials can be revoked or unrevoked, and as such they contain a revocation status so that verifiers/issuers can check if the credential is still valid. Once a revocation registry has been created and credentials issued with it, you can check the revocation status. Verifiers will do this automatically.</p>
 <h2 id='get-revocation-status'>Get Revocation Status</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></p>
@@ -4174,9 +4174,9 @@ This operation counts towards your monthly transaction limits for each successfu
   </div>
 </div>
 
-<p>API requests that involve writing data to the blockchain trigger Jobs to do that work asynchronously.</p>
+<p>In the Dock API, &quot;jobs&quot; are blockchain transactions that we submit on your behalf. You can choose to either register a webhook or poll the API to receive job information. Certain things in the API, such as revoking a credential, require a blockchain transaction to finalize before the job can be considered &quot;done&quot;. The time to wait varies on network load and other factors, but typically is within 5-10 seconds.</p>
 
-<p>You can track the current job status by querying the job id returned as part of the initial API response that triggered the job.</p>
+<p>You can track the current job status by querying the job id returned as part of the initial API response that triggered the job. The work is done asynchronously.</p>
 <h2 id='get-job-status-and-data'>Get Job Status and Data</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></p>
@@ -4643,7 +4643,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <a id="schema_JobStatus"></a>
 <a id="tocSjobstatus"></a>
 <a id="tocsjobstatus"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"todo"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"in_progress"</span><span class="w">
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get a status of the job.</p>
