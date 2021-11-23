@@ -1,6 +1,7 @@
 ---
 title: Dock API v1
 language_tabs:
+  - json-doc: Payload
   - shell: cURL
   - javascript: JavaScript
   - python: Python
@@ -400,6 +401,14 @@ func main() {
 
 ```
 
+```json-doc
+{
+  "did": "did:dock:xyz",
+  "controller": "did:dock:xyz",
+  "keyType": "sr25519"
+}
+```
+
 A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.
 
 It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`.
@@ -408,23 +417,13 @@ It is important to have a public key of one of its three supported types. Dock s
 This operation counts towards your monthly transaction limits for each successful call
 </aside>
 
-> Body parameter
-
-```json
-{
-  "did": "did:dock:xyz",
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}
-```
-
 <h3 id="create-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. You cannot specify your own DID, the DID value will be randomly generated. |
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value.|
-|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is sr25519.|
+|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
+|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
+|keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is `sr25519`.|
 
 ### Enumerated Values
 
@@ -438,8 +437,8 @@ This operation counts towards your monthly transaction limits for each successfu
 {
   "id": "string",
   "data": {
-    "did": did:dock:xyz,
-    "hexDid": 0x00,
+    "did": "did:dock:xyz",
+    "hexDid": "0x00",
   }
 }
 ```
@@ -453,7 +452,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 
 
-## Get DID
+## Resolve DID
 
 > <span class="highlight"><span class="na">GET</span> /dids/{did}</span>
 
@@ -557,9 +556,12 @@ func main() {
 
 ```
 
-The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves it is called the resolver.
+When a DID is provided in the path, the API will attempt to resolve that DID into a [DID document](https://www.w3.org/TR/did-core/#dfn-did-documents). This document contains the public keys and more information relating to that DID, check [the identity foundation did configuration](https://identity.foundation/.well-known/resources/did-configuration/) document to learn more.
 
-Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
+The API supports resolving many DID methods, some examples are:
+
+- `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW` - resolves through the Dock blockchain
+- `did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd` - the public key is embedded in the DID
 
 <h3 id="get-did-parameters">Parameters</h3>
 
@@ -571,12 +573,21 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 
 ```json
 {
-  "@context": [
-    "string"
-  ],
-  "id": "did:dock:xyz",
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN",
   "authentication": [
-    {}
+    "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"
+  ],
+  "assertionMethod": [
+    "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"
+  ],
+  "publicKey": [
+    {
+      "id": "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1",
+      "type": "Sr25519VerificationKey2020",
+      "controller": "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN",
+      "publicKeyBase58": "ZY7vx2Jg1NSpEyrfGpDm7mRxNZyoYtbjjCjhHbhPtzM"
+    }
   ]
 }
 ```
@@ -585,7 +596,7 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc. To view an example of a DID doc, please refer [here](https://docknetwork.github.io/sdk/tutorials/concepts_did.html).|[DIDDoc](#schemadiddoc)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc.
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The requested DID was not found.|[Error](#schemaerror)|
 
 ## List DIDs
@@ -692,7 +703,7 @@ func main() {
 
 ```
 
-Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
+Return a list of all user's DIDs you've previously created as DID documents. Pagination is not yet supported.
 
 > 200 Response
 
@@ -834,6 +845,13 @@ func main() {
 
 ```
 
+```json-doc
+{
+  "controller": "did:dock:xyz",
+  "keyType": "sr25519"
+}
+```
+
 The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
 
 To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
@@ -841,15 +859,6 @@ To rotate the key of an existing DID, the current key is used to sign an update 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
 </aside>
-
-> Body parameter
-
-```json
-{
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}
-```
 
 <h3 id="update-did-parameters">Parameters</h3>
 
@@ -1022,7 +1031,43 @@ An example Dock DID: `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
 
 <h1 id="credentials">Credentials</h1>
 
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+    <a href="#issue-credentials">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /credentials
+    </a>
+    <br />
+  </div>
+</div>
+
+You can create and sign Verifiable Credentials on the Dock API. By default, Dock does not store the credential - only its metadata. You can choose to persist a credential, in which case we will encrypt and store the credential for later retrieval using a password. Verifiable Credentials are cryptographically secure and tamper-proof. Once issued, they cannot be edited.
+
+<h2 id="issue-credentials">Issue Credential</h2>
+
 > <span class="highlight"><span class="nt">POST</span> /credentials</span>
+
+```json-doc
+{
+  "persist": false,
+  "credential": {
+    "id": "http://example.com",
+    "context": ["https://www.w3.org/2018/credentials/examples/v1"],
+    "type": ["UniversityDegreeCredential"],
+    "subject": {
+      "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    },
+    "issuer": "did:dock:xyz",
+    "issuanceDate": "2020-08-24T14:15:22Z"
+  }
+}
+```
 
 ```shell
 # You can also use wget
@@ -1144,71 +1189,64 @@ func main() {
 
 ```
 
+Creates and issues a JSON-LD Verifiable Credential that conforms to the [W3C VCDM specification](https://www.w3.org/TR/vc-data-model/). The `type` values and subject properties must be represented by a schema URI in the `context` property.
 
-Blockchain Credentials are credentials that have been recorded on the blockchain in order to increase security and prevent fraud. Blockchain credentials are very hard to fake or modify, and they are simple to verify. In Dock, you are allowed to create and issue a verifiable credential with supplied data.
+<aside class="notice">
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default if you don't specify your own <code>context</code> values.
+</aside>
 
-<h2 id="issue-credentials">Issue Credentials</h2>
+To sign a credential, an `issuer` must be supplied as either a fully qualified DID string or an object with at least an `id` property which is a fully qualified DID. (e.g: `did:dock:xyz`)
 
-To issue a verifiable credential, the issuer needs to have a public key that is accessible by the holder and verifier to verify the signature (in proof) in the credential. Though the VCDM spec does not mandate it, an issuer in Dock must have a DID on a chain. This DID may be found in the issuer field of the credential.
+By default, Dock does not store the credential contents at all - only minimal credential metadata. You can choose to set the `persist` value to `true` and provide a `password` string which will store the credential contents encrypted on our platform. The following metadata is stored on each issuance:
 
-Dock retrieves an issuer as a string, which can be a URI string (DID as fully qualified, e.g., `did:dock:`) or an object with a property ID that is a URI/DID.
+- Credential ID property
+- Credential size in bytes
+- Issuer DID
+- Issuance date
 
 For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call when requesting a <strong>signed</strong> credential. Please note that Dock does <strong>not</strong> store any credentials as typically a holder should be the one controlling their data.
+This operation counts towards your monthly transaction limits for each successful call
 </aside>
-
-> Body parameter
-
-```json
-{
-  "credential": {
-    "id": "http://example.com",
-    "context": [
-      "string"
-    ],
-    "type": [
-      "string"
-    ],
-    "subject": {},
-    "issuer": "did:dock:xyz",
-    "issuanceDate": "2019-08-24T14:15:22Z",
-    "expirationDate": "2019-08-24T14:15:22Z",
-    "status": {}
-  }
-}
-```
 
 <h3 id="issue-a-credential-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|credential|body|[Credential](#schemacredential)|true|Credential format expected by API caller.|
+|persist|body|boolean|false|Whether to store an encrypted version of this credential with us. Defaults to false, if true you must supply password.|
+|password|body|string|false|Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.|
+|credential|body|[Credential](#schemacredential)|true|Credential object as described in the [schema](#schemacredential).|
 
 > 200 Response
 
 ```json
 {
   "@context": [
-    "string"
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
   ],
   "id": "http://example.com",
   "type": [
-    "string"
+    "VerifiableCredential",
+    "UniversityDegreeCredential"
   ],
-  "credentialSubject": {},
-  "issuer": "did:dock:xyz",
-  "issuanceDate": "2019-08-24T14:15:22Z",
-  "expirationDate": "2019-08-24T14:15:22Z",
-  "credentialStatus": {},
+  "credentialSubject": {
+    "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  },
+  "issuanceDate": "2020-08-24T14:15:22Z",
   "proof": {
-    "type": "Sr25519Signature2020",
+    "type": "EcdsaSecp256k1Signature2019",
+    "created": "2021-11-22T22:51:08Z",
+    "verificationMethod": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT#keys-1",
     "proofPurpose": "assertionMethod",
-    "verificationMethod": "string",
-    "created": "2019-08-24T14:15:22Z",
-    "proofValue": "string"
-  }
+    "proofValue": "zAN1rKrjNqYSr6mjbNEohqhCAnEoLWFgJutBmYMkXZYG8RatBuCv7ymFHEchufa1vjiM4JkHCkasswjukYVVJT3rBmTaRaUDHT"
+  },
+  "issuer": "did:dock:xyz"
 }
 ```
 
@@ -1229,7 +1267,7 @@ The API allows you to create and sign a verifiable presentation out of one or mo
 
 For a detailed example of the presentations workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/presentationsFlow.js).
 
-<h2 id="create-a-presentation">Create a Presentation</h2>
+<h2 id="create-a-presentation">Create Presentation</h2>
 
 > <span class="highlight"><span class="nt">POST</span> /presentations</span>
 
@@ -1365,17 +1403,7 @@ func main() {
 
 ```
 
-The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
-
-This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-> Body parameter
-
-```json
+```json-doc
 {
   "holder": "did:dock:xyz",
   "challenge": "string",
@@ -1405,6 +1433,14 @@ This operation counts towards your monthly transaction limits for each successfu
   ]
 }
 ```
+
+The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
+
+This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="create-a-presentation-parameters">Parameters</h3>
 
@@ -1602,15 +1638,7 @@ func main() {
 
 ```
 
-To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-> Body parameter
-
-```json
+```json-doc
 {
   "addOnly": true,
   "policy": [
@@ -1618,6 +1646,12 @@ This operation counts towards your monthly transaction limits for each successfu
   ]
 }
 ```
+
+To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="create-registry-parameters">Parameters</h3>
 
@@ -2025,6 +2059,15 @@ func main() {
 
 ```
 
+```json-doc
+{
+  "action": "revoke",
+  "credentialIds": [
+    "http://example.com"
+  ]
+}
+```
+
 
 Credential revocation is managed with on-chain revocation registries. To revoke a credential, its id (or hash of its id) must be added to the credential. It is advised to have one revocation registry per credential type. Revoking an already revoked credential has no effect.
 
@@ -2035,17 +2078,6 @@ In this API, simply add Revoke/Unrevoke into the `action` parameter and input th
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
 </aside>
-
-> Body parameter
-
-```json
-{
-  "action": "revoke",
-  "credentialIds": [
-    "http://example.com"
-  ]
-}
-```
 
 <h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
@@ -2743,15 +2775,7 @@ func main() {
 
 ```
 
-Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-> Body parameter
-
-```json
+```json-doc
 {
  "$schema": "http://json-schema.org/draft-07/schema#",
  "description": "Dock Schema Example",
@@ -2776,6 +2800,12 @@ This operation counts towards your monthly transaction limits for each successfu
  "author": "{{did}}"
 }
 ```
+
+Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="create-schema-parameters">Parameters</h3>
 
@@ -3214,18 +3244,7 @@ func main() {
 
 ```
 
-
-To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.
-
-The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-> Body parameter
-
-```json
+```json-doc
 [
   {
   "id": "829",
@@ -3236,6 +3255,15 @@ This operation counts towards your monthly transaction limits for each successfu
   }
 ]
 ```
+
+
+To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.
+
+The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
 
 <h3 id="create-anchor-parameters">Parameters</h3>
 
@@ -3535,16 +3563,14 @@ func main() {
 
 ```
 
+```json-doc
+{}
+```
+
 
 Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.
 
 Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.
-
-> Body parameter
-
-```json
-{}
-```
 
 <h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
