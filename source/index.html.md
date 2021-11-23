@@ -37,12 +37,10 @@ We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up
 # Getting Started
 
 ## Prerequisites
-You must first have an account and acquire your credentials (API keys) before accessing the Dock API.
-
-You can register an account and generate a key in our [API console](https://console.api.dock.io/).
+You must first have an account and acquire your credentials (API keys) before accessing the Dock API. You can register an account and generate a key in our [API console](https://console.api.dock.io/).
 
 <aside class="warning">
-Keep in mind that your API keys should typically be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
+Keep in mind that your API keys should be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 
 ## Endpoints
@@ -121,7 +119,7 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
-## Create credential and presentation flow
+## Create credential
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
 
@@ -201,9 +199,7 @@ You only need to create a DID once and then you can issue many credentials with 
 }
 ```
 
-<aside class="notice">
-The next steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
-</aside>
+## Create presentation
 
 * To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
 
@@ -242,6 +238,10 @@ The next steps involve using the API to create presentations on behalf of your h
 
 * The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
 
+
+<aside class="notice">
+These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+</aside>
 
 <h1 id="dids">DIDs</h1>
 
@@ -3260,10 +3260,9 @@ func main() {
 ]
 ```
 
+Creating an anchor will state on the blockchain that one or more document hashes were created at a specific time. In the context of verifiable credentials, anchors are used to attest that the credential document was not altered and was created at a specific time. Batching multiple documents/credentials into a single anchor is done through a Merkle tree and can save on transaction costs as only the Merkle root has to be anchored.
 
-To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.
-
-The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn't care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the `blake2b256` hash of the anchor. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) for anchoring.
+The API will store the `blake2b256` hash of a document or string that you provide. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) and [SDK example](https://github.com/docknetwork/sdk/blob/master/example/anchor.js) for anchoring.
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
