@@ -1728,6 +1728,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </blockquote>
 <div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="p">],</span><span class="w">
@@ -1887,6 +1888,13 @@ This operation counts towards your monthly transaction limits for each successfu
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>anchor</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to anchor the credential on the blockchain as soon as it is issued. Defaults to false.</td>
+</tr>
 <tr>
 <td>persist</td>
 <td>body</td>
