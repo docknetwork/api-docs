@@ -38,13 +38,13 @@ $drac-yellow: #f1fa8c;
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: #F4F4F5 !default;
+$nav-bg: #FAFAFA !default;
 $examples-bg: $drac-bg !default;
 $code-bg: $drac-bg !default;
 $code-annotation-bg: #44475a !default;
-$nav-subitem-bg: #F4F4F5 !default;
-$nav-active-bg: #E4E4E7 !default;
-$nav-active-parent-bg: #E4E4E7 !default; // parent links of the current section
+$nav-subitem-bg: transparent !default;
+$nav-active-bg: rgba(128, 128, 128, 0.075) !default;
+$nav-active-parent-bg: rgba(128, 128, 128, 0.075) !default; // parent links of the current section
 $lang-select-border: #000 !default;
 $lang-select-bg: #1E2224 !default;
 $lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
@@ -72,7 +72,7 @@ $lang-select-pressed-text: #fff !default; // color of language tab text when mou
 
 // SIZES
 ////////////////////
-$nav-width: 260px !default; // width of the navbar
+$nav-width: 256px !default; // width of the navbar
 $examples-width: 50% !default; // portion of the screen taken up by code examples
 $logo-margin: 0px !default; // margin below logo
 $main-padding: 28px !default; // padding to left and right of content & examples
