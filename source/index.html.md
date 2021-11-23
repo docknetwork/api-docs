@@ -126,9 +126,6 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
 ## Webhook Events
 You can configure the following events to trigger the HTTP request to send the data to your application.
 
-### anchor_create
-This event indicates an anchor has been created. It will fire when an anchor has been created.
-
 > SAMPLE JSON PAYLOAD
 
 ```json
@@ -145,8 +142,10 @@ This event indicates an anchor has been created. It will fire when an anchor has
 }
 ```
 
-### credential_create
-This event indicates a credential has been created. It will fire when a credential has been created.
+### anchor_create
+This event indicates an anchor has been created. It will fire when an anchor has been created.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -189,8 +188,10 @@ This event indicates a credential has been created. It will fire when a credenti
 }
 ```
 
-### credential_issued
-This event indicates a credential has been issued. It will fire when a credential has been issued.
+### credential_create
+This event indicates a credential has been created. It will fire when a credential has been created.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -232,8 +233,10 @@ This event indicates a credential has been issued. It will fire when a credentia
 }
 ```
 
-### credential_revoke
-This event indicates a credential has been revoked. It will fire when a credential has been revoked.
+### credential_issued
+This event indicates a credential has been issued. It will fire when a credential has been issued.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -251,8 +254,10 @@ This event indicates a credential has been revoked. It will fire when a credenti
 }
 ```
 
-### credential_unrevoke
-This event indicates a credential has been unrevoked. It will fire when a credential has been unrevoked.
+### credential_revoke
+This event indicates a credential has been revoked. It will fire when a credential has been revoked.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -270,8 +275,10 @@ This event indicates a credential has been unrevoked. It will fire when a creden
 }
 ```
 
-### did_create
-This event indicates a DID has been created. It will fire when a DID has been created.
+### credential_unrevoke
+This event indicates a credential has been unrevoked. It will fire when a credential has been unrevoked.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -289,8 +296,10 @@ This event indicates a DID has been created. It will fire when a DID has been cr
 }
 ```
 
-### did_update_key
-This event indicates a `keyType` value within the DID has been updated. It will fire when the `keyType` value has been updated.
+### did_create
+This event indicates a DID has been created. It will fire when a DID has been created.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -308,13 +317,10 @@ This event indicates a `keyType` value within the DID has been updated. It will 
 }
 ```
 
-### did_update_controller
-This event indicates a `controller` value within the DID has been updated. It will fire when the `controller` value has been updated.
+### did_update_key
+This event indicates a `keyType` value within the DID has been updated. It will fire when the `keyType` value has been updated.
 
-<aside class="notice">
-When you update both <code>controller</code> and <code>keyType</code>, you will receive <code>did_update_controller</code> event notification too on your webhook since updating <code>controller</code> value will update the <code>keyType</code> value.
-</aside>
-
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -332,8 +338,14 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 }
 ```
 
-### did_delete
-This event indicates a DID has been deleted. It will fire when a DID has been deleted.
+### did_update_controller
+This event indicates a `controller` value within the DID has been updated. It will fire when the `controller` value has been updated.
+
+<aside class="notice">
+When you update both <code>controller</code> and <code>keyType</code>, you will receive <code>did_update_controller</code> event notification too on your webhook since updating <code>controller</code> value will update the <code>keyType</code> value.
+</aside>
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -351,8 +363,10 @@ This event indicates a DID has been deleted. It will fire when a DID has been de
 }
 ```
 
-### registry_create
-This event indicates a registry has been created. It will fire when a registry has been created.
+### did_delete
+This event indicates a DID has been deleted. It will fire when a DID has been deleted.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -370,8 +384,10 @@ This event indicates a registry has been created. It will fire when a registry h
 }
 ```
 
-### registry_delete
-This event indicates a registry has been deleted. It will fire when a registry has been deleted.
+### registry_create
+This event indicates a registry has been created. It will fire when a registry has been created.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -388,8 +404,11 @@ This event indicates a registry has been deleted. It will fire when a registry h
   }
 }
 ```
-### schema_create
-This event indicates a schema has been created. It will fire when a schema has been created.
+
+### registry_delete
+This event indicates a registry has been deleted. It will fire when a registry has been deleted.
+
+<div style="clear:both"></div>
 
 > SAMPLE JSON PAYLOAD
 
@@ -406,6 +425,11 @@ This event indicates a schema has been created. It will fire when a schema has b
   }
 }
 ```
+
+### schema_create
+This event indicates a schema has been created. It will fire when a schema has been created.
+
+<div style="clear:both"></div>
 
 
 # Postman collection
