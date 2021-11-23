@@ -350,7 +350,10 @@
             <a href="#postman-collection" class="toc-h1 toc-link" data-title="Postman collection">Postman collection</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-credential-and-presentation-flow" class="toc-h2 toc-link" data-title="Create credential and presentation flow">Create credential and presentation flow</a>
+                    <a href="#create-credential" class="toc-h2 toc-link" data-title="Create credential">Create credential</a>
+                  </li>
+                  <li>
+                    <a href="#create-presentation" class="toc-h2 toc-link" data-title="Create presentation">Create presentation</a>
                   </li>
               </ul>
           </li>
@@ -554,12 +557,10 @@
 <li>Work seamlessly across platforms with Dock’s standards-compliant, interoperable solutions.</li>
 </ul>
 <h1 id='getting-started'>Getting Started</h1><h2 id='prerequisites'>Prerequisites</h2>
-<p>You must first have an account and acquire your credentials (API keys) before accessing the Dock API.</p>
-
-<p>You can register an account and generate a key in our <a href="https://console.api.dock.io/">API console</a>.</p>
+<p>You must first have an account and acquire your credentials (API keys) before accessing the Dock API. You can register an account and generate a key in our <a href="https://console.api.dock.io/">API console</a>.</p>
 
 <aside class="warning">
-Keep in mind that your API keys should typically be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
+Keep in mind that your API keys should be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 <h2 id='endpoints'>Endpoints</h2>
 <p>The Dock API provides two endpoints based on which mode was selected when creating your API key. By default API keys are created for production. You can switch to <strong>test mode</strong> in the <a href="https://console.api.dock.io/">API console</a> by clicking the &quot;test mode&quot; toggle in the top right next to your avatar icon. Once in <strong>test mode</strong> you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API management screen to use with either endpoint. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.</p>
@@ -700,7 +701,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 <li>Set <code>ApiKey</code> initial and current values with the value that you generated in the API console.</li>
 <li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a></li>
 </ul>
-<h2 id='create-credential-and-presentation-flow'>Create credential and presentation flow</h2>
+<h2 id='create-credential'>Create credential</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
 
 <blockquote>
@@ -781,11 +782,7 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="notice">
-The next steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
-</aside>
-
+</span></code></pre></div><h2 id='create-presentation'>Create presentation</h2>
 <ul>
 <li>To create a Verifiable Presentation by using the credential, go to <strong>Create Presentation</strong> and click <strong>Send</strong>.</li>
 </ul>
@@ -825,6 +822,10 @@ The next steps involve using the API to create presentations on behalf of your h
 <ul>
 <li>The same credential verification route can be used to verify a presentation. In Postman, go to <strong>Verify Presentation</strong> and click <strong>Send</strong>.</li>
 </ul>
+
+<aside class="notice">
+These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+</aside>
 
 <h1 id="dids">DIDs</h1>
 
@@ -4120,9 +4121,9 @@ curl <span class="nt">-X</span> POST /anchors <span class="se">\</span>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p>To create an anchor, you can use more than one document; it is called Batching. Batching (combining multiple anchors into one) can be used to save on transaction costs by anchoring multiple documents in a single transaction as a Merkle tree.</p>
+<p>Creating an anchor will state on the blockchain that one or more document hashes were created at a specific time. In the context of verifiable credentials, anchors are used to attest that the credential document was not altered and was created at a specific time. Batching multiple documents/credentials into a single anchor is done through a Merkle tree and can save on transaction costs as only the Merkle root has to be anchored.</p>
 
-<p>The anchoring module is hashing algorithm and hash length agnostic. You can post a multi hash, or even use the identity hash; the chain doesn&#39;t care. One thing to note is that rather than storing your anchor directly, the anchoring module will store the <code>blake2b256</code> hash of the anchor. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> for anchoring.</p>
+<p>The API will store the <code>blake2b256</code> hash of a document or string that you provide. Dock provides a <a href="https://fe.dock.io/#/anchor/batch">fully functioning reference client</a> and <a href="https://github.com/docknetwork/sdk/blob/master/example/anchor.js">SDK example</a> for anchoring.</p>
 
 <aside class="warning">
 This operation counts towards your monthly transaction limits for each successful call
