@@ -452,7 +452,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 
 
-## Get DID
+## Resolve DID
 
 > <span class="highlight"><span class="na">GET</span> /dids/{did}</span>
 
@@ -556,9 +556,12 @@ func main() {
 
 ```
 
-The process of learning the DID Document of a DID is called DID resolution, and the tool that resolves it is called the resolver.
+When a DID is provided in the path, the API will attempt to resolve that DID into a [DID document](https://www.w3.org/TR/did-core/#dfn-did-documents). This document contains the public keys and more information relating to that DID, check [the identity foundation did configuration](https://identity.foundation/.well-known/resources/did-configuration/) document to learn more.
 
-Dock supports DID resolvers for resolving DIDs and Dock will return the DID document that contains DID id as fully qualified, e.g., `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW`
+The API supports resolving many DID methods, some examples are:
+
+- `did:dock:5CEdyZkZnALDdCAp7crTRiaCq6KViprTM6kHUQCD8X6VqGPW` - resolves through the Dock blockchain
+- `did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd` - the public key is embedded in the DID
 
 <h3 id="get-did-parameters">Parameters</h3>
 
@@ -570,12 +573,21 @@ Dock supports DID resolvers for resolving DIDs and Dock will return the DID docu
 
 ```json
 {
-  "@context": [
-    "string"
-  ],
-  "id": "did:dock:xyz",
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN",
   "authentication": [
-    {}
+    "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"
+  ],
+  "assertionMethod": [
+    "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1"
+  ],
+  "publicKey": [
+    {
+      "id": "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN#keys-1",
+      "type": "Sr25519VerificationKey2020",
+      "controller": "did:dock:5EEepQGeAeWnYgV8DWj5pH7pjHqrP2ZN2oBiE6ND2ZHA1dyN",
+      "publicKeyBase58": "ZY7vx2Jg1NSpEyrfGpDm7mRxNZyoYtbjjCjhHbhPtzM"
+    }
   ]
 }
 ```
