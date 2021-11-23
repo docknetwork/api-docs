@@ -115,7 +115,7 @@ To setup webhook, simply follow the steps below:
 - Click **Add Endpoint**.
 - Fill in the **Endpoint URL** and select **Endpoint Events** for the webhook events.
 - Click **Create Webhook**.
-- Once webhook is created you will see a secret token. This token is sent in the webook POST request for you to validate that the webhook came from Dock.
+- Once the webhook is created you will see a secret token. This token is sent in the webook POST request for you to validate that the webhook came from Dock.
 
 
 <aside class="notice">
@@ -127,7 +127,7 @@ You can subcribe to all events by clicking <strong>Receive All</strong> next to 
 You can configure the following events to trigger the HTTP request to send the data to your application.
 
 ### anchor_create
-This event indicates an anchor has been created. It will send a POST message to webhook whenever an anchor has been created.
+This event indicates an anchor has been created. It will fire when an anchor has been created.
 
 > SAMPLE JSON PAYLOAD
 
@@ -146,7 +146,7 @@ This event indicates an anchor has been created. It will send a POST message to 
 ```
 
 ### credential_create
-This event indicates a credential has been created. It will send a POST message to webhook whenever a credential has been created.
+This event indicates a credential has been created. It will fire when a credential has been created.
 
 > SAMPLE JSON PAYLOAD
 
@@ -190,7 +190,7 @@ This event indicates a credential has been created. It will send a POST message 
 ```
 
 ### credential_issued
-This event indicates a credential has been issued. It will send a POST message to webhook whenever a credential has been issued.
+This event indicates a credential has been issued. It will fire when a credential has been issued.
 
 > SAMPLE JSON PAYLOAD
 
@@ -233,7 +233,7 @@ This event indicates a credential has been issued. It will send a POST message t
 ```
 
 ### credential_revoke
-This event indicates a credential has been revoked. It will send a POST message to webhook whenever a credential has been revoked.
+This event indicates a credential has been revoked. It will fire when a credential has been revoked.
 
 > SAMPLE JSON PAYLOAD
 
@@ -252,7 +252,7 @@ This event indicates a credential has been revoked. It will send a POST message 
 ```
 
 ### credential_unrevoke
-This event indicates a credential has been unrevoked. It will send a POST message to webhook whenever a credential has been unrevoked.
+This event indicates a credential has been unrevoked. It will fire when a credential has been unrevoked.
 
 > SAMPLE JSON PAYLOAD
 
@@ -271,7 +271,7 @@ This event indicates a credential has been unrevoked. It will send a POST messag
 ```
 
 ### did_create
-This event indicates a DID has been created. It will send a POST message to webhook whenever a DID has been created.
+This event indicates a DID has been created. It will fire when a DID has been created.
 
 > SAMPLE JSON PAYLOAD
 
@@ -290,7 +290,7 @@ This event indicates a DID has been created. It will send a POST message to webh
 ```
 
 ### did_update_key
-This event indicates a `keyType` value within the DID has been updated. It will send a POST message to webhook whenever the `keyType` value has been updated.
+This event indicates a `keyType` value within the DID has been updated. It will fire when the `keyType` value has been updated.
 
 > SAMPLE JSON PAYLOAD
 
@@ -309,7 +309,7 @@ This event indicates a `keyType` value within the DID has been updated. It will 
 ```
 
 ### did_update_controller
-This event indicates a `controller` value within the DID has been updated. It will send a POST message to webhook whenever the `controller` value has been updated.
+This event indicates a `controller` value within the DID has been updated. It will fire when the `controller` value has been updated.
 
 <aside class="notice">
 When you update both <code>controller</code> and <code>keyType</code>, you will receive <code>did_update_controller</code> event notification too on your webhook since updating <code>controller</code> value will update the <code>keyType</code> value.
@@ -333,7 +333,7 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 ```
 
 ### did_delete
-This event indicates a DID has been deleted. It will send a POST message to webhook whenever a DID has been deleted.
+This event indicates a DID has been deleted. It will fire when a DID has been deleted.
 
 > SAMPLE JSON PAYLOAD
 
@@ -352,7 +352,7 @@ This event indicates a DID has been deleted. It will send a POST message to webh
 ```
 
 ### registry_create
-This event indicates a registry has been created. It will send a POST message to webhook whenever a registry has been created.
+This event indicates a registry has been created. It will fire when a registry has been created.
 
 > SAMPLE JSON PAYLOAD
 
@@ -371,7 +371,7 @@ This event indicates a registry has been created. It will send a POST message to
 ```
 
 ### registry_delete
-This event indicates a registry has been deleted. It will send a POST message to webhook whenever a registry has been deleted.
+This event indicates a registry has been deleted. It will fire when a registry has been deleted.
 
 > SAMPLE JSON PAYLOAD
 
@@ -389,7 +389,7 @@ This event indicates a registry has been deleted. It will send a POST message to
 }
 ```
 ### schema_create
-This event indicates a schema has been created. It will send a POST message to webhook whenever a schema has been created.
+This event indicates a schema has been created. It will fire when a schema has been created.
 
 > SAMPLE JSON PAYLOAD
 
