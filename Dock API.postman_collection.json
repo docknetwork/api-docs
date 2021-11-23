@@ -133,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"controller\": \"{{did}}\",\n\"keyType\": \"sr25519\"\n}",
+							"raw": "{\n\"controller\": \"Different_DID_Than_Original_Request\",\n\"keyType\": \"sr25519\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
