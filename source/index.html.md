@@ -3586,6 +3586,8 @@ You can verify issued/received credentials and presentations using this route. V
 
 # Schemas
 
+> Object Schemas
+
 Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.
 
 These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.
