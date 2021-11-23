@@ -3420,23 +3420,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 <h1 id="verify">Verify</h1>
 
-
-> Endpoints
-
-<div class="highlight">
-  <div class="highlight shell align-code">
-  <a href="#verify-a-credential-or-presentation-parameters">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /verify
-    </a>
-    <br />
-  </div>
-</div>
-
-A Verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
-
-
-## Presentation/Credential Verification
+## VCDM Verification
 
 > <span class="highlight"><span class="nt">POST</span> /verify</span>
 
@@ -3545,19 +3529,44 @@ func main() {
 ```
 
 ```json-doc
-{}
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "id": "https://creds.dock.io/credential/93a1cd57a46fd5e6e641f0288e2f8b44",
+  "type": [
+    "VerifiableCredential"
+  ],
+  "credentialSubject": [
+    {
+      "id": "did:dock:5Gwh4PxDjLUXnfqExALYTju9UpZTHzBLNb7j8Ug8NhTKivUe"
+    }
+  ],
+  "issuanceDate": "2021-11-18T19:28:49.840Z",
+  "proof": {
+    "type": "EcdsaSecp256k1Signature2019",
+    "created": "2021-11-18T19:28:51Z",
+    "verificationMethod": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT#keys-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "zAN1rKvtics5d8AZ5rvm9n9DNjfXGtFegv48PorsWvQdeVKPkzSSyKJzdN3jjnfTNqFDg5FWpXeYhubsFKnX8zLNiBsb3D32k3"
+  },
+  "issuer": {
+    "id": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT",
+    "name": "my issuer"
+  }
+}
 ```
 
+A verifier upon receiving a verifiable presentation verifies the validity of each credential in the presentation. This includes checking the correctness of the data model of the credential, the authenticity by verifying the issuer's signature and revocation status if the credential is revocable. It then checks whether the presentation contains the signature from the holder on the presentation, including his given challenge.
 
-Once your Verifiable Credential (VCDM credential) has been signed, you can verify it with the verify method. The verify method takes an object of arguments and is optional.
-
-Also, when your Verifiable Presentation (presentation JSON-LD object) has been signed, you can verify it with the verify method.
+You can verify issued/received credentials and presentations using this route. Verification will check that the JSON-LD document's cryptographic proof is correct and that it has not been revoked. It will return a verification status with a boolean verified result.
 
 <h3 id="verify-a-credential-or-presentation-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|[VerifiableCredential](#schemaverifiablecredential) or [VerifiablePresentation](#schemaverifiablepresentation)|true|JSON-schema.|
+|body|body|[VerifiableCredential](#schemaverifiablecredential) or [VerifiablePresentation](#schemaverifiablepresentation)|true|Provide as the body a Verifiable Credential or Verifiable Presentation JSON-LD document.|
 
 > 200 Response
 
