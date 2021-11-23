@@ -703,7 +703,7 @@ func main() {
 
 ```
 
-Return a list of all user's DIDs you've previously created. The DIDs are returned into a sorted DID document.
+Return a list of all user's DIDs you've previously created as DID documents. Pagination is not yet supported.
 
 > 200 Response
 
