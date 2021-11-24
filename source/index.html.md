@@ -104,7 +104,7 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
-# webhooks
+# Webhooks
 We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange.
 
 
@@ -446,7 +446,7 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
-## Create credential
+## Simple E2E Create Credentials/Presentation Flow
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
 
@@ -533,8 +533,6 @@ To verify if the credential's cryptographic proof, revocation status and more go
     "results": [ ... ]
 }
 ```
-
-## Create presentation
 
 ### 5. Create a Presentation
 
