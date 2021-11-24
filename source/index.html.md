@@ -104,7 +104,7 @@ Schema | The structure of credentials which are shareable among issuers as they 
 Blob | Blob stands for Binary Large OBject. It is a collection of binary data stored as a single entity. The schemas are identified and retrieved by their unique blob id, which is a 32-byte long hex string.
 DID Resolver | The tool that initiates the process of learning the DID document.
 
-# webhooks
+# Webhooks
 We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange.
 
 
@@ -446,7 +446,7 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
-## Create credential
+## Simple E2E Create Credentials/Presentation Flow
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
 
@@ -533,8 +533,6 @@ To verify if the credential's cryptographic proof, revocation status and more go
     "results": [ ... ]
 }
 ```
-
-## Create presentation
 
 ### 5. Create a Presentation
 
@@ -1536,7 +1534,32 @@ Return a list of all schemas created by the authenticated user.
 
 ```json
 [
-  {}
+    {
+        "id": "e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "description": "Dock Schema Example",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "alumniOf": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "emailAddress",
+                "alumniOf"
+            ],
+            "additionalProperties": false
+        },
+        "author": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
+    }
 ]
 ```
 
@@ -1601,8 +1624,37 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": { ... }
+    "id": "168",
+    "data": {
+        "id": "blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "description": "Dock Schema Example",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "alumniOf": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "emailAddress",
+                "alumniOf"
+            ],
+            "additionalProperties": false
+        },
+        "author": "did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd",
+        "signature": {
+            "Secp256k1": "0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"
+        },
+        "hexID": "fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"
+    }
 }
 ```
 
