@@ -338,7 +338,7 @@
               </ul>
           </li>
           <li>
-            <a href="#webhooks" class="toc-h1 toc-link" data-title="webhooks">webhooks</a>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#how-to-setup-webhook" class="toc-h2 toc-link" data-title="How to Setup Webhook">How to Setup Webhook</a>
@@ -352,10 +352,7 @@
             <a href="#postman-collection" class="toc-h1 toc-link" data-title="Postman collection">Postman collection</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-credential" class="toc-h2 toc-link" data-title="Create credential">Create credential</a>
-                  </li>
-                  <li>
-                    <a href="#create-presentation" class="toc-h2 toc-link" data-title="Create presentation">Create presentation</a>
+                    <a href="#simple-e2e-create-credentials-presentation-flow" class="toc-h2 toc-link" data-title="Simple E2E Create Credentials/Presentation Flow">Simple E2E Create Credentials/Presentation Flow</a>
                   </li>
               </ul>
           </li>
@@ -688,7 +685,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 <td>The tool that initiates the process of learning the DID document.</td>
 </tr>
 </tbody></table>
-<h1 id='webhooks'>webhooks</h1>
+<h1 id='webhooks'>Webhooks</h1>
 <p>We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select <strong>at least one</strong> of the webhook events from our API console to trigger the data exchange.</p>
 <h2 id='how-to-setup-webhook'>How to Setup Webhook</h2>
 <p>To setup webhook, simply follow the steps below:</p>
@@ -1002,7 +999,7 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <li>Set <code>ApiKey</code> initial and current values with the value that you generated in the API console.</li>
 <li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a></li>
 </ul>
-<h2 id='create-credential'>Create credential</h2>
+<h2 id='simple-e2e-create-credentials-presentation-flow'>Simple E2E Create Credentials/Presentation Flow</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
 <h3 id='1-create-a-did'>1. Create a DID</h3>
 <p>To create a new DID to issue with, go to <strong>Create DID</strong> and click <strong>Send</strong>. The <code>id</code> property denotes a job ID in the system that you can use to query for blockchain transaction status.</p>
@@ -1075,7 +1072,7 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='create-presentation'>Create presentation</h2><h3 id='5-create-a-presentation'>5. Create a Presentation</h3>
+</span></code></pre></div><h3 id='5-create-a-presentation'>5. Create a Presentation</h3>
 <p>To create a Verifiable Presentation by using the credential, go to <strong>Create Presentation</strong> and click <strong>Send</strong>.</p>
 
 <blockquote>
@@ -2520,7 +2517,32 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{}</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"alumniOf"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <h3 id="list-schemas-responses">Responses</h3>
@@ -2603,8 +2625,37 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"168"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"alumniOf"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Secp256k1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"hexID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="create-schema-responses">Responses</h3>
