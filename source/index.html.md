@@ -1534,7 +1534,32 @@ Return a list of all schemas created by the authenticated user.
 
 ```json
 [
-  {}
+    {
+        "id": "e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "description": "Dock Schema Example",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "alumniOf": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "emailAddress",
+                "alumniOf"
+            ],
+            "additionalProperties": false
+        },
+        "author": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
+    }
 ]
 ```
 
@@ -1599,8 +1624,37 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": { ... }
+    "id": "168",
+    "data": {
+        "id": "blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "description": "Dock Schema Example",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "alumniOf": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "emailAddress",
+                "alumniOf"
+            ],
+            "additionalProperties": false
+        },
+        "author": "did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd",
+        "signature": {
+            "Secp256k1": "0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"
+        },
+        "hexID": "fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"
+    }
 }
 ```
 
