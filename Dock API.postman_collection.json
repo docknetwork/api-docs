@@ -133,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"controller\": \"Different_DID_Than_Original_Request\",\n\"keyType\": \"sr25519\"\n}",
+							"raw": "{\n\"keyType\": \"sr25519\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -522,7 +522,7 @@
 			]
 		},
 		{
-			"name": "Registeries",
+			"name": "Registries",
 			"item": [
 				{
 					"name": "Create Registry",
@@ -613,7 +613,7 @@
 					"response": []
 				},
 				{
-					"name": "Get a Single Registery by ID",
+					"name": "Get a Single Registry by ID",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
