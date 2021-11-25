@@ -70,7 +70,7 @@ HTTP Method | Description
 --------- | -----------
 GET | Gets one or many resources
 POST | Creates a new resources
-PATCH | Partially update a resource
+PATCH | Partially updates a resource
 DELETE | Deletes a resource
 
 ## Rate Limits
@@ -677,11 +677,12 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
-  }
+    "id": "926",
+    "data": {
+        "did": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA",
+        "hexDid": "0x3d7129a4d915e8f864c4bf4f4bcbdb67cde87e9bbcec06cb3baefd5b31812c03",
+        "controller": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA"
+    }
 }
 ```
 
@@ -766,15 +767,24 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 
 ```json
 [
-  {
-    "@context": [
-      "string"
-    ],
-    "id": "did:dock:xyz",
-    "authentication": [
-      {}
-    ]
-  }
+    {
+        "@context": "https://www.w3.org/ns/did/v1",
+        "id": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA",
+        "authentication": [
+            "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"
+        ],
+        "assertionMethod": [
+            "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"
+        ],
+        "publicKey": [
+            {
+                "id": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1",
+                "type": "Sr25519VerificationKey2020",
+                "controller": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA",
+                "publicKeyBase58": "4vm85LvBvhro1N9u4dfKWEyTayXojrTJbJCmzSJixK6L"
+            }
+        ]
+    }
 ]
 ```
 
@@ -837,8 +847,10 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": { ... }
+    "id": "927",
+    "data": {
+        "updated": true
+    }
 }
 ```
 
@@ -880,8 +892,10 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": { ... }
+    "id": "928",
+    "data": {
+        "deleted": true
+    }
 }
 ```
 
@@ -1085,7 +1099,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:...`.|
+|holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:xyz`.|
 |challenge|body|string|false|Presentation's Challenge in a string format. The default value for this is `random hex string`.|
 |domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API.|
@@ -1201,11 +1215,17 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
-  }
+    "id": "930",
+    "data": {
+        "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+        "policy": {
+            "type": "OneOf",
+            "policy": [
+                "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
+            ],
+            "addOnly": false
+        }
+    }
 }
 ```
 
@@ -1239,15 +1259,17 @@ For now, only one policy is supported, and each registry is owned by a single DI
 
 ```json
 [
-  {
-    "id": "1",
-    "registry": {
-      "addOnly": true,
-      "policy": [
-        "did:dock:xyz"
-      ]
+    {
+        "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+        "policy_and_type": {
+            "type": "OneOf",
+            "policy": [
+                "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
+            ],
+            "addOnly": false
+        },
+        "created_at": "2021-11-25T12:20:51.773Z"
     }
-  }
 ]
 ```
 
@@ -1281,10 +1303,16 @@ curl -X GET /registries/{id} \
 
 ```json
 {
-  "addOnly": true,
-  "policy": [
-    "did:dock:xyz"
-  ]
+    "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+    "policy_and_type": {
+        "type": "OneOf",
+        "policy": [
+            "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
+        ],
+        "addOnly": false
+    },
+    "created_at": "2021-11-25T12:20:51.773Z",
+    "job_id": "930"
 }
 ```
 
@@ -1346,11 +1374,12 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
-  }
+    "id": "931",
+    "data": {
+        "revokeIds": [
+            "0xaff1aa6770d43d684690c0ad679a8608d5b7576feb3fdc1d6712decf73ca44ef"
+        ]
+    }
 }
 ```
 
@@ -1392,11 +1421,12 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
-  }
+    "id": "932",
+    "data": {
+        "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+        "hexId": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+        "lastModified": 4226296
+    }
 }
 ```
 
@@ -1477,98 +1507,6 @@ To check if an id is revoked or not, you can check its status with the registry 
 Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
 
 Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.
-
-## Get Schema
-
-> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
-
-```shell
-curl -X GET /schemas/{schemaId} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-
-Reading a Schema from the Dock chain can easily be achieved by using the `get` method which will return the JSON schema to a specific schema ID.
-
-<h3 id="get-schema-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
-
-> 200 Response
-
-```json
-{
-  "id": "string",
-  "schema": {}
-}
-```
-
-<h3 id="get-schema-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the requested Schema.|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
-
-
-## List Schemas
-
-> <span class="highlight"><span class="na">GET</span> /schemas</span>
-
-
-```shell
-curl -X GET /schemas \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-
-Return a list of all schemas created by the authenticated user.
-
-> 200 Response
-
-```json
-[
-    {
-        "id": "e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4",
-        "schema": {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "description": "Dock Schema Example",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "emailAddress": {
-                    "type": "string",
-                    "format": "email"
-                },
-                "alumniOf": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "emailAddress",
-                "alumniOf"
-            ],
-            "additionalProperties": false
-        },
-        "author": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
-    }
-]
-```
-
-<h3 id="list-schemas-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by the user.|Inline|
-
 
 ## Create Schema
 
@@ -1664,6 +1602,126 @@ This operation counts towards your monthly transaction limits for each successfu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create schema.|[JobId](#schemajobid)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
+
+## List Schemas
+
+> <span class="highlight"><span class="na">GET</span> /schemas</span>
+
+
+```shell
+curl -X GET /schemas \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+
+Return a list of all schemas created by the authenticated user.
+
+> 200 Response
+
+```json
+[
+    {
+        "id": "e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "description": "Dock Schema Example",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "alumniOf": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "emailAddress",
+                "alumniOf"
+            ],
+            "additionalProperties": false
+        },
+        "author": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
+    }
+]
+```
+
+<h3 id="list-schemas-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by the user.|Inline|
+
+
+## Get Schema
+
+> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
+
+```shell
+curl -X GET /schemas/{schemaId} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+
+Reading a Schema from the Dock chain can easily be achieved by using the `get` method which will return the JSON schema to a specific schema ID.
+
+<h3 id="get-schema-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
+
+> 200 Response
+
+```json
+{
+    "id": "938",
+    "data": {
+        "id": "blob:dock:5HWiX179ifZsLvS8PdsvBacNzmM9ra9hjvSatSDZytqJjjxG",
+        "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "description": "Dock Schema Example",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "alumniOf": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "emailAddress",
+                "alumniOf"
+            ],
+            "additionalProperties": false
+        },
+        "author": "did:dock:5FJyWxdxs3JDYm5yDEY1r9HaBQBPZ4QxTa6rCpBj7LoUAr8u",
+        "signature": {
+            "Sr25519": "0x16154306f3380cab650a88362e343685de6652404882dfbaf9e75bc1ff65884772b2c67b99e33866e3c894a02635de4815936c05e183f4257d4260dafd2a9a8c"
+        },
+        "hexID": "f103c5cd53cc6aa1a1b50b38e0499f2e29d52edfbb8902a3b5503528b460f64b"
+    }
+}
+```
+
+<h3 id="get-schema-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the requested Schema.|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
 
 
 <h1 id="anchors">Anchors</h1>
