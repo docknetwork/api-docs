@@ -969,7 +969,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
+									"postman.setEnvironmentVariable(\"anchorId\", jsonData.data.root);"
 								],
 								"type": "text/javascript"
 							}
