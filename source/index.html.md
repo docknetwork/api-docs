@@ -2238,7 +2238,7 @@ This is a schema that represents a credential format expected by API caller.
 |Name|Type|Required|Description|
 |---|---|---|---|
 |id|string(uri)|false|Credential ID. The default value is a creds.dock.io uri with random ID.|
-|context|array|false|Credential context. The default value is https://www.w3.org/2018/credentials/v1.|
+|context|[string|object]|false|Credential context array of strings and/or embedded context objects. |
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object|true|Credential subject.|
 |schema|string|false|Schema ID returned by create schema route|
