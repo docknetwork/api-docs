@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "15ac056f-7d72-44c7-87c5-ecea721361b4",
+		"_postman_id": "f3a52f11-f878-4e2c-872e-66d11de324f1",
 		"name": "Dock API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,8 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);"
+									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);",
+									"postman.setEnvironmentVariable(\"jobId\", jsonData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -1222,7 +1223,8 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);"
+									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);",
+									"postman.setEnvironmentVariable(\"jobId\", jsonData.id);"
 								],
 								"type": "text/javascript"
 							}
