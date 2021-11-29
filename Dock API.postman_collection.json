@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "95221845-a599-42a6-8a44-3153c1608e2b",
+		"_postman_id": "f3a52f11-f878-4e2c-872e-66d11de324f1",
 		"name": "Dock API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Dids",
+			"name": "DIDs",
 			"item": [
 				{
 					"name": "Create DID",
@@ -16,7 +16,8 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);"
+									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);",
+									"postman.setEnvironmentVariable(\"jobId\", jsonData.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -54,7 +55,7 @@
 					"response": []
 				},
 				{
-					"name": "Get single DID details by ID",
+					"name": "Resolve DID",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -91,7 +92,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all DIDs",
+					"name": "List DIDs",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -133,7 +134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"controller\": \"Different_DID_Than_Original_Request\",\n\"keyType\": \"sr25519\"\n}",
+							"raw": "{\n\"keyType\": \"sr25519\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -301,7 +302,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Signed Credential With Past Dates",
+					"name": "Create Signed Credential using Past Dates",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -354,7 +355,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"anchor\": true,\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\",\n        \"issuer\": \"{{did}}\"\n    }\n}",
+							"raw": "{\n    \"anchor\": true,\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuer\": \"{{did}}\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -394,7 +395,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuanceDate\": \"2019-08-24T14:15:22Z\",\n        \"expirationDate\": \"2019-08-24T14:15:22Z\"\n    }\n}",
+							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        }\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -408,46 +409,6 @@
 							],
 							"path": [
 								"credentials"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Verify Signed Credential",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{{signedCredential}}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/verify",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"verify"
 							],
 							"query": [
 								{
@@ -499,46 +460,28 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Presentations",
+			"item": [
 				{
-					"name": "Revocation Status",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+					"name": "Create Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"savedData\", \"\");",
+									"let response = pm.response.json(),",
+									"    savedData = JSON.stringify(response);",
+									"pm.collectionVariables.set(\"createdPresentation\", savedData);"
+								],
+								"type": "text/javascript"
 							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/revocationStatus/{{did}}",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"revocationStatus",
-								"{{did}}"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Signed Credential Without Dates",
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -551,7 +494,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"credential\": {\n        \"type\": [\n            \"MyCredential\"\n        ],\n        \"subject\": {\n            \"id\": \"{{did}}\"\n        },\n        \"issuer\": \"{{did}}\"\n    }\n}",
+							"raw": "{\n  \"challenge\": \"my challenge\",\n  \"domain\": \"dock.io\",\n  \"holder\": \"{{did}}\",\n  \"credentials\": [{{signedCredential}}]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -559,13 +502,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/credentials/",
+							"raw": "{{BaseUrl}}/presentations",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
-								"credentials",
-								""
+								"presentations"
 							],
 							"query": [
 								{
@@ -581,325 +523,7 @@
 			]
 		},
 		{
-			"name": "Anchor",
-			"item": [
-				{
-					"name": "Get Anchor by ID",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors/{{anchorId}}",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors",
-								"{{anchorId}}"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Anchor by Root",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"anchorId\", jsonData.anchor);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors/{{anchorRoot}}",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors",
-								"{{anchorRoot}}"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Anchors",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Can drop an anchor from a single JSON document",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[{\"id\":\"{{$timestamp}}\",\"example\":\"document\"}]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Can drop an anchor from a multiple JSON documents",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"id\": \"{{$timestamp}}\",\n    \"example\": \"document\"\n  },\n  {\n    \"example\": \"withnoid\"\n  }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Can drop an anchor from a Arbitrary string",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  \"hello {{$timestamp}}\",\n  \"{\\\\\\\",example\\\\\\\",:\\\\\\\",document\\\\\\\",\\\\\\\",randomBytesStr\\\\\\\",:\\\\\\\",{{$timestamp}}\\\\\\\"}\"\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create anchor",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"anchorRoot\", jsonData.data.root);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\"TestAnchor{{$randomInt}}==\"]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/anchors",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"anchors"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Registeries",
+			"name": "Registries",
 			"item": [
 				{
 					"name": "Create Registry",
@@ -990,7 +614,7 @@
 					"response": []
 				},
 				{
-					"name": "Get a Single Registery by ID",
+					"name": "Get a Single Registry by ID",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1057,6 +681,18 @@
 				},
 				{
 					"name": "Revoke Credential By Registry ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"revokeIds\", jsonData.data.revokeIds);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1140,87 +776,19 @@
 			]
 		},
 		{
-			"name": "Presentations",
+			"name": "Revocation Status",
 			"item": [
 				{
-					"name": "Create Presentation",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let response = pm.response.json(),",
-									"    savedData = JSON.stringify(response);",
-									"pm.collectionVariables.set(\"createdPresentation\", savedData);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"challenge\": \"my challenge\",\n  \"domain\": \"dock.io\",\n  \"holder\": \"{{did}}\",\n  \"credentials\": [{{signedCredential}}]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BaseUrl}}/presentations",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"presentations"
-							],
-							"query": [
-								{
-									"key": "headers",
-									"value": "headers",
-									"disabled": true
-								}
-							]
-						}
+					"name": "Get Revocation Status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
 					},
-					"response": []
-				},
-				{
-					"name": "Verify Presentation",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
 					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"method": "GET",
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{{createdPresentation}}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1228,12 +796,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/verify",
+							"raw": "{{BaseUrl}}/revocationStatus/{{registryId}}/{{revokeIds}}",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
-								"verify"
+								"revocationStatus",
+								"{{registryId}}",
+								"{{revokeIds}}"
 							],
 							"query": [
 								{
@@ -1249,7 +819,7 @@
 			]
 		},
 		{
-			"name": "Schema",
+			"name": "Credential Schemas",
 			"item": [
 				{
 					"name": "Create Schema",
@@ -1304,7 +874,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all schemas",
+					"name": "List Schemas",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1340,7 +910,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Schema by ID",
+					"name": "Get Schema",
 					"event": [
 						{
 							"listen": "test",
@@ -1390,38 +960,277 @@
 			]
 		},
 		{
-			"name": "Create Credential/Presentation Flow",
+			"name": "Anchors",
 			"item": [
 				{
-					"name": "1. Create DID",
+					"name": "Create Anchor",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);"
+									"postman.setEnvironmentVariable(\"anchorId\", jsonData.data.root);"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"TestAnchor{{$randomInt}}==\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
 								{
-									"key": "value",
-									"value": "{{ApiKey}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "DOCK-API-TOKEN",
-									"type": "string"
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
 								}
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Anchors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Anchor",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/anchors/{{anchorId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"anchors",
+								"{{anchorId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "Get Job Status And Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/jobs/{{jobId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"jobs",
+								"{{jobId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Verify",
+			"item": [
+				{
+					"name": "Verify Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{createdPresentation}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/verify",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"verify"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{signedCredential}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/verify",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"verify"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Simple E2E Create Credentials/Presentation Flow",
+			"item": [
+				{
+					"name": "1. Create a DID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);",
+									"postman.setEnvironmentVariable(\"jobId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1453,25 +1262,44 @@
 					"response": []
 				},
 				{
-					"name": "2. Verify DID Registered",
+					"name": "2. Verify the New DID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{BaseUrl}}/dids/{{did}}",
+							"raw": "{{BaseUrl}}/jobs/{{jobId}}",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
-								"dids",
-								"{{did}}"
+								"jobs",
+								"{{jobId}}"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "3. Create Signed Credential",
+					"name": "3. Create a Signed Credential",
 					"event": [
 						{
 							"listen": "test",
@@ -1480,7 +1308,8 @@
 									"pm.collectionVariables.set(\"savedData\", \"\");",
 									"let response = pm.response.json(),",
 									"    savedData = JSON.stringify(response);",
-									"pm.collectionVariables.set(\"signedCredential\", savedData);"
+									"pm.collectionVariables.set(\"signedCredential\", savedData);",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1525,7 +1354,7 @@
 					"response": []
 				},
 				{
-					"name": "4. Verify Signed Credential",
+					"name": "4. Verify the Signed Credential",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1565,7 +1394,7 @@
 					"response": []
 				},
 				{
-					"name": "5. Create Presentation",
+					"name": "5. Create a Presentation",
 					"event": [
 						{
 							"listen": "test",
@@ -1619,7 +1448,7 @@
 					"response": []
 				},
 				{
-					"name": "6. Verify Presentation",
+					"name": "6. Verify the Presentation",
 					"event": [
 						{
 							"listen": "test",
@@ -1668,6 +1497,41 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "{{ApiKey}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "DOCK-API-TOKEN",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
