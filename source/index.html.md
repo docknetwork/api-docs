@@ -947,10 +947,10 @@ curl -X POST /credentials/ \
 ```
 
 
-Creates and issues a JSON-LD Verifiable Credential that conforms to the [W3C VCDM specification](https://www.w3.org/TR/vc-data-model/). The `type` values and subject properties must be represented by a schema URI in the `context` property.
+Creates and issues a JSON-LD Verifiable Credential that conforms to the [W3C VCDM specification](https://www.w3.org/TR/vc-data-model/). The `type` values and subject properties must be represented by a schema URI in the `context` property. If you do not specify a `context` property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential.
 
 <aside class="notice">
-The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default if you don't specify your own <code>context</code> values.
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times
 </aside>
 
 To sign a credential, an `issuer` must be supplied as either a fully qualified DID string or an object with at least an `id` property which is a fully qualified DID. (e.g: `did:dock:xyz`)
@@ -2283,14 +2283,14 @@ This is a schema that represents a DID document. The current set of properties i
 
 ```
 
-This is a schema that represents a credential format expected by API caller.
+This is a schema that represents a credential format expected by API caller when issuing a credential.
 
 ### Properties
 
 |Name|Type|Required|Description|
 |---|---|---|---|
 |id|string(uri)|false|Credential ID. The default value is a creds.dock.io uri with random ID.|
-|context|[string|object]|false|Credential context array of strings and/or embedded context objects. |
+|context|[string or object]|false|Credential context array of string URIs and/or embedded JSON-LD context objects. If no context parameter is supplied, we will auto generate contexts for you.|
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object|true|Credential subject.|
 |schema|string|false|Schema ID returned by create schema route|
