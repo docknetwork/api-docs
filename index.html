@@ -1630,7 +1630,7 @@ This operation counts towards your monthly transaction limits for each successfu
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div>
-<p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property. If you do not specify a <code>context</code> property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential.</p>
+<p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property. If you do not specify a <code>context</code> property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential. You can read more about JSON-LD and contexts <a href="https://json-ld.org/spec/latest/json-ld/#the-context">here</a>.</p>
 
 <aside class="notice">
 The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times
