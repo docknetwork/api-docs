@@ -1630,10 +1630,10 @@ This operation counts towards your monthly transaction limits for each successfu
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div>
-<p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property.</p>
+<p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property. If you do not specify a <code>context</code> property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential.</p>
 
 <aside class="notice">
-The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default if you don't specify your own <code>context</code> values.
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times
 </aside>
 
 <p>To sign a credential, an <code>issuer</code> must be supplied as either a fully qualified DID string or an object with at least an <code>id</code> property which is a fully qualified DID. (e.g: <code>did:dock:xyz</code>)</p>
@@ -3512,7 +3512,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This is a schema that represents a credential format expected by API caller.</p>
+<p>This is a schema that represents a credential format expected by API caller when issuing a credential.</p>
 <h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
@@ -3530,9 +3530,9 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 <tr>
 <td>context</td>
-<td>[string</td>
-<td>object]</td>
+<td>[string or object]</td>
 <td>false</td>
+<td>Credential context array of string URIs and/or embedded JSON-LD context objects. If no context parameter is supplied, we will auto generate contexts for you.</td>
 </tr>
 <tr>
 <td>type</td>
