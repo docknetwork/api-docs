@@ -70,7 +70,7 @@ HTTP Method | Description
 --------- | -----------
 GET | Gets one or many resources
 POST | Creates a new resources
-PATCH | Partially update a resource
+PATCH | Partially updates a resource
 DELETE | Deletes a resource
 
 ## Rate Limits
@@ -87,6 +87,7 @@ Code | Meaning
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
 401 | Unauthorized -- Do not own resource or have an invalid API key in the header.
 404 | Not Found -- The resource that you're trying to interact with could not be found on the server.
+405 | Method Not Allowed -- The requested method does not exist in the API spec. Please check the {did} value and ensure that it's not empty/blank.
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
 500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.
 
@@ -452,13 +453,6 @@ This flow refers to Postman, but the general steps are the same however you use 
 
 ### 1. Create a DID
 
-To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
-
-<aside class="notice">
-Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
-</aside>
-
-
 > DID CREATED - 200 Response
 
 ```json
@@ -472,14 +466,14 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
 }
 ```
 
-### 2. Verify the New DID
-
-To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
+To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
 
 <aside class="notice">
-You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
+Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
 
+
+### 2. Verify the New DID
 
 > DID VERIFIED - 200 Response
 
@@ -497,9 +491,13 @@ You only need to create a DID once and then you can issue many credentials with 
 }
 ```
 
-### 3. Create a Signed Credential
+To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
 
-To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
+<aside class="notice">
+You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
+</aside>
+
+### 3. Create a Signed Credential
 
 > CREDENTIAL ISSUED - 200 Response
 
@@ -521,9 +519,10 @@ To create a Verifiable Credential using the the new issuer DID, go to **Create S
     "issuer": { ... }
 }
 ```
-### 4. Verify the Signed Credential
 
-To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
+To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
+
+### 4. Verify the Signed Credential
 
 > CREDENTIAL VERIFIED - 200 Response
 
@@ -534,9 +533,9 @@ To verify if the credential's cryptographic proof, revocation status and more go
 }
 ```
 
-### 5. Create a Presentation
+To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
 
-To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
+### 5. Create a Presentation
 
 > PRESENTATION CREATED - 200 Response
 
@@ -571,9 +570,9 @@ To create a Verifiable Presentation by using the credential, go to **Create Pres
 }
 ```
 
-### 6. Verify the Presentation
+To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
 
-The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
+### 6. Verify the Presentation
 
 > PRESENTATION VERIFIED - 200 Response
 
@@ -583,6 +582,8 @@ The same credential verification route can be used to verify a presentation. In 
     "results": []
 }
 ```
+
+The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
 
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
@@ -599,7 +600,7 @@ These steps involve using the API to create presentations on behalf of your hold
       /dids
     </a>
     <br />
-   <a href="#get-did">
+   <a href="#get-did-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids/{did}
     </a>
@@ -635,13 +636,16 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 
 ## Create DID
 
-> <span class="highlight"><span class="nt">POST</span> /dids</span>
+> <span class="highlight"><span class="nt">POST</span> /dids</span></span> REQUEST
+
+
 
 ```shell
-curl -X POST /dids \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST 'https://api.dock.io/dids' \
+--header 'DOCK-API-TOKEN: API_KEY' \
+--data-raw '{
+  "keyType": "sr25519"
+}'
 
 ```
 
@@ -663,8 +667,8 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
+|did|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
+|controller|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is `sr25519`.|
 
 ### Enumerated Values
@@ -677,10 +681,11 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
+  "id": "926",
   "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
+    "did": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA",
+    "hexDid": "0x3d7129a4d915e8f864c4bf4f4bcbdb67cde87e9bbcec06cb3baefd5b31812c03",
+    "controller": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA"
   }
 }
 ```
@@ -696,12 +701,12 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Resolve DID
 
-> <span class="highlight"><span class="na">GET</span> /dids/{did}</span>
+> <span class="highlight"><span class="na">GET</span> /dids/{did}</span></span> REQUEST
 
 ```shell
-curl -X GET /dids/{did} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET 'https://api.dock.io/dids/did:dock:xyz' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
 
 ```
 
@@ -717,7 +722,7 @@ The API supports resolving many DID methods, some examples are:
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
+|did|path|[DIDDock](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
 
 > 200 Response
 
@@ -751,12 +756,12 @@ The API supports resolving many DID methods, some examples are:
 
 ## List DIDs
 
-> <span class="highlight"><span class="na">GET</span> /dids</span>
+> <span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST
 
 ```shell
-curl -X GET /dids \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET 'https://api.dock.io/dids' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
 
 ```
 
@@ -767,12 +772,21 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 ```json
 [
   {
-    "@context": [
-      "string"
-    ],
-    "id": "did:dock:xyz",
+    "@context": "https://www.w3.org/ns/did/v1",
+    "id": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA",
     "authentication": [
-      {}
+      "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"
+    ],
+    "assertionMethod": [
+      "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"
+    ],
+    "publicKey": [
+      {
+        "id": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1",
+        "type": "Sr25519VerificationKey2020",
+        "controller": "did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA",
+        "publicKeyBase58": "4vm85LvBvhro1N9u4dfKWEyTayXojrTJbJCmzSJixK6L"
+      }
     ]
   }
 ]
@@ -782,27 +796,27 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDoc](#schemadiddoc)|
-
-
-
-
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDock](#schemadiddoc)|
 
 
 
 ## Update DID
 
-> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span>
+> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST
 
 ```shell
-curl -X PATCH /dids/{did} \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request PATCH 'https://api.dock.io/dids/did:dock:xyz' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "controller": "did:dock:xyz",
+  "keyType": "sr25519"
+}'
 
 ```
 
 ```json-doc
+
 {
   "controller": "did:dock:xyz",
   "keyType": "sr25519"
@@ -823,8 +837,8 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-|controller|body|[DID](#schemadid)|optional|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the [List DID](#list-dids-responses) operation.|
+|did|path|[DIDDock](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
+|controller|body|[DIDDock](#schemadiddock)|optional|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the [List DID](#list-dids-responses) operation.|
 |keyType|body|[KeyType](#schemakeytype)|optional|Type of the public key for DID. The default value of the keyType is sr25519. If you want to update the keyType when performing the update DID, you need to set a different keyType value from the assigned keyType that you currently have. For example, if you previously used `sr25519`, you need to replace it with either `ed25519` or `secp256k1`.|
 
 ### Enumerated Values
@@ -837,8 +851,10 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
-  "data": { ... }
+  "id": "927",
+  "data": {
+    "updated": true
+  }
 }
 ```
 
@@ -854,12 +870,14 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Delete DID
 
-> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span>
+> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span></span> REQUEST
 
 ```shell
-curl -X DELETE /dids/{did} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request DELETE https://api.dock.io/dids/{did} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    }'
 
 ```
 
@@ -874,14 +892,16 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
+|did|path|[DID](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
 
 > 200 Response
 
 ```json
 {
-  "id": "1",
-  "data": { ... }
+  "id": "928",
+  "data": {
+    "deleted": true
+  }
 }
 ```
 
@@ -892,8 +912,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove the DID.|[JobId](#schemajobid)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
-
-
+|405|[Method not Allowed](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5)|The {did} value is blank/empty. Please ensure that the {did} value does exist.|[Error](#schemaerror)|
 
 
 
@@ -915,9 +934,10 @@ You can create and sign Verifiable Credentials on the Dock API. By default, Dock
 
 <h2 id="issue-credentials">Issue Credential</h2>
 
-> <span class="highlight"><span class="nt">POST</span> /credentials</span>
+> <span class="highlight"><span class="nt">POST</span> /credentials</span></span> REQUEST
 
 ```json-doc
+
 {
   "persist": false,
   "anchor": true,
@@ -939,10 +959,28 @@ You can create and sign Verifiable Credentials on the Dock API. By default, Dock
 ```
 
 ```shell
-curl -X POST /credentials/ \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/credentials/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "persist": false,
+  "anchor": true,
+  "credential": {
+    "id": "http://example.com",
+    "context": ["https://www.w3.org/2018/credentials/examples/v1"],
+    "type": ["UniversityDegreeCredential"],
+    "subject": {
+      "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    },
+    "issuer": "did:dock:xyz",
+    "issuanceDate": "2020-08-24T14:15:22Z"
+  }
+}'
+
 
 ```
 
@@ -1032,17 +1070,45 @@ For a detailed example of the presentations workflow. Please refer [here](https:
 
 <h2 id="create-a-presentation">Create Presentation</h2>
 
-> <span class="highlight"><span class="nt">POST</span> /presentations</span>
+> <span class="highlight"><span class="nt">POST</span> /presentations</span></span> REQUEST
 
 ```shell
-curl -X POST /presentations/ \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/presentations/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "holder": "did:dock:xyz",
+  "challenge": "string",
+  "domain": "string",
+  "credentials": [
+    {
+      "@context": [
+        "string"
+      ],
+      "id": "http://example.com",
+      "type": [
+        "string"
+      ],
+      "credentialSubject": {},
+      "issuer": "did:dock:xyz",
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "credentialStatus": {},
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "proofValue": "string"
+      }
+    }
+  ]
+}'
 
 ```
 
 ```json-doc
+
 {
   "holder": "did:dock:xyz",
   "challenge": "string",
@@ -1085,7 +1151,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:...`.|
+|holder|body|[DIDDock](#schemadiddock)|true|DID as fully qualified, e.g., `did:dock:xyz`.|
 |challenge|body|string|false|Presentation's Challenge in a string format. The default value for this is `random hex string`.|
 |domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API.|
@@ -1165,17 +1231,24 @@ For a detailed example of the registry workflow. Please refer [here](https://git
 
 ## Create Registry
 
-> <span class="highlight"><span class="nt">POST</span> /registries</span>
+> <span class="highlight"><span class="nt">POST</span> /registries</span></span> REQUEST
 
 ```shell
-curl -X POST /registries/ \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/registries/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "addOnly": true,
+  "policy": [
+    "did:dock:xyz"
+  ]
+}'
+
 
 ```
 
 ```json-doc
+
 {
   "addOnly": true,
   "policy": [
@@ -1195,16 +1268,22 @@ This operation counts towards your monthly transaction limits for each successfu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |addOnly|body|boolean|false|True/false options. The default value is "false".|
-|policy|body|[[DID](#schemadid)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
+|policy|body|[[DIDDock](#schemadiddock)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
 
 > 200 Response
 
 ```json
 {
-  "id": "1",
+  "id": "930",
   "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
+    "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+    "policy": {
+      "type": "OneOf",
+      "policy": [
+        "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
+      ],
+      "addOnly": false
+    }
   }
 }
 ```
@@ -1218,12 +1297,15 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Registries
 
-> <span class="highlight"><span class="na">GET</span> /registries</span>
+> <span class="highlight"><span class="na">GET</span> /registries</span></span> REQUEST
 
 ```shell
-curl -X GET /registries/ \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET https://api.dock.io/registries/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw'{
+
+  }'
 
 ```
 
@@ -1240,13 +1322,15 @@ For now, only one policy is supported, and each registry is owned by a single DI
 ```json
 [
   {
-    "id": "1",
-    "registry": {
-      "addOnly": true,
+    "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+    "policy_and_type": {
+      "type": "OneOf",
       "policy": [
-        "did:dock:xyz"
-      ]
-    }
+        "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
+      ],
+      "addOnly": false
+      },
+    "created_at": "2021-11-25T12:20:51.773Z"
   }
 ]
 ```
@@ -1259,12 +1343,13 @@ For now, only one policy is supported, and each registry is owned by a single DI
 
 ## Get Registry
 
-> <span class="highlight"><span class="na">GET</span> /registries/{id}</span>
+> <span class="highlight"><span class="na">GET</span> /registries/{id}</span></span> REQUEST
 
 ```shell
-curl -X GET /registries/{id} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET https://api.dock.io/registries/{id} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
 
 ```
 
@@ -1281,10 +1366,16 @@ curl -X GET /registries/{id} \
 
 ```json
 {
-  "addOnly": true,
-  "policy": [
-    "did:dock:xyz"
-  ]
+  "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+  "policy_and_type": {
+    "type": "OneOf",
+    "policy": [
+      "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
+    ],
+    "addOnly": false
+  },
+  "created_at": "2021-11-25T12:20:51.773Z",
+  "job_id": "930"
 }
 ```
 
@@ -1298,17 +1389,23 @@ curl -X GET /registries/{id} \
 
 ## Revoke/Unrevoke Credential
 
-> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span>
+> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span></span> REQUEST
 
 ```shell
-curl -X POST /registries/{id} \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/registries/{id} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "action": "revoke",
+  "credentialIds": [
+    "http://example.com"
+  ]
+}'
 
 ```
 
 ```json-doc
+
 {
   "action": "revoke",
   "credentialIds": [
@@ -1346,10 +1443,11 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
+  "id": "931",
   "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
+    "revokeIds": [
+      "0xaff1aa6770d43d684690c0ad679a8608d5b7576feb3fdc1d6712decf73ca44ef"
+    ]
   }
 }
 ```
@@ -1364,14 +1462,14 @@ This operation counts towards your monthly transaction limits for each successfu
 
 
 
+
 ## Delete Registry
 
-> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span>
+> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span></span> REQUEST
 
 ```shell
-curl -X DELETE /registries/{id} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/registries/{id} \
+  --header 'DOCK-API-TOKEN: API_KEY'
 
 ```
 
@@ -1392,10 +1490,11 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "1",
+  "id": "932",
   "data": {
-    "did": "did:dock:xyz",
-    "hexDid": "0x00",
+  "id": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+  "hexId": "6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612",
+  "lastModified": 4226296
   }
 }
 ```
@@ -1415,12 +1514,13 @@ Credentials can be revoked or unrevoked, and as such they contain a revocation s
 
 ## Get Revocation Status
 
-> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span>
+> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></span> REQUEST
 
 ```shell
-curl -X GET /revocationStatus/{regId}/{revId} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+
+curl --location --request GET https://api.dock.io/revocationStatus/{regId}/{revId} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
 
 ```
 
@@ -1448,6 +1548,7 @@ To check if an id is revoked or not, you can check its status with the registry 
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return **true**, if the credential is revoked, **false** otherwise.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
+|500|[Server Error](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1)|The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.|[Error](#schemaerror)|
 
 
 <h1 id="credential-schemas">Credential Schemas</h1>
@@ -1456,19 +1557,19 @@ To check if an id is revoked or not, you can check its status with the registry 
 
 <div class="highlight">
   <div class="highlight shell align-code">
+          <a href="#create-schema-responses">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
+     <a href="#list-schemas-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
   <a href="#get-schema-parameters">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /schemas/{schemaId}
-    </a>
-    <br />
-        <a href="#list-schemas-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /schemas
-    </a>
-    <br />
-        <a href="#create-schema-responses">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /schemas
     </a>
     <br />
   </div>
@@ -1478,52 +1579,134 @@ Schemas are useful when enforcing a specific structure on a collection of data l
 
 Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.
 
-## Get Schema
+## Create Schema
 
-> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
+> <span class="highlight"><span class="nt">POST</span> /schemas</span></span> REQUEST
 
 ```shell
-curl -X GET /schemas/{schemaId} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/schemas \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "description": "Dock Schema Example",
+ "type": "object",
+ "properties": {
+  "id": {
+    "type": "string"
+ },
+ "emailAddress": {
+  "type": "string",
+  "format": "email"
+ },
+ "alumniOf": {
+  "type": "string"
+ }
+ },
+ "required": [
+  "emailAddress",
+  "alumniOf"
+ ],
+ "additionalProperties": false,
+ "author": "{{did}}"
+}'
+
 
 ```
 
+```json-doc
 
-Reading a Schema from the Dock chain can easily be achieved by using the `get` method which will return the JSON schema to a specific schema ID.
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "description": "Dock Schema Example",
+ "type": "object",
+ "properties": {
+  "id": {
+    "type": "string"
+ },
+ "emailAddress": {
+  "type": "string",
+  "format": "email"
+ },
+ "alumniOf": {
+  "type": "string"
+ }
+ },
+ "required": [
+  "emailAddress",
+  "alumniOf"
+ ],
+ "additionalProperties": false,
+ "author": "{{did}}"
+}
+```
 
-<h3 id="get-schema-parameters">Parameters</h3>
+Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.
+
+<aside class="warning">
+This operation counts towards your monthly transaction limits for each successful call
+</aside>
+
+<h3 id="create-schema-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
+|body|body|object|true|JSON-schema.|
 
 > 200 Response
 
 ```json
 {
-  "id": "string",
-  "schema": {}
+  "id": "168",
+  "data": {
+    "id": "blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "description": "Dock Schema Example",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+          },
+        "emailAddress": {
+          "type": "string",
+          "format": "email"
+          },
+        "alumniOf": {
+          "type": "string"
+          }
+          },
+        "required": [
+          "emailAddress",
+          "alumniOf"
+        ],
+        "additionalProperties": false
+      },
+      "author": "did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd",
+      "signature": {
+        "Secp256k1": "0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"
+    },
+    "hexID": "fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"
+  }
 }
 ```
 
-<h3 id="get-schema-responses">Responses</h3>
+<h3 id="create-schema-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the requested Schema.|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
-
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create schema.|[JobId](#schemajobid)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
 
 ## List Schemas
 
-> <span class="highlight"><span class="na">GET</span> /schemas</span>
+> <span class="highlight"><span class="na">GET</span> /schemas</span></span> REQUEST
 
 
 ```shell
-curl -X GET /schemas \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET https://api.dock.io/schemas \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
 
 ```
 
@@ -1570,100 +1753,70 @@ Return a list of all schemas created by the authenticated user.
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by the user.|Inline|
 
 
-## Create Schema
+## Get Schema
 
-> <span class="highlight"><span class="nt">POST</span> /schemas</span>
+> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span></span> REQUEST
 
 ```shell
-curl -X POST /schemas \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET https://api.dock.io/schemas/{schemaId} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
 
 ```
 
-```json-doc
-{
- "$schema": "http://json-schema.org/draft-07/schema#",
- "description": "Dock Schema Example",
- "type": "object",
- "properties": {
-  "id": {
-    "type": "string"
- },
- "emailAddress": {
-  "type": "string",
-  "format": "email"
- },
- "alumniOf": {
-  "type": "string"
- }
- },
- "required": [
-  "emailAddress",
-  "alumniOf"
- ],
- "additionalProperties": false,
- "author": "{{did}}"
-}
-```
 
-Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.
+Reading a Schema from the Dock chain can easily be achieved by using the `get` method which will return the JSON schema to a specific schema ID.
 
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
-<h3 id="create-schema-parameters">Parameters</h3>
+<h3 id="get-schema-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|JSON-schema.|
+|schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
 
 > 200 Response
 
 ```json
 {
-    "id": "168",
-    "data": {
-        "id": "blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P",
-        "schema": {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "description": "Dock Schema Example",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "emailAddress": {
-                    "type": "string",
-                    "format": "email"
-                },
-                "alumniOf": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "emailAddress",
-                "alumniOf"
-            ],
-            "additionalProperties": false
+  "id": "938",
+  "data": {
+    "id": "blob:dock:5HWiX179ifZsLvS8PdsvBacNzmM9ra9hjvSatSDZytqJjjxG",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "description": "Dock Schema Example",
+      "type": "object",
+      "properties": {
+        "id": {
+        "type": "string"
         },
-        "author": "did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd",
-        "signature": {
-            "Secp256k1": "0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"
+      "emailAddress": {
+        "type": "string",
+        "format": "email"
         },
-        "hexID": "fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"
-    }
+      "alumniOf": {
+      "type": "string"
+        }
+      },
+    "required": [
+      "emailAddress",
+      "alumniOf"
+      ],
+      "additionalProperties": false
+    },
+    "author": "did:dock:5FJyWxdxs3JDYm5yDEY1r9HaBQBPZ4QxTa6rCpBj7LoUAr8u",
+    "signature": {
+      "Sr25519": "0x16154306f3380cab650a88362e343685de6652404882dfbaf9e75bc1ff65884772b2c67b99e33866e3c894a02635de4815936c05e183f4257d4260dafd2a9a8c"
+    },
+    "hexID": "f103c5cd53cc6aa1a1b50b38e0499f2e29d52edfbb8902a3b5503528b460f64b"
+  }
 }
 ```
 
-<h3 id="create-schema-responses">Responses</h3>
+<h3 id="get-schema-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create schema.|[JobId](#schemajobid)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the requested Schema.|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
 
 
 <h1 id="anchors">Anchors</h1>
@@ -1672,21 +1825,21 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <div class="highlight">
   <div class="highlight shell align-code">
-  <a href="#get-anchor-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /anchors/{anchor}
-    </a>
-    <br />
-        <a href="#list-anchors-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /anchors
-    </a>
     <br />
         <a href="#create-anchor-responses">
       <span class="nt">POST</span>&nbsp;&nbsp;
       /anchors
     </a>
+        <br />
+        <a href="#list-anchors-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors
+    </a>
     <br />
+  <a href="#get-anchor-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors/{anchor}
+    </a>
   </div>
 </div>
 
@@ -1698,98 +1851,26 @@ The API allows you to create, get, and retrieve anchors as well as a list of all
 
 For a detailed example of the anchor workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/anchorsFlow.js).
 
-## Get Anchor
-
-> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span>
-
-```shell
-curl -X GET /anchors/{anchor} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-
-Get a specific anchor with the given ID.
-
-<h3 id="get-anchor-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|anchor|path|[Hex32](#schemahex32)|true|An anchor id.|
-
-> 200 Response
-
-```json
-{
-  "anchor": "string",
-  "blockHash": "string",
-  "root": "string"
-}
-```
-
-<h3 id="get-anchor-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
-
-
-## List Anchors
-
-> <span class="highlight"><span class="na">GET</span> /anchors</span>
-
-```shell
-curl -X GET /anchors \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
-
-```
-
-
-Return a list of all anchors created by the authenticated user, regardless of whether they have contributed to the batching or not.
-
-> 200 Response
-
-```json
-[
-  {
-    "anchor":"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
-    "type": "single",
-    "data": {
-      "proofs": [],
-      "root":"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
-      "documentIds": [
-        "https://creds.dock.io/credential/b1ed680d3d2d8167dc31bc4913e9c511"
-      ]
-     },
-     "created_at": "2021-11-12T13:53:51.640Z",
-     "job_id": "827"
-  }
-]
-```
-
-<h3 id="list-anchors-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all anchors created by the user.|Inline|
-
-
 ## Create Anchor
 
-> <span class="highlight"><span class="nt">POST</span> /anchors</span>
+> <span class="highlight"><span class="nt">POST</span> /anchors</span></span> REQUEST
 
 ```shell
-curl -X POST /anchors \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/anchors \
+
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '[
+  "can be a string",
+  {
+    "or": "a JSON document"
+  }
+]'
 
 ```
 
 ```json-doc
+
 [
   "can be a string",
   {
@@ -1832,6 +1913,87 @@ This operation counts towards your monthly transaction limits for each successfu
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 
 
+## List Anchors
+
+> <span class="highlight"><span class="na">GET</span> /anchors</span></span> REQUEST
+
+```shell
+curl --location --request GET https://api.dock.io/anchors \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
+```
+
+
+Return a list of all anchors created by the authenticated user, regardless of whether they have contributed to the batching or not.
+
+> 200 Response
+
+```json
+[
+  {
+    "anchor":"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
+    "type": "single",
+    "data": {
+      "proofs": [],
+      "root":"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c",
+      "documentIds": [
+        "https://creds.dock.io/credential/b1ed680d3d2d8167dc31bc4913e9c511"
+      ]
+     },
+     "created_at": "2021-11-12T13:53:51.640Z",
+     "job_id": "827"
+  }
+]
+```
+
+<h3 id="list-anchors-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all anchors created by the user.|Inline|
+
+
+
+
+## Get Anchor
+
+> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span></span> REQUEST
+
+```shell
+curl --location --request GET https://api.dock.io/anchors/{anchor} \
+  --header 'DOCK-API-TOKEN: API_KEY'
+  --data-raw ''
+
+```
+
+
+Get a specific anchor with the given ID.
+
+<h3 id="get-anchor-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|anchor|path|[Hex32](#schemahex32)|true|An anchor id.|
+
+> 200 Response
+
+```json
+{
+  "anchor": "string",
+  "blockHash": "string",
+  "root": "string"
+}
+```
+
+<h3 id="get-anchor-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
+
+
 <h1 id="jobs">Jobs</h1>
 
 > Endpoints
@@ -1853,12 +2015,11 @@ You can track the current job status by querying the job id returned as part of 
 
 ## Get Job Status and Data
 
-> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span>
+> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></span> REQUEST
 
 ```shell
-curl -X GET /jobs/{id} \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request GET https://api.dock.io/jobs/{id} \
+  --header 'DOCK-API-TOKEN: API_KEY'
 
 ```
 
@@ -1895,17 +2056,45 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 ## VCDM Verification
 
-> <span class="highlight"><span class="nt">POST</span> /verify</span>
+> <span class="highlight"><span class="nt">POST</span> /verify</span></span> REQUEST
 
 ```shell
-curl -X POST /verify \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'DOCK-API-TOKEN: API_KEY'
+curl --location --request POST https://api.dock.io/verify \
+  --header 'DOCK-API-TOKEN: API_KEY'
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "id": "https://creds.dock.io/credential/93a1cd57a46fd5e6e641f0288e2f8b44",
+  "type": [
+    "VerifiableCredential"
+  ],
+  "credentialSubject": [
+    {
+      "id": "did:dock:5Gwh4PxDjLUXnfqExALYTju9UpZTHzBLNb7j8Ug8NhTKivUe"
+    }
+  ],
+  "issuanceDate": "2021-11-18T19:28:49.840Z",
+  "proof": {
+    "type": "EcdsaSecp256k1Signature2019",
+    "created": "2021-11-18T19:28:51Z",
+    "verificationMethod": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT#keys-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "zAN1rKvtics5d8AZ5rvm9n9DNjfXGtFegv48PorsWvQdeVKPkzSSyKJzdN3jjnfTNqFDg5FWpXeYhubsFKnX8zLNiBsb3D32k3"
+  },
+  "issuer": {
+    "id": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT",
+    "name": "my issuer"
+  }
+}'
+
 
 ```
 
 ```json-doc
+
 {
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
@@ -2105,32 +2294,12 @@ This is a schema used in Job operation to get description of the job including t
 |status|[JobStatus](#schemajobstatus)|Status of the job.|
 |result|object|false|Result of the Job.|
 
-<h2 id="tocS_DIDQualified">DIDQualified</h2>
+<h2 id="tocS_DIDDock">DIDDock</h2>
 <!-- backwards compatibility -->
-<a id="schemadidqualified"></a>
-<a id="schema_DIDQualified"></a>
-<a id="tocSdidqualified"></a>
-<a id="tocsdidqualified"></a>
-
-```json
-"did:dock:xyz"
-
-```
-
-This is a schema used in some operations that used DID as fully qualified, e.g., `did:dock:xyz`.
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|DIDQualified|string(uri)|false|DID as fully qualified, e.g., `did:dock:xyz`.|
-
-<h2 id="tocS_DID">DID</h2>
-<!-- backwards compatibility -->
-<a id="schemadid"></a>
-<a id="schema_DID"></a>
-<a id="tocSdid"></a>
-<a id="tocsdid"></a>
+<a id="schemadiddock"></a>
+<a id="schema_DIDDock"></a>
+<a id="tocSdiddock"></a>
+<a id="tocsdiddock"></a>
 
 ```json
 "did:dock:xyz"
@@ -2254,7 +2423,7 @@ This is a schema that represents a DID document. The current set of properties i
 |Name|Type|Required|Description|
 |---|---|---|---|
 |@context|[Context](#schemacontext)|false|JSON-LD context.|
-|id|[DIDQualified](#schemadidqualified)|false|DID as fully qualified, e.g., `did:dock:`.|
+|id|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`.|
 |authentication|array|false|DID authentication.|
 
 
@@ -2294,7 +2463,7 @@ This is a schema that represents a credential format expected by API caller when
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object|true|Credential subject.|
 |schema|string|false|Schema ID returned by create schema route|
-|issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
+|issuer|[DIDDock](#schemadiddock)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |status|object or string|false|Revocation registry id or user supplied status object.|
@@ -2411,7 +2580,7 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 |id|string(uri)|false|Credential id.|
 |type|[string]|false|Credential type.|
 |credentialSubject|any|false|Credential subject.|
-|issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
+|issuer|[DIDDock](#schemadiddock)|false|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |credentialStatus|any|false|Revocation registry id or user supplied status object.|
@@ -2470,7 +2639,7 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 |Name|Type|Required|Description|
 |---|---|---|---|
 |addOnly|boolean|false|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
-|policy|[[DID](#schemadid)]|false|Only one policy supported as of now called `OneOf`.|
+|policy|[[DIDDock](#schemadiddock)]|false|Only one policy supported as of now called `OneOf`.|
 
 <h2 id="tocS_VerificationResponse">VerificationResponse</h2>
 <!-- backwards compatibility -->
