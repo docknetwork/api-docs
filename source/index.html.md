@@ -636,7 +636,7 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 
 ## Create DID
 
-> <span class="highlight"><span class="nt">POST</span> /dids</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /dids</span></span> REQUEST
 
 
 
@@ -701,7 +701,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Resolve DID
 
-> <span class="highlight"><span class="na">GET</span> /dids/{did}</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /dids/{did}</span></span> REQUEST
 
 ```shell
 curl --location --request GET 'https://api.dock.io/dids/did:dock:xyz' \
@@ -756,7 +756,7 @@ The API supports resolving many DID methods, some examples are:
 
 ## List DIDs
 
-> <span class="highlight"><span class="na">GET</span> /dids</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST
 
 ```shell
 curl --location --request GET 'https://api.dock.io/dids' \
@@ -802,7 +802,7 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 
 ## Update DID
 
-> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span> REQUEST</span>
+> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST
 
 ```shell
 curl --location --request PATCH 'https://api.dock.io/dids/did:dock:xyz' \
@@ -870,7 +870,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Delete DID
 
-> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span> REQUEST</span>
+> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span></span> REQUEST
 
 ```shell
 curl --location --request DELETE https://api.dock.io/dids/{did} \
@@ -934,7 +934,7 @@ You can create and sign Verifiable Credentials on the Dock API. By default, Dock
 
 <h2 id="issue-credentials">Issue Credential</h2>
 
-> <span class="highlight"><span class="nt">POST</span> /credentials</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /credentials</span></span> REQUEST
 
 ```json-doc
 
@@ -1070,7 +1070,7 @@ For a detailed example of the presentations workflow. Please refer [here](https:
 
 <h2 id="create-a-presentation">Create Presentation</h2>
 
-> <span class="highlight"><span class="nt">POST</span> /presentations</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /presentations</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/presentations/ \
@@ -1231,7 +1231,7 @@ For a detailed example of the registry workflow. Please refer [here](https://git
 
 ## Create Registry
 
-> <span class="highlight"><span class="nt">POST</span> /registries</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /registries</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/registries/ \
@@ -1297,7 +1297,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Registries
 
-> <span class="highlight"><span class="na">GET</span> /registries</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /registries</span></span> REQUEST
 
 ```shell
 curl --location --request GET https://api.dock.io/registries/ \
@@ -1343,7 +1343,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 
 ## Get Registry
 
-> <span class="highlight"><span class="na">GET</span> /registries/{id}</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /registries/{id}</span></span> REQUEST
 
 ```shell
 curl --location --request GET https://api.dock.io/registries/{id} \
@@ -1389,7 +1389,7 @@ curl --location --request GET https://api.dock.io/registries/{id} \
 
 ## Revoke/Unrevoke Credential
 
-> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/registries/{id} \
@@ -1465,11 +1465,11 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Delete Registry
 
-> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span> REQUEST</span>
+> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/registries/{id} \
-  --header 'DOCK-API-TOKEN: API_KEY' 
+  --header 'DOCK-API-TOKEN: API_KEY'
 
 ```
 
@@ -1514,7 +1514,7 @@ Credentials can be revoked or unrevoked, and as such they contain a revocation s
 
 ## Get Revocation Status
 
-> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></span> REQUEST
 
 ```shell
 
@@ -1581,7 +1581,7 @@ Before diving further into Schemas, it is important to understand how they are s
 
 ## Create Schema
 
-> <span class="highlight"><span class="nt">POST</span> /schemas</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /schemas</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/schemas \
@@ -1700,7 +1700,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Schemas
 
-> <span class="highlight"><span class="na">GET</span> /schemas</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /schemas</span></span> REQUEST
 
 
 ```shell
@@ -1755,7 +1755,7 @@ Return a list of all schemas created by the authenticated user.
 
 ## Get Schema
 
-> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span></span> REQUEST
 
 ```shell
 curl --location --request GET https://api.dock.io/schemas/{schemaId} \
@@ -1853,7 +1853,7 @@ For a detailed example of the anchor workflow. Please refer [here](https://githu
 
 ## Create Anchor
 
-> <span class="highlight"><span class="nt">POST</span> /anchors</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /anchors</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/anchors \
@@ -1915,7 +1915,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Anchors
 
-> <span class="highlight"><span class="na">GET</span> /anchors</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /anchors</span></span> REQUEST
 
 ```shell
 curl --location --request GET https://api.dock.io/anchors \
@@ -1958,7 +1958,7 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 
 ## Get Anchor
 
-> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span></span> REQUEST
 
 ```shell
 curl --location --request GET https://api.dock.io/anchors/{anchor} \
@@ -2015,7 +2015,7 @@ You can track the current job status by querying the job id returned as part of 
 
 ## Get Job Status and Data
 
-> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span> REQUEST</span>
+> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></span> REQUEST
 
 ```shell
 curl --location --request GET https://api.dock.io/jobs/{id} \
@@ -2056,7 +2056,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 ## VCDM Verification
 
-> <span class="highlight"><span class="nt">POST</span> /verify</span> REQUEST</span>
+> <span class="highlight"><span class="nt">POST</span> /verify</span></span> REQUEST
 
 ```shell
 curl --location --request POST https://api.dock.io/verify \
