@@ -1002,7 +1002,7 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 </ul>
 <h2 id='simple-e2e-create-credentials-presentation-flow'>Simple E2E Create Credentials/Presentation Flow</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
-<h3 id='1-create-a-did'>1. Create a DID</h3>
+
 <blockquote>
 <p>DID CREATED - 200 Response</p>
 </blockquote>
@@ -1014,13 +1014,15 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
         </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><h3 id='1-create-a-did'>1. Create a DID</h3>
 <p>To create a new DID to issue with, go to <strong>Create DID</strong> and click <strong>Send</strong>. The <code>id</code> property denotes a job ID in the system that you can use to query for blockchain transaction status.</p>
 
 <aside class="notice">
 Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
-<h3 id='2-verify-the-new-did'>2. Verify the New DID</h3>
+
+<div style="clear:both"></div>
+
 <blockquote>
 <p>DID VERIFIED - 200 Response</p>
 </blockquote>
@@ -1035,13 +1037,15 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><h3 id='2-verify-the-new-did'>2. Verify the New DID</h3>
 <p>To verify if the new DID has been registered, go to <strong>Verify DID Registered</strong> and click <strong>Send</strong>.</p>
 
 <aside class="notice">
 You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
 </aside>
-<h3 id='3-create-a-signed-credential'>3. Create a Signed Credential</h3>
+
+<div style="clear:both"></div>
+
 <blockquote>
 <p>CREDENTIAL ISSUED - 200 Response</p>
 </blockquote>
@@ -1061,9 +1065,11 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><h3 id='3-create-a-signed-credential'>3. Create a Signed Credential</h3>
 <p>To create a Verifiable Credential using the the new issuer DID, go to <strong>Create Signed Credential</strong> and click <strong>Send</strong>. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.</p>
-<h3 id='4-verify-the-signed-credential'>4. Verify the Signed Credential</h3>
+
+<div style="clear:both"></div>
+
 <blockquote>
 <p>CREDENTIAL VERIFIED - 200 Response</p>
 </blockquote>
@@ -1071,9 +1077,11 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><h3 id='4-verify-the-signed-credential'>4. Verify the Signed Credential</h3>
 <p>To verify if the credential&#39;s cryptographic proof, revocation status and more go to <strong>Verify Signed Credential</strong> and click <strong>Send</strong>.</p>
-<h3 id='5-create-a-presentation'>5. Create a Presentation</h3>
+
+<div style="clear:both"></div>
+
 <blockquote>
 <p>PRESENTATION CREATED - 200 Response</p>
 </blockquote>
@@ -1105,9 +1113,11 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><h3 id='5-create-a-presentation'>5. Create a Presentation</h3>
 <p>To create a Verifiable Presentation by using the credential, go to <strong>Create Presentation</strong> and click <strong>Send</strong>.</p>
-<h3 id='6-verify-the-presentation'>6. Verify the Presentation</h3>
+
+<div style="clear:both"></div>
+
 <blockquote>
 <p>PRESENTATION VERIFIED - 200 Response</p>
 </blockquote>
@@ -1115,12 +1125,14 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><h3 id='6-verify-the-presentation'>6. Verify the Presentation</h3>
 <p>The same credential verification route can be used to verify a presentation. In Postman, go to <strong>Verify Presentation</strong> and click <strong>Send</strong>.</p>
 
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
 </aside>
+
+<div style="clear:both"></div>
 
 <h1 id="dids">DIDs</h1>
 
@@ -3049,9 +3061,10 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"proofs"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-30T15:47:24.667Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="get-anchor-responses">Responses</h3>
@@ -3132,10 +3145,10 @@ This operation counts towards your monthly transaction limits for each successfu
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"finalized"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"InBlock"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"finalized"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="get-job-status-and-data-responses">Responses</h3>
@@ -3256,7 +3269,8 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="verify-a-credential-or-presentation-responses">Responses</h3>
@@ -3455,8 +3469,9 @@ This operation counts towards your monthly transaction limits for each successfu
 <a id="tocsjobdesc"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"todo"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -4029,9 +4044,11 @@ This operation counts towards your monthly transaction limits for each successfu
 <a id="tocSanchor"></a>
 <a id="tocsanchor"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single/batch"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"proofs"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
   </span><span class="nl">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YYYY-"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -4086,7 +4103,8 @@ This operation counts towards your monthly transaction limits for each successfu
 <a id="tocSverificationresponse"></a>
 <a id="tocsverificationresponse"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
