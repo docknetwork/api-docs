@@ -424,13 +424,13 @@
             <a href="#credential-schemas" class="toc-h1 toc-link" data-title="Credential Schemas">Credential Schemas</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-schema" class="toc-h2 toc-link" data-title="Get Schema">Get Schema</a>
+                    <a href="#create-schema" class="toc-h2 toc-link" data-title="Create Schema">Create Schema</a>
                   </li>
                   <li>
                     <a href="#list-schemas" class="toc-h2 toc-link" data-title="List Schemas">List Schemas</a>
                   </li>
                   <li>
-                    <a href="#create-schema" class="toc-h2 toc-link" data-title="Create Schema">Create Schema</a>
+                    <a href="#get-schema" class="toc-h2 toc-link" data-title="Get Schema">Get Schema</a>
                   </li>
               </ul>
           </li>
@@ -438,13 +438,13 @@
             <a href="#anchors" class="toc-h1 toc-link" data-title="Anchors">Anchors</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-anchor" class="toc-h2 toc-link" data-title="Get Anchor">Get Anchor</a>
+                    <a href="#create-anchor" class="toc-h2 toc-link" data-title="Create Anchor">Create Anchor</a>
                   </li>
                   <li>
                     <a href="#list-anchors" class="toc-h2 toc-link" data-title="List Anchors">List Anchors</a>
                   </li>
                   <li>
-                    <a href="#create-anchor" class="toc-h2 toc-link" data-title="Create Anchor">Create Anchor</a>
+                    <a href="#get-anchor" class="toc-h2 toc-link" data-title="Get Anchor">Get Anchor</a>
                   </li>
               </ul>
           </li>
@@ -486,10 +486,7 @@
                     <a href="#tocS_JobDesc" class="toc-h2 toc-link" data-title="JobDesc">JobDesc</a>
                   </li>
                   <li>
-                    <a href="#tocS_DIDQualified" class="toc-h2 toc-link" data-title="DIDQualified">DIDQualified</a>
-                  </li>
-                  <li>
-                    <a href="#tocS_DID" class="toc-h2 toc-link" data-title="DID">DID</a>
+                    <a href="#tocS_DIDDock" class="toc-h2 toc-link" data-title="DIDDock">DIDDock</a>
                   </li>
                   <li>
                     <a href="#tocS_KeyType" class="toc-h2 toc-link" data-title="KeyType">KeyType</a>
@@ -606,7 +603,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 </tr>
 <tr>
 <td>PATCH</td>
-<td>Partially update a resource</td>
+<td>Partially updates a resource</td>
 </tr>
 <tr>
 <td>DELETE</td>
@@ -637,6 +634,10 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 <tr>
 <td>404</td>
 <td>Not Found -- The resource that you&#39;re trying to interact with could not be found on the server.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed -- The requested method does not exist in the API spec. Please check the {did} value and ensure that it&#39;s not empty/blank.</td>
 </tr>
 <tr>
 <td>429</td>
@@ -1002,12 +1003,6 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <h2 id='simple-e2e-create-credentials-presentation-flow'>Simple E2E Create Credentials/Presentation Flow</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
 <h3 id='1-create-a-did'>1. Create a DID</h3>
-<p>To create a new DID to issue with, go to <strong>Create DID</strong> and click <strong>Send</strong>. The <code>id</code> property denotes a job ID in the system that you can use to query for blockchain transaction status.</p>
-
-<aside class="notice">
-Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
-</aside>
-
 <blockquote>
 <p>DID CREATED - 200 Response</p>
 </blockquote>
@@ -1019,13 +1014,13 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
         </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5FDFd1Woa3cG1m18PLgPpYgGfwE5S1RqXyHeEYC86vUxzzkg"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='2-verify-the-new-did'>2. Verify the New DID</h3>
-<p>To verify if the new DID has been registered, go to <strong>Verify DID Registered</strong> and click <strong>Send</strong>.</p>
+</span></code></pre></div>
+<p>To create a new DID to issue with, go to <strong>Create DID</strong> and click <strong>Send</strong>. The <code>id</code> property denotes a job ID in the system that you can use to query for blockchain transaction status.</p>
 
 <aside class="notice">
-You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
+Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
-
+<h3 id='2-verify-the-new-did'>2. Verify the New DID</h3>
 <blockquote>
 <p>DID VERIFIED - 200 Response</p>
 </blockquote>
@@ -1040,9 +1035,13 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='3-create-a-signed-credential'>3. Create a Signed Credential</h3>
-<p>To create a Verifiable Credential using the the new issuer DID, go to <strong>Create Signed Credential</strong> and click <strong>Send</strong>. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.</p>
+</span></code></pre></div>
+<p>To verify if the new DID has been registered, go to <strong>Verify DID Registered</strong> and click <strong>Send</strong>.</p>
 
+<aside class="notice">
+You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
+</aside>
+<h3 id='3-create-a-signed-credential'>3. Create a Signed Credential</h3>
 <blockquote>
 <p>CREDENTIAL ISSUED - 200 Response</p>
 </blockquote>
@@ -1062,9 +1061,9 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='4-verify-the-signed-credential'>4. Verify the Signed Credential</h3>
-<p>To verify if the credential&#39;s cryptographic proof, revocation status and more go to <strong>Verify Signed Credential</strong> and click <strong>Send</strong>.</p>
-
+</span></code></pre></div>
+<p>To create a Verifiable Credential using the the new issuer DID, go to <strong>Create Signed Credential</strong> and click <strong>Send</strong>. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.</p>
+<h3 id='4-verify-the-signed-credential'>4. Verify the Signed Credential</h3>
 <blockquote>
 <p>CREDENTIAL VERIFIED - 200 Response</p>
 </blockquote>
@@ -1072,9 +1071,9 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='5-create-a-presentation'>5. Create a Presentation</h3>
-<p>To create a Verifiable Presentation by using the credential, go to <strong>Create Presentation</strong> and click <strong>Send</strong>.</p>
-
+</span></code></pre></div>
+<p>To verify if the credential&#39;s cryptographic proof, revocation status and more go to <strong>Verify Signed Credential</strong> and click <strong>Send</strong>.</p>
+<h3 id='5-create-a-presentation'>5. Create a Presentation</h3>
 <blockquote>
 <p>PRESENTATION CREATED - 200 Response</p>
 </blockquote>
@@ -1106,9 +1105,9 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"proof"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='6-verify-the-presentation'>6. Verify the Presentation</h3>
-<p>The same credential verification route can be used to verify a presentation. In Postman, go to <strong>Verify Presentation</strong> and click <strong>Send</strong>.</p>
-
+</span></code></pre></div>
+<p>To create a Verifiable Presentation by using the credential, go to <strong>Create Presentation</strong> and click <strong>Send</strong>.</p>
+<h3 id='6-verify-the-presentation'>6. Verify the Presentation</h3>
 <blockquote>
 <p>PRESENTATION VERIFIED - 200 Response</p>
 </blockquote>
@@ -1117,6 +1116,8 @@ You only need to create a DID once and then you can issue many credentials with 
     </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>The same credential verification route can be used to verify a presentation. In Postman, go to <strong>Verify Presentation</strong> and click <strong>Send</strong>.</p>
+
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
 </aside>
@@ -1134,7 +1135,7 @@ These steps involve using the API to create presentations on behalf of your hold
       /dids
     </a>
     <br />
-   <a href="#get-did">
+   <a href="#get-did-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids/{did}
     </a>
@@ -1168,12 +1169,13 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 </aside>
 <h2 id='create-did'>Create DID</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /dids</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /dids</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /dids <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'https://api.dock.io/dids'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "keyType": "sr25519"
+}'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
@@ -1201,14 +1203,14 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>did</td>
 <td>body</td>
-<td><a href="#schemadid">DID</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>false</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>. Default value will is a randomly generated DID.</td>
 </tr>
 <tr>
 <td>controller</td>
 <td>body</td>
-<td><a href="#schemadid">DID</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>false</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the <code>did</code> property.</td>
 </tr>
@@ -1239,10 +1241,11 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"926"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x3d7129a4d915e8f864c4bf4f4bcbdb67cde87e9bbcec06cb3baefd5b31812c03"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1271,11 +1274,11 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='resolve-did'>Resolve DID</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /dids/{did}</span></p>
+<p><span class="highlight"><span class="na">GET</span> /dids/{did}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/dids/did:dock:xyz'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
 
 </code></pre></div>
 <p>When a DID is provided in the path, the API will attempt to resolve that DID into a <a href="https://www.w3.org/TR/did-core/#dfn-did-documents">DID document</a>. This document contains the public keys and more information relating to that DID, check <a href="https://identity.foundation/.well-known/resources/did-configuration/">the identity foundation did configuration</a> document to learn more.</p>
@@ -1301,7 +1304,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>did</td>
 <td>path</td>
-<td><a href="#schemadid">DID</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>true</td>
 <td>Represents a specific DID that uniquely identifies the key resource.</td>
 </tr>
@@ -1354,11 +1357,11 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='list-dids'>List DIDs</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /dids</span></p>
+<p><span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /dids <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/dids'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
 
 </code></pre></div>
 <p>Return a list of all DIDs that your user account controls as fully resolved DID documents. Pagination is not yet supported.</p>
@@ -1368,12 +1371,21 @@ This operation counts towards your monthly transaction limits for each successfu
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.w3.org/ns/did/v1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{}</span><span class="w">
+      </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"assertionMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA#keys-1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sr25519VerificationKey2020"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DTGPqE2qYncxoDjrEWKhcTnn6hfsN24F7YZWSjGVUxgBgHA"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicKeyBase58"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4vm85LvBvhro1N9u4dfKWEyTayXojrTJbJCmzSJixK6L"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1392,19 +1404,23 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>All of a user&#39;s DIDs fully resolved into DID documents.</td>
-<td><a href="#schemadiddoc">DIDDoc</a></td>
+<td><a href="#schemadiddoc">DIDDock</a></td>
 </tr>
 </tbody></table>
 <h2 id='update-did'>Update DID</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></p>
+<p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PATCH /dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> PATCH <span class="s1">'https://api.dock.io/dids/did:dock:xyz'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "controller": "did:dock:xyz",
+  "keyType": "sr25519"
+}'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1433,14 +1449,14 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>did</td>
 <td>path</td>
-<td><a href="#schemadid">DID</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>true</td>
 <td>Represents a specific DID that uniquely identifies the key resource.</td>
 </tr>
 <tr>
 <td>controller</td>
 <td>body</td>
-<td><a href="#schemadid">DID</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>optional</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the <a href="#list-dids-responses">List DID</a> operation.</td>
 </tr>
@@ -1471,8 +1487,10 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"927"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="update-did-responses">Responses</h3>
@@ -1512,11 +1530,13 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='delete-did'>Delete DID</h2>
 <blockquote>
-<p><span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span></p>
+<p><span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE /dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> DELETE https://api.dock.io/dids/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+    }'</span>
 
 </code></pre></div>
 <p>Deletes a DID and its metadata from the blockchain and our platform. This will also delete the associated keypair from the key management system meaning that you cannot sign messages or credentials with it after this operation. The DID will no longer be able to be resolved. This operation is not reversible.</p>
@@ -1539,7 +1559,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>did</td>
 <td>path</td>
-<td><a href="#schemadid">DID</a></td>
+<td><a href="#schemadiddock">DID</a></td>
 <td>true</td>
 <td>Represents a specific DID that uniquely identifies the key resource.</td>
 </tr>
@@ -1549,8 +1569,10 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"928"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="delete-did-responses">Responses</h3>
@@ -1581,6 +1603,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The DID does not exist.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>405</td>
+<td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5">Method not Allowed</a></td>
+<td>The {did} value is blank/empty. Please ensure that the {did} value does exist.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 
 <h1 id="credentials">Credentials</h1>
@@ -1604,9 +1632,10 @@ This operation counts towards your monthly transaction limits for each successfu
 <h2 id="issue-credentials">Issue Credential</h2>
 
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /credentials</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /credentials</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1624,10 +1653,28 @@ This operation counts towards your monthly transaction limits for each successfu
     </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-08-24T14:15:22Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /credentials/ <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/credentials/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "persist": false,
+  "anchor": true,
+  "credential": {
+    "id": "http://example.com",
+    "context": ["https://www.w3.org/2018/credentials/examples/v1"],
+    "type": ["UniversityDegreeCredential"],
+    "subject": {
+      "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    },
+    "issuer": "did:dock:xyz",
+    "issuanceDate": "2020-08-24T14:15:22Z"
+  }
+}'</span>
+
 
 </code></pre></div>
 <p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property. If you do not specify a <code>context</code> property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential. You can read more about JSON-LD and contexts <a href="https://json-ld.org/spec/latest/json-ld/#the-context">here</a>.</p>
@@ -1770,14 +1817,42 @@ This operation counts towards your monthly transaction limits for each successfu
 <h2 id="create-a-presentation">Create Presentation</h2>
 
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /presentations</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /presentations</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /presentations/ <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/presentations/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "holder": "did:dock:xyz",
+  "challenge": "string",
+  "domain": "string",
+  "credentials": [
+    {
+      "@context": [
+        "string"
+      ],
+      "id": "http://example.com",
+      "type": [
+        "string"
+      ],
+      "credentialSubject": {},
+      "issuer": "did:dock:xyz",
+      "issuanceDate": "2019-08-24T14:15:22Z",
+      "expirationDate": "2019-08-24T14:15:22Z",
+      "credentialStatus": {},
+      "proof": {
+        "type": "Sr25519Signature2020",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "proofValue": "string"
+      }
+    }
+  ]
+}'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"holder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"challenge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1828,9 +1903,9 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>holder</td>
 <td>body</td>
-<td><a href="#schemadidqualified">DIDQualified</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>true</td>
-<td>DID as fully qualified, e.g., <code>did:dock:...</code>.</td>
+<td>DID as fully qualified, e.g., <code>did:dock:xyz</code>.</td>
 </tr>
 <tr>
 <td>challenge</td>
@@ -1963,14 +2038,21 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>For a detailed example of the registry workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/registryFlow.js">here</a>.</p>
 <h2 id='create-registry'>Create Registry</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /registries</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /registries</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /registries/ <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/registries/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "addOnly": true,
+  "policy": [
+    "did:dock:xyz"
+  ]
+}'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"did:dock:xyz"</span><span class="w">
@@ -2004,7 +2086,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>policy</td>
 <td>body</td>
-<td>[<a href="#schemadid">DID</a>]</td>
+<td>[<a href="#schemadiddock">DIDDock</a>]</td>
 <td>true</td>
 <td>The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: <code>OneOf</code> DID in list.</td>
 </tr>
@@ -2014,10 +2096,16 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"930"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OneOf"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2046,11 +2134,14 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='list-registries'>List Registries</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /registries</span></p>
+<p><span class="highlight"><span class="na">GET</span> /registries</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /registries/ <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/registries/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span><span class="s1">'{
+
+  }'</span>
 
 </code></pre></div>
 <p>Return a list of all registries created by the user. The list is returned with the registry id and policy of the revocation registry.</p>
@@ -2064,13 +2155,15 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"policy_and_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OneOf"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"did:dock:xyz"</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+        </span><span class="s2">"did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-25T12:20:51.773Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
@@ -2093,11 +2186,12 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </tbody></table>
 <h2 id='get-registry'>Get Registry</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /registries/{id}</span></p>
+<p><span class="highlight"><span class="na">GET</span> /registries/{id}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
 
 </code></pre></div>
 <p>Get the details of an existing registry, such as policy, add-only status, when it was last updated, and controller(s). You need only supply the revocation registry id that was returned upon revocation registry creation.</p>
@@ -2126,10 +2220,16 @@ For now, only one policy is supported, and each registry is owned by a single DI
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"did:dock:xyz"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"policy_and_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OneOf"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-25T12:20:51.773Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"930"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="get-registry-responses">Responses</h3>
@@ -2157,14 +2257,20 @@ For now, only one policy is supported, and each registry is owned by a single DI
 </tbody></table>
 <h2 id='revoke-unrevoke-credential'>Revoke/Unrevoke Credential</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /registries/{id}</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /registries/{id}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "action": "revoke",
+  "credentialIds": [
+    "http://example.com"
+  ]
+}'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"revoke"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credentialIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"http://example.com"</span><span class="w">
@@ -2233,10 +2339,11 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"931"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"revokeIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"0xaff1aa6770d43d684690c0ad679a8608d5b7576feb3fdc1d6712decf73ca44ef"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2271,11 +2378,10 @@ This operation counts towards your monthly transaction limits for each successfu
 </tbody></table>
 <h2 id='delete-registry'>Delete Registry</h2>
 <blockquote>
-<p><span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span></p>
+<p><span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE /registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/registries/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div>
 <p>A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.</p>
@@ -2308,10 +2414,11 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"932"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"hexDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hexId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6151e62d7e03bc4012fde0595cfdb0d140e463a2f0ad5a431ff47243374bc612"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="mi">4226296</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2344,11 +2451,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>Credentials can be revoked or unrevoked, and as such they contain a revocation status so that verifiers/issuers can check if the credential is still valid. Once a revocation registry has been created and credentials issued with it, you can check the revocation status. Verifiers will do this automatically.</p>
 <h2 id='get-revocation-status'>Get Revocation Status</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></p>
+<p><span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /revocationStatus/<span class="o">{</span>regId<span class="o">}</span>/<span class="o">{</span>revId<span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/revocationStatus/<span class="o">{</span>regId<span class="o">}</span>/<span class="o">{</span>revId<span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
 
 </code></pre></div>
 <p>To check if an id is revoked or not, you can check its status with the registry id (<code>regId</code>) and revocation id (<code>revId</code>).</p>
@@ -2409,6 +2517,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, because the registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>500</td>
+<td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1">Server Error</a></td>
+<td>The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 
 <h1 id="credential-schemas">Credential Schemas</h1>
@@ -2419,19 +2533,19 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <div class="highlight">
   <div class="highlight shell align-code">
+          <a href="#create-schema-responses">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
+     <a href="#list-schemas-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /schemas
+    </a>
+    <br />
   <a href="#get-schema-parameters">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /schemas/{schemaId}
-    </a>
-    <br />
-        <a href="#list-schemas-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /schemas
-    </a>
-    <br />
-        <a href="#create-schema-responses">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /schemas
     </a>
     <br />
   </div>
@@ -2440,138 +2554,40 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.</p>
 
 <p>Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a <code>Blob</code> in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.</p>
-<h2 id='get-schema'>Get Schema</h2>
-<blockquote>
-<p><span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span></p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /schemas/<span class="o">{</span>schemaId<span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
-
-</code></pre></div>
-<p>Reading a Schema from the Dock chain can easily be achieved by using the <code>get</code> method which will return the JSON schema to a specific schema ID.</p>
-
-<h3 id="get-schema-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>schemaId</td>
-<td>path</td>
-<td><a href="#schemahex32">Hex32</a></td>
-<td>true</td>
-<td>A schema id.</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>200 Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<h3 id="get-schema-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and returns the requested Schema.</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>404</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>The request was unsuccessful, because the schema was not found.</td>
-<td><a href="#schemaerror">Error</a></td>
-</tr>
-</tbody></table>
-<h2 id='list-schemas'>List Schemas</h2>
-<blockquote>
-<p><span class="highlight"><span class="na">GET</span> /schemas</span></p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /schemas <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
-
-</code></pre></div>
-<p>Return a list of all schemas created by the authenticated user.</p>
-
-<blockquote>
-<p>200 Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-                </span><span class="p">}</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"alumniOf"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<h3 id="list-schemas-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return all schemas created by the user.</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
 <h2 id='create-schema'>Create Schema</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /schemas</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /schemas</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /schemas <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/schemas <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "description": "Dock Schema Example",
+ "type": "object",
+ "properties": {
+  "id": {
+    "type": "string"
+ },
+ "emailAddress": {
+  "type": "string",
+  "format": "email"
+ },
+ "alumniOf": {
+  "type": "string"
+ }
+ },
+ "required": [
+  "emailAddress",
+  "alumniOf"
+ ],
+ "additionalProperties": false,
+ "author": "{{did}}"
+}'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
  </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
@@ -2625,37 +2641,37 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"168"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-                </span><span class="p">}</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"alumniOf"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"Secp256k1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"hexID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"168"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blob:dock:5HiWq32Mm74MUJihSMcxcTSr5W8fshrDr9b9AV8YxJXECL4P"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"alumniOf"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5Gb613bMKAPjZ33rAEQdevuXvXVpkSWMHu6McnaqsJpKeMsd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Secp256k1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xf8270d8d1e82d4619b3b919d9573eb6e0ee8a368a65f1930c0f538679bd710d462867da1ad343e43332a72f11f16b04310f2f8ecb275b70c895ccf69bf85d35000"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"hexID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fa035e592d57e5dbda18531212ecb667004c187a0f35ea2125e1ceeeaf35f151"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="create-schema-responses">Responses</h3>
@@ -2681,52 +2697,78 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<h1 id="anchors">Anchors</h1>
-
+<h2 id='list-schemas'>List Schemas</h2>
 <blockquote>
-<p>Endpoints</p>
+<p><span class="highlight"><span class="na">GET</span> /schemas</span></span> REQUEST</p>
 </blockquote>
-
-<div class="highlight">
-  <div class="highlight shell align-code">
-  <a href="#get-anchor-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /anchors/{anchor}
-    </a>
-    <br />
-        <a href="#list-anchors-responses">
-      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
-      /anchors
-    </a>
-    <br />
-        <a href="#create-anchor-responses">
-      <span class="nt">POST</span>&nbsp;&nbsp;
-      /anchors
-    </a>
-    <br />
-  </div>
-</div>
-
-<p>Anchoring allows users to store a digest of one or more credentials (or any document) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.</p>
-
-<p>The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block.</p>
-
-<p>The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.</p>
-
-<p>For a detailed example of the anchor workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/anchorsFlow.js">here</a>.</p>
-<h2 id='get-anchor'>Get Anchor</h2>
-<blockquote>
-<p><span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span></p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /anchors/<span class="o">{</span>anchor<span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/schemas <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
 
 </code></pre></div>
-<p>Get a specific anchor with the given ID.</p>
+<p>Return a list of all schemas created by the authenticated user.</p>
 
-<h3 id="get-anchor-parameters">Parameters</h3>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"alumniOf"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<h3 id="list-schemas-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return all schemas created by the user.</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+<h2 id='get-schema'>Get Schema</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/schemas/<span class="o">{</span>schemaId<span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>Reading a Schema from the Dock chain can easily be achieved by using the <code>get</code> method which will return the JSON schema to a specific schema ID.</p>
+
+<h3 id="get-schema-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2738,11 +2780,11 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 </thead><tbody>
 <tr>
-<td>anchor</td>
+<td>schemaId</td>
 <td>path</td>
 <td><a href="#schemahex32">Hex32</a></td>
 <td>true</td>
-<td>An anchor id.</td>
+<td>A schema id.</td>
 </tr>
 </tbody></table>
 
@@ -2750,12 +2792,40 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"938"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blob:dock:5HWiX179ifZsLvS8PdsvBacNzmM9ra9hjvSatSDZytqJjjxG"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"alumniOf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"emailAddress"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"alumniOf"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5FJyWxdxs3JDYm5yDEY1r9HaBQBPZ4QxTa6rCpBj7LoUAr8u"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Sr25519"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x16154306f3380cab650a88362e343685de6652404882dfbaf9e75bc1ff65884772b2c67b99e33866e3c894a02635de4815936c05e183f4257d4260dafd2a9a8c"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"hexID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f103c5cd53cc6aa1a1b50b38e0499f2e29d52edfbb8902a3b5503528b460f64b"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="get-anchor-responses">Responses</h3>
+<h3 id="get-schema-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2768,73 +2838,67 @@ This operation counts towards your monthly transaction limits for each successfu
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and returns the anchor&#39;s details, e.g., <code>blockHash</code> and <code>root</code>.</td>
-<td><a href="#schemaanchor">Anchor</a></td>
+<td>The request was successful and returns the requested Schema.</td>
+<td>Inline</td>
 </tr>
 <tr>
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>The request was unsuccessful, because the anchor was not found.</td>
+<td>The request was unsuccessful, because the schema was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-<h2 id='list-anchors'>List Anchors</h2>
-<blockquote>
-<p><span class="highlight"><span class="na">GET</span> /anchors</span></p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /anchors <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
-</code></pre></div>
-<p>Return a list of all anchors created by the authenticated user, regardless of whether they have contributed to the batching or not.</p>
+<h1 id="anchors">Anchors</h1>
 
 <blockquote>
-<p>200 Response</p>
+<p>Endpoints</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"anchor"</span><span class="p">:</span><span class="s2">"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"proofs"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-      </span><span class="nl">"root"</span><span class="p">:</span><span class="s2">"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"documentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"https://creds.dock.io/credential/b1ed680d3d2d8167dc31bc4913e9c511"</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-     </span><span class="p">},</span><span class="w">
-     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T13:53:51.640Z"</span><span class="p">,</span><span class="w">
-     </span><span class="nl">"job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"827"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<h3 id="list-anchors-responses">Responses</h3>
 
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will return all anchors created by the user.</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
+<div class="highlight">
+  <div class="highlight shell align-code">
+    <br />
+        <a href="#create-anchor-responses">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /anchors
+    </a>
+        <br />
+        <a href="#list-anchors-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors
+    </a>
+    <br />
+  <a href="#get-anchor-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /anchors/{anchor}
+    </a>
+  </div>
+</div>
+
+<p>Anchoring allows users to store a digest of one or more credentials (or any document) on our blockchain, tying them to immutable timestamps and proving that they were generated at a certain moment in time. By enabling this feature, users will have more options for auditing credentials given and timestamping any documents.</p>
+
+<p>The Dock Blockchain includes a module explicitly intended for proof of existence. You post the hash of a document on-chain at a specific block. Later you can use that hash to prove the document existed at or before that block.</p>
+
+<p>The API allows you to create, get, and retrieve anchors as well as a list of all anchors created by the user.</p>
+
+<p>For a detailed example of the anchor workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/anchorsFlow.js">here</a>.</p>
 <h2 id='create-anchor'>Create Anchor</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /anchors</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /anchors</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /anchors <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/anchors <span class="se">\</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">[</span><span class="w">
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'[
+  "can be a string",
+  {
+    "or": "a JSON document"
+  }
+]'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">[</span><span class="w">
   </span><span class="s2">"can be a string"</span><span class="p">,</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"or"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a JSON document"</span><span class="w">
@@ -2903,6 +2967,116 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
+<h2 id='list-anchors'>List Anchors</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /anchors</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/anchors <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>Return a list of all anchors created by the authenticated user, regardless of whether they have contributed to the batching or not.</p>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"anchor"</span><span class="p">:</span><span class="s2">"54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"proofs"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"root"</span><span class="p">:</span><span class="s2">"0x54bdd55207c4d41d2b8a7780e967bb5a06bdfb793fc4055baf244e60cd0d839c"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"documentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"https://creds.dock.io/credential/b1ed680d3d2d8167dc31bc4913e9c511"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T13:53:51.640Z"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"827"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<h3 id="list-anchors-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return all anchors created by the user.</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+<h2 id='get-anchor'>Get Anchor</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/anchors/<span class="o">{</span>anchor<span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>Get a specific anchor with the given ID.</p>
+
+<h3 id="get-anchor-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>anchor</td>
+<td>path</td>
+<td><a href="#schemahex32">Hex32</a></td>
+<td>true</td>
+<td>An anchor id.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-anchor-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and returns the anchor&#39;s details, e.g., <code>blockHash</code> and <code>root</code>.</td>
+<td><a href="#schemaanchor">Anchor</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The request was unsuccessful, because the anchor was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
 
 <h1 id="jobs">Jobs</h1>
 
@@ -2925,11 +3099,10 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>You can track the current job status by querying the job id returned as part of the initial API response that triggered the job. The work is done asynchronously.</p>
 <h2 id='get-job-status-and-data'>Get Job Status and Data</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></p>
+<p><span class="highlight"><span class="na">GET</span> /jobs/{Id}</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET /jobs/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/jobs/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div>
 <p>To check the Job status and data, you can use the <code>GET</code> method and simply put the Job id. It will return information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.</p>
@@ -2992,14 +3165,42 @@ This operation counts towards your monthly transaction limits for each successfu
 <h1 id="verify">Verify</h1>
 <h2 id='vcdm-verification'>VCDM Verification</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">POST</span> /verify</span></p>
+<p><span class="highlight"><span class="nt">POST</span> /verify</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST /verify <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/verify <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "id": "https://creds.dock.io/credential/93a1cd57a46fd5e6e641f0288e2f8b44",
+  "type": [
+    "VerifiableCredential"
+  ],
+  "credentialSubject": [
+    {
+      "id": "did:dock:5Gwh4PxDjLUXnfqExALYTju9UpZTHzBLNb7j8Ug8NhTKivUe"
+    }
+  ],
+  "issuanceDate": "2021-11-18T19:28:49.840Z",
+  "proof": {
+    "type": "EcdsaSecp256k1Signature2019",
+    "created": "2021-11-18T19:28:51Z",
+    "verificationMethod": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT#keys-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "zAN1rKvtics5d8AZ5rvm9n9DNjfXGtFegv48PorsWvQdeVKPkzSSyKJzdN3jjnfTNqFDg5FWpXeYhubsFKnX8zLNiBsb3D32k3"
+  },
+  "issuer": {
+    "id": "did:dock:5FfmGmkY1BqEqRQhRLCLDLHPBFvhSbEBK3DJhEk9mbkpfAXT",
+    "name": "my issuer"
+  }
+}'</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"https://www.w3.org/2018/credentials/v1"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="w">
@@ -3285,48 +3486,19 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 </tbody></table>
 
-<h2 id="tocS_DIDQualified">DIDQualified</h2>
+<h2 id="tocS_DIDDock">DIDDock</h2>
 
 <!-- backwards compatibility -->
 
-<p><a id="schemadidqualified"></a>
-<a id="schema_DIDQualified"></a>
-<a id="tocSdidqualified"></a>
-<a id="tocsdidqualified"></a></p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
-
-</span></code></pre></div>
-<p>This is a schema used in some operations that used DID as fully qualified, e.g., <code>did:dock:xyz</code>.</p>
-<h3 id='properties-5'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>DIDQualified</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>DID as fully qualified, e.g., <code>did:dock:xyz</code>.</td>
-</tr>
-</tbody></table>
-
-<h2 id="tocS_DID">DID</h2>
-
-<!-- backwards compatibility -->
-
-<p><a id="schemadid"></a>
-<a id="schema_DID"></a>
-<a id="tocSdid"></a>
-<a id="tocsdid"></a></p>
+<p><a id="schemadiddock"></a>
+<a id="schema_DIDDock"></a>
+<a id="tocSdiddock"></a>
+<a id="tocsdiddock"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"did:dock:xyz"</span><span class="w">
 
 </span></code></pre></div>
 <p>DID as fully qualified, e.g., <code>did:dock:</code>.</p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3459,7 +3631,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema that represents a DID document. The current set of properties is incomplete</p>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3476,7 +3648,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 <tr>
 <td>id</td>
-<td><a href="#schemadidqualified">DIDQualified</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>false</td>
 <td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
@@ -3513,7 +3685,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema that represents a credential format expected by API caller when issuing a credential.</p>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3554,7 +3726,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 <tr>
 <td>issuer</td>
-<td><a href="#schemadidqualified">DIDQualified</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>false</td>
 <td>Credential issuer. DID as fully qualified, e.g., <code>did:dock:</code>. If not supplied the credential will not be signed.</td>
 </tr>
@@ -3626,7 +3798,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema that represents a Verifiable (signed) Presentation returned by API. The current set of properties is almost complete</p>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3741,7 +3913,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema that represents a verifiable (signed) Credential returned by API. The current set of properties is almost complete.</p>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3776,7 +3948,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 <tr>
 <td>issuer</td>
-<td><a href="#schemadidqualified">DIDQualified</a></td>
+<td><a href="#schemadiddock">DIDDock</a></td>
 <td>false</td>
 <td>Credential issuer or DID as fully qualified, e.g., <code>did:dock:</code>.</td>
 </tr>
@@ -3882,7 +4054,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema that represents a Revocation registry used in Revocation or Unrevocation.</p>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3899,7 +4071,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 <tr>
 <td>policy</td>
-<td>[<a href="#schemadid">DID</a>]</td>
+<td>[<a href="#schemadiddock">DIDDock</a>]</td>
 <td>false</td>
 <td>Only one policy supported as of now called <code>OneOf</code>.</td>
 </tr>
