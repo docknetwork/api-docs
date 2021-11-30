@@ -87,6 +87,7 @@ Code | Meaning
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
 401 | Unauthorized -- Do not own resource or have an invalid API key in the header.
 404 | Not Found -- The resource that you're trying to interact with could not be found on the server.
+405 | Method Not Allowed -- The requested method does not exist in the API spec. Please check the {did} value and ensure that it's not empty/blank.
 429 | Too Many Requests -- You sent too many requests. Please try to reduce the number of requests.
 500 | Server Errors -- Something has gone wrong on the server. Contact us if this keeps happening.
 
@@ -599,7 +600,7 @@ These steps involve using the API to create presentations on behalf of your hold
       /dids
     </a>
     <br />
-   <a href="#get-did">
+   <a href="#get-did-responses">
       <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
       /dids/{did}
     </a>
@@ -635,7 +636,8 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 
 ## Create DID
 
-> <span class="highlight"><span class="nt">POST</span> /dids</span>
+> <span class="highlight"><span class="nt">POST</span> /dids</span> REQUEST</span>
+
 
 
 ```shell
@@ -648,7 +650,6 @@ curl --location --request POST 'https://api.dock.io/dids' \
 ```
 
 ```json-doc
-REQUEST:
 {
   "keyType": "sr25519"
 }
@@ -666,8 +667,8 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
-|controller|body|[DID](#schemadid)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
+|did|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
+|controller|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is `sr25519`.|
 
 ### Enumerated Values
@@ -700,7 +701,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Resolve DID
 
-> <span class="highlight"><span class="na">GET</span> /dids/{did}</span>
+> <span class="highlight"><span class="na">GET</span> /dids/{did}</span> REQUEST</span>
 
 ```shell
 curl --location --request GET 'https://api.dock.io/dids/did:dock:xyz' \
@@ -721,7 +722,7 @@ The API supports resolving many DID methods, some examples are:
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
+|did|path|[DIDDock](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
 
 > 200 Response
 
@@ -755,7 +756,7 @@ The API supports resolving many DID methods, some examples are:
 
 ## List DIDs
 
-> <span class="highlight"><span class="na">GET</span> /dids</span>
+> <span class="highlight"><span class="na">GET</span> /dids</span> REQUEST</span>
 
 ```shell
 curl --location --request GET 'https://api.dock.io/dids' \
@@ -795,13 +796,13 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDoc](#schemadiddoc)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDock](#schemadiddoc)|
 
 
 
 ## Update DID
 
-> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span>
+> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span> REQUEST</span>
 
 ```shell
 curl --location --request PATCH 'https://api.dock.io/dids/did:dock:xyz' \
@@ -815,7 +816,6 @@ curl --location --request PATCH 'https://api.dock.io/dids/did:dock:xyz' \
 ```
 
 ```json-doc
-REQUEST:
 
 {
   "controller": "did:dock:xyz",
@@ -837,8 +837,8 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
-|controller|body|[DID](#schemadid)|optional|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the [List DID](#list-dids-responses) operation.|
+|did|path|[DIDDock](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
+|controller|body|[DIDDock](#schemadiddock)|optional|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the [List DID](#list-dids-responses) operation.|
 |keyType|body|[KeyType](#schemakeytype)|optional|Type of the public key for DID. The default value of the keyType is sr25519. If you want to update the keyType when performing the update DID, you need to set a different keyType value from the assigned keyType that you currently have. For example, if you previously used `sr25519`, you need to replace it with either `ed25519` or `secp256k1`.|
 
 ### Enumerated Values
@@ -870,7 +870,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## Delete DID
 
-> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span>
+> <span class="highlight"><span class="kd">DELETE</span> /dids/{did}</span> REQUEST</span>
 
 ```shell
 curl --location --request DELETE https://api.dock.io/dids/{did} \
@@ -892,7 +892,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|[DID](#schemadid)|true|Represents a specific DID that uniquely identifies the key resource.|
+|did|path|[DID](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
 
 > 200 Response
 
@@ -912,6 +912,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove the DID.|[JobId](#schemajobid)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
+|405|[Method not Allowed](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5)|The {did} value is blank/empty. Please ensure that the {did} value does exist.|[Error](#schemaerror)|
 
 
 
@@ -933,10 +934,9 @@ You can create and sign Verifiable Credentials on the Dock API. By default, Dock
 
 <h2 id="issue-credentials">Issue Credential</h2>
 
-> <span class="highlight"><span class="nt">POST</span> /credentials</span>
+> <span class="highlight"><span class="nt">POST</span> /credentials</span> REQUEST</span>
 
 ```json-doc
-REQUEST:
 
 {
   "persist": false,
@@ -1070,7 +1070,7 @@ For a detailed example of the presentations workflow. Please refer [here](https:
 
 <h2 id="create-a-presentation">Create Presentation</h2>
 
-> <span class="highlight"><span class="nt">POST</span> /presentations</span>
+> <span class="highlight"><span class="nt">POST</span> /presentations</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/presentations/ \
@@ -1108,7 +1108,6 @@ curl --location --request POST https://api.dock.io/presentations/ \
 ```
 
 ```json-doc
-REQUEST:
 
 {
   "holder": "did:dock:xyz",
@@ -1152,7 +1151,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|holder|body|[DIDQualified](#schemadidqualified)|true|DID as fully qualified, e.g., `did:dock:xyz`.|
+|holder|body|[DIDDock](#schemadiddock)|true|DID as fully qualified, e.g., `did:dock:xyz`.|
 |challenge|body|string|false|Presentation's Challenge in a string format. The default value for this is `random hex string`.|
 |domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API.|
@@ -1232,7 +1231,7 @@ For a detailed example of the registry workflow. Please refer [here](https://git
 
 ## Create Registry
 
-> <span class="highlight"><span class="nt">POST</span> /registries</span>
+> <span class="highlight"><span class="nt">POST</span> /registries</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/registries/ \
@@ -1249,7 +1248,6 @@ curl --location --request POST https://api.dock.io/registries/ \
 ```
 
 ```json-doc
-REQUEST:
 
 {
   "addOnly": true,
@@ -1270,7 +1268,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |addOnly|body|boolean|false|True/false options. The default value is "false".|
-|policy|body|[[DID](#schemadid)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
+|policy|body|[[DIDDock](#schemadiddock)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
 
 > 200 Response
 
@@ -1299,7 +1297,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Registries
 
-> <span class="highlight"><span class="na">GET</span> /registries</span>
+> <span class="highlight"><span class="na">GET</span> /registries</span> REQUEST</span>
 
 ```shell
 curl --location --request GET https://api.dock.io/registries/ \
@@ -1345,7 +1343,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 
 ## Get Registry
 
-> <span class="highlight"><span class="na">GET</span> /registries/{id}</span>
+> <span class="highlight"><span class="na">GET</span> /registries/{id}</span> REQUEST</span>
 
 ```shell
 curl --location --request GET https://api.dock.io/registries/{id} \
@@ -1391,7 +1389,7 @@ curl --location --request GET https://api.dock.io/registries/{id} \
 
 ## Revoke/Unrevoke Credential
 
-> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span>
+> <span class="highlight"><span class="nt">POST</span> /registries/{id}</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/registries/{id} \
@@ -1407,7 +1405,6 @@ curl --location --request POST https://api.dock.io/registries/{id} \
 ```
 
 ```json-doc
-REQUEST:
 
 {
   "action": "revoke",
@@ -1465,9 +1462,10 @@ This operation counts towards your monthly transaction limits for each successfu
 
 
 
+
 ## Delete Registry
 
-> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span>
+> <span class="highlight"><span class="kd">DELETE</span> /registries/{id}</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/registries/{id} \
@@ -1516,7 +1514,7 @@ Credentials can be revoked or unrevoked, and as such they contain a revocation s
 
 ## Get Revocation Status
 
-> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span>
+> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}</span> REQUEST</span>
 
 ```shell
 
@@ -1550,6 +1548,7 @@ To check if an id is revoked or not, you can check its status with the registry 
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return **true**, if the credential is revoked, **false** otherwise.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
+|500|[Server Error](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1)|The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.|[Error](#schemaerror)|
 
 
 <h1 id="credential-schemas">Credential Schemas</h1>
@@ -1582,7 +1581,7 @@ Before diving further into Schemas, it is important to understand how they are s
 
 ## Create Schema
 
-> <span class="highlight"><span class="nt">POST</span> /schemas</span>
+> <span class="highlight"><span class="nt">POST</span> /schemas</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/schemas \
@@ -1616,7 +1615,6 @@ curl --location --request POST https://api.dock.io/schemas \
 ```
 
 ```json-doc
-REQUEST:
 
 {
  "$schema": "http://json-schema.org/draft-07/schema#",
@@ -1702,7 +1700,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Schemas
 
-> <span class="highlight"><span class="na">GET</span> /schemas</span>
+> <span class="highlight"><span class="na">GET</span> /schemas</span> REQUEST</span>
 
 
 ```shell
@@ -1757,7 +1755,7 @@ Return a list of all schemas created by the authenticated user.
 
 ## Get Schema
 
-> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span>
+> <span class="highlight"><span class="na">GET</span> /schemas/{schemaId}</span> REQUEST</span>
 
 ```shell
 curl --location --request GET https://api.dock.io/schemas/{schemaId} \
@@ -1855,7 +1853,7 @@ For a detailed example of the anchor workflow. Please refer [here](https://githu
 
 ## Create Anchor
 
-> <span class="highlight"><span class="nt">POST</span> /anchors</span>
+> <span class="highlight"><span class="nt">POST</span> /anchors</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/anchors \
@@ -1872,7 +1870,6 @@ curl --location --request POST https://api.dock.io/anchors \
 ```
 
 ```json-doc
-REQUEST:
 
 [
   "can be a string",
@@ -1918,7 +1915,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ## List Anchors
 
-> <span class="highlight"><span class="na">GET</span> /anchors</span>
+> <span class="highlight"><span class="na">GET</span> /anchors</span> REQUEST</span>
 
 ```shell
 curl --location --request GET https://api.dock.io/anchors \
@@ -1961,7 +1958,7 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 
 ## Get Anchor
 
-> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span>
+> <span class="highlight"><span class="na">GET</span> /anchors/{anchor}</span> REQUEST</span>
 
 ```shell
 curl --location --request GET https://api.dock.io/anchors/{anchor} \
@@ -2018,7 +2015,7 @@ You can track the current job status by querying the job id returned as part of 
 
 ## Get Job Status and Data
 
-> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span>
+> <span class="highlight"><span class="na">GET</span> /jobs/{Id}</span> REQUEST</span>
 
 ```shell
 curl --location --request GET https://api.dock.io/jobs/{id} \
@@ -2059,7 +2056,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 
 ## VCDM Verification
 
-> <span class="highlight"><span class="nt">POST</span> /verify</span>
+> <span class="highlight"><span class="nt">POST</span> /verify</span> REQUEST</span>
 
 ```shell
 curl --location --request POST https://api.dock.io/verify \
@@ -2097,7 +2094,6 @@ curl --location --request POST https://api.dock.io/verify \
 ```
 
 ```json-doc
-REQUEST:
 
 {
   "@context": [
@@ -2298,32 +2294,12 @@ This is a schema used in Job operation to get description of the job including t
 |status|[JobStatus](#schemajobstatus)|Status of the job.|
 |result|object|false|Result of the Job.|
 
-<h2 id="tocS_DIDQualified">DIDQualified</h2>
+<h2 id="tocS_DIDDock">DIDDock</h2>
 <!-- backwards compatibility -->
-<a id="schemadidqualified"></a>
-<a id="schema_DIDQualified"></a>
-<a id="tocSdidqualified"></a>
-<a id="tocsdidqualified"></a>
-
-```json
-"did:dock:xyz"
-
-```
-
-This is a schema used in some operations that used DID as fully qualified, e.g., `did:dock:xyz`.
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|DIDQualified|string(uri)|false|DID as fully qualified, e.g., `did:dock:xyz`.|
-
-<h2 id="tocS_DID">DID</h2>
-<!-- backwards compatibility -->
-<a id="schemadid"></a>
-<a id="schema_DID"></a>
-<a id="tocSdid"></a>
-<a id="tocsdid"></a>
+<a id="schemadiddock"></a>
+<a id="schema_DIDDock"></a>
+<a id="tocSdiddock"></a>
+<a id="tocsdiddock"></a>
 
 ```json
 "did:dock:xyz"
@@ -2447,7 +2423,7 @@ This is a schema that represents a DID document. The current set of properties i
 |Name|Type|Required|Description|
 |---|---|---|---|
 |@context|[Context](#schemacontext)|false|JSON-LD context.|
-|id|[DIDQualified](#schemadidqualified)|false|DID as fully qualified, e.g., `did:dock:`.|
+|id|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`.|
 |authentication|array|false|DID authentication.|
 
 
@@ -2487,7 +2463,7 @@ This is a schema that represents a credential format expected by API caller.
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object|true|Credential subject.|
 |schema|string|false|Schema ID returned by create schema route|
-|issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
+|issuer|[DIDDock](#schemadiddock)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |status|object or string|false|Revocation registry id or user supplied status object.|
@@ -2604,7 +2580,7 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 |id|string(uri)|false|Credential id.|
 |type|[string]|false|Credential type.|
 |credentialSubject|any|false|Credential subject.|
-|issuer|[DIDQualified](#schemadidqualified)|false|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
+|issuer|[DIDDock](#schemadiddock)|false|Credential issuer or DID as fully qualified, e.g., `did:dock:`.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
 |credentialStatus|any|false|Revocation registry id or user supplied status object.|
@@ -2663,7 +2639,7 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 |Name|Type|Required|Description|
 |---|---|---|---|
 |addOnly|boolean|false|If the `addOnly` value is true, they cannot unrevoke and delete the registry. The default value for this is `false`.|
-|policy|[[DID](#schemadid)]|false|Only one policy supported as of now called `OneOf`.|
+|policy|[[DIDDock](#schemadiddock)]|false|Only one policy supported as of now called `OneOf`.|
 
 <h2 id="tocS_VerificationResponse">VerificationResponse</h2>
 <!-- backwards compatibility -->
