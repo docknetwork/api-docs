@@ -451,8 +451,6 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
 
-### 1. Create a DID
-
 > DID CREATED - 200 Response
 
 ```json
@@ -466,14 +464,15 @@ This flow refers to Postman, but the general steps are the same however you use 
 }
 ```
 
+### 1. Create a DID
+
 To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
 
 <aside class="notice">
 Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
 
-
-### 2. Verify the New DID
+<div style="clear:both"></div>
 
 > DID VERIFIED - 200 Response
 
@@ -491,13 +490,15 @@ Creating a DID submits a transaction to the blockchain, this could take some tim
 }
 ```
 
+### 2. Verify the New DID
+
 To verify if the new DID has been registered, go to **Verify DID Registered** and click **Send**.
 
 <aside class="notice">
 You only need to create a DID once and then you can issue many credentials with it. A subject/holder DID should not be the same as the issuer DID in a real world credential.
 </aside>
 
-### 3. Create a Signed Credential
+<div style="clear:both"></div>
 
 > CREDENTIAL ISSUED - 200 Response
 
@@ -520,9 +521,11 @@ You only need to create a DID once and then you can issue many credentials with 
 }
 ```
 
+### 3. Create a Signed Credential
+
 To create a Verifiable Credential using the the new issuer DID, go to **Create Signed Credential** and click **Send**. This will send some example credential data to the API and sign it with your DID keypair. It will return a Verifiable Credential that conforms to the W3C spec.
 
-### 4. Verify the Signed Credential
+<div style="clear:both"></div>
 
 > CREDENTIAL VERIFIED - 200 Response
 
@@ -533,9 +536,11 @@ To create a Verifiable Credential using the the new issuer DID, go to **Create S
 }
 ```
 
+### 4. Verify the Signed Credential
+
 To verify if the credential's cryptographic proof, revocation status and more go to **Verify Signed Credential** and click **Send**.
 
-### 5. Create a Presentation
+<div style="clear:both"></div>
 
 > PRESENTATION CREATED - 200 Response
 
@@ -570,9 +575,11 @@ To verify if the credential's cryptographic proof, revocation status and more go
 }
 ```
 
+### 5. Create a Presentation
+
 To create a Verifiable Presentation by using the credential, go to **Create Presentation** and click **Send**.
 
-### 6. Verify the Presentation
+<div style="clear:both"></div>
 
 > PRESENTATION VERIFIED - 200 Response
 
@@ -583,11 +590,15 @@ To create a Verifiable Presentation by using the credential, go to **Create Pres
 }
 ```
 
+### 6. Verify the Presentation
+
 The same credential verification route can be used to verify a presentation. In Postman, go to **Verify Presentation** and click **Send**.
 
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
 </aside>
+
+<div style="clear:both"></div>
 
 <h1 id="dids">DIDs</h1>
 
@@ -1980,9 +1991,10 @@ Get a specific anchor with the given ID.
 
 ```json
 {
-  "anchor": "string",
-  "blockHash": "string",
-  "root": "string"
+  "type": "single",
+  "proofs": [],
+  "root": "0x00",
+  "created_at": "2021-11-30T15:47:24.667Z"
 }
 ```
 
@@ -2037,10 +2049,10 @@ To check the Job status and data, you can use the `GET` method and simply put th
 ```json
 {
   "id": "123",
-  "status": "finalized",
   "result": {
     "InBlock": "0x00"
-  }
+  },
+  "status": "finalized"
 }
 ```
 
@@ -2138,7 +2150,8 @@ You can verify issued/received credentials and presentations using this route. V
 
 ```json
 {
-  "verified": true
+  "verified": true,
+  "results": [...]
 }
 ```
 
@@ -2278,8 +2291,9 @@ This is a schema used in Job operation to get a status of the job.
 ```json
 {
   "id": "string",
+  "result": {},
   "status": "todo",
-  "result": {}
+
 }
 
 ```
@@ -2605,9 +2619,11 @@ This is a schema that represents a verifiable (signed) Credential returned by AP
 
 ```json
 {
-  "anchor": "string",
+  "type": "single/batch",
+  "proofs": [],
   "blockHash": "string",
-  "root": "string"
+  "root": "string",
+  "created_at": "YYYY-"
 }
 
 ```
@@ -2650,7 +2666,8 @@ This is a schema that represents a Revocation registry used in Revocation or Unr
 
 ```json
 {
-  "verified": true
+  "verified": true,
+  "results": [...]
 }
 
 ```
