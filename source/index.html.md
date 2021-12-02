@@ -1626,29 +1626,28 @@ curl --location --request POST https://api.dock.io/schemas \
 ```
 
 ```json-doc
-
 {
- "$schema": "http://json-schema.org/draft-07/schema#",
- "description": "Dock Schema Example",
- "type": "object",
- "properties": {
-  "id": {
-    "type": "string"
- },
- "emailAddress": {
-  "type": "string",
-  "format": "email"
- },
- "alumniOf": {
-  "type": "string"
- }
- },
- "required": [
-  "emailAddress",
-  "alumniOf"
- ],
- "additionalProperties": false,
- "author": "{{did}}"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Dock Schema Example",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string",
+      "format": "email"
+    },
+    "alumniOf": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "emailAddress",
+    "alumniOf"
+  ],
+  "additionalProperties": false,
+  "author": "{{did}}"
 }
 ```
 
@@ -1728,32 +1727,32 @@ Return a list of all schemas created by the authenticated user.
 
 ```json
 [
-    {
-        "id": "e1420661c333988c024f0a4bd3ea4ed0e75773247a369419acdaa67447c22ca4",
-        "schema": {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "description": "Dock Schema Example",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "emailAddress": {
-                    "type": "string",
-                    "format": "email"
-                },
-                "alumniOf": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "emailAddress",
-                "alumniOf"
-            ],
-            "additionalProperties": false
+  {
+    "id": "be37d45ef3fb4e96be86a76e6939c59a4764cc2a38dcd3d6d7818d928e2af116",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "description": "Dock Schema Example",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
-        "author": "did:dock:5DhSFTFJwD6bFdrPdTibhxQypDruZkBGeWs1p34FS87ko5Vy"
-    }
+        "emailAddress": {
+          "type": "string",
+          "format": "email"
+        },
+        "alumniOf": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "emailAddress",
+        "alumniOf"
+      ],
+      "additionalProperties": false
+    },
+    "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6"
+  }
 ]
 ```
 
@@ -1788,37 +1787,30 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 
 ```json
 {
-  "id": "938",
-  "data": {
-    "id": "blob:dock:5HWiX179ifZsLvS8PdsvBacNzmM9ra9hjvSatSDZytqJjjxG",
-    "schema": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "description": "Dock Schema Example",
-      "type": "object",
-      "properties": {
-        "id": {
+  "id": "blob:dock:5GN7YHA24SeHd8xC6BGDJnK2p6XcnTgAgZTqfqEZob47TJkh",
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Dock Schema Example",
+    "type": "object",
+    "properties": {
+      "id": {
         "type": "string"
-        },
+      },
       "emailAddress": {
         "type": "string",
         "format": "email"
-        },
-      "alumniOf": {
-      "type": "string"
-        }
       },
+      "alumniOf": {
+        "type": "string"
+      }
+    },
     "required": [
       "emailAddress",
       "alumniOf"
-      ],
-      "additionalProperties": false
-    },
-    "author": "did:dock:5FJyWxdxs3JDYm5yDEY1r9HaBQBPZ4QxTa6rCpBj7LoUAr8u",
-    "signature": {
-      "Sr25519": "0x16154306f3380cab650a88362e343685de6652404882dfbaf9e75bc1ff65884772b2c67b99e33866e3c894a02635de4815936c05e183f4257d4260dafd2a9a8c"
-    },
-    "hexID": "f103c5cd53cc6aa1a1b50b38e0499f2e29d52edfbb8902a3b5503528b460f64b"
-  }
+    ],
+    "additionalProperties": false
+  },
+  "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6"
 }
 ```
 
