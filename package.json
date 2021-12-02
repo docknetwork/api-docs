@@ -7,7 +7,6 @@
     "lib": "lib"
   },
   "scripts": {
-    "convert": "node convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +18,5 @@
   "bugs": {
     "url": "https://github.com/docknetwork/api-docs/issues"
   },
-  "homepage": "https://github.com/docknetwork/api-docs#readme",
-  "dependencies": {
-    "widdershins": "^4.0.1"
-  }
+  "homepage": "https://github.com/docknetwork/api-docs#readme"
 }
