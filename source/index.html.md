@@ -1667,31 +1667,37 @@ This operation counts towards your monthly transaction limits for each successfu
 
 ```json
 {
-  "id": "be37d45ef3fb4e96be86a76e6939c59a4764cc2a38dcd3d6d7818d928e2af116",
-  "schema": {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "description": "Dock Schema Example",
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string"
+  "id": "1082",
+  "data": {
+    "id": "b8a2f4846df2af8a791e1305a0ebe09b3f2183c187502cf77022027f9643a120",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "description": "Dock Schema Example 3",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string",
+          "format": "email"
+        },
+        "alumniOf": {
+          "type": "string"
+        }
       },
-      "emailAddress": {
-        "type": "string",
-        "format": "email"
-      },
-      "alumniOf": {
-        "type": "string"
-      }
+      "required": [
+        "emailAddress",
+        "alumniOf"
+      ],
+      "additionalProperties": false
     },
-    "required": [
-      "emailAddress",
-      "alumniOf"
-    ],
-    "additionalProperties": false
-  },
-  "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6",
-  "uri": "blob:dock:5GN7YHA24SeHd8xC6BGDJnK2p6XcnTgAgZTqfqEZob47TJkh"
+    "author": "did:dock:5FBZNTZ4eg2EBuvEcYdkEtAhCXhCEA8zmPzYTwexM3g13fkF",
+    "signature": {
+      "Secp256k1": "..."
+    },
+    "uri": "blob:dock:5GEo5M2apeCAsaqfRA9XabiywXETHEVCq6kmk7M8ZHTVUXYx"
+  }
 }
 ```
 
