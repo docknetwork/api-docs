@@ -1690,7 +1690,8 @@ This operation counts towards your monthly transaction limits for each successfu
     ],
     "additionalProperties": false
   },
-  "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6"
+  "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6",
+  "uri": "blob:dock:5GN7YHA24SeHd8xC6BGDJnK2p6XcnTgAgZTqfqEZob47TJkh"
 }
 ```
 
@@ -1744,7 +1745,8 @@ Return a list of all schemas created by the authenticated user.
       ],
       "additionalProperties": false
     },
-    "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6"
+    "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6",
+    "uri": "blob:dock:5GN7YHA24SeHd8xC6BGDJnK2p6XcnTgAgZTqfqEZob47TJkh"
   }
 ]
 ```
