@@ -1,10 +1,20 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "version": "1",
     "title": "Dock API",
-    "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/\n"
+    "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/\n",
+    "version": "1"
   },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "security": [
+    {
+      "accessToken": []
+    }
+  ],
   "tags": [
     {
       "name": "dids",
@@ -39,420 +49,27 @@
       "description": "Operations about jobs"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "accessToken": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "DOCK-API-TOKEN"
-      }
-    },
-    "schemas": {
-      "Error": {
-        "description": "An API Error",
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer"
-          },
-          "type": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "Hex32": {
-        "description": "32 byte hex string. Ignoring higher base (base64) for similicity.",
-        "type": "string",
-        "minimum": 64,
-        "maximum": 64
-      },
-      "JobStartedResult": {
-        "description": "Object containing unique id of the background task and associated data. This id can be used to query the job status",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/JobId"
-          },
-          "data": {
-            "type": "object"
-          }
-        }
-      },
-      "JobId": {
-        "description": "Unique id of the background task. This id can be used to query the job status",
-        "type": "string"
-      },
-      "JobStatus": {
-        "description": "Status of the job.",
-        "type": "string",
-        "enum": [
-          "todo",
-          "finalized",
-          "in_progress",
-          "error"
-        ]
-      },
-      "JobDesc": {
-        "description": "Description of the job including result if available",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/JobId"
-          },
-          "status": {
-            "$ref": "#/components/schemas/JobStatus"
-          },
-          "result": {
-            "type": "object"
-          }
-        }
-      },
-      "DIDQualified": {
-        "description": "DID as fully qualified, eg. `did:dock:`.",
-        "type": "string",
-        "format": "uri",
-        "example": "did:dock:xyz"
-      },
-      "DID": {
-        "description": "DID as fully qualified, eg. `did:dock:` or 32 byte hex string",
-        "type": "string",
-        "minimum": 32,
-        "example": "did:dock:xyz"
-      },
-      "KeyType": {
-        "description": "Type of public key for DID",
-        "type": "string",
-        "enum": [
-          "sr25519",
-          "ed25519",
-          "secp256k1"
-        ]
-      },
-      "SigType": {
-        "description": "Type of signature",
-        "type": "string",
-        "enum": [
-          "Sr25519Signature2020",
-          "Ed25519Signature2018",
-          "EcdsaSecp256k1Signature2019"
-        ]
-      },
-      "ProofPurpose": {
-        "description": "Purpose of credential",
-        "type": "string",
-        "enum": [
-          "assertionMethod",
-          "authentication"
-        ]
-      },
-      "Context": {
-        "description": "JSON-LD context",
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "DIDDoc": {
-        "description": "DID document. The current set of properties is incomplete",
-        "type": "object",
-        "properties": {
-          "@context": {
-            "$ref": "#/components/schemas/Context"
-          },
-          "id": {
-            "$ref": "#/components/schemas/DIDQualified"
-          },
-          "authentication": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object"
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          }
-        }
-      },
-      "Credential": {
-        "description": "Credential format expected by API caller. The current set of is almost complete",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uri"
-          },
-          "context": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "type": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "subject": {
-            "type": "object"
-          },
-          "issuer": {
-            "oneOf": [
-              {
-                "type": "string",
-                "$ref": "#/components/schemas/DIDQualified"
-              },
-              {
-                "type": "object"
-              }
-            ]
-          },
-          "issuanceDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "expirationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "status": {
-            "description": "Revocation registry id or user supplied status object",
-            "oneOf": [
-              {
-                "type": "object"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        }
-      },
-      "VerifiablePresentation": {
-        "description": "Verifiable (signed) Presentation returned by API. The current set of properties is almost complete",
-        "type": "object",
-        "properties": {
-          "@context": {
-            "$ref": "#/components/schemas/Context"
-          },
-          "id": {
-            "type": "string",
-            "format": "uri"
-          },
-          "type": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "verifiableCredential": {
-            "oneOf": [
-              {
-                "type": "object",
-                "$ref": "#/components/schemas/VerifiableCredential"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/VerifiableCredential"
-                }
-              }
-            ]
-          },
-          "proof": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/SigType"
-              },
-              "proofPurpose": {
-                "$ref": "#/components/schemas/ProofPurpose"
-              },
-              "verificationMethod": {
-                "type": "string"
-              },
-              "created": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "proofValue": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "VerifiableCredential": {
-        "description": "Verifiable (signed) Credential returned by API. The current set of properties is almost complete",
-        "type": "object",
-        "properties": {
-          "@context": {
-            "$ref": "#/components/schemas/Context"
-          },
-          "id": {
-            "type": "string",
-            "format": "uri"
-          },
-          "type": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "credentialSubject": {
-            "oneOf": [
-              {
-                "type": "object"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object"
-                }
-              }
-            ]
-          },
-          "issuer": {
-            "oneOf": [
-              {
-                "type": "string",
-                "$ref": "#/components/schemas/DIDQualified"
-              },
-              {
-                "type": "object"
-              }
-            ]
-          },
-          "issuanceDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "expirationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "credentialStatus": {
-            "description": "Revocation registry id or user supplied status object",
-            "oneOf": [
-              {
-                "type": "object"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "proof": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/SigType"
-              },
-              "proofPurpose": {
-                "$ref": "#/components/schemas/ProofPurpose"
-              },
-              "verificationMethod": {
-                "type": "string"
-              },
-              "created": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "proofValue": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "Anchor": {
-        "description": "An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not.",
-        "type": "object",
-        "properties": {
-          "anchor": {
-            "$ref": "#/components/schemas/Hex32"
-          },
-          "blockHash": {
-            "$ref": "#/components/schemas/Hex32"
-          },
-          "root": {
-            "$ref": "#/components/schemas/Hex32"
-          }
-        }
-      },
-      "Registry": {
-        "description": "Revocation registry",
-        "type": "object",
-        "properties": {
-          "addOnly": {
-            "type": "boolean"
-          },
-          "policy": {
-            "description": "Only one policy supported as of now called `OneOf`",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DID"
-            }
-          }
-        }
-      },
-      "VerificationResponse": {
-        "description": "Whether a credential/presentation is verified or not",
-        "type": "object",
-        "properties": {
-          "verified": {
-            "type": "boolean"
-          }
-        }
-      },
-      "Response": {
-        "description": "Default response",
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "integer"
-          }
-        }
-      }
-    }
-  },
-  "security": [
-    {
-      "accessToken": []
-    }
-  ],
   "paths": {
     "/jobs/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "A Job id",
-          "schema": {
-            "$ref": "#/components/schemas/JobId"
-          }
-        }
-      ],
       "get": {
         "tags": [
           "jobs"
         ],
         "summary": "Get job status and data",
         "description": "Returns information related to the job being processed and its associated blockchain transaction. On completion or failure, the job data will be updated with a response from the blockchain.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "A Job id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/JobId"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Job desc",
@@ -466,145 +83,6 @@
           },
           "404": {
             "description": "Job id was not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/dids/{did}": {
-      "parameters": [
-        {
-          "name": "did",
-          "in": "path",
-          "required": true,
-          "description": "A DID",
-          "schema": {
-            "$ref": "#/components/schemas/DID"
-          }
-        }
-      ],
-      "get": {
-        "tags": [
-          "dids"
-        ],
-        "summary": "Get DID",
-        "description": "Resolves a specific DID into a DID document.",
-        "responses": {
-          "200": {
-            "description": "The DIDDoc",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DIDDoc"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "DID was not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "dids"
-        ],
-        "summary": "Update DID",
-        "description": "Updates the DID's key or controller on the blockchain.",
-        "requestBody": {
-          "description": "Properties of DID",
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "controller": {
-                    "$ref": "#/components/schemas/DID"
-                  },
-                  "keyType": {
-                    "$ref": "#/components/schemas/KeyType"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Will update DID.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JobId"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Does not own the DID",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "DID does not exist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "dids"
-        ],
-        "summary": "Delete DID",
-        "description": "Deletes a DID from the blockchain, further attempts to resolve this DID will fail.",
-        "responses": {
-          "200": {
-            "description": "Will remove DID.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JobId"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Does not own the DID",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "DID does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -646,25 +124,14 @@
         "description": "Creates a new DID on chain with an auto generated keypair, the controller will be the same as the DID unless otherwise specified.",
         "requestBody": {
           "description": "Properties of DID",
-          "required": false,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "did": {
-                    "$ref": "#/components/schemas/DID"
-                  },
-                  "controller": {
-                    "$ref": "#/components/schemas/DID"
-                  },
-                  "keyType": {
-                    "$ref": "#/components/schemas/KeyType"
-                  }
-                }
+                "$ref": "#/components/schemas/dids_body"
               }
             }
-          }
+          },
+          "required": false
         },
         "responses": {
           "200": {
@@ -690,6 +157,165 @@
         }
       }
     },
+    "/dids/{did}": {
+      "get": {
+        "tags": [
+          "dids"
+        ],
+        "summary": "Get DID",
+        "description": "Resolves a specific DID into a DID document.",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "path",
+            "description": "A DID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The DIDDoc",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DIDDoc"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "DID was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "dids"
+        ],
+        "summary": "Delete DID",
+        "description": "Deletes a DID from the blockchain, further attempts to resolve this DID will fail.",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "path",
+            "description": "A DID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Will remove DID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Does not own the DID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "DID does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "dids"
+        ],
+        "summary": "Update DID",
+        "description": "Updates the DID's key or controller on the blockchain.",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "path",
+            "description": "A DID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Properties of DID",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/dids_did_body"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Will update DID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Does not own the DID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "DID does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/credentials/": {
       "post": {
         "tags": [
@@ -699,19 +325,14 @@
         "description": "Creates and issues a verifiable credential with supplied data. Issuing counts as a paid transaction.",
         "requestBody": {
           "description": "JSON-schema",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "credential": {
-                    "$ref": "#/components/schemas/Credential"
-                  }
-                }
+                "$ref": "#/components/schemas/credentials_body"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -756,33 +377,14 @@
         "description": "Creates and signs a verifiable presentation out of one or more Verifiable Credentials. Signing counts as a paid transaction.",
         "requestBody": {
           "description": "JSON-schema",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "holder": {
-                    "type": "string",
-                    "$ref": "#/components/schemas/DIDQualified",
-                    "required": true
-                  },
-                  "challenge": {
-                    "type": "string"
-                  },
-                  "domain": {
-                    "type": "string"
-                  },
-                  "credentials": {
-                    "items": {
-                      "$ref": "#/components/schemas/VerifiableCredential"
-                    },
-                    "type": "array"
-                  }
-                }
+                "$ref": "#/components/schemas/presentations_body"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -827,14 +429,14 @@
         "description": "Verifies a VCDM credential or presentation JSON-LD object.",
         "requestBody": {
           "description": "JSON-schema",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -860,37 +462,56 @@
         }
       }
     },
-    "/registries/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "Revocation registry id",
-          "schema": {
-            "$ref": "#/components/schemas/Hex32"
-          }
-        }
-      ],
-      "delete": {
+    "/registries/": {
+      "get": {
         "tags": [
           "registries"
         ],
-        "summary": "Delete registry",
-        "description": "Deletes a specific registry",
+        "summary": "List registries",
+        "description": "Get all registries created by user",
         "responses": {
           "200": {
-            "description": "Revocation Registry will be deleted",
+            "description": "All registries by user",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobStartedResult"
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "registries"
+        ],
+        "summary": "Create registry",
+        "description": "Create a Revocation registry on the blockchain",
+        "requestBody": {
+          "description": "Revocation registry",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registry"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Will try to create registry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
                 }
               }
             }
           },
-          "404": {
-            "description": "Registry was not found.",
+          "400": {
+            "description": "Invalid params like policy not supported.",
             "content": {
               "application/json": {
                 "schema": {
@@ -900,20 +521,35 @@
             }
           }
         }
-      },
+      }
+    },
+    "/registries/{id}": {
       "get": {
         "tags": [
           "registries"
         ],
         "summary": "Get registry",
         "description": "Get the registry details like policy, controller(s)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Revocation registry id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Revocation Registry metadata",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Registry"
+                  "$ref": "#/components/schemas/inline_response_200_4"
                 }
               }
             }
@@ -936,32 +572,29 @@
         ],
         "summary": "Revoke/unrevoke credential",
         "description": "Revoke or unrevoke one or more credential ids",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Revocation registry id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          }
+        ],
         "requestBody": {
           "description": "Specify action and credential ids",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "action": {
-                    "type": "string",
-                    "enum": [
-                      "revoke",
-                      "unrevoke"
-                    ]
-                  },
-                  "credentialIds": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uri"
-                    }
-                  }
-                }
+                "$ref": "#/components/schemas/registries_id_body"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -969,7 +602,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobStartedResult"
+                  "$ref": "#/components/schemas/inline_response_200_5"
                 }
               }
             }
@@ -995,119 +628,33 @@
             }
           }
         }
-      }
-    },
-    "/registries/": {
-      "get": {
-        "tags": [
-          "registries"
-        ],
-        "summary": "List registries",
-        "description": "Get all registries created by user",
-        "responses": {
-          "200": {
-            "description": "All registries by user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "$ref": "#/components/schemas/Hex32"
-                      },
-                      "registry": {
-                        "$ref": "#/components/schemas/Registry"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
       },
-      "post": {
+      "delete": {
         "tags": [
           "registries"
         ],
-        "summary": "Create registry",
-        "description": "Create a Revocation registry on the blockchain",
-        "requestBody": {
-          "description": "Revocation registry",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Registry"
-              }
+        "summary": "Delete registry",
+        "description": "Deletes a specific registry",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Revocation registry id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
             }
           }
-        },
-        "responses": {
-          "200": {
-            "description": "Will try to create registry.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JobStartedResult"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid params like policy not supported.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/revocationStatus/{regId}/{revId}": {
-      "parameters": [
-        {
-          "name": "regId",
-          "in": "path",
-          "required": true,
-          "description": "Revocation registry id",
-          "schema": {
-            "$ref": "#/components/schemas/Hex32"
-          }
-        },
-        {
-          "name": "revId",
-          "in": "path",
-          "required": true,
-          "description": "Credential revocation id",
-          "schema": {
-            "$ref": "#/components/schemas/Hex32"
-          }
-        }
-      ],
-      "get": {
-        "tags": [
-          "revocationStatus"
         ],
-        "summary": "Get revocation status",
-        "description": "Get the revocation status of a credential",
         "responses": {
           "200": {
-            "description": "Returns true of credential is revoked, false otherwise",
+            "description": "Revocation Registry will be deleted",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "boolean"
-                    }
-                  }
+                  "$ref": "#/components/schemas/inline_response_200_6"
                 }
               }
             }
@@ -1125,45 +672,50 @@
         }
       }
     },
-    "/schemas/{schemaId}": {
-      "parameters": [
-        {
-          "name": "schemaId",
-          "in": "path",
-          "required": true,
-          "description": "A schema id",
-          "schema": {
-            "$ref": "#/components/schemas/Hex32"
-          }
-        }
-      ],
+    "/revocationStatus/{regId}/{revId}": {
       "get": {
         "tags": [
-          "schemas"
+          "revocationStatus"
         ],
-        "summary": "Get schema",
-        "description": "Returns the JSON schema for a specific ID",
+        "summary": "Get revocation status",
+        "description": "Get the revocation status of a credential",
+        "parameters": [
+          {
+            "name": "regId",
+            "in": "path",
+            "description": "Revocation registry id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          },
+          {
+            "name": "revId",
+            "in": "path",
+            "description": "Credential revocation id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Schema",
+            "description": "Returns true of credential is revoked, false otherwise",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "$ref": "#/components/schemas/Hex32"
-                    },
-                    "schema": {
-                      "type": "object"
-                    }
-                  }
+                  "$ref": "#/components/schemas/inline_response_200_7"
                 }
               }
             }
           },
           "404": {
-            "description": "Schema was not found.",
+            "description": "Registry was not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1188,10 +740,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object"
-                  }
+                  "$ref": "#/components/schemas/inline_response_200_8"
                 }
               }
             }
@@ -1206,14 +755,14 @@
         "description": "Creates a JSON schema on the blockchain",
         "requestBody": {
           "description": "JSON-schema",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "$ref": "#/components/schemas/schemas_body"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -1221,7 +770,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobId"
+                  "$ref": "#/components/schemas/inline_response_200_9"
                 }
               }
             }
@@ -1239,37 +788,39 @@
         }
       }
     },
-    "/anchors/{anchor}": {
-      "parameters": [
-        {
-          "name": "anchor",
-          "in": "path",
-          "required": true,
-          "description": "An anchor",
-          "schema": {
-            "$ref": "#/components/schemas/Hex32"
-          }
-        }
-      ],
+    "/schemas/{schemaId}": {
       "get": {
         "tags": [
-          "anchors"
+          "schemas"
         ],
-        "summary": "Get anchor",
-        "description": "Gets a specific anchor by ID",
+        "summary": "Get schema",
+        "description": "Returns the JSON schema for a specific ID",
+        "parameters": [
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "A schema id",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Anchor",
+            "description": "Schema",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Anchor"
+                  "$ref": "#/components/schemas/inline_response_200_10"
                 }
               }
             }
           },
           "404": {
-            "description": "Anchor was not found.",
+            "description": "Schema was not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1296,7 +847,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object"
+                    "$ref": "#/components/schemas/inline_response_200_11"
                   }
                 }
               }
@@ -1312,26 +863,14 @@
         "description": "Anchor one or more documents. If more than one docs are given, a merkle tree is created and root is anchored",
         "requestBody": {
           "description": "Documents",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "byte"
-                    }
-                  },
-                  {
-                    "type": "string",
-                    "format": "byte"
-                  }
-                ]
+                "$ref": "#/components/schemas/anchors_body"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -1339,7 +878,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobId"
+                  "$ref": "#/components/schemas/inline_response_200_12"
                 }
               }
             }
@@ -1355,6 +894,1001 @@
             }
           }
         }
+      }
+    },
+    "/anchors/{anchor}": {
+      "get": {
+        "tags": [
+          "anchors"
+        ],
+        "summary": "Get anchor",
+        "description": "Gets a specific anchor by ID",
+        "parameters": [
+          {
+            "name": "anchor",
+            "in": "path",
+            "description": "An anchor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anchor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_13"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anchor was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "An API Error"
+      },
+      "Hex32": {
+        "maximum": 64,
+        "minimum": 64,
+        "type": "string",
+        "description": "32 byte hex string. Ignoring higher base (base64) for similicity."
+      },
+      "JobStartedResult": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/JobStartedResult_data"
+          }
+        },
+        "description": "Object containing unique id of the background task and associated data. This id can be used to query the job status"
+      },
+      "JobId": {
+        "type": "string",
+        "description": "Unique id of the background task. This id can be used to query the job status"
+      },
+      "JobStatus": {
+        "type": "string",
+        "description": "Status of the job.",
+        "enum": [
+          "todo",
+          "finalized",
+          "in_progress",
+          "error"
+        ]
+      },
+      "JobDesc": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "result": {
+            "$ref": "#/components/schemas/JobDesc_result"
+          }
+        },
+        "description": "Description of the job including result if available"
+      },
+      "DIDDock": {
+        "type": "string",
+        "description": "DID as fully qualified, eg. `did:dock:`.",
+        "format": "uri",
+        "example": "did:dock:xyz"
+      },
+      "KeyType": {
+        "type": "string",
+        "description": "Type of public key for DID",
+        "enum": [
+          "sr25519",
+          "ed25519",
+          "secp256k1"
+        ]
+      },
+      "SigType": {
+        "type": "string",
+        "description": "Type of signature",
+        "enum": [
+          "Sr25519Signature2020",
+          "Ed25519Signature2018",
+          "EcdsaSecp256k1Signature2019"
+        ]
+      },
+      "ProofPurpose": {
+        "type": "string",
+        "description": "Purpose of credential",
+        "enum": [
+          "assertionMethod",
+          "authentication"
+        ]
+      },
+      "Context": {
+        "description": "JSON-LD context",
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "DIDDoc": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "id": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "authentication": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          },
+          "assertionMethod": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          },
+          "publicKey": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DIDDoc_publicKey"
+            }
+          }
+        },
+        "description": "DID document. The current set of properties is incomplete"
+      },
+      "Credential": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "context": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "subject": {
+            "$ref": "#/components/schemas/Credential_subject"
+          },
+          "issuer": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DIDDock"
+              },
+              {
+                "type": "object"
+              }
+            ]
+          },
+          "issuanceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "description": "Revocation registry id or user supplied status object",
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "description": "Credential format expected by API caller. The current set of is almost complete"
+      },
+      "VerifiablePresentation": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verifiableCredential": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/VerifiableCredential"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/VerifiableCredential"
+                }
+              }
+            ]
+          },
+          "proof": {
+            "$ref": "#/components/schemas/VerifiablePresentation_proof"
+          }
+        },
+        "description": "Verifiable (signed) Presentation returned by API. The current set of properties is almost complete"
+      },
+      "VerifiableCredential": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "credentialSubject": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "issuanceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "credentialStatus": {
+            "description": "Revocation registry id or user supplied status object",
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "proof": {
+            "$ref": "#/components/schemas/VerifiablePresentation_proof"
+          },
+          "issuer": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DIDDock"
+              },
+              {
+                "type": "object"
+              }
+            ]
+          }
+        },
+        "description": "Verifiable (signed) Credential returned by API. The current set of properties is almost complete"
+      },
+      "Anchor": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "blockHash": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "root": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        },
+        "description": "An anchor. Either a batched or single. Data includes anchor, type (single, batch), block hash, block no and accompanying data (root, proofs) if any. The data depends if the anchor was created using API or not."
+      },
+      "Registry": {
+        "type": "object",
+        "properties": {
+          "addOnly": {
+            "type": "boolean"
+          },
+          "policy": {
+            "type": "array",
+            "description": "Only one policy supported as of now called `OneOf`",
+            "items": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          }
+        },
+        "description": "Revocation registry"
+      },
+      "VerificationResponse": {
+        "type": "object",
+        "properties": {
+          "verified": {
+            "type": "boolean"
+          }
+        },
+        "description": "Whether a credential/presentation is verified or not"
+      },
+      "Response": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          }
+        },
+        "description": "Default response"
+      },
+      "dids_body": {
+        "type": "object",
+        "properties": {
+          "keyType": {
+            "$ref": "#/components/schemas/KeyType"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_data"
+          }
+        }
+      },
+      "dids_did_body": {
+        "type": "object",
+        "properties": {
+          "controller": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "keyType": {
+            "$ref": "#/components/schemas/KeyType"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_1_data"
+          }
+        }
+      },
+      "credentials_body": {
+        "type": "object",
+        "properties": {
+          "persist": {
+            "type": "boolean"
+          },
+          "anchor": {
+            "type": "boolean"
+          },
+          "credential": {
+            "$ref": "#/components/schemas/Credential"
+          }
+        }
+      },
+      "presentations_body": {
+        "type": "object",
+        "properties": {
+          "holder": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "challenge": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "credentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            }
+          }
+        }
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "policy_and_type": {
+            "$ref": "#/components/schemas/inline_response_200_2_policy_and_type"
+          }
+        }
+      },
+      "inline_response_200_3": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_3_data"
+          }
+        }
+      },
+      "inline_response_200_4": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "policy_and_type": {
+            "$ref": "#/components/schemas/inline_response_200_4_policy_and_type"
+          }
+        }
+      },
+      "registries_id_body": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "revoke",
+              "unrevoke"
+            ]
+          },
+          "credentialIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      },
+      "inline_response_200_5": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_5_data"
+          }
+        }
+      },
+      "inline_response_200_6": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_6_data"
+          }
+        }
+      },
+      "inline_response_200_7": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "boolean"
+          }
+        }
+      },
+      "inline_response_200_8": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "blob:dock:xyz"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/inline_response_200_8_schema"
+          },
+          "author": {
+            "$ref": "#/components/schemas/DIDDock"
+          }
+        }
+      },
+      "schemas_properties_id": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "schemas_properties_emailAddress": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "format": {
+            "format": "email"
+          }
+        }
+      },
+      "schemas_properties": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/schemas_properties_id"
+          },
+          "emailAddress": {
+            "$ref": "#/components/schemas/schemas_properties_emailAddress"
+          },
+          "alumniOf": {
+            "$ref": "#/components/schemas/schemas_properties_id"
+          }
+        }
+      },
+      "schemas_body": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "example": "object"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/schemas_properties"
+          },
+          "required": {
+            "type": "array",
+            "items": {
+              "example": "emailAddress, alumniOf"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "author": {
+            "example": "{{did}}"
+          }
+        }
+      },
+      "inline_response_200_9": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_9_data"
+          }
+        }
+      },
+      "inline_response_200_10": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/inline_response_200_8_schema"
+          },
+          "author": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "uri": {
+            "example": "blob:dock:xyz"
+          }
+        }
+      },
+      "anchors_data": {
+        "type": "object",
+        "properties": {
+          "proofs": {
+            "type": "array",
+            "items": {
+              "example": "..."
+            }
+          },
+          "root": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      },
+      "inline_response_200_11": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "type": {
+            "example": "single"
+          },
+          "data": {
+            "$ref": "#/components/schemas/anchors_data"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "job_id": {
+            "$ref": "#/components/schemas/JobId"
+          }
+        }
+      },
+      "anchors_body": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "type": "string",
+            "format": "byte"
+          }
+        ]
+      },
+      "inline_response_200_12": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_12_data"
+          }
+        }
+      },
+      "inline_response_200_13": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "single"
+          },
+          "proofs": {
+            "type": "array",
+            "items": {
+              "example": ".."
+            }
+          },
+          "root": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "JobStartedResult_data": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "hexDiD": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "controller": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "keyType": {
+            "$ref": "#/components/schemas/KeyType"
+          }
+        }
+      },
+      "JobDesc_result": {
+        "type": "object",
+        "properties": {
+          "InBlock": {
+            "$ref": "#/components/schemas/Hex32"
+          }
+        }
+      },
+      "DIDDoc_publicKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SigType"
+          },
+          "controller": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "publicKeyBase": {
+            "type": "string"
+          }
+        }
+      },
+      "Credential_subject_degree": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Credential_subject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "degree": {
+            "$ref": "#/components/schemas/Credential_subject_degree"
+          }
+        }
+      },
+      "VerifiablePresentation_proof": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SigType"
+          },
+          "proofPurpose": {
+            "$ref": "#/components/schemas/ProofPurpose"
+          },
+          "verificationMethod": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "proofValue": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_200_data": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "inline_response_200_1_data": {
+        "type": "object",
+        "properties": {
+          "updated": {
+            "type": "boolean"
+          }
+        }
+      },
+      "inline_response_200_2_policy_and_type": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          },
+          "addOnly": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "inline_response_200_3_data_policy": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          },
+          "addOnly": {
+            "type": "boolean"
+          }
+        }
+      },
+      "inline_response_200_3_data": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "policy": {
+            "$ref": "#/components/schemas/inline_response_200_3_data_policy"
+          }
+        }
+      },
+      "inline_response_200_4_policy_and_type": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DIDDock"
+            }
+          },
+          "addOnly": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "job_id": {
+            "$ref": "#/components/schemas/JobId"
+          }
+        }
+      },
+      "inline_response_200_5_data": {
+        "type": "object",
+        "properties": {
+          "revokeIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Hex32"
+            }
+          }
+        }
+      },
+      "inline_response_200_6_data": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/JobId"
+          },
+          "hexId": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "lastModified": {
+            "type": "integer"
+          }
+        }
+      },
+      "inline_response_200_8_schema": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "example": "http://json-schema.org/draft-07/schema#"
+          },
+          "description": {
+            "example": "Dock Schema Example"
+          },
+          "type": {
+            "example": "object"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/schemas_properties"
+          },
+          "required": {
+            "type": "array",
+            "items": {
+              "example": "emailAddress, alumniOf"
+            }
+          },
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        }
+      },
+      "inline_response_200_9_data_signature": {
+        "type": "object",
+        "properties": {
+          "Secp256k1": {
+            "example": "...."
+          }
+        }
+      },
+      "inline_response_200_9_data": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/inline_response_200_8_schema"
+          },
+          "author": {
+            "$ref": "#/components/schemas/DIDDock"
+          },
+          "signature": {
+            "$ref": "#/components/schemas/inline_response_200_9_data_signature"
+          },
+          "uri": {
+            "example": "blob:dock:xyz"
+          }
+        }
+      },
+      "inline_response_200_12_data": {
+        "type": "object",
+        "properties": {
+          "root": {
+            "$ref": "#/components/schemas/Hex32"
+          },
+          "proofs": {
+            "type": "array",
+            "items": {
+              "example": "..."
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "accessToken": {
+        "type": "apiKey",
+        "name": "DOCK-API-TOKEN",
+        "in": "header"
       }
     }
   }
