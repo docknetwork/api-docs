@@ -442,10 +442,10 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - Create a new environment in Postman. For the detailed instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
 - In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
 - Login to [Dock API console](https://console.api.dock.io/).
-- Enable the **Test mode** in your API console to use the sandbox environment.
+- Create the API key in **Test Mode** or **Production Mode**. 
 - In your API Console dashboard, click **Create API key** to generate the key, copy and save it.
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
-- Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
+- Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io) if you are using **Test Mode** to generate the API key. If you are using **Production Mode**, please set the value with [https://api.dock.io](https://api.dock.io).
 
 ## Simple E2E Create Credentials/Presentation Flow
 
