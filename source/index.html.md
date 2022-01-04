@@ -803,6 +803,13 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 ]
 ```
 
+<h3 id="list-dids-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
+
 <h3 id="list-dids-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
@@ -1346,6 +1353,13 @@ For now, only one policy is supported, and each registry is owned by a single DI
 ]
 ```
 
+<h3 id="list-dids-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
+
 <h3 id="list-registries-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
@@ -1757,6 +1771,13 @@ Return a list of all schemas created by the authenticated user.
 ]
 ```
 
+<h3 id="list-schemas-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
+
 <h3 id="list-schemas-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
@@ -1950,6 +1971,13 @@ Return a list of all anchors created by the authenticated user, regardless of wh
   }
 ]
 ```
+
+<h3 id="list-anchors-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
 
 <h3 id="list-anchors-responses">Responses</h3>
 
