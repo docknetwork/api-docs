@@ -349,7 +349,10 @@
               </ul>
           </li>
           <li>
-            <a href="#postman-collection" class="toc-h1 toc-link" data-title="Postman collection">Postman collection</a>
+            <a href="#dock-postman-collection" class="toc-h1 toc-link" data-title="Dock Postman Collection">Dock Postman Collection</a>
+          </li>
+          <li>
+            <a href="#dock-swagger-ui" class="toc-h1 toc-link" data-title="Dock Swagger UI">Dock Swagger UI</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#simple-e2e-create-credentials-presentation-flow" class="toc-h2 toc-link" data-title="Simple E2E Create Credentials/Presentation Flow">Simple E2E Create Credentials/Presentation Flow</a>
@@ -363,7 +366,7 @@
                     <a href="#create-did" class="toc-h2 toc-link" data-title="Create DID">Create DID</a>
                   </li>
                   <li>
-                    <a href="#resolve-did" class="toc-h2 toc-link" data-title="Resolve DID">Resolve DID</a>
+                    <a href="#get-did" class="toc-h2 toc-link" data-title="Get DID">Get DID</a>
                   </li>
                   <li>
                     <a href="#list-dids" class="toc-h2 toc-link" data-title="List DIDs">List DIDs</a>
@@ -551,7 +554,7 @@
 
 <p>In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access <a href="https://github.com/docknetwork/dock-api-js/tree/main/examples">here</a>.</p>
 
-<p>We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and <a href="https://console.api.dock.io/">start issuing credentials with our API console</a>. Please read our <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API. You can inspect and try out our <a href="https://swagger.api.dock.io/">swagger console here</a>.</p>
+<p>We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and <a href="https://console.api.dock.io/">start issuing credentials with our API console</a>. Please read our <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
 <h1 id='getting-started'>Getting Started</h1><h2 id='prerequisites'>Prerequisites</h2>
 <p>You must first have an account and acquire your credentials (API keys) before accessing the Dock API. You can register an account and generate a key in our <a href="https://console.api.dock.io/">API console</a>.</p>
 
@@ -985,7 +988,7 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <p>This event indicates a schema has been created. It will fire when a schema has been created.</p>
 
 <div style="clear:both"></div>
-<h1 id='postman-collection'>Postman collection</h1>
+<h1 id='dock-postman-collection'>Dock Postman Collection</h1>
 <p>Download and use our <a href="https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json">Postman Collection</a> to experiment with basic API flows:</p>
 
 <ul>
@@ -999,6 +1002,16 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <li>In your API Console dashboard, click <strong>Create API key</strong> to generate the key, copy and save it.</li>
 <li>Set <code>ApiKey</code> initial and current values with the value that you generated in the API console.</li>
 <li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a></li>
+</ul>
+<h1 id='dock-swagger-ui'>Dock Swagger UI</h1>
+<p>Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser. 
+Use our <a href="https://swagger.api.dock.io/">Swagger UI</a> to execute the API calls quickly:</p>
+
+<ul>
+<li>Login to <a href="https://console.api.dock.io/">Dock API Console</a>.</li>
+<li>Enable the <strong>Test mode</strong> in your API console to benefit from unlimited transactions.</li>
+<li>Create your first API key by clicking <strong>&#39;Create API key&#39;</strong>. Copy and Save it.</li>
+<li>Use this key to <strong>&#39;Authorize&#39;</strong> into the Swagger UI.</li>
 </ul>
 <h2 id='simple-e2e-create-credentials-presentation-flow'>Simple E2E Create Credentials/Presentation Flow</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
@@ -1284,7 +1297,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-<h2 id='resolve-did'>Resolve DID</h2>
+<h2 id='get-did'>Get DID</h2>
 <blockquote>
 <p><span class="highlight"><span class="na">GET</span> /dids/{did}</span></span> REQUEST</p>
 </blockquote>
