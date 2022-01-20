@@ -31,7 +31,7 @@ The Dock API is a set of platform allowing you to issue, verify and revoke verif
 
 In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
 
-We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API. You can inspect and try out our [swagger console here](https://swagger.api.dock.io/).
+We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
 # Getting Started
 
@@ -433,7 +433,7 @@ This event indicates a schema has been created. It will fire when a schema has b
 <div style="clear:both"></div>
 
 
-# Postman collection
+# Dock Postman Collection
 Download and use our [Postman Collection](https://github.com/docknetwork/api-docs/blob/main/Dock%20API.postman_collection.json) to experiment with basic API flows:
 
 - Download Postman [here](https://www.postman.com/downloads/).
@@ -446,6 +446,16 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - In your API Console dashboard, click **Create API key** to generate the key, copy and save it.
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
+
+# Dock Swagger UI
+
+Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser. 
+Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quickly:
+
+- Login to [Dock API Console](https://console.api.dock.io/).
+- Enable the **Test mode** in your API console to benefit from unlimited transactions.
+- Create your first API key by clicking **'Create API key'**. Copy and Save it.
+- Use this key to **'Authorize'** into the Swagger UI.
 
 ## Simple E2E Create Credentials/Presentation Flow
 
@@ -710,7 +720,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 
 
-## Resolve DID
+## Get DID
 
 > <span class="highlight"><span class="na">GET</span> /dids/{did}</span></span> REQUEST
 
