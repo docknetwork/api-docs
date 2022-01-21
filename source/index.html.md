@@ -446,17 +446,6 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - In your API Console dashboard, click **Create API key** to generate the key, copy and save it.
 - Set `ApiKey` initial and current values with the value that you generated in the API console.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
-
-# Dock Swagger UI
-
-Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser. 
-Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quickly:
-
-- Login to [Dock API Console](https://console.api.dock.io/).
-- Enable the **Test mode** in your API console to benefit from unlimited transactions.
-- Create your first API key by clicking **'Create API key'**. Copy and Save it.
-- Use this key to **'Authorize'** into the Swagger UI.
-
 ## Simple E2E Create Credentials/Presentation Flow
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
@@ -606,6 +595,16 @@ The same credential verification route can be used to verify a presentation. In 
 
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+
+# Dock Swagger UI
+Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser.
+Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quickly:
+
+- Login to [Dock API Console](https://console.api.dock.io/).
+- Enable the **Test mode** in your API console to benefit from unlimited transactions.
+- Create your first API key by clicking **'Create API key'**. Copy and Save it.
+- Use this key to **'Authorize'** into the Swagger UI.
+
 </aside>
 
 <div style="clear:both"></div>
