@@ -350,12 +350,24 @@
           </li>
           <li>
             <a href="#dock-postman-collection" class="toc-h1 toc-link" data-title="Dock Postman Collection">Dock Postman Collection</a>
-          </li>
-          <li>
-            <a href="#dock-swagger-ui" class="toc-h1 toc-link" data-title="Dock Swagger UI">Dock Swagger UI</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#simple-e2e-create-credentials-presentation-flow" class="toc-h2 toc-link" data-title="Simple E2E Create Credentials/Presentation Flow">Simple E2E Create Credentials/Presentation Flow</a>
+                    <a href="#1-create-a-did" class="toc-h2 toc-link" data-title="1. Create a DID">1. Create a DID</a>
+                  </li>
+                  <li>
+                    <a href="#2-verify-the-new-did" class="toc-h2 toc-link" data-title="2. Verify the New DID">2. Verify the New DID</a>
+                  </li>
+                  <li>
+                    <a href="#3-create-a-signed-credential" class="toc-h2 toc-link" data-title="3. Create a Signed Credential">3. Create a Signed Credential</a>
+                  </li>
+                  <li>
+                    <a href="#4-verify-the-signed-credential" class="toc-h2 toc-link" data-title="4. Verify the Signed Credential">4. Verify the Signed Credential</a>
+                  </li>
+                  <li>
+                    <a href="#5-create-a-presentation" class="toc-h2 toc-link" data-title="5. Create a Presentation">5. Create a Presentation</a>
+                  </li>
+                  <li>
+                    <a href="#6-verify-the-presentation" class="toc-h2 toc-link" data-title="6. Verify the Presentation">6. Verify the Presentation</a>
                   </li>
               </ul>
           </li>
@@ -1001,19 +1013,10 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <li>Enable the <strong>Test mode</strong> in your API console to use the sandbox environment.</li>
 <li>In your API Console dashboard, click <strong>Create API key</strong> to generate the key, copy and save it.</li>
 <li>Set <code>ApiKey</code> initial and current values with the value that you generated in the API console.</li>
-<li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a></li>
+<li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a>
+## Simple E2E Create Credentials/Presentation Flow</li>
 </ul>
-<h1 id='dock-swagger-ui'>Dock Swagger UI</h1>
-<p>Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser. 
-Use our <a href="https://swagger.api.dock.io/">Swagger UI</a> to execute the API calls quickly:</p>
 
-<ul>
-<li>Login to <a href="https://console.api.dock.io/">Dock API Console</a>.</li>
-<li>Enable the <strong>Test mode</strong> in your API console to benefit from unlimited transactions.</li>
-<li>Create your first API key by clicking <strong>&#39;Create API key&#39;</strong>. Copy and Save it.</li>
-<li>Use this key to <strong>&#39;Authorize&#39;</strong> into the Swagger UI.</li>
-</ul>
-<h2 id='simple-e2e-create-credentials-presentation-flow'>Simple E2E Create Credentials/Presentation Flow</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
 
 <blockquote>
@@ -1143,6 +1146,16 @@ You only need to create a DID once and then you can issue many credentials with 
 
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+
+# Dock Swagger UI
+Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser.
+Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quickly:
+
+- Login to [Dock API Console](https://console.api.dock.io/).
+- Enable the **Test mode** in your API console to benefit from unlimited transactions.
+- Create your first API key by clicking **'Create API key'**. Copy and Save it.
+- Use this key to **'Authorize'** into the Swagger UI.
+
 </aside>
 
 <div style="clear:both"></div>
