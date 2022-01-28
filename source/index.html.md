@@ -595,6 +595,7 @@ The same credential verification route can be used to verify a presentation. In 
 
 <aside class="notice">
 These steps involve using the API to create presentations on behalf of your holders. Ideally, you should not do this and distribute the credential to your users and have their own wallet apps create the presentations for a verifier.
+</aside>
 
 # Dock Swagger UI
 Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser.
@@ -604,8 +605,6 @@ Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quic
 - Enable the **Test mode** in your API console to benefit from unlimited transactions.
 - Create your first API key by clicking **'Create API key'**. Copy and Save it.
 - Use this key to **'Authorize'** into the Swagger UI.
-
-</aside>
 
 <div style="clear:both"></div>
 
