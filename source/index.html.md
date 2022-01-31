@@ -8,7 +8,7 @@ language_tabs:
 #  - php: PHP
 #  - go: Go
 toc_footers:
-  - <a href="https://console.api.dock.io/">Sign up for an API Key</a>
+  - <a href="https://certs.dock.io/">Sign up for an API Key</a>
   - <a href="https://swagger.api.dock.io/">Swagger specification</a>
 includes: []
 search: true
@@ -31,19 +31,19 @@ The Dock API is a set of platform allowing you to issue, verify and revoke verif
 
 In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
 
-We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with our API console](https://console.api.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
+We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with Dock Certs](https://certs.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using the Dock API.
 
 # Getting Started
 
 ## Prerequisites
-You must first have an account and acquire your credentials (API keys) before accessing the Dock API. You can register an account and generate a key in our [API console](https://console.api.dock.io/).
+You must first have an account and acquire your credentials (API keys) before accessing the Dock API. You can register an account and generate a key in your [Dock Certs](https://certs.dock.io/) dashboard.
 
 <aside class="warning">
 Keep in mind that your API keys should be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 
 ## Endpoints
-The Dock API provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in the [API console](https://console.api.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API console dashboard. It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
+The Dock API provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in [Dock Certs](https://certs.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the [Dock Certs dashboard](https://certs.dock.io/keys). It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
 
 - For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
 - For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
@@ -51,7 +51,7 @@ The Dock API provides two endpoints based on which mode was selected when creati
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
 ## Authentication
-The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into [the api console](https://console.api.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
+The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into [Dock Certs](https://console.api.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
 
 * API Key (accessToken)
     - Name: **DOCK-API-TOKEN**
@@ -106,13 +106,13 @@ Blob | Blob stands for Binary Large OBject. It is a collection of binary data st
 DID Resolver | The tool that initiates the process of learning the DID document.
 
 # Webhooks
-We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from our API console to trigger the data exchange.
+We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select **at least one** of the webhook events from Dock Certs to trigger the data exchange.
 
 
 ## How to Setup Webhook
 To setup webhook, simply follow the steps below:
 
-- Go to **Webhooks** in the API console.
+- Go to **Webhooks** in Dock Certs.
 - Click **Add Endpoint**.
 - Fill in the **Endpoint URL** and select **Endpoint Events** for the webhook events.
 - Click **Create Webhook**.
@@ -441,10 +441,10 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detailed instructions to import the json file, please refer [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
 - Create a new environment in Postman. For the detailed instruction to create a new environment, please refer [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
 - In your new Postman environment, you need to create two new `ApiKey` and `BaseUrl` variables. Please refer [here](https://learning.postman.com/docs/sending-requests/variables/) for the instructions to set the new variables.
-- Login to [Dock API console](https://console.api.dock.io/).
-- Enable the **Test mode** in your API console to use the sandbox environment.
-- In your API Console dashboard, click **Create API key** to generate the key, copy and save it.
-- Set `ApiKey` initial and current values with the value that you generated in the API console.
+- Login to [Dock Certs](https://certs.dock.io/).
+- Enable the **Test mode** in your Dock Certs dashboard to use the sandbox environment.
+- In your Dock Certs dashboard, click **Create API key** on the keys page to generate the key, copy and save it.
+- Set `ApiKey` initial and current values with the value that you generated in Dock Certs.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
 ## Simple E2E Create Credentials/Presentation Flow
 
@@ -601,8 +601,8 @@ These steps involve using the API to create presentations on behalf of your hold
 Dock Swagger UI generates interactive API documentation to try out the API calls directly in any browser.
 Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quickly:
 
-- Login to [Dock API Console](https://console.api.dock.io/).
-- Enable the **Test mode** in your API console to benefit from unlimited transactions.
+- Login to [Dock Certs](https://certs.dock.io/).
+- Enable the **Test mode** in Dock Certs to benefit from unlimited transactions.
 - Create your first API key by clicking **'Create API key'**. Copy and Save it.
 - Use this key to **'Authorize'** into the Swagger UI.
 
@@ -2724,7 +2724,7 @@ This is a schema that represents a default response for a request made.
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
+  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://certs.dock.io/
 ",
 
 
