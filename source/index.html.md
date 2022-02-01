@@ -51,7 +51,7 @@ Dock Certs provides two endpoints based on which mode was selected when creating
 PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
 
 ## Authentication
-Dock Certs uses API keys to authenticate requests. You can obtain an API Key by signing into [Dock Certs](https://console.api.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
+Dock Certs uses API keys to authenticate requests. You can obtain an API Key by signing into [Dock Certs](https://certs.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
 
 * API Key (accessToken)
     - Name: **DOCK-API-TOKEN**
