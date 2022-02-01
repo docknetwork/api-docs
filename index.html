@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Dock API v1</title>
+    <title>Dock Certs API v1</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -309,7 +309,7 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#the-dock-api" class="toc-h1 toc-link" data-title="The Dock API">The Dock API</a>
+            <a href="#the-dock-certs-api" class="toc-h1 toc-link" data-title="The Dock Certs API">The Dock Certs API</a>
           </li>
           <li>
             <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
@@ -546,17 +546,17 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href="https://console.api.dock.io/">Sign up for an API Key</a></li>
+            <li><a href="https://certs.dock.io/">Sign up for an API Key</a></li>
             <li><a href="https://swagger.api.dock.io/">Swagger specification</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='the-dock-api'>The Dock API</h1>
+        <h1 id='the-dock-certs-api'>The Dock Certs API</h1>
 <p><em>A complete solution for creating, managing and presenting Verifiable Credentials.</em></p>
 
-<p>The Dock API is a set of platform allowing you to issue, verify and revoke verifiable credentials, manage DIDs and interact with the Dock blockchain. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. We provide a range of open-source software on <a href="https://github.com/docknetwork">GitHub</a> that can be used alongside the API. Primary features include:</p>
+<p>The Dock Certs API allows you to issue, verify and revoke verifiable credentials, manage DIDs and interact with the Dock blockchain. Dock integrates industry-leading World Wide Web Consortium (W3C) and VCDM standards, allowing it to interoperate with other open source technologies. We provide a range of open-source software on <a href="https://github.com/docknetwork">GitHub</a> that can be used alongside the API. Primary features include:</p>
 
 <ul>
 <li>  Easily issue, verify, manage, and revoke/unrevoke verifiable credentials.</li>
@@ -569,15 +569,15 @@
 
 <p>In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access <a href="https://github.com/docknetwork/dock-api-js/tree/main/examples">here</a>.</p>
 
-<p>We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and <a href="https://console.api.dock.io/">start issuing credentials with our API console</a>. Please read our <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using the Dock API.</p>
+<p>We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and <a href="https://certs.dock.io/">start issuing credentials with Dock Certs</a>. Please read our <a href="https://www.dock.io/terms-of-service">Terms of Service</a> before using Dock Certs.</p>
 <h1 id='getting-started'>Getting Started</h1><h2 id='prerequisites'>Prerequisites</h2>
-<p>You must first have an account and acquire your credentials (API keys) before accessing the Dock API. You can register an account and generate a key in our <a href="https://console.api.dock.io/">API console</a>.</p>
+<p>You must first have an account and acquire your credentials (API keys) before accessing the Dock Certs API. You can register an account and generate a key in your <a href="https://certs.dock.io/">Dock Certs</a> dashboard.</p>
 
 <aside class="warning">
 Keep in mind that your API keys should be kept private, so keep them safe! Do not post your private API keys on GitHub, in client-side code, or anywhere else that is publicly available.
 </aside>
 <h2 id='endpoints'>Endpoints</h2>
-<p>The Dock API provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to <strong>test mode</strong> in the <a href="https://console.api.dock.io/">API console</a> by clicking the <strong>test mode</strong> toggle in the top right next to your avatar icon. Once in <strong>test mode</strong> you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the API console dashboard. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.</p>
+<p>Dock Certs provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to <strong>test mode</strong> in <a href="https://certs.dock.io/">Dock Certs</a> by clicking the <strong>test mode</strong> toggle in the top right next to your avatar icon. Once in <strong>test mode</strong> you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the <a href="https://certs.dock.io/keys">Dock Certs dashboard</a>. It should be noted that in <strong>test mode</strong> your used transaction count <strong>will not increase or hit monthly limits</strong> allowing for sandboxing on our testnet blockchain.</p>
 
 <ul>
 <li>For production mode, use the endpoint: <a href="https://api.dock.io">https://api.dock.io</a></li>
@@ -586,7 +586,7 @@ Keep in mind that your API keys should be kept private, so keep them safe! Do no
 
 <p>PLEASE NOTE: Any transaction you perform in <strong>test mode</strong> cannot be used for <strong>production</strong>. This means that, for example, any DID created in <strong>test mode</strong> will not work for issuing or verification in <strong>production</strong>.</p>
 <h2 id='authentication'>Authentication</h2>
-<p>The Dock API uses API keys to authenticate requests. You can obtain an API Key by signing into <a href="https://console.api.dock.io">the api console</a>. Once a key has been generated, it should be included in <strong>all</strong> request headers as below:</p>
+<p>Dock Certs uses API keys to authenticate requests. You can obtain an API Key by signing into <a href="https://certs.dock.io">Dock Certs</a>. Once a key has been generated, it should be included in <strong>all</strong> request headers as below:</p>
 
 <ul>
 <li>API Key (accessToken)
@@ -601,7 +601,7 @@ Keep in mind that your API keys should be kept private, so keep them safe! Do no
 When you generate an API key, you may include a list of whitelisted IP's that can use with that key.
 </aside>
 <h2 id='architecture-style'>Architecture Style</h2>
-<p>The Dock API is built using a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.</p>
+<p>Dock Certs is built using a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture. Our API uses standard HTTP response codes, authentication, delivers JSON-encoded responses, accepts form-encoded request bodies, and accepts form-encoded request bodies.</p>
 
 <p>HTTPS is required for all API requests. Requests performed via plain HTTP will be rejected. API requests that do not include authentication will also fail. JSON requests should typically be encoded as UTF-8.</p>
 
@@ -631,7 +631,7 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 <h2 id='rate-limits'>Rate Limits</h2>
 <p>We allow you to make up to 200 requests in a 2 minute window (avg 100 reqs/min or 1.6 reqs/second). If you exceed beyond that, you will receive a 429 Too Many Requests response and have to wait up to a minute for the next request depending on when you hit the limit. If you require higher rate limits, please <a href="mailto:contact@dock.io">contact us</a>.</p>
 <h2 id='error-handling'>Error Handling</h2>
-<p>Dock API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.</p>
+<p>The Dock Certs API uses standard HTTP response codes to indicate if an API request was successful or unsuccessful.</p>
 
 <p>The table below shows the most frequent HTTP error messages:</p>
 
@@ -705,12 +705,12 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 </tr>
 </tbody></table>
 <h1 id='webhooks'>Webhooks</h1>
-<p>We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select <strong>at least one</strong> of the webhook events from our API console to trigger the data exchange.</p>
+<p>We provide webhooks for asynchronous integration with the API. You can configure a webhook to receive notifications whenever events occur within the API (see below for the list of published events). To use our webhook, you need to set the webhook URL that acts as a receiver receiving the information whenever an event happens. You also need to select <strong>at least one</strong> of the webhook events from Dock Certs to trigger the data exchange.</p>
 <h2 id='how-to-setup-webhook'>How to Setup Webhook</h2>
 <p>To setup webhook, simply follow the steps below:</p>
 
 <ul>
-<li>Go to <strong>Webhooks</strong> in the API console.</li>
+<li>Go to <strong>Webhooks</strong> in Dock Certs.</li>
 <li>Click <strong>Add Endpoint</strong>.</li>
 <li>Fill in the <strong>Endpoint URL</strong> and select <strong>Endpoint Events</strong> for the webhook events.</li>
 <li>Click <strong>Create Webhook</strong>.</li>
@@ -1012,10 +1012,10 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <li>Import Dock Collection in Postman with our API collection that you have downloaded previously. For the detailed instructions to import the json file, please refer <a href="https://learning.postman.com/docs/getting-started/importing-and-exporting-data/">here</a>.</li>
 <li>Create a new environment in Postman. For the detailed instruction to create a new environment, please refer <a href="https://learning.postman.com/docs/sending-requests/managing-environments/">here</a>.</li>
 <li>In your new Postman environment, you need to create two new <code>ApiKey</code> and <code>BaseUrl</code> variables. Please refer <a href="https://learning.postman.com/docs/sending-requests/variables/">here</a> for the instructions to set the new variables.</li>
-<li>Login to <a href="https://console.api.dock.io/">Dock API console</a>.</li>
-<li>Enable the <strong>Test mode</strong> in your API console to use the sandbox environment.</li>
-<li>In your API Console dashboard, click <strong>Create API key</strong> to generate the key, copy and save it.</li>
-<li>Set <code>ApiKey</code> initial and current values with the value that you generated in the API console.</li>
+<li>Login to <a href="https://certs.dock.io/">Dock Certs</a>.</li>
+<li>Enable the <strong>Test mode</strong> in your Dock Certs dashboard to use the sandbox environment.</li>
+<li>In your Dock Certs dashboard, click <strong>Create API key</strong> on the keys page to generate the key, copy and save it.</li>
+<li>Set <code>ApiKey</code> initial and current values with the value that you generated in Dock Certs.</li>
 <li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a>
 ## Simple E2E Create Credentials/Presentation Flow</li>
 </ul>
@@ -1155,8 +1155,8 @@ These steps involve using the API to create presentations on behalf of your hold
 Use our <a href="https://swagger.api.dock.io/">Swagger UI</a> to execute the API calls quickly:</p>
 
 <ul>
-<li>Login to <a href="https://console.api.dock.io/">Dock API Console</a>.</li>
-<li>Enable the <strong>Test mode</strong> in your API console to benefit from unlimited transactions.</li>
+<li>Login to <a href="https://certs.dock.io/">Dock Certs</a>.</li>
+<li>Enable the <strong>Test mode</strong> in Dock Certs to benefit from unlimited transactions.</li>
 <li>Create your first API key by clicking <strong>&#39;Create API key&#39;</strong>. Copy and Save it.</li>
 <li>Use this key to <strong>&#39;Authorize&#39;</strong> into the Swagger UI.</li>
 </ul>
@@ -1695,7 +1695,7 @@ This operation counts towards your monthly transaction limits for each successfu
   </div>
 </div>
 
-<p>You can create and sign Verifiable Credentials on the Dock API. By default, Dock does not store the credential - only its metadata. You can choose to persist a credential, in which case we will encrypt and store the credential for later retrieval using a password. Verifiable Credentials are cryptographically secure and tamper-proof. Once issued, they cannot be edited.</p>
+<p>You can create and sign Verifiable Credentials on Dock Certs and its API. By default, Dock does not store the credential - only its metadata. You can choose to persist a credential, in which case we will encrypt and store the credential for later retrieval using a password. Verifiable Credentials are cryptographically secure and tamper-proof. Once issued, they cannot be edited.</p>
 
 <h2 id="issue-credentials">Issue Credential</h2>
 
@@ -1754,7 +1754,7 @@ The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always re
 <p>To sign a credential, an <code>issuer</code> must be supplied as either a fully qualified DID string or an object with at least an <code>id</code> property which is a fully qualified DID. (e.g: <code>did:dock:xyz</code>)</p>
 
 <aside class="notice">
-The <code>issuer</code> property <strong>must</strong> be a DID that you control on the Dock API.
+The <code>issuer</code> property <strong>must</strong> be a DID that you control with Dock Certs.
 </aside>
 
 <p>By default, Dock does not store the credential contents at all - only minimal credential metadata. You can choose to set the <code>persist</code> value to <code>true</code> and provide a <code>password</code> string which will store the credential contents encrypted on our platform. The following metadata is stored on each issuance:</p>
@@ -2101,7 +2101,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 <p>Revocation means deleting or updating a credential. On Dock, credential revocation is managed with a revocation registry.</p>
 
-<p>There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock API allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.</p>
+<p>There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock Certs allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.</p>
 
 <p>For a detailed example of the registry workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/registryFlow.js">here</a>.</p>
 <h2 id='create-registry'>Create Registry</h2>
@@ -3237,7 +3237,7 @@ This operation counts towards your monthly transaction limits for each successfu
   </div>
 </div>
 
-<p>In the Dock API, &quot;jobs&quot; are blockchain transactions that we submit on your behalf. You can choose to either register a webhook or poll the API to receive job information. Certain things in the API, such as revoking a credential, require a blockchain transaction to finalize before the job can be considered &quot;done&quot;. The time to wait varies on network load and other factors, but typically is within 5-10 seconds.</p>
+<p>In Dock Certs, &quot;jobs&quot; are blockchain transactions that we submit on your behalf. You can choose to either register a webhook or poll the API to receive job information. Certain things in the API, such as revoking a credential, require a blockchain transaction to finalize before the job can be considered &quot;done&quot;. The time to wait varies on network load and other factors, but typically is within 5-10 seconds.</p>
 
 <p>You can track the current job status by querying the job id returned as part of the initial API response that triggered the job. The work is done asynchronously.</p>
 <h2 id='get-job-status-and-data'>Get Job Status and Data</h2>
@@ -4259,7 +4259,7 @@ This operation counts towards your monthly transaction limits for each successfu
 {
   "@context": "http://schema.org/",
   "@type": "WebAPI",
-  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://console.api.dock.io/
+  "description": "Dock provides a complete solution for creating and managing verifiable credentials on the blockchain. This includes a free trial and simple, monthly pricing. Get started here: https://certs.dock.io/
 ",
 
 
