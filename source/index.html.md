@@ -85,7 +85,7 @@ The table below shows the most frequent HTTP error messages:
 Code | Meaning
 --------- | -----------
 400 | Bad Request -- Your request was rejected (e.g., missing mandatory field).
-402 | Payment required -- Subscription or payment required to proceed
+402 | Payment required -- Transaction limit reached or upgrade required to proceed
 401 | Unauthorized -- Do not own resource or have an invalid API key in the header.
 404 | Not Found -- The resource that you're trying to interact with could not be found on the server.
 405 | Method Not Allowed -- The requested method does not exist in the API spec. Please check the {did} value and ensure that it's not empty/blank.
@@ -716,7 +716,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create DID. NOTE: DID does not exist on network until the job identified in the response is complete.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 
@@ -774,7 +774,7 @@ The API supports resolving many DID methods, some examples are:
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the DID doc.
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The requested DID was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 ## List DIDs
 
@@ -826,7 +826,7 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDock](#schemadiddoc)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 
@@ -896,7 +896,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |400|[Bad Request](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1)|The controller value is incorrect.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 ## Delete DID
 
@@ -943,7 +943,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 |405|[Method not Allowed](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5)|The {did} value is blank/empty. Please ensure that the {did} value does exist.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 
@@ -1089,7 +1089,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the created Verifiable Credential.|[VerifiableCredential](#schemaverifiablecredential)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, either because the authorization token was missing/invalid or you don't own the DID.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 <h1 id="presentations">Presentations</h1>
@@ -1219,7 +1219,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns a Verifiable Presentation.|[VerifiablePresentation](#schemaverifiablepresentation)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient parameters.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, either because of a missing/invalid auth header or you don't own the DID.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 <h1 id="registries">Registries</h1>
@@ -1327,7 +1327,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create the registry.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., policy not supported.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 ## List Registries
 
@@ -1381,7 +1381,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all registries created by the user.|Inline|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 ## Get Registry
 
@@ -1427,7 +1427,7 @@ curl --location --request GET https://api.dock.io/registries/{id} \
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the revocation registry metadata.|[Registry](#schemaregistry)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 ## Revoke/Unrevoke Credential
@@ -1502,7 +1502,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to revoke/unrevoke the credential.|[JobStartedResult](#schemajobstartedresult)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 
@@ -1549,7 +1549,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and revocation registry will be deleted.|[JobStartedResult](#schemajobstartedresult)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 
@@ -1593,7 +1593,7 @@ To check if an id is revoked or not, you can check its status with the registry 
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return **true**, if the credential is revoked, **false** otherwise.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 |400|[Server Error](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1)|The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.|[Error](#schemaerror)|
 
 
@@ -1742,7 +1742,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create schema.|[JobId](#schemajobid)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 ## List Schemas
 
@@ -1805,7 +1805,7 @@ Return a list of all schemas created by the authenticated user.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all schemas created by the user.|Inline|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 ## Get Schema
@@ -1865,7 +1865,7 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the requested Schema.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the schema was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 <h1 id="anchors">Anchors</h1>
@@ -1960,7 +1960,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will try to create an anchor on the blockchain.|[JobId](#schemajobid)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 ## List Anchors
@@ -2009,7 +2009,7 @@ Return a list of all anchors created by the authenticated user, regardless of wh
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all anchors created by the user.|Inline|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 
@@ -2051,7 +2051,7 @@ Get a specific anchor with the given ID.
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 <h1 id="jobs">Jobs</h1>
@@ -2110,7 +2110,7 @@ To check the Job status and data, you can use the `GET` method and simply put th
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and return the job description.|[JobDesc](#schemajobdesc)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the Job id was not found.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 <h1 id="verify">Verify</h1>
@@ -2210,7 +2210,7 @@ You can verify issued/received credentials and presentations using this route. V
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the verification result.|[VerificationResponse](#schemaverificationresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid credential params.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Subscription or payment required to proceed|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
 # Schemas
