@@ -1158,7 +1158,7 @@ curl --location --request DELETE https://api.dock.io/credentials/{id} \
 
 ```
 
-A credential can have its metadata deleted, and if persisted the contents will also be deleted. Deleting a credential will remove any reference to it and its contents from our systems. It cannot be undone.
+A credential can have its metadata deleted, and if persisted the contents will also be deleted. Deleting a credential will remove any reference to it and its contents from our systems. This action cannot be undone. This action will not revoke or invalidate the credential in any way.
 
 <h3 id="delete-credential-parameters">Parameters</h3>
 
