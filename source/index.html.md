@@ -2145,6 +2145,62 @@ Get a specific anchor with the given ID.
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
+## Verify Anchor
+
+> <span class="highlight"><span class="nt">POST</span> /verify</span></span> REQUEST
+
+```shell
+curl --location --request POST https://api.dock.io/anchors \
+
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '[
+  "can be a string",
+  {
+    "or": "a JSON document"
+  }
+]'
+```
+
+```json-doc
+
+{
+  "documents": [],
+  "proofs": [],
+  "root": "0x00"
+}
+```
+
+
+Verify an anchor's merkle root and proof by supplying the source documents (array of strings of JSON objects, same as in anchor creation).
+
+<h3 id="get-anchor-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|documents|body|array of strings or JSON|true|An array of strings or JSON objects to represent documents to be hashed|
+|proofs|body|JSON object array|true|An array of proofs given on anchor creation|
+|root|body|[Hex32](#schemahex32)|true|The anchor merkle root/ID.|
+
+
+> 200 Response
+
+```json
+{
+  "verified": true,
+  "results": [
+    {}
+  ]
+}
+```
+
+<h3 id="get-anchor-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
 
 <h1 id="jobs">Jobs</h1>
 
