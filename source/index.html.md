@@ -958,6 +958,19 @@ This operation counts towards your monthly transaction limits for each successfu
       /credentials
     </a>
     <br />
+     <a href="#get-credential">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /credentials/{id}
+    </a>
+    <br />
+   <a href="#delete-credential">
+      <span class="kd">DELETE</span>
+      /credentials/{id}
+    </a>
+    <br />
+
+
+
   </div>
 </div>
 
@@ -1090,6 +1103,85 @@ This operation counts towards your monthly transaction limits for each successfu
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, either because the authorization token was missing/invalid or you don't own the DID.|[Error](#schemaerror)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+
+## Get Credential
+
+> <span class="highlight"><span class="na">GET</span> /credentials/{id}</span></span> REQUEST
+
+```shell
+curl --location --request GET 'https://api.dock.io/credentials/credential_id?password=test' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
+```
+
+
+When a credential has been persisted on our systems, you can fetch the credential data by supplying a credential ID and the password used at issuance to encrypt the credential.
+
+<h3 id="get-credential-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|path|string|true|The ID of the credential (as a full URI).|
+|password|query|string|true|The password given at issuance to encrypt the credential in storage|
+
+> 200 Response
+
+```json
+{
+  "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
+  "byteSize": 1074,
+  "issuerKey": "did:dock:5CU97DhQ3mnbxPAiYw3GoRqFcnvCLGuHj3MS8evD8sARmg3e#KWAtkADdAy1rCiysr4cPZre4Lj7GFWGqyN5mP5X8xuzAnGzAb                     ",
+  "createdAt": "2021-12-21T01:36:23.062Z",
+  "credential": { ... }
+}
+```
+
+<h3 id="get-credential-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the credential metadata and its JSON contents.
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The requested credential was not found.|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+
+
+## Delete Credential
+
+> <span class="highlight"><span class="kd">DELETE</span> /credentials/{id}</span></span> REQUEST
+
+```shell
+curl --location --request DELETE https://api.dock.io/credentials/{id} \
+  --header 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+A credential can have its metadata deleted, and if persisted the contents will also be deleted. Deleting a credential will remove any reference to it and its contents from our systems. This action cannot be undone. This action will not revoke or invalidate the credential in any way.
+
+<h3 id="delete-credential-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|path|string|true|The ID of the credential (as a full URI).|
+
+> 200 Response
+
+```json
+{ }
+```
+
+<h3 id="delete-credential-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and credential will be deleted.|[JobStartedResult](#schemajobstartedresult)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the credential was not found.|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+
+
 
 
 <h1 id="presentations">Presentations</h1>
@@ -2051,6 +2143,62 @@ Get a specific anchor with the given ID.
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the anchor was not found.|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+## Verify Anchor
+
+> <span class="highlight"><span class="nt">POST</span> /verify</span></span> REQUEST
+
+```shell
+curl --location --request POST https://api.dock.io/anchors \
+
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '[
+  "can be a string",
+  {
+    "or": "a JSON document"
+  }
+]'
+```
+
+```json-doc
+
+{
+  "documents": [],
+  "proofs": [],
+  "root": "0x00"
+}
+```
+
+
+Verify an anchor's merkle root and proof by supplying the source documents (array of strings of JSON objects, same as in anchor creation).
+
+<h3 id="get-anchor-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|documents|body|array of strings or JSON|true|An array of strings or JSON objects to represent documents to be hashed|
+|proofs|body|JSON object array|true|An array of proofs given on anchor creation|
+|root|body|[Hex32](#schemahex32)|true|The anchor merkle root/ID.|
+
+
+> 200 Response
+
+```json
+{
+  "verified": true,
+  "results": [
+    {}
+  ]
+}
+```
+
+<h3 id="get-anchor-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the anchor's details, e.g., `blockHash` and `root`.|[Anchor](#schemaanchor)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
