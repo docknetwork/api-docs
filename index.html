@@ -400,6 +400,12 @@
                   <li>
                     <a href="#issue-credentials" class="toc-h2 toc-link" data-title="Issue Credential">Issue Credential</a>
                   </li>
+                  <li>
+                    <a href="#get-credential" class="toc-h2 toc-link" data-title="Get Credential">Get Credential</a>
+                  </li>
+                  <li>
+                    <a href="#delete-credential" class="toc-h2 toc-link" data-title="Delete Credential">Delete Credential</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -463,6 +469,9 @@
                   </li>
                   <li>
                     <a href="#get-anchor" class="toc-h2 toc-link" data-title="Get Anchor">Get Anchor</a>
+                  </li>
+                  <li>
+                    <a href="#verify-anchor" class="toc-h2 toc-link" data-title="Verify Anchor">Verify Anchor</a>
                   </li>
               </ul>
           </li>
@@ -1726,6 +1735,19 @@ This operation counts towards your monthly transaction limits for each successfu
       /credentials
     </a>
     <br />
+     <a href="#get-credential">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /credentials/{id}
+    </a>
+    <br />
+   <a href="#delete-credential">
+      <span class="kd">DELETE</span>
+      /credentials/{id}
+    </a>
+    <br />
+
+
+
   </div>
 </div>
 
@@ -1904,6 +1926,148 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>401</td>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
 <td>The request was unsuccessful, either because the authorization token was missing/invalid or you don&#39;t own the DID.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='get-credential'>Get Credential</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /credentials/{id}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/credentials/credential_id?password=test'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>When a credential has been persisted on our systems, you can fetch the credential data by supplying a credential ID and the password used at issuance to encrypt the credential.</p>
+
+<h3 id="get-credential-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The ID of the credential (as a full URI).</td>
+</tr>
+<tr>
+<td>password</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>The password given at issuance to encrypt the credential in storage</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"byteSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">1074</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuerKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5CU97DhQ3mnbxPAiYw3GoRqFcnvCLGuHj3MS8evD8sARmg3e#KWAtkADdAy1rCiysr4cPZre4Lj7GFWGqyN5mP5X8xuzAnGzAb                     "</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-21T01:36:23.062Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-credential-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return the credential metadata and its JSON contents.</td>
+<td></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The requested credential was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='delete-credential'>Delete Credential</h2>
+<blockquote>
+<p><span class="highlight"><span class="kd">DELETE</span> /credentials/{id}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> DELETE https://api.dock.io/credentials/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+
+</code></pre></div>
+<p>A credential can have its metadata deleted, and if persisted the contents will also be deleted. Deleting a credential will remove any reference to it and its contents from our systems. This action cannot be undone. This action will not revoke or invalidate the credential in any way.</p>
+
+<h3 id="delete-credential-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The ID of the credential (as a full URI).</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="delete-credential-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and credential will be deleted.</td>
+<td><a href="#schemajobstartedresult">JobStartedResult</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The request was unsuccessful, because the credential was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
@@ -3330,6 +3494,96 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>The request was unsuccessful, because the anchor was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='verify-anchor'>Verify Anchor</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /verify</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/anchors <span class="se">\</span>
+
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'[
+  "can be a string",
+  {
+    "or": "a JSON document"
+  }
+]'</span>
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"documents"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"proofs"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"root"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x00"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Verify an anchor&#39;s merkle root and proof by supplying the source documents (array of strings of JSON objects, same as in anchor creation).</p>
+
+<h3 id="get-anchor-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documents</td>
+<td>body</td>
+<td>array of strings or JSON</td>
+<td>true</td>
+<td>An array of strings or JSON objects to represent documents to be hashed</td>
+</tr>
+<tr>
+<td>proofs</td>
+<td>body</td>
+<td>JSON object array</td>
+<td>true</td>
+<td>An array of proofs given on anchor creation</td>
+</tr>
+<tr>
+<td>root</td>
+<td>body</td>
+<td><a href="#schemahex32">Hex32</a></td>
+<td>true</td>
+<td>The anchor merkle root/ID.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-anchor-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and returns the anchor&#39;s details, e.g., <code>blockHash</code> and <code>root</code>.</td>
+<td><a href="#schemaanchor">Anchor</a></td>
 </tr>
 <tr>
 <td>402</td>
