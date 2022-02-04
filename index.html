@@ -646,6 +646,10 @@ When you generate an API key, you may include a list of whitelisted IP's that ca
 <td>Bad Request -- Your request was rejected (e.g., missing mandatory field).</td>
 </tr>
 <tr>
+<td>402</td>
+<td>Payment required -- Transaction limit reached or upgrade required to proceed</td>
+</tr>
+<tr>
 <td>401</td>
 <td>Unauthorized -- Do not own resource or have an invalid API key in the header.</td>
 </tr>
@@ -1312,6 +1316,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, because of invalid params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='get-did'>Get DID</h2>
 <blockquote>
@@ -1395,6 +1405,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The requested DID was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='list-dids'>List DIDs</h2>
 <blockquote>
@@ -1473,6 +1489,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>All of a user&#39;s DIDs fully resolved into DID documents.</td>
 <td><a href="#schemadiddoc">DIDDock</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
 <h2 id='update-did'>Update DID</h2>
@@ -1595,6 +1617,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The DID does not exist.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='delete-did'>Delete DID</h2>
 <blockquote>
@@ -1675,6 +1703,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>405</td>
 <td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5">Method not Allowed</a></td>
 <td>The {did} value is blank/empty. Please ensure that the {did} value does exist.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -1872,6 +1906,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, either because the authorization token was missing/invalid or you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 
 <h1 id="presentations">Presentations</h1>
@@ -2061,6 +2101,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, either because of a missing/invalid auth header or you don&#39;t own the DID.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 
 <h1 id="registries">Registries</h1>
@@ -2199,6 +2245,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, because of invalid params, e.g., policy not supported.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='list-registries'>List Registries</h2>
 <blockquote>
@@ -2278,6 +2330,12 @@ For now, only one policy is supported, and each registry is owned by a single DI
 <td>The request was successful and will return all registries created by the user.</td>
 <td>Inline</td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='get-registry'>Get Registry</h2>
 <blockquote>
@@ -2347,6 +2405,12 @@ For now, only one policy is supported, and each registry is owned by a single DI
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>The request was unsuccessful, because the registry was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2470,6 +2534,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, because the registry was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='delete-registry'>Delete Registry</h2>
 <blockquote>
@@ -2537,6 +2607,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>The request was unsuccessful, because the registry was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -2613,7 +2689,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
-<td>500</td>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
 <td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1">Server Error</a></td>
 <td>The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.</td>
 <td><a href="#schemaerror">Error</a></td>
@@ -2790,6 +2872,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, because of invalid params, e.g., size not supported or not JSON.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='list-schemas'>List Schemas</h2>
 <blockquote>
@@ -2878,6 +2966,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was successful and will return all schemas created by the user.</td>
 <td>Inline</td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='get-schema'>Get Schema</h2>
 <blockquote>
@@ -2960,6 +3054,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>The request was unsuccessful, because the schema was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -3081,6 +3181,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was unsuccessful, because of invalid params.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='list-anchors'>List Anchors</h2>
 <blockquote>
@@ -3155,6 +3261,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The request was successful and will return all anchors created by the user.</td>
 <td>Inline</td>
 </tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
 </tbody></table>
 <h2 id='get-anchor'>Get Anchor</h2>
 <blockquote>
@@ -3217,6 +3329,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>The request was unsuccessful, because the anchor was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -3301,6 +3419,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>404</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
 <td>The request was unsuccessful, because the Job id was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
@@ -3423,6 +3547,12 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>400</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
 <td>The request was unsuccessful, because of invalid credential params.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
