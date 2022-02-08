@@ -33,7 +33,7 @@ In addition to the code samples shown in these docs, we have provided various co
 
 We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with Dock Certs](https://certs.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using Dock Certs.
 
-## Tim's Parody
+## Example Use Case
 
 Tim is a newly graduated Lawyer from the University of Chicago, looking for an opportunity to grow his career. With the use of verifiable credentials, Tim is issued a certificate proving his qualifications from the university, the certificate resides on Tim’s mobile device.
 
