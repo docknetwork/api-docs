@@ -474,6 +474,7 @@ Download and use our [Postman Collection](https://github.com/docknetwork/api-doc
 - In your Dock Certs dashboard, click **Create API key** on the keys page to generate the key, copy and save it.
 - Set `ApiKey` initial and current values with the value that you generated in Dock Certs.
 - Set `BaseUrl` initial and current values with [https://api-testnet.dock.io](https://api-testnet.dock.io)
+
 ## Simple E2E Create Credentials/Presentation Flow
 
 This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder's behalf, the following steps are required:
