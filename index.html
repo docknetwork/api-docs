@@ -360,22 +360,7 @@
             <a href="#dock-postman-collection" class="toc-h1 toc-link" data-title="Dock Postman Collection">Dock Postman Collection</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#1-create-a-did" class="toc-h2 toc-link" data-title="1. Create a DID">1. Create a DID</a>
-                  </li>
-                  <li>
-                    <a href="#2-verify-the-new-did" class="toc-h2 toc-link" data-title="2. Verify the New DID">2. Verify the New DID</a>
-                  </li>
-                  <li>
-                    <a href="#3-create-a-signed-credential" class="toc-h2 toc-link" data-title="3. Create a Signed Credential">3. Create a Signed Credential</a>
-                  </li>
-                  <li>
-                    <a href="#4-verify-the-signed-credential" class="toc-h2 toc-link" data-title="4. Verify the Signed Credential">4. Verify the Signed Credential</a>
-                  </li>
-                  <li>
-                    <a href="#5-create-a-presentation" class="toc-h2 toc-link" data-title="5. Create a Presentation">5. Create a Presentation</a>
-                  </li>
-                  <li>
-                    <a href="#6-verify-the-presentation" class="toc-h2 toc-link" data-title="6. Verify the Presentation">6. Verify the Presentation</a>
+                    <a href="#simple-e2e-create-credentials-presentation-flow" class="toc-h2 toc-link" data-title="Simple E2E Create Credentials/Presentation Flow">Simple E2E Create Credentials/Presentation Flow</a>
                   </li>
               </ul>
           </li>
@@ -1061,10 +1046,9 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 <li>Enable the <strong>Test mode</strong> in your Dock Certs dashboard to use the sandbox environment.</li>
 <li>In your Dock Certs dashboard, click <strong>Create API key</strong> on the keys page to generate the key, copy and save it.</li>
 <li>Set <code>ApiKey</code> initial and current values with the value that you generated in Dock Certs.</li>
-<li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a>
-## Simple E2E Create Credentials/Presentation Flow</li>
+<li>Set <code>BaseUrl</code> initial and current values with <a href="https://api-testnet.dock.io">https://api-testnet.dock.io</a></li>
 </ul>
-
+<h2 id='simple-e2e-create-credentials-presentation-flow'>Simple E2E Create Credentials/Presentation Flow</h2>
 <p>This flow refers to Postman, but the general steps are the same however you use the API. The Postman collection includes the scripts that automatically propagate results into the next request bodies when you follow the below steps. To issue a credential and or a presentation on the holder&#39;s behalf, the following steps are required:</p>
 
 <blockquote>
