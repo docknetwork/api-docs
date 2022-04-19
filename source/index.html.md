@@ -1192,7 +1192,7 @@ A credential can have its metadata deleted, and if persisted the contents will a
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|did|path|string|true|The ID of the credential (as a full URI).|
+|did|path|string|true|The ID of the credential (as a full URL-encoded URI).|
 
 > 200 Response
 
@@ -1204,7 +1204,7 @@ A credential can have its metadata deleted, and if persisted the contents will a
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and credential will be deleted.|[JobStartedResult](#schemajobstartedresult)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and credential will be deleted.||
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the credential was not found.|[Error](#schemaerror)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
