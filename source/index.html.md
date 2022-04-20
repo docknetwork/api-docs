@@ -1209,6 +1209,49 @@ A credential can have its metadata deleted, and if persisted the contents will a
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
+## Get Credentials Metadata
+
+> <span class="highlight"><span class="na">GET</span> /credentials</span></span> REQUEST
+
+```shell
+curl --location --request GET 'https://api.dock.io/credentials' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+```
+
+
+When you issue a credential with us, persistent or not, we will store certain metadata about the credential to make it easier for you to reference. You can pull a list of credential metadata using this route. To return the content of a persisted credential, you should use the `GET /credentials/{id}` route
+
+<h3 id="get-credential-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
+
+> 200 Response
+
+```json
+[
+  {
+    "id": "https://creds.dock.io/6d601b80d56f4bb2f35b4fbe2406cc186a25b615a66fc405283ad5967f28c143",
+    "issuerKey": "did:dock:xyz#xyz",
+    "type": "BasicCredential",
+    "revoked": false,
+    "revocationRegistry": "rev-reg:dock:0x357c104d14e81d66ef43debee91eb62aac9af27c34a1e1a2194ee443989c4d44",
+    "createdAt": "2022-04-18T18:28:09.914Z",
+    "expirationDate": null,
+    "byteSize": 917,
+    "persist": false
+  }
+]
+```
+
+<h3 id="get-credential-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the credential metadata and its JSON contents.
 
 
 
