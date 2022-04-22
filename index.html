@@ -1823,7 +1823,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <p>Creates and issues a JSON-LD Verifiable Credential that conforms to the <a href="https://www.w3.org/TR/vc-data-model/">W3C VCDM specification</a>. The <code>type</code> values and subject properties must be represented by a schema URI in the <code>context</code> property. If you do not specify a <code>context</code> property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential. You can read more about JSON-LD and contexts <a href="https://json-ld.org/spec/latest/json-ld/#the-context">here</a>.</p>
 
 <aside class="notice">
-The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times as mandated by the spec. Please also note that the request format here is not the same as an issued verifiable credential. You can issue to multiple subjects per credential by passing an array of objects.
 </aside>
 
 <p>To sign a credential, an <code>issuer</code> must be supplied as either a fully qualified DID string or an object with at least an <code>id</code> property which is a fully qualified DID. (e.g: <code>did:dock:xyz</code>)</p>
@@ -4333,9 +4333,9 @@ This operation counts towards your monthly transaction limits for each successfu
 </tr>
 <tr>
 <td>subject</td>
-<td>object</td>
+<td>object or [object]</td>
 <td>true</td>
-<td>Credential subject.</td>
+<td>Credential subject or subjects array.</td>
 </tr>
 <tr>
 <td>schema</td>
@@ -4365,7 +4365,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>status</td>
 <td>object or string</td>
 <td>false</td>
-<td>Revocation registry id or user supplied status object.</td>
+<td>Revocation registry id or user supplied status object containg a Dock revocation registry identifier.</td>
 </tr>
 </tbody></table>
 
