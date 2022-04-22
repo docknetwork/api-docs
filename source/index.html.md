@@ -1060,7 +1060,7 @@ curl --location --request POST https://api.dock.io/credentials/ \
 Creates and issues a JSON-LD Verifiable Credential that conforms to the [W3C VCDM specification](https://www.w3.org/TR/vc-data-model/). The `type` values and subject properties must be represented by a schema URI in the `context` property. If you do not specify a `context` property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential. You can read more about JSON-LD and contexts [here](https://json-ld.org/spec/latest/json-ld/#the-context).
 
 <aside class="notice">
-The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times as mandated by the spec. Please also note that the request format here is not the same as an issued verifiable credential. You can issue to multiple subjects per credential by passing an array of objects.
 </aside>
 
 To sign a credential, an `issuer` must be supplied as either a fully qualified DID string or an object with at least an `id` property which is a fully qualified DID. (e.g: `did:dock:xyz`)
@@ -2744,12 +2744,12 @@ This is a schema that represents a credential format expected by API caller when
 |id|string(uri)|false|Credential ID. The default value is a creds.dock.io uri with random ID.|
 |context|[string or object]|false|Credential context array of string URIs and/or embedded JSON-LD context objects. If no context parameter is supplied, we will auto generate contexts for you.|
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
-|subject|object|true|Credential subject.|
+|subject|object or [object]|true|Credential subject or subjects array.|
 |schema|string|false|Schema ID returned by create schema route|
 |issuer|[DIDDock](#schemadiddock)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
-|status|object or string|false|Revocation registry id or user supplied status object.|
+|status|object or string|false|Revocation registry id or user supplied status object containg a Dock revocation registry identifier.|
 
 <h2 id="tocS_VerifiablePresentation">VerifiablePresentation</h2>
 <!-- backwards compatibility -->
