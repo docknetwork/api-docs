@@ -388,6 +388,26 @@
               </ul>
           </li>
           <li>
+            <a href="#profiles" class="toc-h1 toc-link" data-title="Profiles">Profiles</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-profile" class="toc-h2 toc-link" data-title="Create Profile">Create Profile</a>
+                  </li>
+                  <li>
+                    <a href="#get-profile" class="toc-h2 toc-link" data-title="Get Profile">Get Profile</a>
+                  </li>
+                  <li>
+                    <a href="#list-profiles" class="toc-h2 toc-link" data-title="List Profiles">List Profiles</a>
+                  </li>
+                  <li>
+                    <a href="#update-profile" class="toc-h2 toc-link" data-title="Update Profile">Update Profile</a>
+                  </li>
+                  <li>
+                    <a href="#delete-profile" class="toc-h2 toc-link" data-title="Delete Profile">Delete Profile</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#credentials" class="toc-h1 toc-link" data-title="Credentials">Credentials</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1449,7 +1469,7 @@ This operation counts towards your monthly transaction limits for each successfu
   <span class="nt">--data-raw</span> <span class="s1">''</span>
 
 </code></pre></div>
-<p>Return a list of all DIDs that your user account controls as fully resolved DID documents. Pagination is not yet supported.</p>
+<p>Return a list of all DIDs that your user account controls as fully resolved DID documents.</p>
 
 <blockquote>
 <p>200 Response</p>
@@ -1737,6 +1757,453 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>402</td>
 <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
 <td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<h1 id="profiles">Profiles</h1>
+
+<blockquote>
+<p>Endpoints</p>
+</blockquote>
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+   <a href="#create-profile">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /profiles
+    </a>
+    <br />
+   <a href="#get-profile-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /profiles/{did}
+    </a>
+    <br />
+    <a href="#list-profiles-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /profiles
+    </a>
+    <br />
+    <a href="#update-profile">
+      <span class="nt">PATCH</span>&nbsp;
+      /profiles/{did}
+    </a>
+    <br />
+    <a href="#delete-profile">
+      <span class="kd">DELETE</span>
+      /profiles/{did}
+    </a>
+    <br />
+   </div>
+</div>
+
+<p>DID Profiles are used to provide more context for an Issuer DID. Details about the issuer such as name and logo can be added using a DID Profile. These details will be included in credentials that are issued by the DID.</p>
+<h2 id='create-profile'>Create Profile</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /profiles</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'https://api.dock.io/profiles'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "name": "My Test Profile",
+  "did": "did:dock:xyz",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>did</code> and <code>name</code> fields are required to create a new Profile.</p>
+
+<h3 id="create-profile-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>body</td>
+<td><a href="#schemadiddock">DIDDock</a></td>
+<td>true</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>The name to use for this issuer (e.g. a school name).</td>
+</tr>
+<tr>
+<td>description</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>A description of the issuer.</td>
+</tr>
+<tr>
+<td>logo</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>A Base64 encoded image to use as the logo for the issuer.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="create-profile-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and the Profile was created.</td>
+<td></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>The request was unsuccessful, because of invalid params.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='get-profile'>Get Profile</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /profiles/{did}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/profiles/did:dock:xyz'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>When a DID is provided in the path, the API will retrieve the Profile associated with that DID.</p>
+
+<h3 id="get-profile-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>path</td>
+<td><a href="#schemadiddock">DIDDock</a></td>
+<td>true</td>
+<td>Represents a specific DID that uniquely identifies the profile.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-profile-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return the profile.</td>
+<td></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The requested profile was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='list-profiles'>List Profiles</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/dids'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>Return a list of all Profiles that your user account controls.</p>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<h3 id="list-profiles-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>How many items to offset by for pagination</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>How many items to return at one time (max 64)</td>
+</tr>
+</tbody></table>
+
+<h3 id="list-profiles-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>All of a user&#39;s profiles.</td>
+<td><a href="#schemadiddoc">DIDDock</a></td>
+</tr>
+</tbody></table>
+<h2 id='update-profile'>Update Profile</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> PATCH <span class="s1">'https://api.dock.io/profiles/did:dock:xyz'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The update profile operation means that you can update the details of the profile. To do so, you need to provide a different value for <strong>at least</strong> one of <code>name</code>, <code>description</code> or <code>logo</code>.</p>
+
+<h3 id="update-profile-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>body</td>
+<td><a href="#schemadiddock">DIDDock</a></td>
+<td>true</td>
+<td>DID as fully qualified, e.g., <code>did:dock:</code>.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>The name to use for this issuer (e.g. a school name).</td>
+</tr>
+<tr>
+<td>description</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>A description of the issuer.</td>
+</tr>
+<tr>
+<td>logo</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>A Base64 encoded image to use as the logo for the issuer.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="update-did-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will update the profile.</td>
+<td></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>The controller value is incorrect.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>The request was unsuccessful, because you don&#39;t own the profile.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The profile does not exist.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='delete-profile'>Delete Profile</h2>
+<blockquote>
+<p><span class="highlight"><span class="kd">DELETE</span> /profiles/{did}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> DELETE https://api.dock.io/profiles/<span class="o">{</span>did<span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+    }'</span>
+
+</code></pre></div>
+<p>Deletes a profile from our platform. It does NOT delete the associated DID, nor revoke the credentials issued for the profile.</p>
+
+<h3 id="delete-profile-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>path</td>
+<td><a href="#schemadiddock">DID</a></td>
+<td>true</td>
+<td>Represents a specific DID that uniquely identifies the profile to delete.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="delete-profile-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will remove the profile.</td>
+<td></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>The request was unsuccessful because you don&#39;t own the profile.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The profile does not exist.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>405</td>
+<td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5">Method not Allowed</a></td>
+<td>The {did} value is blank/empty. Please ensure that the {did} value does exist.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
