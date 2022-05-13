@@ -815,7 +815,7 @@ curl --location --request GET 'https://api.dock.io/dids' \
 
 ```
 
-Return a list of all DIDs that your user account controls as fully resolved DID documents. Pagination is not yet supported.
+Return a list of all DIDs that your user account controls as fully resolved DID documents.
 
 > 200 Response
 
@@ -973,6 +973,280 @@ This operation counts towards your monthly transaction limits for each successfu
 |405|[Method not Allowed](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5)|The {did} value is blank/empty. Please ensure that the {did} value does exist.|[Error](#schemaerror)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
+
+
+<h1 id="profiles">Profiles</h1>
+
+> Endpoints
+
+<div class="highlight">
+  <div class="highlight shell align-code">
+   <a href="#create-profile">
+      <span class="nt">POST</span>&nbsp;&nbsp;
+      /profiles
+    </a>
+    <br />
+   <a href="#get-profile-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /profiles/{did}
+    </a>
+    <br />
+    <a href="#list-profiles-responses">
+      <span class="na">GET</span>&nbsp;&nbsp;&nbsp;
+      /profiles
+    </a>
+    <br />
+    <a href="#update-profile">
+      <span class="nt">PATCH</span>&nbsp;
+      /profiles/{did}
+    </a>
+    <br />
+    <a href="#delete-profile">
+      <span class="kd">DELETE</span>
+      /profiles/{did}
+    </a>
+    <br />
+   </div>
+</div>
+
+
+DID Profiles are used to provide more context for an Issuer DID. Details about the issuer such as name and logo can be added using a DID Profile. These details will be included in credentials that are issued by the DID.
+
+## Create Profile
+
+> <span class="highlight"><span class="nt">POST</span> /profiles</span></span> REQUEST
+
+
+
+```shell
+curl --location --request POST 'https://api.dock.io/profiles' \
+--header 'DOCK-API-TOKEN: API_KEY' \
+--data-raw '{
+  "name": "My Test Profile",
+  "did": "did:dock:xyz",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}'
+```
+
+```json
+{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}
+```
+
+The `did` and `name` fields are required to create a new Profile.
+
+
+<h3 id="create-profile-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|body|[DIDDock](#schemadiddock)|true|DID as fully qualified, e.g., `did:dock:`. |
+|name|body|string|true|The name to use for this issuer (e.g. a school name).|
+|description|body|string|false|A description of the issuer.|
+|logo|body|string|false|A Base64 encoded image to use as the logo for the issuer.|
+
+
+> 200 Response
+
+```json
+{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}
+```
+
+<h3 id="create-profile-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and the Profile was created.||
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid params.|[Error](#schemaerror)|
+
+
+
+## Get Profile
+
+> <span class="highlight"><span class="na">GET</span> /profiles/{did}</span></span> REQUEST
+
+```shell
+curl --location --request GET 'https://api.dock.io/profiles/did:dock:xyz' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
+```
+
+
+When a DID is provided in the path, the API will retrieve the Profile associated with that DID.
+
+
+<h3 id="get-profile-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|path|[DIDDock](#schemadiddock)|true|Represents a specific DID that uniquely identifies the profile.|
+
+> 200 Response
+
+```json
+{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}
+```
+
+<h3 id="get-profile-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the profile.
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The requested profile was not found.|[Error](#schemaerror)|
+
+## List Profiles
+
+> <span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST
+
+```shell
+curl --location --request GET 'https://api.dock.io/dids' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
+```
+
+Return a list of all Profiles that your user account controls.
+
+> 200 Response
+
+```json
+[
+  {
+    "did": "did:dock:xyz",
+    "name": "My Test Profile",
+    "description": "Testing out the Issuer Profiles API",
+    "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+  }
+]
+```
+
+<h3 id="list-profiles-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
+
+<h3 id="list-profiles-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's profiles.|[DIDDock](#schemadiddoc)|
+
+
+
+## Update Profile
+
+> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST
+
+```shell
+curl --location --request PATCH 'https://api.dock.io/profiles/did:dock:xyz' \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}'
+
+```
+
+```json
+{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}
+```
+
+The update profile operation means that you can update the details of the profile. To do so, you need to provide a different value for **at least** one of `name`, `description` or `logo`.
+
+
+<h3 id="update-profile-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|body|[DIDDock](#schemadiddock)|true|DID as fully qualified, e.g., `did:dock:`. |
+|name|body|string|true|The name to use for this issuer (e.g. a school name).|
+|description|body|string|false|A description of the issuer.|
+|logo|body|string|false|A Base64 encoded image to use as the logo for the issuer.|
+
+
+> 200 Response
+
+```json
+{
+  "did": "did:dock:xyz",
+  "name": "My Test Profile",
+  "description": "Testing out the Issuer Profiles API",
+  "logo":"data:image/png;base64,SomeBase64EncodedImage=="
+}
+```
+
+<h3 id="update-did-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will update the profile.||
+|400|[Bad Request](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1)|The controller value is incorrect.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the profile.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The profile does not exist.|[Error](#schemaerror)|
+
+## Delete Profile
+
+> <span class="highlight"><span class="kd">DELETE</span> /profiles/{did}</span></span> REQUEST
+
+```shell
+curl --location --request DELETE https://api.dock.io/profiles/{did} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    }'
+
+```
+
+
+Deletes a profile from our platform. It does NOT delete the associated DID, nor revoke the credentials issued for the profile.
+
+<h3 id="delete-profile-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|path|[DID](#schemadiddock)|true|Represents a specific DID that uniquely identifies the profile to delete.|
+
+> 200 Response
+
+```json
+{
+}
+```
+
+<h3 id="delete-profile-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will remove the profile.||
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful because you don't own the profile.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The profile does not exist.|[Error](#schemaerror)|
+|405|[Method not Allowed](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5)|The {did} value is blank/empty. Please ensure that the {did} value does exist.|[Error](#schemaerror)|
 
 
 <h1 id="credentials">Credentials</h1>
