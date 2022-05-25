@@ -75,7 +75,9 @@ Dock Certs provides two endpoints based on which mode was selected when creating
 - For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
 - For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
 
-PLEASE NOTE: Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
+IMPORTANT NOTES:
+* Any transaction you perform in **test mode** cannot be used for **production**. This means that, for example, any DID created in **test mode** will not work for issuing or verification in **production**.
+* **test mode** will be subject to data resets periodically, so the DIDs, etc. that you create there should not be expected to be permanent.
 
 ## Authentication
 Dock Certs uses API keys to authenticate requests. You can obtain an API Key by signing into [Dock Certs](https://certs.dock.io). Once a key has been generated, it should be included in **all** request headers as below:
