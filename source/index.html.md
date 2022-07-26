@@ -661,11 +661,6 @@ Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quic
       /dids
     </a>
     <br />
-    <a href="#update-did">
-      <span class="nt">PATCH</span>&nbsp;
-      /dids/{did}
-    </a>
-    <br />
     <a href="#delete-did">
       <span class="kd">DELETE</span>
       /dids/{did}
@@ -859,75 +854,6 @@ Return a list of all DIDs that your user account controls as fully resolved DID 
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|All of a user's DIDs fully resolved into DID documents.|[DIDDock](#schemadiddoc)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
-
-
-## Update DID
-
-> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST
-
-```shell
-curl --location --request PATCH 'https://api.dock.io/dids/did:dock:xyz' \
-  --header 'DOCK-API-TOKEN: API_KEY' \
-  --header 'Content-Type: application/json' \
-  --data-raw '{
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}'
-
-```
-
-```json-doc
-
-{
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}
-```
-
-The update DID operation means that you can update either or both the controller or the keyType. To do so, you need to provide a different value for **at least** one of them to update the DID.
-
-The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the `keyType` parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.
-
-To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call.
-</aside>
-
-<h3 id="update-did-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|did|path|[DIDDock](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
-|controller|body|[DIDDock](#schemadiddock)|optional|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the [List DID](#list-dids-responses) operation.|
-|keyType|body|[KeyType](#schemakeytype)|optional|Type of the public key for DID. The default value of the keyType is sr25519. If you want to update the keyType when performing the update DID, you need to set a different keyType value from the assigned keyType that you currently have. For example, if you previously used `sr25519`, you need to replace it with either `ed25519` or `secp256k1`.|
-
-### Enumerated Values
-
-|Parameter|Value|Description|
-|---|---|---|
-|keyType|sr25519 **or** ed25519 **or** secp256k1|keyType signature variants.
-
-> 200 Response
-
-```json
-{
-  "id": "927",
-  "data": {
-    "updated": true
-  }
-}
-```
-
-<h3 id="update-did-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will update DID.|[JobId](#schemajobid)|
-|400|[Bad Request](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1)|The controller value is incorrect.|[Error](#schemaerror)|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
-|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 ## Delete DID
 
@@ -1204,7 +1130,7 @@ The update profile operation means that you can update the details of the profil
 }
 ```
 
-<h3 id="update-did-responses">Responses</h3>
+<h3 id="update-profile-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
