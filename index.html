@@ -380,9 +380,6 @@
                     <a href="#list-dids" class="toc-h2 toc-link" data-title="List DIDs">List DIDs</a>
                   </li>
                   <li>
-                    <a href="#update-did" class="toc-h2 toc-link" data-title="Update DID">Update DID</a>
-                  </li>
-                  <li>
                     <a href="#delete-did" class="toc-h2 toc-link" data-title="Delete DID">Delete DID</a>
                   </li>
               </ul>
@@ -1243,11 +1240,6 @@ Use our <a href="https://swagger.api.dock.io/">Swagger UI</a> to execute the API
       /dids
     </a>
     <br />
-    <a href="#update-did">
-      <span class="nt">PATCH</span>&nbsp;
-      /dids/{did}
-    </a>
-    <br />
     <a href="#delete-did">
       <span class="kd">DELETE</span>
       /dids/{did}
@@ -1542,133 +1534,6 @@ This operation counts towards your monthly transaction limits for each successfu
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>All of a user&#39;s DIDs fully resolved into DID documents.</td>
 <td><a href="#schemadiddoc">DIDDock</a></td>
-</tr>
-<tr>
-<td>402</td>
-<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
-<td>Transaction limit reached or upgrade required to proceed</td>
-<td><a href="#schemaerror">Error</a></td>
-</tr>
-</tbody></table>
-<h2 id='update-did'>Update DID</h2>
-<blockquote>
-<p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> PATCH <span class="s1">'https://api.dock.io/dids/did:dock:xyz'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">--data-raw</span> <span class="s1">'{
-  "controller": "did:dock:xyz",
-  "keyType": "sr25519"
-}'</span>
-
-</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"controller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>The update DID operation means that you can update either or both the controller or the keyType. To do so, you need to provide a different value for <strong>at least</strong> one of them to update the DID.</p>
-
-<p>The public key or the controller of an on-chain DID can be updated by preparing a signed key update. Updates the specified key by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <code>keyType</code> parameter, that becomes the DID’s active source on the blockchain for all transactions in the future.</p>
-
-<p>To rotate the key of an existing DID, the current key is used to sign an update message containing the new public key and optionally the new controller (if a controller is not supplied, the controller remains unchanged). The update message contains the block number for the last update of the DID.</p>
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call.
-</aside>
-
-<h3 id="update-did-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>did</td>
-<td>path</td>
-<td><a href="#schemadiddock">DIDDock</a></td>
-<td>true</td>
-<td>Represents a specific DID that uniquely identifies the key resource.</td>
-</tr>
-<tr>
-<td>controller</td>
-<td>body</td>
-<td><a href="#schemadiddock">DIDDock</a></td>
-<td>optional</td>
-<td>DID as fully qualified, e.g., <code>did:dock:</code>. The default value of the controller is the DID value. If you want to update the controller value when performing the update DID, you need to set a different DID value from the DID parameter. You can get the different DID value from the <a href="#list-dids-responses">List DID</a> operation.</td>
-</tr>
-<tr>
-<td>keyType</td>
-<td>body</td>
-<td><a href="#schemakeytype">KeyType</a></td>
-<td>optional</td>
-<td>Type of the public key for DID. The default value of the keyType is sr25519. If you want to update the keyType when performing the update DID, you need to set a different keyType value from the assigned keyType that you currently have. For example, if you previously used <code>sr25519</code>, you need to replace it with either <code>ed25519</code> or <code>secp256k1</code>.</td>
-</tr>
-</tbody></table>
-<h3 id='enumerated-values-2'>Enumerated Values</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>keyType</td>
-<td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1</td>
-<td>keyType signature variants.</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>200 Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"927"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<h3 id="update-did-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>The request was successful and will update DID.</td>
-<td><a href="#schemajobid">JobId</a></td>
-</tr>
-<tr>
-<td>400</td>
-<td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1">Bad Request</a></td>
-<td>The controller value is incorrect.</td>
-<td><a href="#schemaerror">Error</a></td>
-</tr>
-<tr>
-<td>401</td>
-<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
-<td><a href="#schemaerror">Error</a></td>
-</tr>
-<tr>
-<td>404</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>The DID does not exist.</td>
-<td><a href="#schemaerror">Error</a></td>
 </tr>
 <tr>
 <td>402</td>
@@ -2103,7 +1968,7 @@ This operation counts towards your monthly transaction limits for each successfu
   </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<h3 id="update-did-responses">Responses</h3>
+<h3 id="update-profile-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2763,7 +2628,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>Verifiable (signed) Credential returned by API.</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-3'>Enumerated Values</h3>
+<h3 id='enumerated-values-2'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3205,7 +3070,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>The list of credential ids to act upon.</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-4'>Enumerated Values</h3>
+<h3 id='enumerated-values-3'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4520,7 +4385,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get a status of the job.</p>
-<h3 id='enumerated-values-5'>Enumerated Values</h3>
+<h3 id='enumerated-values-4'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4618,7 +4483,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema type of public key for DID.</p>
-<h3 id='enumerated-values-6'>Enumerated Values</h3>
+<h3 id='enumerated-values-5'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4645,7 +4510,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema used in Presentation operation that represents a type of signature.</p>
-<h3 id='enumerated-values-7'>Enumerated Values</h3>
+<h3 id='enumerated-values-6'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4672,7 +4537,7 @@ This operation counts towards your monthly transaction limits for each successfu
 
 </span></code></pre></div>
 <p>This is a schema that represents a purpose of credential.</p>
-<h3 id='enumerated-values-8'>Enumerated Values</h3>
+<h3 id='enumerated-values-7'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
