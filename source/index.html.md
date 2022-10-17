@@ -1588,6 +1588,215 @@ This operation counts towards your monthly transaction limits for each successfu
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
+
+<h2 id="create-proof-request">Create Proof Request</h2>
+
+> <span class="highlight"><span class="nt">POST</span> /proof-requests</span></span> REQUEST
+
+```shell
+curl --location --request POST https://api.dock.io/proof-requests/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "attributes": {
+    "favouriteDrink": {
+      "name": "favouriteDrink"
+    },
+    "fullName": {
+      "names": [
+        "name",
+        "fullName"
+      ]
+    }
+  },
+  "name": "My proof request",
+  "nonce": "1234567890"
+}'
+
+```
+
+```json-doc
+{
+  "attributes": {
+    "favouriteDrink": {
+      "name": "favouriteDrink"
+    },
+    "fullName": {
+      "names": [
+        "name",
+        "fullName"
+      ]
+    }
+  },
+  "name": "My proof request",
+  "nonce": "1234567890"
+}
+```
+
+It often makes sense for a verifier to request proof of credentials from a holder. For this, we have built a proof requests system into the API that works with the Dock Wallet. When a request is created, you will receive a URL which you should display in a QR code for a wallet application to scan. You can define which attributes should exist in the credential, a name for the holder and yourself to see and a nonce/challenge which prevents replay attacks.
+
+<h3 id="create-a-presentation-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|attributes|body|object|false|Requested attribute specifications of proof request|
+|name|body|string|false|Proof request name, will be shown to the holder|
+|nonce|body|string|false|Nonce or challenge for the presentation to match|
+
+> 200 Response
+
+```json
+{
+  "id": "feec1776-84c3-4783-b80b-c6690a652892",
+  "name": "My proof request",
+  "nonce": "1234567890",
+  "verified": false,
+  "created": "2022-10-17T22:48:30.619Z",
+  "updated": "2022-10-17T22:48:30.619Z",
+  "presentation": {},
+  "response_url": "https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation",
+  "attributes": {
+    "fullName": {
+      "names": [
+        "name",
+        "fullName"
+      ]
+    },
+    "favouriteDrink": {
+      "name": "favouriteDrink"
+    }
+  }
+}
+}
+```
+
+<h3 id="create-a-presentation-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns a Verifiable Presentation.|[VerifiablePresentation](#schemaverifiablepresentation)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient parameters.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, either because of a missing/invalid auth header or you don't own the DID.|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+
+
+## List Proof Requests
+
+> <span class="highlight"><span class="na">GET</span> /proof-requests</span></span> REQUEST
+
+```shell
+curl --location --request GET https://api.dock.io/proof-requests/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw'{
+
+  }'
+
+```
+
+
+Return a list of all proof requests and their verification status
+
+
+> 200 Response
+
+```json
+[
+  {
+    "id": "feec1776-84c3-4783-b80b-c6690a652892",
+    "name": "My proof request",
+    "nonce": "1234567890",
+    "verified": false,
+    "created": "2022-10-17T22:48:30.619Z",
+    "updated": "2022-10-17T22:48:30.619Z",
+    "presentation": {},
+    "response_url": "http://localhost:8000/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation",
+    "attributes": {
+      "fullName": {
+        "names": [
+          "name",
+          "fullName"
+        ]
+      },
+      "favouriteDrink": {
+        "name": "favouriteDrink"
+      }
+    }
+  }
+]
+```
+
+<h3 id="list-dids-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description| 
+|---|---|---|---|---|
+|offset|query|integer|false|How many items to offset by for pagination|
+|limit|query|integer|false|How many items to return at one time (max 64)|
+
+<h3 id="list-registries-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return all proof requests created by the user.|Inline|
+
+## Get Proof Request
+
+> <span class="highlight"><span class="na">GET</span> /proof-requests/{id}</span></span> REQUEST
+
+```shell
+curl --location --request GET https://api.dock.io/proof-requests/{id} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
+
+```
+
+Get the details of an existing proof request and its verification status
+
+<h3 id="get-registry-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|UUID|true|Proof request UUID|
+
+> 200 Response
+
+```json
+{
+  "id": "feec1776-84c3-4783-b80b-c6690a652892",
+  "name": "My proof request",
+  "nonce": "1234567890",
+  "verified": false,
+  "created": "2022-10-17T22:48:30.619Z",
+  "updated": "2022-10-17T22:48:30.619Z",
+  "presentation": {},
+  "response_url": "https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation",
+  "attributes": {
+    "fullName": {
+      "names": [
+        "name",
+        "fullName"
+      ]
+    },
+    "favouriteDrink": {
+      "name": "favouriteDrink"
+    }
+  }
+}
+```
+
+<h3 id="get-registry-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the proof request.|[Registry](#schemaregistry)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the proof request was not found.|[Error](#schemaerror)|
+
+
+
+
+
 <h1 id="registries">Registries</h1>
 
 > Endpoints
