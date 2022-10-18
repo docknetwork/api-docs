@@ -427,6 +427,15 @@
                   <li>
                     <a href="#create-a-presentation" class="toc-h2 toc-link" data-title="Create Presentation">Create Presentation</a>
                   </li>
+                  <li>
+                    <a href="#create-proof-request" class="toc-h2 toc-link" data-title="Create Proof Request">Create Proof Request</a>
+                  </li>
+                  <li>
+                    <a href="#list-proof-requests" class="toc-h2 toc-link" data-title="List Proof Requests">List Proof Requests</a>
+                  </li>
+                  <li>
+                    <a href="#get-proof-request" class="toc-h2 toc-link" data-title="Get Proof Request">Get Proof Request</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -2696,6 +2705,309 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>402</td>
 <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
 <td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<h2 id="create-proof-request">Create Proof Request</h2>
+
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /proof-requests</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/proof-requests/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "attributes": {
+    "favouriteDrink": {
+      "name": "favouriteDrink"
+    },
+    "fullName": {
+      "names": [
+        "name",
+        "fullName"
+      ]
+    }
+  },
+  "name": "My proof request",
+  "nonce": "1234567890"
+}'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fullName"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>It often makes sense for a verifier to request proof of credentials from a holder. For this, we have built a proof requests system into the API that works with the Dock Wallet. When a request is created, you will receive a URL which you should display in a QR code for a wallet application to scan. You can define which attributes should exist in the credential, a name for the holder and yourself to see and a nonce/challenge which prevents replay attacks.</p>
+
+<h3 id="create-a-presentation-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>attributes</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>Requested attribute specifications of proof request</td>
+</tr>
+<tr>
+<td>name</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Proof request name, will be shown to the holder</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Nonce or challenge for the presentation to match</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fullName"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="create-a-presentation-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and returns a Verifiable Presentation.</td>
+<td><a href="#schemaverifiablepresentation">VerifiablePresentation</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>The request was unsuccessful, because of invalid/insufficient parameters.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>The request was unsuccessful, either because of a missing/invalid auth header or you don&#39;t own the DID.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='list-proof-requests'>List Proof Requests</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /proof-requests</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/proof-requests/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span><span class="s1">'{
+
+  }'</span>
+
+</code></pre></div>
+<p>Return a list of all proof requests and their verification status</p>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+    </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8000/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"fullName"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<h3 id="list-dids-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>How many items to offset by for pagination</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>integer</td>
+<td>false</td>
+<td>How many items to return at one time (max 64)</td>
+</tr>
+</tbody></table>
+
+<h3 id="list-registries-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return all proof requests created by the user.</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+<h2 id='get-proof-request'>Get Proof Request</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /proof-requests/{id}</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/proof-requests/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+
+</code></pre></div>
+<p>Get the details of an existing proof request and its verification status</p>
+
+<h3 id="get-registry-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>UUID</td>
+<td>true</td>
+<td>Proof request UUID</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fullName"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-registry-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return the proof request.</td>
+<td><a href="#schemaregistry">Registry</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The request was unsuccessful, because the proof request was not found.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
