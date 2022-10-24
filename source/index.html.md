@@ -1216,6 +1216,7 @@ You can create and sign Verifiable Credentials on Dock Certs and its API. By def
 {
   "persist": false,
   "anchor": true,
+  "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
     "id": "http://example.com",
     "context": ["https://www.w3.org/2018/credentials/examples/v1"],
@@ -1240,6 +1241,7 @@ curl --location --request POST https://api.dock.io/credentials/ \
   --data-raw '{
   "persist": false,
   "anchor": true,
+  "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
     "id": "http://example.com",
     "context": ["https://www.w3.org/2018/credentials/examples/v1"],
@@ -1292,6 +1294,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |anchor|body|boolean|false|Whether to anchor the credential on the blockchain as soon as it is issued. Defaults to false.|
 |persist|body|boolean|false|Whether to store an encrypted version of this credential with us. Defaults to false, if true you must supply password.|
 |password|body|string|false|Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.|
+|template|body|UUID string|false|The ID of the intended template/design, optional|
 |credential|body|[Credential](#schemacredential)|true|Credential object as described in the [schema](#schemacredential).|
 
 > 200 Response
