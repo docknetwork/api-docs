@@ -2127,6 +2127,7 @@ This operation counts towards your monthly transaction limits for each successfu
 </span><span class="p">{</span><span class="w">
   </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"template"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b8dd5768-0777-42c2-ae73-859e1079369b"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://www.w3.org/2018/credentials/examples/v1"</span><span class="p">],</span><span class="w">
@@ -2148,6 +2149,7 @@ This operation counts towards your monthly transaction limits for each successfu
   <span class="nt">--data-raw</span> <span class="s1">'{
   "persist": false,
   "anchor": true,
+  "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
     "id": "http://example.com",
     "context": ["https://www.w3.org/2018/credentials/examples/v1"],
@@ -2224,6 +2226,13 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>string</td>
 <td>false</td>
 <td>Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.</td>
+</tr>
+<tr>
+<td>template</td>
+<td>body</td>
+<td>UUID string</td>
+<td>false</td>
+<td>The ID of the intended template/design, optional</td>
 </tr>
 <tr>
 <td>credential</td>
