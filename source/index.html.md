@@ -1219,7 +1219,6 @@ You can create and sign Verifiable Credentials on Dock Certs and its API. By def
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
     "id": "http://example.com",
-    "context": ["https://www.w3.org/2018/credentials/examples/v1"],
     "type": ["UniversityDegreeCredential"],
     "subject": {
       "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
@@ -1265,7 +1264,7 @@ curl --location --request POST https://api.dock.io/credentials/ \
 Creates and issues a JSON-LD Verifiable Credential that conforms to the [W3C VCDM specification](https://www.w3.org/TR/vc-data-model/). The `type` values and subject properties must be represented by a schema URI in the `context` property. If you do not specify a `context` property, the API will automatically generate an embedded JSON-LD context based on the properties within your credential. You can read more about JSON-LD and contexts [here](https://json-ld.org/spec/latest/json-ld/#the-context).
 
 <aside class="notice">
-The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times as mandated by the spec. Please also note that the request format here is not the same as an issued verifiable credential. You can issue to multiple subjects per credential by passing an array of objects.
+The <code>https://www.w3.org/2018/credentials/v1</code> context URI is always required and will be supplied by default at all times as mandated by the spec. If you pass a custom context, you must ensure that you define all the required JSON-LD terms for the issuer profile too. that Please also note that the request format here is not the same as an issued verifiable credential. You can issue to multiple subjects per credential by passing an array of objects.
 </aside>
 
 To sign a credential, an `issuer` must be supplied as either a fully qualified DID string or an object with at least an `id` property which is a fully qualified DID. (e.g: `did:dock:xyz`)
@@ -3157,7 +3156,7 @@ This is a schema that represents a credential format expected by API caller when
 |Name|Type|Required|Description|
 |---|---|---|---|
 |id|string(uri)|false|Credential ID. The default value is a creds.dock.io uri with random ID.|
-|context|[string or object]|false|Credential context array of string URIs and/or embedded JSON-LD context objects. If no context parameter is supplied, we will auto generate contexts for you.|
+|context|[string or object]|false|Credential context array of string URIs and/or embedded JSON-LD context objects. If no context parameter is supplied, we will auto generate contexts for you. If you do supply this parameter, you must ensure that all JSON-LD terms are defined. This is for advanced users.|
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object or [object]|true|Credential subject or subjects array.|
 |schema|string|false|Schema ID returned by create schema route|
