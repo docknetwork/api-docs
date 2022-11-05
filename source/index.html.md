@@ -3159,7 +3159,7 @@ This is a schema that represents a credential format expected by API caller when
 |context|[string or object]|false|Credential context array of string URIs and/or embedded JSON-LD context objects. If no context parameter is supplied, we will auto generate contexts for you. If you do supply this parameter, you must ensure that all JSON-LD terms are defined. This is for advanced users.|
 |type|[string]|false|Credential type. The default value is ['VerifiableCredential']|
 |subject|object or [object]|true|Credential subject or subjects array.|
-|schema|string|false|Schema ID returned by create schema route|
+|schema|string|false|Schema ID returned by create schema route or a valid URI|
 |issuer|[DIDDock](#schemadiddock)|false|Credential issuer. DID as fully qualified, e.g., `did:dock:`. If not supplied the credential will not be signed.|
 |issuanceDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential was issued specified in RFC 3339 format. The issuanceDate will be automatically set if not provided.|
 |expirationDate|string(date-time[RFC3339])|false|The date and time in GMT that the credential expired is specified in RFC 3339 format. The default value of the expirationDate will be empty if the user does not provide it.|
