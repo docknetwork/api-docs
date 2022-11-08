@@ -2628,7 +2628,7 @@ This operation counts towards your monthly transaction limits for each successfu
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>Presentation&#39;s Challenge in a string format. The default value for this is <code>random hex string</code>.</td>
+<td>Presentation&#39;s Challenge in a string format. The default value for this is <code>random hex string</code>. NOTE: if this presentation is being created to respond to a <code>proof-request</code> the challenge should be set to the value from the <code>nonce</code> field in the proof-request.</td>
 </tr>
 <tr>
 <td>domain</td>
