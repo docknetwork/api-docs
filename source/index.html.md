@@ -1552,7 +1552,7 @@ This operation counts towards your monthly transaction limits for each successfu
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |holder|body|[DIDDock](#schemadiddock)|true|DID as fully qualified, e.g., `did:dock:xyz`.|
-|challenge|body|string|false|Presentation's Challenge in a string format. The default value for this is `random hex string`.|
+|challenge|body|string|false|Presentation's Challenge in a string format. The default value for this is `random hex string`. NOTE: if this presentation is being created to respond to a `proof-request` the challenge should be set to the value from the `nonce` field in the proof-request.|
 |domain|body|string|false|A domain for the proof in a string format. The default value for the domain is `dock.io`.|
 |credentials|body|[VerifiableCredential](#schemaverifiablecredential)|false|Verifiable (signed) Credential returned by API.|
 
