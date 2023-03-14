@@ -29,7 +29,7 @@ The Dock Certs API allows you to issue, verify and revoke verifiable credentials
 - Harness the security of the Dock blockchain, a network run by 50 independent validators.
 - Work seamlessly across platforms with Dock’s standards-compliant, interoperable solutions.
 
-In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/dock-api-js/tree/main/examples).
+In addition to the code samples shown in these docs, we have provided various code samples for the common requests that you can easily access [here](https://github.com/docknetwork/api-samples).
 
 We also offer a free trial, testnet sandboxing and fair monthly pricing. Sign up and [start issuing credentials with Dock Certs](https://certs.dock.io/). Please read our [Terms of Service](https://www.dock.io/terms-of-service) before using Dock Certs.
 
@@ -70,7 +70,7 @@ Keep in mind that your API keys should be kept private, so keep them safe! Do no
 </aside>
 
 ## Endpoints
-Dock Certs provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in [Dock Certs](https://certs.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the [Dock Certs dashboard](https://certs.dock.io/keys). It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our testnet blockchain.
+Dock Certs provides two endpoints based on which mode was selected when creating your API key. By default, the API keys are created for production. You can switch to **test mode** in [Dock Certs](https://certs.dock.io/) by clicking the **test mode** toggle in the top right next to your avatar icon. Once in **test mode** you will see only testnet transactions, API keys, webhooks etc. You can then create an API key from the [Dock Certs dashboard](https://certs.dock.io/keys). It should be noted that in **test mode** your used transaction count **will not increase or hit monthly limits** allowing for sandboxing on our test network.
 
 - For production mode, use the endpoint: [https://api.dock.io](https://api.dock.io)
 - For test mode, use the endpoint: [https://api-testnet.dock.io](https://api-testnet.dock.io)
@@ -500,7 +500,7 @@ This flow refers to Postman, but the general steps are the same however you use 
 To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
 
 <aside class="notice">
-Creating a DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
+Creating a Dock DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
 
 <div style="clear:both"></div>
@@ -705,10 +705,6 @@ A DID, a public key, and a controller are required to create a new DID. The cont
 
 It is important to have a public key of one of its three supported types. Dock supports 3 types of public keys: `sr25519`, `ed25519`, and `secp256k1`.
 
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="create-did-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -870,10 +866,6 @@ curl --location --request DELETE https://api.dock.io/dids/{did} \
 
 
 Deletes a DID and its metadata from the blockchain and our platform. This will also delete the associated keypair from the key management system meaning that you cannot sign messages or credentials with it after this operation. The DID will no longer be able to be resolved. This operation is not reversible.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="delete-did-parameters">Parameters</h3>
 
@@ -1283,7 +1275,7 @@ By default, Dock does not store the credential contents at all - only minimal cr
 For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
 
 <aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
+This operation counts towards your monthly transaction/credential issuance limit for each successful call
 </aside>
 
 <h3 id="issue-a-credential-parameters">Parameters</h3>
@@ -1542,10 +1534,6 @@ curl --location --request POST https://api.dock.io/presentations/ \
 The holder while creating the presentation signs it with his private key. For the verifier to verify the presentation, in addition to verifying the issuer's signature, he/she needs to verify this signature as well, and for that he must know the holder's public key.
 
 This is an operation to create and sign a verifiable presentation out of one or more Verifiable Credentials.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-a-presentation-parameters">Parameters</h3>
 
@@ -1869,10 +1857,6 @@ curl --location --request POST https://api.dock.io/registries/ \
 
 To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.
 
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="create-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -2041,10 +2025,6 @@ Similar to the replay protection mechanism for DIDs, the last modified block num
 
 In this API, simply add Revoke/Unrevoke into the `action` parameter and input the desired credential ids.
 
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
-
 <h3 id="revoke/unrevoke-credential-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -2096,10 +2076,6 @@ curl --location --request POST https://api.dock.io/registries/{id} \
 
 
 A registry can be deleted, leading to all the corresponding revocation ids being deleted as well. This requires the signature from the owner, similar to the other updates.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="delete-registry-parameters">Parameters</h3>
 
@@ -2264,10 +2240,6 @@ curl --location --request POST https://api.dock.io/schemas \
 ```
 
 Schemas are used to describe the structure of credentials, specifically the credential subject. It helps the issuer, holder, and verifier to unambiguously determine the claims contained within the credential. To create a schema, you need to define the object body using JSON schema.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-schema-parameters">Parameters</h3>
 
@@ -2505,13 +2477,9 @@ curl --location --request POST https://api.dock.io/anchors \
 ]
 ```
 
-Creating an anchor will state on the blockchain that one or more document hashes were created at a specific time. In the context of verifiable credentials, anchors are used to attest that the credential document was not altered and was created at a specific time. Batching multiple documents/credentials into a single anchor is done through a Merkle tree and can save on transaction costs as only the Merkle root has to be anchored.
+Creating an anchor will state on the blockchain that one or more document hashes were created at a specific time. In the context of verifiable credentials, anchors are used to attest that the credential document was not altered and was created at a specific time. Batching multiple documents/credentials into a single anchor is done through a Merkle tree and can save on cost/time as only the Merkle root has to be anchored.
 
 The API will store the `blake2b256` hash of a document or string that you provide. Dock provides a [fully functioning reference client](https://fe.dock.io/#/anchor/batch) and [SDK example](https://github.com/docknetwork/sdk/blob/master/example/anchor.js) for anchoring.
-
-<aside class="warning">
-This operation counts towards your monthly transaction limits for each successful call
-</aside>
 
 <h3 id="create-anchor-parameters">Parameters</h3>
 
