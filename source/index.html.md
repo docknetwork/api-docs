@@ -1241,7 +1241,6 @@ curl --location --request POST https://api.dock.io/credentials/ \
   "anchor": true,
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
-    "context": ["https://www.w3.org/2018/credentials/examples/v1"],
     "type": ["UniversityDegreeCredential"],
     "subject": {
       "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
