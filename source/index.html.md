@@ -195,7 +195,7 @@ This event indicates an anchor has been created. It will fire when an anchor has
         "https://www.w3.org/2018/credentials/v1",
         "https://www.w3.org/2018/credentials/examples/v1"
       ],
-      "id": "http://example.com/39",
+      "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
       "type": [
         "VerifiableCredential"
       ],
@@ -241,7 +241,7 @@ This event indicates a credential has been created. It will fire when a credenti
         "https://www.w3.org/2018/credentials/v1",
         "https://www.w3.org/2018/credentials/examples/v1"
       ],
-      "id": "http://example.com/39",
+      "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
       "type": [
         "VerifiableCredential"
       ],
@@ -539,7 +539,7 @@ You only need to create a DID once and then you can issue many credentials with 
         "https://www.w3.org/2018/credentials/v1",
         "https://www.w3.org/2018/credentials/examples/v1"
     ],
-    "id": "http://example.com/39",
+    "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
     "type": [
         "VerifiableCredential"
     ],
@@ -586,7 +586,7 @@ To verify if the credential's cryptographic proof, revocation status and more go
                 "https://www.w3.org/2018/credentials/v1",
                 "https://www.w3.org/2018/credentials/examples/v1"
             ],
-            "id": "http://example.com/39",
+            "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
             "type": [
                 "VerifiableCredential"
             ],
@@ -1210,7 +1210,6 @@ You can create and sign Verifiable Credentials on Dock Certs and its API. By def
   "anchor": true,
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
-    "id": "http://example.com",
     "type": ["UniversityDegreeCredential"],
     "subject": {
       "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
@@ -1234,8 +1233,6 @@ curl --location --request POST https://api.dock.io/credentials/ \
   "anchor": true,
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
-    "id": "http://example.com",
-    "context": ["https://www.w3.org/2018/credentials/examples/v1"],
     "type": ["UniversityDegreeCredential"],
     "subject": {
       "id": "did:dock:5CDsD8HZa6TeSfgmMcxAkbSXYWeob4jFQmtU6sxr4XWTZzUA",
@@ -1296,7 +1293,7 @@ This operation counts towards your monthly transaction/credential issuance limit
     "https://www.w3.org/2018/credentials/v1",
     "https://www.w3.org/2018/credentials/examples/v1"
   ],
-  "id": "http://example.com",
+  "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
   "type": [
     "VerifiableCredential",
     "UniversityDegreeCredential"
@@ -1477,7 +1474,7 @@ curl --location --request POST https://api.dock.io/presentations/ \
       "@context": [
         "string"
       ],
-      "id": "http://example.com",
+      "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
       "type": [
         "string"
       ],
@@ -1510,7 +1507,7 @@ curl --location --request POST https://api.dock.io/presentations/ \
       "@context": [
         "string"
       ],
-      "id": "http://example.com",
+      "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
       "type": [
         "string"
       ],
@@ -1564,7 +1561,6 @@ This is an operation to create and sign a verifiable presentation out of one or 
   "type": ["VerifiablePresentation", "CredentialManagerPresentation"],
   "verifiableCredential": [{  }],
   "proof": [{  }]
-  }
 }
 ```
 
@@ -1719,7 +1715,7 @@ Return a list of all proof requests and their verification status
 
 <h3 id="list-dids-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description| 
+|Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |offset|query|integer|false|How many items to offset by for pagination|
 |limit|query|integer|false|How many items to return at one time (max 64)|
@@ -2002,7 +1998,7 @@ curl --location --request POST https://api.dock.io/registries/{id} \
   --data-raw '{
   "action": "revoke",
   "credentialIds": [
-    "http://example.com"
+    "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb"
   ]
 }'
 
@@ -2013,7 +2009,7 @@ curl --location --request POST https://api.dock.io/registries/{id} \
 {
   "action": "revoke",
   "credentialIds": [
-    "http://example.com"
+    "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb"
   ]
 }
 ```
@@ -3101,7 +3097,6 @@ This is a schema that represents a DID document. The current set of properties i
 
 ```json
 {
-  "id": "http://example.com",
   "context": [
     "string"
   ],
@@ -3153,7 +3148,7 @@ This is a schema that represents a credential format expected by API caller when
     "@context": [
       "string"
     ],
-    "id": "http://example.com",
+    "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
     "type": [
       "string"
     ],
@@ -3215,7 +3210,7 @@ This is a schema that represents a Verifiable (signed) Presentation returned by 
   "@context": [
     "string"
   ],
-  "id": "http://example.com",
+  "id": "https://creds.dock.io/f087cbfabc90f8b996971ba47598e82b1a03523cb9460217ad58a819cd9c09eb",
   "type": [
     "string"
   ],
