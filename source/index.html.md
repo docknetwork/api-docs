@@ -499,6 +499,8 @@ This flow refers to Postman, but the general steps are the same however you use 
 
 To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
 
+The Dock API supports `did:dock` and `did:key` method creation.
+
 <aside class="notice">
 Creating a Dock DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
@@ -710,6 +712,7 @@ It is important to have a public key of one of its three supported types. Dock s
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
+|type|body|string|false|Specifies the DID method to for the generated DID. Supported options are `key` and `dock` (default).
 |controller|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is `sr25519`.|
 
@@ -718,6 +721,7 @@ It is important to have a public key of one of its three supported types. Dock s
 |Parameter|Value|Desctiprion
 |---|---|---|
 |keyType|sr25519 **or** ed25519 **or** secp256k1| keyType signature variants.
+|type|dock **or** key| which DID method to generate
 
 > 200 Response
 

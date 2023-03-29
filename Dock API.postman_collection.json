@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n\"type\": \"dock\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
