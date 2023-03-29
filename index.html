@@ -1099,6 +1099,8 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 </span></code></pre></div><h3 id='1-create-a-did'>1. Create a DID</h3>
 <p>To create a new DID to issue with, go to <strong>Create DID</strong> and click <strong>Send</strong>. The <code>id</code> property denotes a job ID in the system that you can use to query for blockchain transaction status.</p>
 
+<p>The Dock API supports <code>did:dock</code> and <code>did:key</code> method creation.</p>
+
 <aside class="notice">
 Creating a Dock DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
 </aside>
@@ -1303,6 +1305,13 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 <td>DID as fully qualified, e.g., <code>did:dock:</code>. Default value will is a randomly generated DID.</td>
 </tr>
 <tr>
+<td>type</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Specifies the DID method to for the generated DID. Supported options are <code>key</code> and <code>dock</code> (default).</td>
+</tr>
+<tr>
 <td>controller</td>
 <td>body</td>
 <td><a href="#schemadiddock">DIDDock</a></td>
@@ -1329,6 +1338,11 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 <td>keyType</td>
 <td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1</td>
 <td>keyType signature variants.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>dock <strong>or</strong> key</td>
+<td>which DID method to generate</td>
 </tr>
 </tbody></table>
 
