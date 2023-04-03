@@ -1037,10 +1037,10 @@ When a DID is provided in the path, the API will retrieve the Profile associated
 
 ## List Profiles
 
-> <span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST
+> <span class="highlight"><span class="na">GET</span> /profiles</span></span> REQUEST
 
 ```shell
-curl --location --request GET 'https://api.dock.io/dids' \
+curl --location --request GET 'https://api.dock.io/profiles' \
   --header 'DOCK-API-TOKEN: API_KEY' \
   --data-raw ''
 
@@ -1078,7 +1078,7 @@ Return a list of all Profiles that your user account controls.
 
 ## Update Profile
 
-> <span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST
+> <span class="highlight"><span class="nt">PATCH</span> /profiles/{did}</span></span> REQUEST
 
 ```shell
 curl --location --request PATCH 'https://api.dock.io/profiles/did:dock:xyz' \
@@ -1275,6 +1275,10 @@ By default, Dock does not store the credential contents at all - only minimal cr
 
 For a detailed example of the credential workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js).
 
+<h3 id="zero-knowledge-proofs">Zero Knowledge Proofs (ZKP)</h3>
+
+Dock credentials support Zero Knowledge Proofs and [Selective Disclosure](https://www.dock.io//post/selective-disclosure) by using the BBS+ signing algorithm when issuing the credential. To enable this functionality, simply set the `algorithm` field in the request to `bbsdock+`.
+
 <aside class="warning">
 This operation counts towards your monthly transaction/credential issuance limit for each successful call
 </aside>
@@ -1287,7 +1291,14 @@ This operation counts towards your monthly transaction/credential issuance limit
 |persist|body|boolean|false|Whether to store an encrypted version of this credential with us. Defaults to false, if true you must supply password.|
 |password|body|string|false|Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.|
 |template|body|UUID string|false|The ID of the intended template/design, optional|
+|algorithm|body|string|false|Specifies which signing algorithm to use to sign the issued credential. Defaults to `ed25519`.|
 |credential|body|[Credential](#schemacredential)|true|Credential object as described in the [schema](#schemacredential).|
+
+### Enumerated Values
+
+|Parameter|Value|Description|
+|---|---|---|
+|algorithm|ed25519 **or** secp256k1 **or** dockbbs+|The algorithm used to sign the credential|
 
 > 200 Response
 
