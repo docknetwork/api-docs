@@ -1298,7 +1298,7 @@ This operation counts towards your monthly transaction/credential issuance limit
 
 |Parameter|Value|Description|
 |---|---|---|
-|algorithm|ed25519 **or** secp256k1 **or** dockbbs+|The algorithm used to sign the credential|
+|algorithm|ed25519 **or** secp256k1 **or** sr25519  **or** dockbbs+|The algorithm used to sign the credential.|
 
 > 200 Response
 
