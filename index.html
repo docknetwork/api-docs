@@ -1844,9 +1844,9 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 </tbody></table>
 <h2 id='list-profiles'>List Profiles</h2>
 <blockquote>
-<p><span class="highlight"><span class="na">GET</span> /dids</span></span> REQUEST</p>
+<p><span class="highlight"><span class="na">GET</span> /profiles</span></span> REQUEST</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/dids'</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'https://api.dock.io/profiles'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
   <span class="nt">--data-raw</span> <span class="s1">''</span>
 
@@ -1911,7 +1911,7 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 </tbody></table>
 <h2 id='update-profile'>Update Profile</h2>
 <blockquote>
-<p><span class="highlight"><span class="nt">PATCH</span> /dids/{did}</span></span> REQUEST</p>
+<p><span class="highlight"><span class="nt">PATCH</span> /profiles/{did}</span></span> REQUEST</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> PATCH <span class="s1">'https://api.dock.io/profiles/did:dock:xyz'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
@@ -2193,6 +2193,10 @@ The <code>issuer</code> property <strong>must</strong> be a DID that you control
 
 <p>For a detailed example of the credential workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/credentialsFlow.js">here</a>.</p>
 
+<h3 id="zero-knowledge-proofs">Zero Knowledge Proofs (ZKP)</h3>
+
+<p>Dock credentials support <a href="https://blog.dock.io/anonymous-credentials/">anonymous credentials</a> using Zero Knowledge Proofs and <a href="https://www.dock.io//post/selective-disclosure">Selective Disclosure</a> by using the BBS+ signing algorithm when issuing the credential. To enable this functionality, simply set the <code>algorithm</code> field in the request to <code>bbsdock+</code>.</p>
+
 <aside class="warning">
 This operation counts towards your monthly transaction/credential issuance limit for each successful call
 </aside>
@@ -2237,11 +2241,32 @@ This operation counts towards your monthly transaction/credential issuance limit
 <td>The ID of the intended template/design, optional</td>
 </tr>
 <tr>
+<td>algorithm</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Specifies which signing algorithm to use to sign the issued credential. Defaults to <code>ed25519</code>.</td>
+</tr>
+<tr>
 <td>credential</td>
 <td>body</td>
 <td><a href="#schemacredential">Credential</a></td>
 <td>true</td>
 <td>Credential object as described in the <a href="#schemacredential">schema</a>.</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-2'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>algorithm</td>
+<td>ed25519 <strong>or</strong> secp256k1 <strong>or</strong> sr25519  <strong>or</strong> dockbbs+</td>
+<td>The algorithm used to sign the credential.</td>
 </tr>
 </tbody></table>
 
@@ -2644,7 +2669,7 @@ This operation counts towards your monthly transaction/credential issuance limit
 <td>Verifiable (signed) Credential returned by API.</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-2'>Enumerated Values</h3>
+<h3 id='enumerated-values-3'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3380,7 +3405,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 <td>The list of credential ids to act upon.</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-3'>Enumerated Values</h3>
+<h3 id='enumerated-values-4'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4683,7 +4708,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get a status of the job.</p>
-<h3 id='enumerated-values-4'>Enumerated Values</h3>
+<h3 id='enumerated-values-5'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4781,7 +4806,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 
 </span></code></pre></div>
 <p>This is a schema type of public key for DID.</p>
-<h3 id='enumerated-values-5'>Enumerated Values</h3>
+<h3 id='enumerated-values-6'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4808,7 +4833,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 
 </span></code></pre></div>
 <p>This is a schema used in Presentation operation that represents a type of signature.</p>
-<h3 id='enumerated-values-6'>Enumerated Values</h3>
+<h3 id='enumerated-values-7'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4835,7 +4860,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 
 </span></code></pre></div>
 <p>This is a schema that represents a purpose of credential.</p>
-<h3 id='enumerated-values-7'>Enumerated Values</h3>
+<h3 id='enumerated-values-8'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
