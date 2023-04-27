@@ -2825,6 +2825,427 @@ You can verify issued/received credentials and presentations using this route. V
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
+<h1 id="subaccounts">Sub-Accounts</h1>
+
+Sub-accounts are a feature of the Dock Certs API that allows Dock enterprise customers to segregate their data within Dock's platform based on their own customers. Each sub-account can have its own keys, issuer profiles, credential designs and verification templates conviently organized to help with tracking and auditing of the activity performed by each.
+
+When using a sub-account the root account can set up separate API keys for each sub-account. By using the sub-account specific API key it will ensure all the transactions are attributed to that sub-account.
+
+![Sub-accounts diagram](images/sub-accounts.png)
+
+## Create Sub-Account
+> <span class="highlight"><span class="nt">POST</span> /subaccounts</span></span> REQUEST
+
+```shell
+
+curl -X POST https://api-testnet.dock.io/subaccounts \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "name": "string",
+  "image": "string"
+}
+```
+
+<h3 id="post__subaccounts-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|Subaccount object|
+|» name|body|string|true|The sub account name|
+|» image|body|string|false|The sub account image|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "id": 0,
+  "name": "string",
+  "email": "string",
+  "image": "string"
+}
+```
+
+<h3 id="post__subaccounts-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccount has been created|[Subaccount](#schemasubaccount)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error creating subaccount|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+## List Sub-Accounts
+> <span class="highlight"><span class="nt">GET</span> /subaccounts</span></span> REQUEST
+
+> Code samples
+
+```shell
+
+curl -X GET https://api-testnet.dock.io/subaccounts \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="get__subaccounts-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer(int32)|false|How many items to offset by for pagination|
+|limit|query|integer(int32)|false|How many items to return at one time (max 64)|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {
+    "id": 0,
+    "name": "string",
+    "email": "string",
+    "image": "string"
+  }
+]
+```
+
+<h3 id="get__subaccounts-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A paged array of subaccounts|[Subaccounts](#schemasubaccounts)|
+
+## Get Sub-Account by ID
+> <span class="highlight"><span class="nt">GET</span> /subaccounts/{id}</span></span> REQUEST
+
+> Code samples
+
+```shell
+
+curl -X GET https://api-testnet.dock.io/subaccounts/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="get__subaccounts_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "id": 0,
+  "name": "string",
+  "email": "string",
+  "image": "string"
+}
+```
+
+<h3 id="get__subaccounts_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Expected response to a valid request|[Subaccount](#schemasubaccount)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error getting subaccount|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Subaccount was not found|[Error](#schemaerror)|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken, bearerAuth, rapidAPI
+</aside>
+
+> <span class="highlight"><span class="nt">PATCH</span> /subaccounts/{id}</span></span> REQUEST
+
+Update the specified sub-account.
+
+> Code samples
+
+```shell
+
+curl -X PATCH https://api-testnet.dock.io/subaccounts/{id} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "name": "string",
+  "image": "string"
+}
+```
+
+<h3 id="patch__subaccounts_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+|body|body|object|true|Subaccount properties|
+|» name|body|string|true|The sub account name|
+|» image|body|string|false|The sub account image|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "id": 0,
+  "name": "string",
+  "email": "string",
+  "image": "string"
+}
+```
+
+<h3 id="patch__subaccounts_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccount has been updated|[Subaccount](#schemasubaccount)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error creating subaccount|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+> <span class="highlight"><span class="nt">DELETE</span> /subaccounts/{id}</span></span> REQUEST
+
+Deletes the specified sub-account.
+
+> Code samples
+
+```shell
+
+curl -X DELETE https://api-testnet.dock.io/subaccounts/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="delete__subaccounts_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+
+> Example responses
+
+> 400 Response
+
+```json
+{
+  "status": 0,
+  "type": "string",
+  "message": "string"
+}
+```
+
+<h3 id="delete__subaccounts_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccount deleted|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error deleting subaccount|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Subaccount was not found|[Error](#schemaerror)|
+
+## Get Sub-Account Usage
+> <span class="highlight"><span class="nt">GET</span> /subaccounts/{id}/usage</span></span> REQUEST
+
+Get details about the activity that this sub-account has performed against the system.
+
+> Code samples
+
+```shell
+
+curl -X GET https://api-testnet.dock.io/subaccounts/{id}/usage \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+`GET /subaccounts/{id}/usage`
+
+*Lists transaction usage for this sub account*
+
+<h3 id="get__subaccounts_{id}_usage-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+|startTime|query|string(date-time)|false|Timestamp for the start of the range (ISO 8601)|
+|endTime|query|string(date-time)|false|Timestamp for the end of the range (ISO 8601)|
+|offset|query|integer(int32)|false|How many items to offset by for pagination|
+|limit|query|integer(int32)|false|How many items to return at one time (max 64)|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {}
+]
+```
+
+<h3 id="get__subaccounts_{id}_usage-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A paged array of subaccount transaction usage metadata|[ArrayResponse](#schemaarrayresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+
+## Create Sub-Account API Key
+> <span class="highlight"><span class="nt">POST</span> /subaccounts/{id}/keys</span></span> REQUEST
+
+Creates an API key for a subaccount. In order for activity to be associated with the given sub-account an API key needs to be created for that sub-account and then that key must be used for all transactions related to that sub-account.
+
+> Code samples
+
+```shell
+
+curl -X POST https://api-testnet.dock.io/subaccounts/{id}/keys \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{}
+```
+
+<h3 id="post__subaccounts_{id}_keys-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+|body|body|object|false|Subaccount properties|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "code": 0
+}
+```
+
+<h3 id="post__subaccounts_{id}_keys-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccoun API key created|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error creating subaccount API key|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+## List Sub-Account API Keys
+> <span class="highlight"><span class="nt">GET</span> /subaccounts/{id}/keys</span></span> REQUEST
+
+> Code samples
+
+```shell
+
+curl -X GET https://api-testnet.dock.io/subaccounts/{id}/keys \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="get__subaccounts_{id}_keys-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+|offset|query|integer(int32)|false|How many items to offset by for pagination|
+|limit|query|integer(int32)|false|How many items to return at one time (max 64)|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {}
+]
+```
+
+<h3 id="get__subaccounts_{id}_keys-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A paged array of subaccount key metadata|[ArrayResponse](#schemaarrayresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken, bearerAuth, rapidAPI
+</aside>
+
+## Delete a Sub-Account API Key
+> <span class="highlight"><span class="nt">DELETE</span> /subaccounts/{id}/keys/{keyId}</span></span> REQUEST
+
+Delete the specified API key for the given sub-account.
+
+> Code samples
+
+```shell
+
+curl -X DELETE https://api-testnet.dock.io/subaccounts/{id}/keys/{keyId} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="delete__subaccounts_{id}_keys_{keyid}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|An ID|
+|keyId|path|string|true|An API key ID|
+
+> Example responses
+
+> 400 Response
+
+```json
+{
+  "status": 0,
+  "type": "string",
+  "message": "string"
+}
+```
+
+<h3 id="delete__subaccounts_{id}_keys_{keyid}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccount API key deleted|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error deleting subaccount API key|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Subaccount API key was not found|[Error](#schemaerror)|
+
 # Schemas
 
 > Object Schemas
