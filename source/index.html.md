@@ -3146,7 +3146,7 @@ curl -X POST https://api-testnet.dock.io/subaccounts/{id}/keys \
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccoun API key created|[Response](#schemaresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccount API key created|[Response](#schemaresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error creating subaccount API key|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
 |402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
@@ -3357,7 +3357,7 @@ curl -X POST https://api-testnet.dock.io/messaging/decrypt \
 ## Signing Messages
 > <span class="highlight"><span class="nt">POST</span> /messaging/sign</span></span> REQUEST
 
-Signing a messages helps to prove to the recipient that the message is valid and unaltered. The message will be signed as a Base64 encoded JWT.
+Signing a message helps to prove to the recipient that the message is valid and unaltered. The message will be signed as a Base64 encoded JWT.
 
 > Code samples
 
@@ -3393,18 +3393,16 @@ curl -X POST https://api-testnet.dock.io/messaging/sign \
 
 > 200 Response
 
-```json
-{
-  "code": 0
-}
+```
+"eyJhRU...p6byJ9.eyJpZ...em8iXV19.RIHJunaOq0SnQqYjG...BXo4ozHjWAMfqR0czB0rR4emWF0MeWOCXXSJra4ttCFAQ"
 ```
 
 <h3 id="post__messaging_sign-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message has been sent|[Response](#schemaresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to send|[Error](#schemaerror)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message has been signed|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to sign|[Error](#schemaerror)|
 |402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
 
@@ -3445,9 +3443,22 @@ curl -X POST https://api-testnet.dock.io/messaging/verify \
 
 ```json
 {
-  "code": 0
-}
-```
+	"verified": true,
+	"payload": {
+		"id": "14a31880-e864-11ed-ab4c-3f9fbca4f00d",
+		"type": "https://example.com/protocols/lets_do_lunch/1.0/proposal",
+		"created_time": 1682975205,
+		"from": "did:example:alice",
+		"body": {
+			"some": "test-value"
+		},
+		"reply_to": [
+			[
+				"did:example:alice"
+			]
+		]
+	}
+}```
 
 <h3 id="post__messaging_verify-responses">Responses</h3>
 
@@ -3461,7 +3472,9 @@ curl -X POST https://api-testnet.dock.io/messaging/verify \
 ## Send Message
 > <span class="highlight"><span class="nt">POST</span> /messaging/send</span></span> REQUEST
 
-Sends a DIDComm message using our relay service and DID service endpoints, it also returns a URL for QR code scanning. Supports encrypted, plaintext and signed DIDComm messages. You can generate an encrypted DIDComm message by calling the `/messaging/encrypt` route
+Sends a DIDComm message using our relay service and DID service endpoints, it also returns a URL for QR code scanning. Supports encrypted, plaintext and signed DIDComm messages. You can generate an encrypted DIDComm message by calling the `/messaging/encrypt` route.
+
+The `typ` attribute must be a DIDComm type (i.e. starts with "application/didcomm").
 
 > Code samples
 
@@ -3479,7 +3492,9 @@ curl -X POST https://api-testnet.dock.io/messaging/send \
 ```json
 {
   "to": "string",
-  "message": {}
+  "message": {
+    "typ": "string"
+  }
 }
 ```
 
@@ -3489,7 +3504,7 @@ curl -X POST https://api-testnet.dock.io/messaging/send \
 |---|---|---|---|---|
 |body|body|object|true|The message payload|
 |» to|body|string|true|none|
-|» message|body|object|true|none|
+|» message|body|Message|true|none|
 
 > Example responses
 
@@ -3497,9 +3512,9 @@ curl -X POST https://api-testnet.dock.io/messaging/send \
 
 ```json
 {
-  "code": 0
-}
-```
+	"sent": true,
+	"qrUrl": "didcomm://https://relay.dock.io/read/64502e3243455b67f93f95557"
+}```
 
 <h3 id="post__messaging_send-responses">Responses</h3>
 
@@ -4036,6 +4051,19 @@ This is a schema that is used to define whether a credential/presentation is ver
 ```
 
 This is a schema that represents a default response for a request made.
+
+
+<h2 id="tocS_Message">Message</h2>
+
+```json
+{
+  "ciphertext": "eyJhsad...AQ",
+  "typ":"application/didcomm..."
+}
+
+```
+
+This is a schema that represents a message send request. If the message is signed or encrypted use the `ciphertext` field. The `typ` field must be a valid DIDComm message type.
 
 
 <script type="application/ld+json">
