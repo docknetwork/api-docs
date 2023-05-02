@@ -540,10 +540,19 @@
               </ul>
           </li>
           <li>
-            <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
+            <a href="#dock-api-messaging" class="toc-h1 toc-link" data-title="Messaging">Messaging</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#tocS_Error" class="toc-h2 toc-link" data-title="Error">Error</a>
+                    <a href="#encrypt-message" class="toc-h2 toc-link" data-title="Encrypt Message">Encrypt Message</a>
+                  </li>
+                  <li>
+                    <a href="#decrypt-message" class="toc-h2 toc-link" data-title="Decrypt Message">Decrypt Message</a>
+                  </li>
+                  <li>
+                    <a href="#signing-messages" class="toc-h2 toc-link" data-title="Signing Messages">Signing Messages</a>
+                  </li>
+                  <li>
+                    <a href="#verifying-a-message" class="toc-h2 toc-link" data-title="Verifying a Message">Verifying a Message</a>
                   </li>
                   <li>
                     <a href="#tocS_Hex32" class="toc-h2 toc-link" data-title="Hex32">Hex32</a>
@@ -598,6 +607,9 @@
                   </li>
                   <li>
                     <a href="#tocS_Response" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_Message" class="toc-h2 toc-link" data-title="Message">Message</a>
                   </li>
               </ul>
           </li>
@@ -4838,11 +4850,6 @@ curl <span class="nt">-X</span> GET https://api-testnet.dock.io/subaccounts/<spa
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken, bearerAuth, rapidAPI
-</aside>
-
 <blockquote>
 <p><span class="highlight"><span class="nt">PATCH</span> /subaccounts/{id}</span></span> REQUEST</p>
 </blockquote>
@@ -5053,10 +5060,6 @@ curl <span class="nt">-X</span> GET https://api-testnet.dock.io/subaccounts/<spa
   <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
 </code></pre></div>
-<p><code>GET /subaccounts/{id}/usage</code></p>
-
-<p><em>Lists transaction usage for this sub account</em></p>
-
 <h3 id="get__subaccounts_{id}_usage-parameters">Parameters</h3>
 
 <table><thead>
@@ -5208,7 +5211,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/subaccounts/<sp
 <tr>
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>Subaccoun API key created</td>
+<td>Subaccount API key created</td>
 <td><a href="#schemaresponse">Response</a></td>
 </tr>
 <tr>
@@ -5308,11 +5311,6 @@ curl <span class="nt">-X</span> GET https://api-testnet.dock.io/subaccounts/<spa
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken, bearerAuth, rapidAPI
-</aside>
 <h2 id='delete-a-sub-account-api-key'>Delete a Sub-Account API Key</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">DELETE</span> /subaccounts/{id}/keys/{keyId}</span></span> REQUEST</p>
@@ -5402,26 +5400,541 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/subaccounts/<
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
-<h1 id='schemas'>Schemas</h1>
+
+<h1 id="dock-api-messaging">Messaging</h1>
+
+<p>Operations about DIDComm messaging. DIDComm messages are addressed by DID using Dock&#39;s relay service.</p>
+
+<p>The current most common use case for the messaging service is to send credentials and presentation requests to the Dock Wallet, but other clients
+can use it too.</p>
+<h2 id='encrypt-message'>Encrypt Message</h2>
 <blockquote>
-<p>Object Schemas</p>
+<p><span class="highlight"><span class="nt">POST</span> /messaging/encrypt</span></span> REQUEST</p>
 </blockquote>
 
-<p>Data Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Other than that, Data Verification schema and Data Encoding Schemas are used to verify and map the structure and contents of a Verifiable Credential.</p>
+<p>In most cases you&#39;ll want to ensure the privacy of the message by encrypting it before sending.</p>
 
-<p>These are the schemas used in all API operations mentioned before, such as Error, Credential, Jobs, Anchor, Registry, and so on.</p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/encrypt <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
 
-<p>For a detailed example of the schema workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/schemaFlow.js">here</a>.</p>
-
-<h2 id="tocS_Error">Error</h2>
-
-<!-- backwards compatibility -->
-
-<p><a id="schemaerror"></a>
-<a id="schema_Error"></a>
-<a id="tocSerror"></a>
-<a id="tocserror"></a></p>
+</code></pre></div>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"senderDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"algorithm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ECDH-1PU+A256KW"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"recipientDids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_encrypt-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>The recipients, sender and message</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» payload</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» senderDid</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» algorithm</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» recipientDids</td>
+<td>body</td>
+<td>[oneOf]</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» algorithm</td>
+<td>ECDH-1PU+A256KW</td>
+</tr>
+<tr>
+<td>» algorithm</td>
+<td>ECDH-ES+A256KW</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_encrypt-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Message has been encrypted, returning an encrypted DIDComm Message</td>
+<td><a href="#schemaresponse">Response</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Message failed to encrypt</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.2">Payment Required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>DID was not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='decrypt-message'>Decrypt Message</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /messaging/decrypt</span></span> REQUEST</p>
+
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/decrypt <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jwe"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_decrypt-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>The JWM</td>
+</tr>
+<tr>
+<td>» jwe</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_decrypt-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Message has been decrypted, returning a DIDComm message</td>
+<td><a href="#schemaresponse">Response</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Message failed to decrypt</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.2">Payment Required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>DID was not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='signing-messages'>Signing Messages</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /messaging/sign</span></span> REQUEST</p>
+</blockquote>
+
+<p>Signing a message helps to prove to the recipient that the message is valid and unaltered. The message will be signed as a Base64 encoded JWT.</p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/sign <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"senderDid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_sign-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>The message payload</td>
+</tr>
+<tr>
+<td>» payload</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» senderDid</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» type</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>"eyJhRU...p6byJ9.eyJpZ...em8iXV19.RIHJunaOq0SnQqYjG...BXo4ozHjWAMfqR0czB0rR4emWF0MeWOCXXSJra4ttCFAQ"
+</code></pre></div>
+<h3 id="post__messaging_sign-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Message has been signed</td>
+<td><a href="#schemaresponse">Response</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Message failed to sign</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.2">Payment Required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>DID was not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='verifying-a-message'>Verifying a Message</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /messaging/verify</span></span> REQUEST</p>
+</blockquote>
+
+<p>Verify that the message is valid.</p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/verify <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jws"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_verify-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>The message payload</td>
+</tr>
+<tr>
+<td>» jws</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a31880-e864-11ed-ab4c-3f9fbca4f00d"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/protocols/lets_do_lunch/1.0/proposal"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1682975205</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:example:alice"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"some"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-value"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"reply_to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"did:example:alice"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">```</span><span class="w">
+
+</span><span class="err">&lt;h</span><span class="mi">3</span><span class="w"> </span><span class="err">id=</span><span class="s2">"post__messaging_verify-responses"</span><span class="err">&gt;Responses&lt;/h</span><span class="mi">3</span><span class="err">&gt;</span><span class="w">
+
+</span><span class="err">|Status|Meaning|Description|Schema|</span><span class="w">
+</span><span class="err">|---|---|---|---|</span><span class="w">
+</span><span class="err">|</span><span class="mi">200</span><span class="err">|</span><span class="p">[</span><span class="err">OK</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.3</span><span class="err">.</span><span class="mi">1</span><span class="err">)|Message</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">verified|</span><span class="p">[</span><span class="err">Response</span><span class="p">]</span><span class="err">(#schemaresponse)|</span><span class="w">
+</span><span class="err">|</span><span class="mi">400</span><span class="err">|</span><span class="p">[</span><span class="err">Bad</span><span class="w"> </span><span class="err">Request</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.5</span><span class="err">.</span><span class="mi">1</span><span class="err">)|Message</span><span class="w"> </span><span class="err">failed</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">verify|</span><span class="p">[</span><span class="err">Error</span><span class="p">]</span><span class="err">(#schemaerror)|</span><span class="w">
+</span><span class="err">|</span><span class="mi">402</span><span class="err">|</span><span class="p">[</span><span class="err">Payment</span><span class="w"> </span><span class="err">Required</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.5</span><span class="err">.</span><span class="mi">2</span><span class="err">)|Transaction</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">reached</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">upgrade</span><span class="w"> </span><span class="err">required</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">proceed|</span><span class="p">[</span><span class="err">Error</span><span class="p">]</span><span class="err">(#schemaerror)|</span><span class="w">
+</span><span class="err">|</span><span class="mi">404</span><span class="err">|</span><span class="p">[</span><span class="err">Not</span><span class="w"> </span><span class="err">Found</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.5</span><span class="err">.</span><span class="mi">4</span><span class="err">)|DID</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">found|</span><span class="p">[</span><span class="err">Error</span><span class="p">]</span><span class="err">(#schemaerror)|</span><span class="w">
+
+</span><span class="err">##</span><span class="w"> </span><span class="err">Send</span><span class="w"> </span><span class="err">Message</span><span class="w">
+</span><span class="err">&gt;</span><span class="w"> </span><span class="err">&lt;span</span><span class="w"> </span><span class="err">class=</span><span class="s2">"highlight"</span><span class="err">&gt;&lt;span</span><span class="w"> </span><span class="err">class=</span><span class="s2">"nt"</span><span class="err">&gt;POST&lt;/span&gt;</span><span class="w"> </span><span class="err">/messaging/send&lt;/span&gt;&lt;/span&gt;</span><span class="w"> </span><span class="err">REQUEST</span><span class="w">
+
+</span><span class="err">Sends</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">DIDComm</span><span class="w"> </span><span class="err">message</span><span class="w"> </span><span class="err">using</span><span class="w"> </span><span class="err">our</span><span class="w"> </span><span class="err">relay</span><span class="w"> </span><span class="err">service</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">DID</span><span class="w"> </span><span class="err">service</span><span class="w"> </span><span class="err">endpoints,</span><span class="w"> </span><span class="err">it</span><span class="w"> </span><span class="err">also</span><span class="w"> </span><span class="err">returns</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">URL</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">QR</span><span class="w"> </span><span class="err">code</span><span class="w"> </span><span class="err">scanning.</span><span class="w"> </span><span class="err">Supports</span><span class="w"> </span><span class="err">encrypted,</span><span class="w"> </span><span class="err">plaintext</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">signed</span><span class="w"> </span><span class="err">DIDComm</span><span class="w"> </span><span class="err">messages.</span><span class="w"> </span><span class="err">You</span><span class="w"> </span><span class="err">can</span><span class="w"> </span><span class="err">generate</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">encrypted</span><span class="w"> </span><span class="err">DIDComm</span><span class="w"> </span><span class="err">message</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">calling</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">`/messaging/encrypt`</span><span class="w"> </span><span class="err">route.</span><span class="w">
+
+</span><span class="err">The</span><span class="w"> </span><span class="err">`typ`</span><span class="w"> </span><span class="err">attribute</span><span class="w"> </span><span class="err">must</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">DIDComm</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">(i.e.</span><span class="w"> </span><span class="err">starts</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="s2">"application/didcomm"</span><span class="err">).</span><span class="w">
+
+</span><span class="err">&gt;</span><span class="w"> </span><span class="err">Code</span><span class="w"> </span><span class="err">samples</span><span class="w">
+
+</span><span class="err">```shell</span><span class="w">
+</span><span class="err">#</span><span class="w"> </span><span class="err">You</span><span class="w"> </span><span class="err">can</span><span class="w"> </span><span class="err">also</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">wget</span><span class="w">
+</span><span class="err">curl</span><span class="w"> </span><span class="err">-X</span><span class="w"> </span><span class="err">POST</span><span class="w"> </span><span class="err">https://api-testnet.dock.io/messaging/send</span><span class="w"> </span><span class="err">\</span><span class="w">
+  </span><span class="err">-H</span><span class="w"> </span><span class="err">'Content-Type:</span><span class="w"> </span><span class="err">application/json'</span><span class="w"> </span><span class="err">\</span><span class="w">
+  </span><span class="err">-H</span><span class="w"> </span><span class="err">'Accept:</span><span class="w"> </span><span class="err">application/json'</span><span class="w"> </span><span class="err">\</span><span class="w">
+  </span><span class="err">-H</span><span class="w"> </span><span class="err">'DOCK-API-TOKEN:</span><span class="w"> </span><span class="err">API_KEY'</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="post__messaging_send-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>The message payload</td>
+</tr>
+<tr>
+<td>» to</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>body</td>
+<td>Message</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"sent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"qrUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"didcomm://https://relay.dock.io/read/64502e3243455b67f93f95557"</span><span class="w">
+</span><span class="p">}</span><span class="err">```</span><span class="w">
+
+</span><span class="err">&lt;h</span><span class="mi">3</span><span class="w"> </span><span class="err">id=</span><span class="s2">"post__messaging_send-responses"</span><span class="err">&gt;Responses&lt;/h</span><span class="mi">3</span><span class="err">&gt;</span><span class="w">
+
+</span><span class="err">|Status|Meaning|Description|Schema|</span><span class="w">
+</span><span class="err">|---|---|---|---|</span><span class="w">
+</span><span class="err">|</span><span class="mi">200</span><span class="err">|</span><span class="p">[</span><span class="err">OK</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.3</span><span class="err">.</span><span class="mi">1</span><span class="err">)|Message</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">sent|</span><span class="p">[</span><span class="err">Response</span><span class="p">]</span><span class="err">(#schemaresponse)|</span><span class="w">
+</span><span class="err">|</span><span class="mi">400</span><span class="err">|</span><span class="p">[</span><span class="err">Bad</span><span class="w"> </span><span class="err">Request</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.5</span><span class="err">.</span><span class="mi">1</span><span class="err">)|Message</span><span class="w"> </span><span class="err">failed</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">send|</span><span class="p">[</span><span class="err">Error</span><span class="p">]</span><span class="err">(#schemaerror)|</span><span class="w">
+</span><span class="err">|</span><span class="mi">402</span><span class="err">|</span><span class="p">[</span><span class="err">Payment</span><span class="w"> </span><span class="err">Required</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.5</span><span class="err">.</span><span class="mi">2</span><span class="err">)|Transaction</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">reached</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">upgrade</span><span class="w"> </span><span class="err">required</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">proceed|</span><span class="p">[</span><span class="err">Error</span><span class="p">]</span><span class="err">(#schemaerror)|</span><span class="w">
+</span><span class="err">|</span><span class="mi">404</span><span class="err">|</span><span class="p">[</span><span class="err">Not</span><span class="w"> </span><span class="err">Found</span><span class="p">]</span><span class="err">(https://tools.ietf.org/html/rfc</span><span class="mi">7231</span><span class="err">#section</span><span class="mf">-6.5</span><span class="err">.</span><span class="mi">4</span><span class="err">)|DID</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">found|</span><span class="p">[</span><span class="err">Error</span><span class="p">]</span><span class="err">(#schemaerror)|</span><span class="w">
+
+
+</span><span class="err">#</span><span class="w"> </span><span class="err">Schemas</span><span class="w">
+
+</span><span class="err">&gt;</span><span class="w"> </span><span class="err">Object</span><span class="w"> </span><span class="err">Schemas</span><span class="w">
+
+</span><span class="err">Data</span><span class="w"> </span><span class="err">Schemas</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">useful</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">enforcing</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">specific</span><span class="w"> </span><span class="err">structure</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">collection</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">like</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">Verifiable</span><span class="w"> </span><span class="err">Credential.</span><span class="w"> </span><span class="err">Other</span><span class="w"> </span><span class="err">than</span><span class="w"> </span><span class="err">that,</span><span class="w"> </span><span class="err">Data</span><span class="w"> </span><span class="err">Verification</span><span class="w"> </span><span class="err">schema</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">Data</span><span class="w"> </span><span class="err">Encoding</span><span class="w"> </span><span class="err">Schemas</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">verify</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">map</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">structure</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">contents</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">Verifiable</span><span class="w"> </span><span class="err">Credential.</span><span class="w">
+
+</span><span class="err">These</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">schemas</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">all</span><span class="w"> </span><span class="err">API</span><span class="w"> </span><span class="err">operations</span><span class="w"> </span><span class="err">mentioned</span><span class="w"> </span><span class="err">before,</span><span class="w"> </span><span class="err">such</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">Error,</span><span class="w"> </span><span class="err">Credential,</span><span class="w"> </span><span class="err">Jobs,</span><span class="w"> </span><span class="err">Anchor,</span><span class="w"> </span><span class="err">Registry,</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">so</span><span class="w"> </span><span class="err">on.</span><span class="w">
+
+</span><span class="err">For</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">detailed</span><span class="w"> </span><span class="err">example</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">schema</span><span class="w"> </span><span class="err">workflow.</span><span class="w"> </span><span class="err">Please</span><span class="w"> </span><span class="err">refer</span><span class="w"> </span><span class="p">[</span><span class="err">here</span><span class="p">]</span><span class="err">(https://github.com/docknetwork/dock-api-js/blob/main/workflows/schemaFlow.js).</span><span class="w">
+
+</span><span class="err">&lt;h</span><span class="mi">2</span><span class="w"> </span><span class="err">id=</span><span class="s2">"tocS_Error"</span><span class="err">&gt;Error&lt;/h</span><span class="mi">2</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;!--</span><span class="w"> </span><span class="err">backwards</span><span class="w"> </span><span class="err">compatibility</span><span class="w"> </span><span class="err">--&gt;</span><span class="w">
+</span><span class="err">&lt;a</span><span class="w"> </span><span class="err">id=</span><span class="s2">"schemaerror"</span><span class="err">&gt;&lt;/a&gt;</span><span class="w">
+</span><span class="err">&lt;a</span><span class="w"> </span><span class="err">id=</span><span class="s2">"schema_Error"</span><span class="err">&gt;&lt;/a&gt;</span><span class="w">
+</span><span class="err">&lt;a</span><span class="w"> </span><span class="err">id=</span><span class="s2">"tocSerror"</span><span class="err">&gt;&lt;/a&gt;</span><span class="w">
+</span><span class="err">&lt;a</span><span class="w"> </span><span class="err">id=</span><span class="s2">"tocserror"</span><span class="err">&gt;&lt;/a&gt;</span><span class="w">
+
+</span><span class="err">```json</span><span class="w">
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
@@ -5550,7 +6063,7 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/subaccounts/<
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get a status of the job.</p>
-<h3 id='enumerated-values-5'>Enumerated Values</h3>
+<h3 id='enumerated-values-6'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -5648,7 +6161,7 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/subaccounts/<
 
 </span></code></pre></div>
 <p>This is a schema type of public key for DID.</p>
-<h3 id='enumerated-values-6'>Enumerated Values</h3>
+<h3 id='enumerated-values-7'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -5675,7 +6188,7 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/subaccounts/<
 
 </span></code></pre></div>
 <p>This is a schema used in Presentation operation that represents a type of signature.</p>
-<h3 id='enumerated-values-7'>Enumerated Values</h3>
+<h3 id='enumerated-values-8'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -5702,7 +6215,7 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/subaccounts/<
 
 </span></code></pre></div>
 <p>This is a schema that represents a purpose of credential.</p>
-<h3 id='enumerated-values-8'>Enumerated Values</h3>
+<h3 id='enumerated-values-9'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -6229,6 +6742,15 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/subaccounts/<
 
 </span></code></pre></div>
 <p>This is a schema that represents a default response for a request made.</p>
+
+<h2 id="tocS_Message">Message</h2>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ciphertext"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhsad...AQ"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="s2">"application/didcomm..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This is a schema that represents a message send request. If the message is signed or encrypted use the <code>ciphertext</code> field. The <code>typ</code> field must be a valid DIDComm message type.</p>
 
 <script type="application/ld+json">
 {
