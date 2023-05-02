@@ -2965,11 +2965,6 @@ curl -X GET https://api-testnet.dock.io/subaccounts/{id} \
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Subaccount was not found|[Error](#schemaerror)|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken, bearerAuth, rapidAPI
-</aside>
-
 > <span class="highlight"><span class="nt">PATCH</span> /subaccounts/{id}</span></span> REQUEST
 
 Update the specified sub-account.
@@ -3081,10 +3076,6 @@ curl -X GET https://api-testnet.dock.io/subaccounts/{id}/usage \
 
 ```
 
-`GET /subaccounts/{id}/usage`
-
-*Lists transaction usage for this sub account*
-
 <h3 id="get__subaccounts_{id}_usage-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -3155,7 +3146,7 @@ curl -X POST https://api-testnet.dock.io/subaccounts/{id}/keys \
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccoun API key created|[Response](#schemaresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Subaccount API key created|[Response](#schemaresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error creating subaccount API key|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
 |402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
@@ -3197,11 +3188,6 @@ curl -X GET https://api-testnet.dock.io/subaccounts/{id}/keys \
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A paged array of subaccount key metadata|[ArrayResponse](#schemaarrayresponse)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken, bearerAuth, rapidAPI
-</aside>
 
 ## Delete a Sub-Account API Key
 > <span class="highlight"><span class="nt">DELETE</span> /subaccounts/{id}/keys/{keyId}</span></span> REQUEST
@@ -3245,6 +3231,300 @@ curl -X DELETE https://api-testnet.dock.io/subaccounts/{id}/keys/{keyId} \
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error deleting subaccount API key|[Error](#schemaerror)|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|You do not own this subaccount|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Subaccount API key was not found|[Error](#schemaerror)|
+
+<h1 id="dock-api-messaging">Messaging</h1>
+
+Operations about DIDComm messaging. DIDComm messages are addressed by DID using Dock's relay service.
+
+The current most common use case for the messaging service is to send credentials and presentation requests to the Dock Wallet, but other clients
+can use it too.
+
+## Encrypt Message
+> <span class="highlight"><span class="nt">POST</span> /messaging/encrypt</span></span> REQUEST
+
+In most cases you'll want to ensure the privacy of the message by encrypting it before sending.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/messaging/encrypt \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "type": "string",
+  "payload": {},
+  "senderDid": "string",
+  "algorithm": "ECDH-1PU+A256KW",
+  "recipientDids": [
+    "string"
+  ]
+}
+```
+
+<h3 id="post__messaging_encrypt-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|The recipients, sender and message|
+|» type|body|string|false|none|
+|» payload|body|object|true|none|
+|» senderDid|body|string|true|none|
+|» algorithm|body|string|false|none|
+|» recipientDids|body|[oneOf]|true|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|» algorithm|ECDH-1PU+A256KW|
+|» algorithm|ECDH-ES+A256KW|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "code": 0
+}
+```
+
+<h3 id="post__messaging_encrypt-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message has been encrypted, returning an encrypted DIDComm Message|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to encrypt|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
+
+## Decrypt Message
+> <span class="highlight"><span class="nt">POST</span> /messaging/decrypt</span></span> REQUEST
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/messaging/decrypt \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "jwe": {}
+}
+```
+
+<h3 id="post__messaging_decrypt-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|The JWM|
+|» jwe|body|object|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "code": 0
+}
+```
+
+<h3 id="post__messaging_decrypt-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message has been decrypted, returning a DIDComm message|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to decrypt|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
+
+## Signing Messages
+> <span class="highlight"><span class="nt">POST</span> /messaging/sign</span></span> REQUEST
+
+Signing a message helps to prove to the recipient that the message is valid and unaltered. The message will be signed as a Base64 encoded JWT.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/messaging/sign \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "payload": {},
+  "senderDid": "string",
+  "type": "string"
+}
+```
+
+<h3 id="post__messaging_sign-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|The message payload|
+|» payload|body|object|true|none|
+|» senderDid|body|string|true|none|
+|» type|body|string|false|none|
+
+> Example responses
+
+> 200 Response
+
+```
+"eyJhRU...p6byJ9.eyJpZ...em8iXV19.RIHJunaOq0SnQqYjG...BXo4ozHjWAMfqR0czB0rR4emWF0MeWOCXXSJra4ttCFAQ"
+```
+
+<h3 id="post__messaging_sign-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message has been signed|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to sign|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
+
+## Verifying a Message
+> <span class="highlight"><span class="nt">POST</span> /messaging/verify</span></span> REQUEST
+
+Verify that the message is valid.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/messaging/verify \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "jws": "string"
+}
+```
+
+<h3 id="post__messaging_verify-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|The message payload|
+|» jws|body|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+	"verified": true,
+	"payload": {
+		"id": "14a31880-e864-11ed-ab4c-3f9fbca4f00d",
+		"type": "https://example.com/protocols/lets_do_lunch/1.0/proposal",
+		"created_time": 1682975205,
+		"from": "did:example:alice",
+		"body": {
+			"some": "test-value"
+		},
+		"reply_to": [
+			[
+				"did:example:alice"
+			]
+		]
+	}
+}```
+
+<h3 id="post__messaging_verify-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message is verified|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to verify|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
+
+## Send Message
+> <span class="highlight"><span class="nt">POST</span> /messaging/send</span></span> REQUEST
+
+Sends a DIDComm message using our relay service and DID service endpoints, it also returns a URL for QR code scanning. Supports encrypted, plaintext and signed DIDComm messages. You can generate an encrypted DIDComm message by calling the `/messaging/encrypt` route.
+
+The `typ` attribute must be a DIDComm type (i.e. starts with "application/didcomm").
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/messaging/send \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "to": "string",
+  "message": {
+    "typ": "string"
+  }
+}
+```
+
+<h3 id="post__messaging_send-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|The message payload|
+|» to|body|string|true|none|
+|» message|body|Message|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+	"sent": true,
+	"qrUrl": "didcomm://https://relay.dock.io/read/64502e3243455b67f93f95557"
+}```
+
+<h3 id="post__messaging_send-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Message has been sent|[Response](#schemaresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Message failed to send|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
+
 
 # Schemas
 
@@ -3771,6 +4051,19 @@ This is a schema that is used to define whether a credential/presentation is ver
 ```
 
 This is a schema that represents a default response for a request made.
+
+
+<h2 id="tocS_Message">Message</h2>
+
+```json
+{
+  "ciphertext": "eyJhsad...AQ",
+  "typ":"application/didcomm..."
+}
+
+```
+
+This is a schema that represents a message send request. If the message is signed or encrypted use the `ciphertext` field. The `typ` field must be a valid DIDComm message type.
 
 
 <script type="application/ld+json">
