@@ -4057,6 +4057,7 @@ This is a schema that represents a default response for a request made.
 
 ```json
 {
+  "to": ["did:example:bob"],
   "ciphertext": "eyJhsad...AQ",
   "typ":"application/didcomm..."
 }
