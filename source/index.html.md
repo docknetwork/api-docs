@@ -1636,7 +1636,7 @@ curl --location --request POST https://api.dock.io/proof-requests/ \
 
 It often makes sense for a verifier to request proof of credentials from a holder. For this, we have built a proof requests system into the API that works with the Dock Wallet. When a request is created, you will receive a URL which you should display in a QR code for a wallet application to scan. You can define which attributes should exist in the credential, a name for the holder and yourself to see and a nonce/challenge which prevents replay attacks.
 
-<h3 id="create-a-presentation-parameters">Parameters</h3>
+<h3 id="create-proof-request-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1671,7 +1671,7 @@ It often makes sense for a verifier to request proof of credentials from a holde
 }
 ```
 
-<h3 id="create-a-presentation-responses">Responses</h3>
+<h3 id="create-proof-request-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1728,14 +1728,14 @@ Return a list of all proof requests and their verification status
 ]
 ```
 
-<h3 id="list-dids-parameters">Parameters</h3>
+<h3 id="list-proof-requests-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |offset|query|integer|false|How many items to offset by for pagination|
 |limit|query|integer|false|How many items to return at one time (max 64)|
 
-<h3 id="list-registries-responses">Responses</h3>
+<h3 id="list-proof-requests-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1755,7 +1755,7 @@ curl --location --request GET https://api.dock.io/proof-requests/{id} \
 
 Get the details of an existing proof request and its verification status
 
-<h3 id="get-registry-parameters">Parameters</h3>
+<h3 id="get-proof-request-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1787,7 +1787,7 @@ Get the details of an existing proof request and its verification status
 }
 ```
 
-<h3 id="get-registry-responses">Responses</h3>
+<h3 id="get-proof-request-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1795,7 +1795,470 @@ Get the details of an existing proof request and its verification status
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the proof request was not found.|[Error](#schemaerror)|
 
 
+## List Proof Request Templates
 
+> <span class="highlight"><span class="na">GET</span> /proof-templates</span></span> REQUEST
+
+When working with Proof Requests you will often want to request the same information from holders. To make this easier you can create Proof Request Templates to define the contents of the proof requests to be re-used.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://api-testnet.dock.io/proof-templates \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="get__proof-templates-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|integer(int32)|false|How many items to offset by for pagination|
+|limit|query|integer(int32)|false|How many items to return at one time (max 64)|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {
+    "attributes": {
+      "property1": {
+        "name": "favouriteDrink",
+        "names": [
+          "age"
+        ]
+      },
+      "property2": {
+        "name": "favouriteDrink",
+        "names": [
+          "age"
+        ]
+      }
+    },
+    "name": "Proof request",
+    "nonce": "1234567890",
+    "qr": "string"
+  }
+]
+```
+
+<h3 id="get__proof-templates-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A paged array of proof templates|[ProofRequests](#schemaproofrequests)|
+
+## Create Proof Request Template
+
+> <span class="highlight"><span class="na">POST</span> /proof-templates</span></span> REQUEST
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/proof-templates \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "attributes": {
+    "property1": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    },
+    "property2": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    }
+  },
+  "name": "Proof request",
+  "nonce": "1234567890",
+  "qr": "string"
+}
+```
+
+<h3 id="post__proof-templates-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[ProofRequest](#schemaproofrequest)|true|Proof template object|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "attributes": {
+    "property1": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    },
+    "property2": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    }
+  },
+  "name": "Proof request",
+  "nonce": "1234567890",
+  "qr": "string",
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "error": "string",
+  "created": "2019-08-24T14:15:22Z",
+  "updated": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="post__proof-templates-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Proof request template created|[ProofTemplateObject](#schemaprooftemplateobject)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid parameters|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+## Get Proof Template History
+
+> <span class="highlight"><span class="na">GET</span> /proof-templates/{id}/history</span></span> REQUEST
+
+Get all of the previously created proof requests based on the specified template.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://api-testnet.dock.io/proof-templates/{id}/history \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="get__proof-templates_{id}_history-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|Proof template UUID|
+|offset|query|integer(int32)|false|How many items to offset by for pagination|
+|limit|query|integer(int32)|false|How many items to return at one time (max 64)|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {
+    "attributes": {
+      "property1": {
+        "name": "favouriteDrink",
+        "names": [
+          "age"
+        ]
+      },
+      "property2": {
+        "name": "favouriteDrink",
+        "names": [
+          "age"
+        ]
+      }
+    },
+    "name": "Proof request",
+    "nonce": "1234567890",
+    "qr": "string"
+  }
+]
+```
+
+<h3 id="get__proof-templates_{id}_history-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Returns the information about the proof request history|[ProofRequests](#schemaproofrequests)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Proof template was not found.|[Error](#schemaerror)|
+
+## Create Proof Request from a Template
+
+> <span class="highlight"><span class="na">POST</span> /proof-templates/{id}/request</span></span> REQUEST
+
+Create a proof requtest based on the specified template.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://api-testnet.dock.io/proof-templates/{id}/request \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "nonce": "string",
+  "domain": "string"
+}
+```
+
+<h3 id="post__proof-templates_{id}_request-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|Specify optional nonce and domain|
+|» nonce|body|string|false|none|
+|» domain|body|string|false|none|
+|id|path|string(uuid)|true|Proof template UUID|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "attributes": {
+    "property1": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    },
+    "property2": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    }
+  },
+  "name": "Proof request",
+  "nonce": "1234567890",
+  "qr": "string",
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "error": "string",
+  "response_url": "string",
+  "verified": true,
+  "presentation": {},
+  "created": "2019-08-24T14:15:22Z",
+  "updated": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="post__proof-templates_{id}_request-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Returns the information about the proof request|[ProofRequestObject](#schemaproofrequestobject)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Proof template was not found.|[Error](#schemaerror)|
+
+## Get Proof Template
+
+> <span class="highlight"><span class="na">GET</span> /proof-templates/{id}</span></span> REQUEST
+
+Get the details about a specific template.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://api-testnet.dock.io/proof-templates/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+<h3 id="get__proof-templates_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|Proof template UUID|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "attributes": {
+    "property1": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    },
+    "property2": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    }
+  },
+  "name": "Proof request",
+  "nonce": "1234567890",
+  "qr": "string",
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "error": "string",
+  "created": "2019-08-24T14:15:22Z",
+  "updated": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="get__proof-templates_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Returns the information about the proof templates|[ProofTemplateObject](#schemaprooftemplateobject)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Proof templates was not found.|[Error](#schemaerror)|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken, bearerAuth, rapidAPI
+</aside>
+
+## Update Proof Template
+
+> <span class="highlight"><span class="na">PATCH</span> /proof-templates/{id}</span></span> REQUEST
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH https://api-testnet.dock.io/proof-templates/{id} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+
+> Body parameter
+
+```json
+{
+  "attributes": {
+    "property1": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    },
+    "property2": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    }
+  },
+  "name": "Proof request",
+  "nonce": "1234567890",
+  "qr": "string"
+}
+```
+
+<h3 id="patch__proof-templates_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[ProofRequest](#schemaproofrequest)|true|Proof template object|
+|id|path|string(uuid)|true|Proof template UUID|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "attributes": {
+    "property1": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    },
+    "property2": {
+      "name": "favouriteDrink",
+      "names": [
+        "age"
+      ]
+    }
+  },
+  "name": "Proof request",
+  "nonce": "1234567890",
+  "qr": "string",
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "error": "string",
+  "created": "2019-08-24T14:15:22Z",
+  "updated": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="patch__proof-templates_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Profile has been updated|[ProofTemplateObject](#schemaprooftemplateobject)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Error creating profile|[Error](#schemaerror)|
+|402|[Payment Required](https://tools.ietf.org/html/rfc7231#section-6.5.2)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Proof templates was not found.|[Error](#schemaerror)|
+
+## Delete Proof Template
+
+> <span class="highlight"><span class="na">DELETE</span> /proof-templates/{id}</span></span> REQUEST
+
+Deletes the specified template and any associated data.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE https://api-testnet.dock.io/proof-templates/{id} \
+  -H 'Accept: application/json' \
+  -H 'DOCK-API-TOKEN: API_KEY'
+
+```
+<h3 id="delete__proof-templates_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|Proof template UUID|
+
+> Example responses
+
+> 400 Response
+
+```json
+{
+  "status": 0,
+  "type": "string",
+  "message": "string"
+}
+```
+
+<h3 id="delete__proof-templates_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Proof templates will be deleted|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Something went wrong.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Proof templates was not found.|[Error](#schemaerror)|
 
 
 <h1 id="registries">Registries</h1>
