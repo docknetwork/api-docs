@@ -3722,12 +3722,15 @@ curl -X POST https://api-testnet.dock.io/messaging/encrypt \
 
 ```json
 {
-  "type": "string",
-  "payload": {},
-  "senderDid": "string",
+  "type": "https://didcomm.org/issue-credential/2.0/issue-credential",
+  "payload": {
+    "domain": "api.dock.io",
+    "credentials": [{ ...vcJSON }]
+  },
+  "senderDid": "did:dock:xyz",
   "algorithm": "ECDH-1PU+A256KW",
   "recipientDids": [
-    "string"
+    "did:dock:xyz"
   ]
 }
 ```
@@ -3921,7 +3924,8 @@ curl -X POST https://api-testnet.dock.io/messaging/verify \
 			]
 		]
 	}
-}```
+}
+```
 
 <h3 id="post__messaging_verify-responses">Responses</h3>
 
@@ -3977,7 +3981,8 @@ curl -X POST https://api-testnet.dock.io/messaging/send \
 {
 	"sent": true,
 	"qrUrl": "didcomm://https://relay.dock.io/read/64502e3243455b67f93f95557"
-}```
+}
+```
 
 <h3 id="post__messaging_send-responses">Responses</h3>
 
@@ -3989,7 +3994,7 @@ curl -X POST https://api-testnet.dock.io/messaging/send \
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|DID was not found|[Error](#schemaerror)|
 
 
-# Schemas
+<h1 id="dock-api-schemas">Schemas</h1>
 
 > Object Schemas
 
