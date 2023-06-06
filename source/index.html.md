@@ -1599,42 +1599,90 @@ curl --location --request POST https://api.dock.io/proof-requests/ \
   --header 'DOCK-API-TOKEN: API_KEY' \
   --header 'Content-Type: application/json' \
   --data-raw '{
-  "attributes": {
-    "favouriteDrink": {
-      "name": "favouriteDrink"
-    },
-    "fullName": {
-      "names": [
-        "name",
-        "fullName"
-      ]
+	"name": "Proof Request Test",
+	"purpose": "Prove income",
+	"request": {
+		"input_descriptors": [
+			{
+				"id": "ProofIncome-1",
+				"name": "Proof Request Test",
+				"purpose": "Prove income",
+				"constraints": {
+					"fields": [
+						{
+							"path": [
+								"$.credentialSubject.id",
+								"$.credentialSubject.income.total"
+							]
+						}
+					]
+				}
+		  ]
     }
-  },
-  "name": "My proof request",
-  "nonce": "1234567890"
-}'
+	}'
 
 ```
 
 ```json-doc
 {
-  "attributes": {
-    "favouriteDrink": {
-      "name": "favouriteDrink"
-    },
-    "fullName": {
-      "names": [
-        "name",
-        "fullName"
-      ]
+	"name": "Proof Request Test",
+	"purpose": "Prove income",
+	"request": {
+		"input_descriptors": [
+			{
+				"id": "ProofIncome-1",
+				"name": "Proof Request Test",
+				"purpose": "Prove income",
+				"constraints": {
+					"fields": [
+						{
+							"path": [
+								"$.credentialSubject.id",
+								"$.credentialSubject.income.total"
+							]
+						}
+					]
+				}
+		  ]
     }
-  },
-  "name": "My proof request",
-  "nonce": "1234567890"
-}
+	}
 ```
 
 It often makes sense for a verifier to request proof of credentials from a holder. For this, we have built a proof requests system into the API that works with the Dock Wallet. When a request is created, you will receive a URL which you should display in a QR code for a wallet application to scan. You can define which attributes should exist in the credential, a name for the holder and yourself to see and a nonce/challenge which prevents replay attacks.
+
+Our system supports the [DIF Presentation Exchange (PEX)](https://identity.foundation/presentation-exchange/) syntax for querying and filtering credentials.
+
+See the  https://identity.foundation/presentation-exchange/#input-descriptor-extensions for more examples, but a few common use cases are:
+
+### Require a numeric attribute to be within a range
+For example, a verifier might require that the holder have an income between $100,000 and $200,000 per year. This could be requested using the following `input_descriptor`
+
+```
+{
+  path: ['$.credentialSubject.income.2022.total'],
+  filter: {
+    type: 'number',
+    minimum: 100000,
+    maximum: 200000
+  },
+}
+```
+
+### Require a date attribute to be within a range
+For example, a verifier might require that the credential be issued after a certain date. In this example the verifier is requiring that the credential was issued between January 1, 2020 and December 31, 2020.
+
+```
+{
+  path: ['$.issuanceDate'],
+  filter: {
+    "type": "string",
+    "format": "date",
+    "formatMinimum": "2020-01-01",
+    "formatMaximum": "2020-12-31"
+  },
+}
+```
+
 
 <h3 id="create-proof-request-parameters">Parameters</h3>
 
@@ -1648,26 +1696,37 @@ It often makes sense for a verifier to request proof of credentials from a holde
 
 ```json
 {
-  "id": "feec1776-84c3-4783-b80b-c6690a652892",
-  "name": "My proof request",
+  "id": "aeec1776-84c3-4783-b80b-c6690a652892",
+  "name": "Proof Request Test",
   "nonce": "1234567890",
   "verified": false,
   "created": "2022-10-17T22:48:30.619Z",
   "updated": "2022-10-17T22:48:30.619Z",
   "presentation": {},
-  "response_url": "https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation",
-  "attributes": {
-    "fullName": {
-      "names": [
-        "name",
-        "fullName"
-      ]
-    },
-    "favouriteDrink": {
-      "name": "favouriteDrink"
-    }
-  }
-}
+  "response_url": "https://api.dock.io/proof-requests/aeec1776-84c3-4783-b80b-c6690a652892/send-presentation",
+  "type": "proof-request",
+	"qr": "https://creds-testnet.dock.io/proof/acaae15e-3c6e-412e-951e-4dc129b9745a",
+  "request": {
+		"input_descriptors": [
+			{
+				"id": "ProofIncome-1",
+				"constraints": {
+					"fields": [
+						{
+							"path": [
+								"$.credentialSubject.income.total"
+							],
+              "filter": {
+                "type": "number",
+                "minimum": 100000,
+                "maximum": 200000
+              }
+						}
+					]
+				}
+			}
+		]
+	}
 }
 ```
 
@@ -1705,26 +1764,47 @@ Return a list of all proof requests and their verification status
 ```json
 [
   {
-    "id": "feec1776-84c3-4783-b80b-c6690a652892",
-    "name": "My proof request",
-    "nonce": "1234567890",
-    "verified": false,
-    "created": "2022-10-17T22:48:30.619Z",
-    "updated": "2022-10-17T22:48:30.619Z",
-    "presentation": {},
-    "response_url": "http://localhost:8000/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation",
-    "attributes": {
-      "fullName": {
-        "names": [
-          "name",
-          "fullName"
-        ]
-      },
-      "favouriteDrink": {
-        "name": "favouriteDrink"
-      }
-    }
-  }
+		"id": "f2ea3225-ef6b-44d7-a37c-7713c66875b5",
+		"name": "Proof of Bachelors of Education",
+		"nonce": "6684fb3d878f2c3a25e35e36045bde8d",
+		"verified": false,
+		"created": "2023-04-05T22:00:25.729Z",
+		"updated": "2023-04-05T22:00:25.729Z",
+		"presentation": {},
+		"response_url": "https://api-testnet.dock.io/proof-requests/f2ea3225-ef6b-44d7-a37c-7713c66875b5/send-presentation",
+		"type": "proof-request",
+		"qr": "https://creds-testnet.dock.io/proof/f2ea3225-ef6b-44d7-a37c-7713c66875b5",
+		"request": {
+			"input_descriptors": [
+				{
+					"id": "Credential 1",
+					"name": "Proof of Bachelors of Education",
+					"purpose": "Prove that the holder has a Bachelors of Education degree",
+					"constraints": {
+						"fields": [
+							{
+								"path": [
+									"$.credentialSubject.degreeName",
+									"$.credentialSubject.degreeType",
+									"$.credentialSubject.dateEarned | date: \"%B %d, %Y\"",
+									"$.credentialSubject.fullName"
+								]
+							},
+							{
+								"path": [
+									"$.name"
+								],
+								"filter": {
+									"type": "string",
+									"pattern": "Bachelors of Education"
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
 ]
 ```
 
@@ -1765,25 +1845,33 @@ Get the details of an existing proof request and its verification status
 
 ```json
 {
-  "id": "feec1776-84c3-4783-b80b-c6690a652892",
-  "name": "My proof request",
-  "nonce": "1234567890",
-  "verified": false,
-  "created": "2022-10-17T22:48:30.619Z",
-  "updated": "2022-10-17T22:48:30.619Z",
-  "presentation": {},
-  "response_url": "https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation",
-  "attributes": {
-    "fullName": {
-      "names": [
-        "name",
-        "fullName"
-      ]
-    },
-    "favouriteDrink": {
-      "name": "favouriteDrink"
-    }
-  }
+	"qr": "https://creds-testnet.dock.io/proof/acaae15e-3c6e-412e-951e-4dc129b9745a",
+	"id": "fcaae15e-3c6e-412e-951e-4dc129b9745a",
+	"name": "Proof Request Test",
+	"nonce": "ffa6d005dfd8ddecf1664079bda1af1e",
+	"created": "2023-05-16T15:42:53.925Z",
+	"updated": "2023-05-16T15:42:53.925Z",
+	"verified": false,
+	"response_url": "https://api-testnet.dock.io/proof-requests/acaae15e-3c6e-412e-951e-4dc129b9745a/send-presentation",
+	"request": {
+		"id": "acaae15e-3c6e-412e-951e-4dc129b9745a",
+		"input_descriptors": [
+			{
+				"id": "ProofIncome-1",
+				"constraints": {
+					"fields": [
+						{
+							"path": [
+								"$.credentialSubject.id",
+								"$.credentialSubject.income.total"
+							]
+						}
+					]
+				}
+			}
+		]
+	},
+	"type": "proof-request"
 }
 ```
 
@@ -1825,24 +1913,39 @@ curl -X GET https://api-testnet.dock.io/proof-templates \
 ```json
 [
   {
-    "attributes": {
-      "property1": {
-        "name": "favouriteDrink",
-        "names": [
-          "age"
-        ]
-      },
-      "property2": {
-        "name": "favouriteDrink",
-        "names": [
-          "age"
-        ]
-      }
-    },
-    "name": "Proof request",
-    "nonce": "1234567890",
-    "qr": "string"
-  }
+		"id": "dcd6e820-5ea6-4835-8ad5-ddf3de82f3d2",
+		"name": "Test Proof Template",
+		"created": "2023-05-09T13:18:09.290Z",
+		"updated": "2023-05-09T13:18:09.290Z",
+		"request": {
+			"input_descriptors": [
+				{
+					"id": "Credential 1",
+					"name": "Test Proof Template",
+					"purpose": "University Degree with name, issued date requested",
+					"constraints": {
+						"fields": [
+							{
+								"path": [
+									"$.credentialSubject.name",
+									"$.issuanceDate"
+								]
+							},
+							{
+								"path": [
+									"$.type[*]"
+								],
+								"filter": {
+									"type": "string",
+									"pattern": "UniversityDegree"
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
 ]
 ```
 
