@@ -2819,39 +2819,78 @@ This operation counts towards your monthly transaction/credential issuance limit
   <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">--data-raw</span> <span class="s1">'{
-  "attributes": {
-    "favouriteDrink": {
-      "name": "favouriteDrink"
-    },
-    "fullName": {
-      "names": [
-        "name",
-        "fullName"
-      ]
+    "name": "Proof Request Test",
+    "purpose": "Prove income",
+    "request": {
+        "input_descriptors": [
+            {
+                "id": "ProofIncome-1",
+                "name": "Proof Request Test",
+                "purpose": "Prove income",
+                "constraints": {
+                    "fields": [
+                        {
+                            "path": [
+                                "$.credentialSubject.id",
+                                "$.credentialSubject.income.total"
+                            ]
+                        }
+                    ]
+                }
+          ]
     }
-  },
-  "name": "My proof request",
-  "nonce": "1234567890"
-}'</span>
+    }'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"fullName"</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof Request Test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"purpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prove income"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"input_descriptors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ProofIncome-1"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof Request Test"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"purpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prove income"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"$.credentialSubject.id"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"$.credentialSubject.income.total"</span><span class="w">
+                            </span><span class="p">]</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+          </span><span class="err">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+    </span><span class="err">}</span><span class="w">
 </span></code></pre></div>
 <p>It often makes sense for a verifier to request proof of credentials from a holder. For this, we have built a proof requests system into the API that works with the Dock Wallet. When a request is created, you will receive a URL which you should display in a QR code for a wallet application to scan. You can define which attributes should exist in the credential, a name for the holder and yourself to see and a nonce/challenge which prevents replay attacks.</p>
 
+<p>Our system supports the <a href="https://identity.foundation/presentation-exchange/">DIF Presentation Exchange (PEX)</a> syntax for querying and filtering credentials.</p>
+
+<p>See the  https://identity.foundation/presentation-exchange/#input-descriptor-extensions for more examples, but a few common use cases are:</p>
+<h3 id='require-a-numeric-attribute-to-be-within-a-range'>Require a numeric attribute to be within a range</h3>
+<p>For example, a verifier might require that the holder have an income between $100,000 and $200,000 per year. This could be requested using the following <code>input_descriptor</code></p>
+<div class="highlight"><pre class="highlight plaintext"><code>{
+  path: ['$.credentialSubject.income.2022.total'],
+  filter: {
+    type: 'number',
+    minimum: 100000,
+    maximum: 200000
+  },
+}
+</code></pre></div><h3 id='require-a-date-attribute-to-be-within-a-range'>Require a date attribute to be within a range</h3>
+<p>For example, a verifier might require that the credential be issued after a certain date. In this example the verifier is requiring that the credential was issued between January 1, 2020 and December 31, 2020.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>{
+  path: ['$.issuanceDate'],
+  filter: {
+    "type": "string",
+    "format": "date",
+    "formatMinimum": "2020-01-01",
+    "formatMaximum": "2020-12-31"
+  },
+}
+</code></pre></div>
 <h3 id="create-proof-request-parameters">Parameters</h3>
 
 <table><thead>
@@ -2890,26 +2929,37 @@ This operation counts towards your monthly transaction/credential issuance limit
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aeec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof Request Test"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"fullName"</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
+  </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.dock.io/proof-requests/aeec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proof-request"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"qr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creds-testnet.dock.io/proof/acaae15e-3c6e-412e-951e-4dc129b9745a"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"input_descriptors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ProofIncome-1"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"$.credentialSubject.income.total"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+              </span><span class="nl">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"minimum"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"maximum"</span><span class="p">:</span><span class="w"> </span><span class="mi">200000</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="create-proof-request-responses">Responses</h3>
@@ -2966,26 +3016,47 @@ This operation counts towards your monthly transaction/credential issuance limit
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-    </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8000/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"fullName"</span><span class="w">
-        </span><span class="p">]</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f2ea3225-ef6b-44d7-a37c-7713c66875b5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof of Bachelors of Education"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6684fb3d878f2c3a25e35e36045bde8d"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-05T22:00:25.729Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-05T22:00:25.729Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api-testnet.dock.io/proof-requests/f2ea3225-ef6b-44d7-a37c-7713c66875b5/send-presentation"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proof-request"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"qr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creds-testnet.dock.io/proof/f2ea3225-ef6b-44d7-a37c-7713c66875b5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"input_descriptors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credential 1"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof of Bachelors of Education"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"purpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prove that the holder has a Bachelors of Education degree"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                            </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"$.credentialSubject.degreeName"</span><span class="p">,</span><span class="w">
+                                    </span><span class="s2">"$.credentialSubject.degreeType"</span><span class="p">,</span><span class="w">
+                                    </span><span class="s2">"$.credentialSubject.dateEarned | date: </span><span class="se">\"</span><span class="s2">%B %d, %Y</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span><span class="w">
+                                    </span><span class="s2">"$.credentialSubject.fullName"</span><span class="w">
+                                </span><span class="p">]</span><span class="w">
+                            </span><span class="p">},</span><span class="w">
+                            </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"$.name"</span><span class="w">
+                                </span><span class="p">],</span><span class="w">
+                                </span><span class="nl">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                                    </span><span class="nl">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bachelors of Education"</span><span class="w">
+                                </span><span class="p">}</span><span class="w">
+                            </span><span class="p">}</span><span class="w">
+                        </span><span class="p">]</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <h3 id="list-proof-requests-parameters">Parameters</h3>
@@ -3068,25 +3139,33 @@ This operation counts towards your monthly transaction/credential issuance limit
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feec1776-84c3-4783-b80b-c6690a652892"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My proof request"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-17T22:48:30.619Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"presentation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.dock.io/proof-requests/feec1776-84c3-4783-b80b-c6690a652892/send-presentation"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"fullName"</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+    </span><span class="nl">"qr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creds-testnet.dock.io/proof/acaae15e-3c6e-412e-951e-4dc129b9745a"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fcaae15e-3c6e-412e-951e-4dc129b9745a"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof Request Test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffa6d005dfd8ddecf1664079bda1af1e"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-05-16T15:42:53.925Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-05-16T15:42:53.925Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"response_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api-testnet.dock.io/proof-requests/acaae15e-3c6e-412e-951e-4dc129b9745a/send-presentation"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acaae15e-3c6e-412e-951e-4dc129b9745a"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"input_descriptors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ProofIncome-1"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"$.credentialSubject.id"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"$.credentialSubject.income.total"</span><span class="w">
+                            </span><span class="p">]</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"favouriteDrink"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proof-request"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="get-proof-request-responses">Responses</h3>
@@ -3162,24 +3241,39 @@ curl <span class="nt">-X</span> GET https://api-testnet.dock.io/proof-templates 
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="s2">"age"</span><span class="w">
-        </span><span class="p">]</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"favouriteDrink"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"names"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="s2">"age"</span><span class="w">
-        </span><span class="p">]</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proof request"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"qr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dcd6e820-5ea6-4835-8ad5-ddf3de82f3d2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Proof Template"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-05-09T13:18:09.290Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-05-09T13:18:09.290Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"input_descriptors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credential 1"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Proof Template"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"purpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"University Degree with name, issued date requested"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                            </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"$.credentialSubject.name"</span><span class="p">,</span><span class="w">
+                                    </span><span class="s2">"$.issuanceDate"</span><span class="w">
+                                </span><span class="p">]</span><span class="w">
+                            </span><span class="p">},</span><span class="w">
+                            </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"$.type[*]"</span><span class="w">
+                                </span><span class="p">],</span><span class="w">
+                                </span><span class="nl">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                                    </span><span class="nl">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UniversityDegree"</span><span class="w">
+                                </span><span class="p">}</span><span class="w">
+                            </span><span class="p">}</span><span class="w">
+                        </span><span class="p">]</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <h3 id="get__proof-templates-responses">Responses</h3>
