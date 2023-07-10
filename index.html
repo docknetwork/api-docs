@@ -1169,10 +1169,14 @@ When you update both <code>controller</code> and <code>keyType</code>, you will 
 </span></code></pre></div><h3 id='1-create-a-did'>1. Create a DID</h3>
 <p>To create a new DID to issue with, go to <strong>Create DID</strong> and click <strong>Send</strong>. The <code>id</code> property denotes a job ID in the system that you can use to query for blockchain transaction status.</p>
 
-<p>The Dock API supports <code>did:dock</code> and <code>did:key</code> method creation.</p>
+<p>The Dock API supports <code>did:dock</code>, <code>did:polygonid</code> and <code>did:key</code> method creation.</p>
 
 <aside class="notice">
 Creating a Dock DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
+</aside>
+
+<aside class="notice">
+When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 </aside>
 
 <div style="clear:both"></div>
@@ -1345,11 +1349,13 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'https://api.dock.io/dids'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "keyType": "sr25519"
+  "type": "dock",
+  "keyType": "ed25519"
 }'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sr25519"</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dock"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"keyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ed25519"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>A DID, a public key, and a controller are required to create a new DID. The controller is both the owner of the public key and a DID. The DID can be created using an auto-generated keypair, and the controller will be the same as the DID unless otherwise specified. The DID and public key have no cryptographic relation.</p>
@@ -1379,7 +1385,7 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>Specifies the DID method to for the generated DID. Supported options are <code>key</code> and <code>dock</code> (default).</td>
+<td>Specifies the DID method to for the generated DID. Supported options are <code>key</code>, <code>polygonid</code> and <code>dock</code> (default).</td>
 </tr>
 <tr>
 <td>controller</td>
@@ -1406,15 +1412,19 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 </thead><tbody>
 <tr>
 <td>keyType</td>
-<td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1</td>
+<td>sr25519 <strong>or</strong> ed25519 <strong>or</strong> secp256k1 <strong>or</strong> bjj</td>
 <td>keyType signature variants.</td>
 </tr>
 <tr>
 <td>type</td>
-<td>dock <strong>or</strong> key</td>
+<td>dock <strong>or</strong> key <strong>or</strong> polyginid</td>
 <td>which DID method to generate</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
+</aside>
 
 <blockquote>
 <p>200 Response</p>
@@ -2193,6 +2203,15 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 </div>
 
 <p>You can create and sign Verifiable Credentials on Dock Certs and its API. By default, Dock does not store the credential - only its metadata. You can choose to persist a credential, in which case we will encrypt and store the credential for later retrieval using a password. Verifiable Credentials are cryptographically secure and tamper-proof. Once issued, they cannot be edited.</p>
+
+<p>The Dock API supports issuing two types of credentials. The native Dock Verifiable Credentials and Polygon ID Verifiable Credentials.</p>
+
+<aside class="notice">
+NOTES for Polygon ID credentials:
+
+* In order to issue Polygon ID credentials, the issuer __must__ be a `did:polygonid` issuer.
+* Polygon ID credentials __do not__ support designs at this point so `template` field should be omitted.
+</aside>
 
 <h2 id="issue-credentials">Issue Credential</h2>
 
