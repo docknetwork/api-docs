@@ -499,10 +499,14 @@ This flow refers to Postman, but the general steps are the same however you use 
 
 To create a new DID to issue with, go to **Create DID** and click **Send**. The `id` property denotes a job ID in the system that you can use to query for blockchain transaction status.
 
-The Dock API supports `did:dock` and `did:key` method creation.
+The Dock API supports `did:dock`, `did:polygonid` and `did:key` method creation.
 
 <aside class="notice">
 Creating a Dock DID submits a transaction to the blockchain, this could take some time to process. Please hit the `/jobs` endpoint to check the status of the job to see if it's finalized or not.
+</aside>
+
+<aside class="notice">
+When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 </aside>
 
 <div style="clear:both"></div>
@@ -692,14 +696,16 @@ Currently a DID can have only one key at a time as a controller, soon we will su
 curl --location --request POST 'https://api.dock.io/dids' \
 --header 'DOCK-API-TOKEN: API_KEY' \
 --data-raw '{
-  "keyType": "sr25519"
+  "type": "dock",
+  "keyType": "ed25519"
 }'
 
 ```
 
 ```json-doc
 {
-  "keyType": "sr25519"
+  "type": "dock",
+  "keyType": "ed25519"
 }
 ```
 
@@ -712,7 +718,7 @@ It is important to have a public key of one of its three supported types. Dock s
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |did|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. Default value will is a randomly generated DID. |
-|type|body|string|false|Specifies the DID method to for the generated DID. Supported options are `key` and `dock` (default).
+|type|body|string|false|Specifies the DID method to for the generated DID. Supported options are `key`, `polygonid` and `dock` (default).
 |controller|body|[DIDDock](#schemadiddock)|false|DID as fully qualified, e.g., `did:dock:`. The default value of the controller is the `did` property.|
 |keyType|body|[KeyType](#schemakeytype)|false|Type of public key for DID. The default value of the keyType is `sr25519`.|
 
@@ -720,8 +726,12 @@ It is important to have a public key of one of its three supported types. Dock s
 
 |Parameter|Value|Desctiprion
 |---|---|---|
-|keyType|sr25519 **or** ed25519 **or** secp256k1| keyType signature variants.
-|type|dock **or** key| which DID method to generate
+|keyType|sr25519 **or** ed25519 **or** secp256k1 **or** bjj| keyType signature variants.
+|type|dock **or** key **or** polyginid| which DID method to generate
+
+<aside class="notice">
+When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
+</aside>
 
 > 200 Response
 
@@ -1202,6 +1212,15 @@ Deletes a profile from our platform. It does NOT delete the associated DID, nor 
 </div>
 
 You can create and sign Verifiable Credentials on Dock Certs and its API. By default, Dock does not store the credential - only its metadata. You can choose to persist a credential, in which case we will encrypt and store the credential for later retrieval using a password. Verifiable Credentials are cryptographically secure and tamper-proof. Once issued, they cannot be edited.
+
+The Dock API supports issuing two types of credentials. The native Dock Verifiable Credentials and Polygon ID Verifiable Credentials.
+
+<aside class="notice">
+NOTES for Polygon ID credentials:
+
+* In order to issue Polygon ID credentials, the issuer __must__ be a `did:polygonid` issuer.
+* Polygon ID credentials __do not__ support designs at this point so `template` field should be omitted.
+</aside>
 
 <h2 id="issue-credentials">Issue Credential</h2>
 
