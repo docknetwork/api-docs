@@ -1302,7 +1302,7 @@ Dock credentials support [anonymous credentials](https://blog.dock.io/anonymous-
 
 <h3 id="credential-distribution">Credential Distribution</h3>
 
-Dock's API has built in credential distribution on issuance, allowing you to send credentials directly to a holder's email and/or mobile wallet (if supported). You can achieve this by supplying the `recipientEmail` field and `distribute: true` in your request. For DID distribution, simply set the `credentialSubject.id` property to the holder's DID. 
+Dock's API has built in credential distribution on issuance, allowing you to send credentials directly to a holder's email and/or Dock-compatible wallet. You can achieve this by supplying the `recipientEmail` field and `distribute: true` in your request. For DID distribution, simply set the `credentialSubject.id` property to the holder's DID. 
 
 
 <aside class="warning">
@@ -4424,7 +4424,7 @@ This is a schema that represents a DID document. The current set of properties i
   "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
-  "status": {}
+  "status": "90b7dc6e8642bf1425c5a5ef2c3ff62bb689770843fdc0e2d79b97beb6c73311"
 }
 
 ```
