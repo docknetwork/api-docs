@@ -1230,6 +1230,7 @@ NOTES for Polygon ID credentials:
 
 {
   "persist": false,
+  "distribute": false,
   "anchor": true,
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
@@ -1298,6 +1299,12 @@ For a detailed example of the credential workflow. Please refer [here](https://g
 
 Dock credentials support [anonymous credentials](https://blog.dock.io/anonymous-credentials/) using Zero Knowledge Proofs and [Selective Disclosure](https://www.dock.io//post/selective-disclosure) by using the BBS+ signing algorithm when issuing the credential. To enable this functionality, simply set the `algorithm` field in the request to `bbsdock+`.
 
+
+<h3 id="credential-distribution">Credential Distribution</h3>
+
+Dock's API has built in credential distribution on issuance, allowing you to send credentials directly to a holder's email and/or Dock-compatible wallet. You can achieve this by supplying the `recipientEmail` field and `distribute: true` in your request. For DID distribution, simply set the `credentialSubject.id` property to the holder's DID. 
+
+
 <aside class="warning">
 This operation counts towards your monthly transaction/credential issuance limit for each successful call
 </aside>
@@ -1310,8 +1317,12 @@ This operation counts towards your monthly transaction/credential issuance limit
 |persist|body|boolean|false|Whether to store an encrypted version of this credential with us. Defaults to false, if true you must supply password.|
 |password|body|string|false|Password used to encrypt the credential if you choose to store it. The same password must be used to retrieve the credential contents. Dock does not store this password.|
 |template|body|UUID string|false|The ID of the intended template/design, optional|
+|format|body|string|false|Specifies the output format of the credential, either `jsonld` or `jwt`. Defaults to `jsonld`.|
 |algorithm|body|string|false|Specifies which signing algorithm to use to sign the issued credential. Defaults to `ed25519`.|
+|distribute|body|boolean|false|Whether to use credential distribution to DID/email, optional|
+|recipientEmail|body|string|false|The holder's email for email distribution|
 |credential|body|[Credential](#schemacredential)|true|Credential object as described in the [schema](#schemacredential).|
+
 
 ### Enumerated Values
 
@@ -4413,7 +4424,7 @@ This is a schema that represents a DID document. The current set of properties i
   "issuer": "did:dock:xyz",
   "issuanceDate": "2019-08-24T14:15:22Z",
   "expirationDate": "2019-08-24T14:15:22Z",
-  "status": {}
+  "status": "90b7dc6e8642bf1425c5a5ef2c3ff62bb689770843fdc0e2d79b97beb6c73311"
 }
 
 ```
