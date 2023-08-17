@@ -2221,6 +2221,7 @@ NOTES for Polygon ID credentials:
 <div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
 </span><span class="p">{</span><span class="w">
   </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"distribute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"template"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b8dd5768-0777-42c2-ae73-859e1079369b"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2286,6 +2287,10 @@ The <code>issuer</code> property <strong>must</strong> be a DID that you control
 
 <p>Dock credentials support <a href="https://blog.dock.io/anonymous-credentials/">anonymous credentials</a> using Zero Knowledge Proofs and <a href="https://www.dock.io//post/selective-disclosure">Selective Disclosure</a> by using the BBS+ signing algorithm when issuing the credential. To enable this functionality, simply set the <code>algorithm</code> field in the request to <code>bbsdock+</code>.</p>
 
+<h3 id="credential-distribution">Credential Distribution</h3>
+
+<p>Dock&#39;s API has built in credential distribution on issuance, allowing you to send credentials directly to a holder&#39;s email and/or Dock-compatible wallet. You can achieve this by supplying the <code>recipientEmail</code> field and <code>distribute: true</code> in your request. For DID distribution, simply set the <code>credentialSubject.id</code> property to the holder&#39;s DID. </p>
+
 <aside class="warning">
 This operation counts towards your monthly transaction/credential issuance limit for each successful call
 </aside>
@@ -2330,11 +2335,32 @@ This operation counts towards your monthly transaction/credential issuance limit
 <td>The ID of the intended template/design, optional</td>
 </tr>
 <tr>
+<td>format</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Specifies the output format of the credential, either <code>jsonld</code> or <code>jwt</code>. Defaults to <code>jsonld</code>.</td>
+</tr>
+<tr>
 <td>algorithm</td>
 <td>body</td>
 <td>string</td>
 <td>false</td>
 <td>Specifies which signing algorithm to use to sign the issued credential. Defaults to <code>ed25519</code>.</td>
+</tr>
+<tr>
+<td>distribute</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to use credential distribution to DID/email, optional</td>
+</tr>
+<tr>
+<td>recipientEmail</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>The holder&#39;s email for email distribution</td>
 </tr>
 <tr>
 <td>credential</td>
@@ -7241,7 +7267,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/send 
   </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expirationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90b7dc6e8642bf1425c5a5ef2c3ff62bb689770843fdc0e2d79b97beb6c73311"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
