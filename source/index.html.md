@@ -1302,7 +1302,12 @@ Dock credentials support [anonymous credentials](https://blog.dock.io/anonymous-
 
 <h3 id="credential-distribution">Credential Distribution</h3>
 
-Dock's API has built in credential distribution on issuance, allowing you to send credentials directly to a holder's email and/or Dock-compatible wallet. You can achieve this by supplying the `recipientEmail` field and `distribute: true` in your request. For DID distribution, simply set the `credentialSubject.id` property to the holder's DID. 
+Dock's API has built in credential distribution on issuance, allowing you to send credentials directly to a holder's email and/or Dock-compatible wallet. You can achieve this by supplying the `recipientEmail` field and `distribute: true` in your request. For DID distribution, simply set the `credentialSubject.id` property to the holder's DID.
+
+
+<h3 id="credential-issuance-revocation">Revocation</h3>
+
+In order to support revocation the credential must be linked to a revocation [registry](#registry_create) at the time of issuance. To link the revocation registry to the credential set the `status` field in the [Credential](#schemacredential) body to the `registry.id` value.
 
 
 <aside class="warning">
