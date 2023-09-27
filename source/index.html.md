@@ -2788,7 +2788,6 @@ To check if an id is revoked or not, you can check its status with the registry 
 
 Schemas are useful when enforcing a specific structure on a collection of data like a Verifiable Credential. Data Verification schemas, for example, are used to verify that the structure and contents of a Verifiable Credential conform to a published schema. On the other hand, Data Encoding schemas are used to map the contents of a Verifiable Credential to an alternative representation format, such as a binary format used in a zero-knowledge proof.
 
-Before diving further into Schemas, it is important to understand how they are stored in the Dock chain. Schemas are stored on chain as a `Blob` in the Blob Storage module. They are identified and retrieved by their unique blob id, a 32 byte long hex string. They are authored by a DID and have a max size of 1024 bytes.
 
 ## Create Schema
 
@@ -2865,7 +2864,6 @@ Schemas are used to describe the structure of credentials, specifically the cred
 {
   "id": "1082",
   "data": {
-    "id": "b8a2f4846df2af8a791e1305a0ebe09b3f2183c187502cf77022027f9643a120",
     "schema": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "description": "Dock Schema Example 3",
@@ -2892,7 +2890,8 @@ Schemas are used to describe the structure of credentials, specifically the cred
     "signature": {
       "Secp256k1": "..."
     },
-    "uri": "blob:dock:5GEo5M2apeCAsaqfRA9XabiywXETHEVCq6kmk7M8ZHTVUXYx"
+    "id": "https://schema.dock.io/TestSchema-V1-1695817897561.json",
+    "uri": "https://schema.dock.io/TestSchema-V1-1695817897561.json"
   }
 }
 ```
@@ -2949,7 +2948,8 @@ Return a list of all schemas created by the authenticated user.
       "additionalProperties": false
     },
     "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6",
-    "uri": "blob:dock:5GN7YHA24SeHd8xC6BGDJnK2p6XcnTgAgZTqfqEZob47TJkh"
+    "id": "https://schema.dock.io/TestSchema-V1-1695817897561.json",
+    "uri": "https://schema.dock.io/TestSchema-V1-1695817897561.json"
   }
 ]
 ```
@@ -2981,19 +2981,18 @@ curl --location --request GET https://api.dock.io/schemas/{schemaId} \
 ```
 
 
-Reading a Schema from the Dock chain can easily be achieved by using the `get` method which will return the JSON schema to a specific schema ID.
+Reading a Schema from the Dock chain can easily be achieved by using the `get` method which will return the JSON schema to a specific schema ID. The `schemaId`needs to be URL encoded (e.g. `/schemas/https%3A%2F%2Fschema.dock.io%2FTestSchema-V1-1695817897561.json`)
 
 <h3 id="get-schema-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|schemaId|path|[Hex32](#schemahex32)|true|A schema id.|
+|schemaId|path|String|true|A URL encoded schema id.|
 
 > 200 Response
 
 ```json
 {
-  "id": "blob:dock:5GN7YHA24SeHd8xC6BGDJnK2p6XcnTgAgZTqfqEZob47TJkh",
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "description": "Dock Schema Example",
@@ -3016,7 +3015,9 @@ Reading a Schema from the Dock chain can easily be achieved by using the `get` m
     ],
     "additionalProperties": false
   },
-  "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6"
+  "author": "did:dock:5HcbppP8LjoJFYRV7PTLEyPy3ZUK9JCkzC4PQHuVF34gRhe6",
+  "id": "https://schema.dock.io/TestSchema-V1-1695817897561.json",
+  "uri": "https://schema.dock.io/TestSchema-V1-1695817897561.json"
 }
 ```
 
