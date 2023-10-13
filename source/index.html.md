@@ -2451,7 +2451,8 @@ curl --location --request POST https://api.dock.io/registries/ \
   "addOnly": true,
   "policy": [
     "did:dock:xyz"
-  ]
+  ],
+  "type": "CredentialStatusList2017"
 }'
 
 
@@ -2463,7 +2464,8 @@ curl --location --request POST https://api.dock.io/registries/ \
   "addOnly": true,
   "policy": [
     "did:dock:xyz"
-  ]
+  ],
+  "type": "CredentialStatusList2017"
 }
 ```
 
@@ -2475,6 +2477,13 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 |---|---|---|---|---|
 |addOnly|body|boolean|false|True/false options. The default value is "false".|
 |policy|body|[[DIDDock](#schemadiddock)]|true|The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: `OneOf` DID in list.|
+|type|body|string|false|Specifies which type of registry to create. Defaults to `StatusList2021Entry`.|
+
+### Enumerated Values
+
+|Parameter|Value|Description|
+|---|---|---|
+|type|StatusList2021Entry **or** CredentialStatusList2017|The type used in registry creation.|
 
 > 200 Response
 
@@ -2489,7 +2498,8 @@ To create a registry, you have to create a `policy` object for which a DID is ne
         "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
       ],
       "addOnly": false
-    }
+    },
+    "type": "CredentialStatusList2017",
   }
 }
 ```
@@ -2536,7 +2546,8 @@ For now, only one policy is supported, and each registry is owned by a single DI
         "did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"
       ],
       "addOnly": false
-      },
+    },
+    "registry_type": "CredentialStatusList2017",
     "created_at": "2021-11-25T12:20:51.773Z"
   }
 ]
@@ -2589,6 +2600,7 @@ curl --location --request GET https://api.dock.io/registries/{id} \
     ],
     "addOnly": false
   },
+  "registry_type": "CredentialStatusList2017",
   "created_at": "2021-11-25T12:20:51.773Z",
   "job_id": "930"
 }
