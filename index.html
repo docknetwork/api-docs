@@ -4032,7 +4032,8 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
   "addOnly": true,
   "policy": [
     "did:dock:xyz"
-  ]
+  ],
+  "type": "CredentialStatusList2017"
 }'</span>
 
 
@@ -4041,7 +4042,8 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
   </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="s2">"did:dock:xyz"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CredentialStatusList2017"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.</p>
@@ -4071,6 +4073,27 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
 <td>true</td>
 <td>The DIDs which control this registry. You must own a DID listed here to use the registry. Only one policy supported as of now: <code>OneOf</code> DID in list.</td>
 </tr>
+<tr>
+<td>type</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Specifies which type of registry to create. Defaults to <code>StatusList2021Entry</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='enumerated-values-4'>Enumerated Values</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>StatusList2021Entry <strong>or</strong> CredentialStatusList2017</td>
+<td>The type used in registry creation.</td>
+</tr>
 </tbody></table>
 
 <blockquote>
@@ -4086,7 +4109,8 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
         </span><span class="s2">"did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CredentialStatusList2017"</span><span class="p">,</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -4149,7 +4173,8 @@ For now, only one policy is supported, and each registry is owned by a single DI
         </span><span class="s2">"did:dock:5GKeTJ7iMU4hEUwhK9a6ogh1bsWAv8Z1TMKnUf1vCNgdoiEM"</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">},</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"registry_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CredentialStatusList2017"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-25T12:20:51.773Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -4248,6 +4273,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"addOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"registry_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CredentialStatusList2017"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-25T12:20:51.773Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"930"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -4342,7 +4368,7 @@ For now, only one policy is supported, and each registry is owned by a single DI
 <td>The list of credential ids to act upon.</td>
 </tr>
 </tbody></table>
-<h3 id='enumerated-values-4'>Enumerated Values</h3>
+<h3 id='enumerated-values-5'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -6393,7 +6419,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/encry
 <td>none</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<h4 id='enumerated-values-6'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -7021,7 +7047,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/send 
 
 </span></code></pre></div>
 <p>This is a schema used in Job operation to get a status of the job.</p>
-<h3 id='enumerated-values-6'>Enumerated Values</h3>
+<h3 id='enumerated-values-7'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -7119,7 +7145,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/send 
 
 </span></code></pre></div>
 <p>This is a schema type of public key for DID.</p>
-<h3 id='enumerated-values-7'>Enumerated Values</h3>
+<h3 id='enumerated-values-8'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -7146,7 +7172,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/send 
 
 </span></code></pre></div>
 <p>This is a schema used in Presentation operation that represents a type of signature.</p>
-<h3 id='enumerated-values-8'>Enumerated Values</h3>
+<h3 id='enumerated-values-9'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -7173,7 +7199,7 @@ curl <span class="nt">-X</span> POST https://api-testnet.dock.io/messaging/send 
 
 </span></code></pre></div>
 <p>This is a schema that represents a purpose of credential.</p>
-<h3 id='enumerated-values-9'>Enumerated Values</h3>
+<h3 id='enumerated-values-10'>Enumerated Values</h3>
 <table><thead>
 <tr>
 <th>Property</th>
