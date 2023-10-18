@@ -1232,6 +1232,7 @@ NOTES for Polygon ID credentials:
   "persist": false,
   "distribute": false,
   "anchor": true,
+  "schema": "https://schema.dock.io/TestSchema-V1-1695817897561.json",
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
     "type": ["UniversityDegreeCredential"],
@@ -2936,7 +2937,6 @@ Return a list of all schemas created by the authenticated user.
 ```json
 [
   {
-    "id": "be37d45ef3fb4e96be86a76e6939c59a4764cc2a38dcd3d6d7818d928e2af116",
     "schema": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "description": "Dock Schema Example",
