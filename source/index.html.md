@@ -1229,9 +1229,10 @@ NOTES for Polygon ID credentials:
 ```json-doc
 
 {
-  "persist": false,
-  "distribute": false,
   "anchor": true,
+  "persist": false,
+  "distribute": true,
+  "recipientEmail": "myemail@dock.io",
   "schema": "https://schema.dock.io/TestSchema-V1-1695817897561.json",
   "template": "b8dd5768-0777-42c2-ae73-859e1079369b",
   "credential": {
