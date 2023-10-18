@@ -2220,9 +2220,11 @@ NOTES for Polygon ID credentials:
 </blockquote>
 <div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
 </span><span class="p">{</span><span class="w">
-  </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"distribute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"distribute"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"recipientEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myemail@dock.io"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://schema.dock.io/TestSchema-V1-1695817897561.json"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"template"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b8dd5768-0777-42c2-ae73-859e1079369b"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"UniversityDegreeCredential"</span><span class="p">],</span><span class="w">
@@ -4774,7 +4776,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be37d45ef3fb4e96be86a76e6939c59a4764cc2a38dcd3d6d7818d928e2af116"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-07/schema#"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dock Schema Example"</span><span class="p">,</span><span class="w">
