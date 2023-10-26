@@ -1299,7 +1299,7 @@ For a detailed example of the credential workflow. Please refer [here](https://g
 
 <h3 id="zero-knowledge-proofs">Zero Knowledge Proofs (ZKP)</h3>
 
-Dock credentials support [anonymous credentials](https://blog.dock.io/anonymous-credentials/) using Zero Knowledge Proofs and [Selective Disclosure](https://www.dock.io//post/selective-disclosure) by using the BBS+ signing algorithm when issuing the credential. To enable this functionality, simply set the `algorithm` field in the request to `bbsdock+`.
+Dock credentials support [anonymous credentials](https://blog.dock.io/anonymous-credentials/) using Zero Knowledge Proofs and [Selective Disclosure](https://www.dock.io//post/selective-disclosure) by using the BBS+ signing algorithm when issuing the credential. To enable this functionality, simply set the `algorithm` field in the request to `dockbbs+`.
 
 
 <h3 id="credential-distribution">Credential Distribution</h3>
