@@ -382,6 +382,9 @@
                   <li>
                     <a href="#delete-did" class="toc-h2 toc-link" data-title="Delete DID">Delete DID</a>
                   </li>
+                  <li>
+                    <a href="#export-did" class="toc-h2 toc-link" data-title="Export DID">Export DID</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1330,6 +1333,11 @@ Use our <a href="https://swagger.api.dock.io/">Swagger UI</a> to execute the API
       /dids/{did}
     </a>
     <br />
+    <a href="#export-did">
+      <span class="nt">POST</span>
+      /dids/{did}/export
+    </a>
+    <br />
    </div>
 </div>
 
@@ -1722,6 +1730,82 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 <td>402</td>
 <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
 <td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='export-did'>Export DID</h2>
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /dids/{did}/export</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/dids/<span class="o">{</span>did<span class="o">}</span>/export <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+      "password": "aStr0ngP@ssw0rd"
+    }'</span>
+
+</code></pre></div>
+<p>Exports the DID document and keys as an encrypted Universal Wallet JSON-LD document</p>
+
+<h3 id="export-did-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>did</td>
+<td>path</td>
+<td><a href="#schemadiddock">DID</a></td>
+<td>true</td>
+<td>Represents a specific DID that uniquely identifies the key resource.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>A password to encrypt the JSON-LD payload with</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="export-did-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and the DID has been exported.</td>
+<td></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>The request was unsuccessful, because you don&#39;t own the DID.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The DID does not exist.</td>
 <td><a href="#schemaerror">Error</a></td>
 </tr>
 </tbody></table>
