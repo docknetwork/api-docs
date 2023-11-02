@@ -672,6 +672,11 @@ Use our [Swagger UI](https://swagger.api.dock.io/) to execute the API calls quic
       /dids/{did}
     </a>
     <br />
+    <a href="#export-did">
+      <span class="nt">POST</span>
+      /dids/{did}/export
+    </a>
+    <br />
    </div>
 </div>
 
@@ -907,6 +912,44 @@ Deletes a DID and its metadata from the blockchain and our platform. This will a
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 |405|[Method not Allowed](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5)|The {did} value is blank/empty. Please ensure that the {did} value does exist.|[Error](#schemaerror)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+## Export DID
+
+> <span class="highlight"><span class="nt">POST</span> /dids/{did}/export</span></span> REQUEST
+
+```shell
+curl --location --request POST https://api.dock.io/dids/{did}/export \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+      "password": "aStr0ngP@ssw0rd"
+    }'
+
+```
+
+
+Exports the DID document and keys as an encrypted Universal Wallet JSON-LD document
+
+<h3 id="export-did-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|did|path|[DID](#schemadiddock)|true|Represents a specific DID that uniquely identifies the key resource.|
+|password|body|string|true|A password to encrypt the JSON-LD payload with|
+> 200 Response
+
+```json
+{
+}
+```
+
+<h3 id="export-did-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and the DID has been exported.||
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, because you don't own the DID.|[Error](#schemaerror)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The DID does not exist.|[Error](#schemaerror)|
 
 
 
