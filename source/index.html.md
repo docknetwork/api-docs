@@ -1422,6 +1422,131 @@ This operation counts towards your monthly transaction/credential issuance limit
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 
 
+<h2 id="request-claims">Request Claims</h2>
+
+> <span class="highlight"><span class="nt">POST</span> /credentials/request-claims</span></span> REQUEST
+
+```json-doc
+
+{
+  "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+  "claims": [
+    "id"
+  ],
+  "credentialOptions": {
+    "anchor": false,
+    "persist": false,
+    "credential": {
+      "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+      "name": "Basic Credential",
+      "type": [
+        "VerifiableCredential",
+        "BasicCredential"
+      ],
+      "issuer": "did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd",
+      "issuanceDate": "2023-12-20T00:33:15.803Z",
+      "subject": {
+        "name": "Predefined Claim"
+      }
+    },
+    "distribute": false
+  }
+}
+```
+
+```shell
+curl --location --request POST https://api.dock.io/credentials/ \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+  "claims": [
+    "id"
+  ],
+  "credentialOptions": {
+    "anchor": false,
+    "persist": false,
+    "credential": {
+      "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+      "name": "Basic Credential",
+      "type": [
+        "VerifiableCredential",
+        "BasicCredential"
+      ],
+      "issuer": "did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd",
+      "issuanceDate": "2023-12-20T00:33:15.803Z",
+      "subject": {
+        "name": "Predefined Claim"
+      }
+    },
+    "distribute": false
+  }
+}'
+```
+
+
+Creates a request to gather certain claims and then issues the holder a credential after submission. The claims are user provided and type is based on the schema provided. This can be useful to catch a subject's DID without knowing it beforehand, name or other field. It should only be used when you do not already know this data or cannot find it by other means. There is a risk that a user may enter false data - so use it sparingly and not for fields that are important.
+
+Typically, once the request has been created, you would show the holder the QR URL as an image or deep link for them to scan with a wallet and enter claims.
+
+<aside class="warning">
+This operation counts towards your monthly transaction/credential issuance limit for each successful call
+</aside>
+
+<h3 id="request-claims-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|schema|body|string|false|Schema URL for the issued credential|
+|claims|body|array|false|The list of claims for the subject|
+|credentialOptions|body|[CredentialIssueParameters](#issue-a-credential-parameters)|true|Credential issue parameters.|
+
+
+> 200 Response
+
+```json
+{
+  "id": "f1831768-853f-4ac1-ae99-adf61a92724f",
+  "qrUrl": "openid://discovery?issuer=https://api.dock.io/openid/connect/issuers/f1831768-853f-4ac1-ae99-adf61a92724f",
+  "created": "2023-12-20T00:33:35.720Z",
+  "updated": "2023-12-20T00:33:35.720Z",
+  "singleUse": true,
+  "claimMap": {
+    "id": "id"
+  },
+  "issuer": "did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd",
+  "protocol": "openid",
+  "credentialOptions": {
+    "anchor": false,
+    "persist": false,
+    "credential": {
+      "name": "Basic Credential",
+      "type": [
+        "VerifiableCredential",
+        "BasicCredential"
+      ],
+      "issuer": "did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd",
+      "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+      "subject": {
+        "name": "Predefined Claim"
+      },
+      "issuanceDate": "2023-12-20T00:33:15.803Z"
+    },
+    "distribute": false
+  }
+}
+```
+
+<h3 id="request-claims-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and returns the claims request properties.|[OIDCIssuer](#schemaoidcissuer)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request was unsuccessful, because of invalid/insufficient credential params.|[Error](#schemaerror)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The request was unsuccessful, either because the authorization token was missing/invalid or you don't own the DID.|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+
+
 ## Get Credential
 
 > <span class="highlight"><span class="na">GET</span> /credentials/{id}</span></span> REQUEST
