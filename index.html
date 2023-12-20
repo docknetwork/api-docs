@@ -414,6 +414,9 @@
                     <a href="#issue-credentials" class="toc-h2 toc-link" data-title="Issue Credential">Issue Credential</a>
                   </li>
                   <li>
+                    <a href="#request-claims" class="toc-h2 toc-link" data-title="Request Claims">Request Claims</a>
+                  </li>
+                  <li>
                     <a href="#get-credential" class="toc-h2 toc-link" data-title="Get Credential">Get Credential</a>
                   </li>
                   <li>
@@ -2521,6 +2524,176 @@ This operation counts towards your monthly transaction/credential issuance limit
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>The request was successful and returns the created Verifiable Credential.</td>
 <td><a href="#schemaverifiablecredential">VerifiableCredential</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>The request was unsuccessful, because of invalid/insufficient credential params.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>The request was unsuccessful, either because the authorization token was missing/invalid or you don&#39;t own the DID.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<h2 id="request-claims">Request Claims</h2>
+
+<blockquote>
+<p><span class="highlight"><span class="nt">POST</span> /credentials/request-claims</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://docknetwork.github.io/vc-schemas/basic-credential.json"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"claims"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"id"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"credentialOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://docknetwork.github.io/vc-schemas/basic-credential.json"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Basic Credential"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"VerifiableCredential"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"BasicCredential"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-12-20T00:33:15.803Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Predefined Claim"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"distribute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST https://api.dock.io/credentials/ <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">'{
+  "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+  "claims": [
+    "id"
+  ],
+  "credentialOptions": {
+    "anchor": false,
+    "persist": false,
+    "credential": {
+      "schema": "https://docknetwork.github.io/vc-schemas/basic-credential.json",
+      "name": "Basic Credential",
+      "type": [
+        "VerifiableCredential",
+        "BasicCredential"
+      ],
+      "issuer": "did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd",
+      "issuanceDate": "2023-12-20T00:33:15.803Z",
+      "subject": {
+        "name": "Predefined Claim"
+      }
+    },
+    "distribute": false
+  }
+}'</span>
+</code></pre></div>
+<p>Creates a request to gather certain claims and then issues the holder a credential after submission. The claims are user provided and type is based on the schema provided. This can be useful to catch a subject&#39;s DID without knowing it beforehand, name or other field. It should only be used when you do not already know this data or cannot find it by other means. There is a risk that a user may enter false data - so use it sparingly and not for fields that are important.</p>
+
+<p>Typically, once the request has been created, you would show the holder the QR URL as an image or deep link for them to scan with a wallet and enter claims.</p>
+
+<aside class="warning">
+This operation counts towards your monthly transaction/credential issuance limit for each successful call
+</aside>
+
+<h3 id="request-claims-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>schema</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Schema URL for the issued credential</td>
+</tr>
+<tr>
+<td>claims</td>
+<td>body</td>
+<td>array</td>
+<td>false</td>
+<td>The list of claims for the subject</td>
+</tr>
+<tr>
+<td>credentialOptions</td>
+<td>body</td>
+<td><a href="#issue-a-credential-parameters">CredentialIssueParameters</a></td>
+<td>true</td>
+<td>Credential issue parameters.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f1831768-853f-4ac1-ae99-adf61a92724f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"qrUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid://discovery?issuer=https://api.dock.io/openid/connect/issuers/f1831768-853f-4ac1-ae99-adf61a92724f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-12-20T00:33:35.720Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-12-20T00:33:35.720Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"singleUse"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"claimMap"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"credentialOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"anchor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"persist"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"credential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Basic Credential"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"VerifiableCredential"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"BasicCredential"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:5GZn9zQTggPWijzgnoV8sZ5a74rFqC8qrz2ncp7GggeGCtKd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://docknetwork.github.io/vc-schemas/basic-credential.json"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Predefined Claim"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"issuanceDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-12-20T00:33:15.803Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"distribute"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="request-claims-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and returns the claims request properties.</td>
+<td><a href="#schemaoidcissuer">OIDCIssuer</a></td>
 </tr>
 <tr>
 <td>400</td>
