@@ -988,7 +988,7 @@ Exports the DID document and keys as an encrypted Universal Wallet JSON-LD docum
 </div>
 
 
-DID Profiles are used to provide more context for an Issuer DID. Details about the issuer such as name and logo can be added using a DID Profile. These details will be included in credentials that are issued by the DID.
+Organization Profiles are used to provide more context for an Issuer DID. Details about the issuer such as name and logo can be added using a Organization Profile. These details will be included in credentials that are issued by the DID.
 
 ## Create Profile
 
@@ -1002,7 +1002,7 @@ curl --location --request POST 'https://api.dock.io/profiles' \
 --data-raw '{
   "name": "My Test Profile",
   "did": "did:dock:xyz",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }'
 ```
@@ -1011,7 +1011,7 @@ curl --location --request POST 'https://api.dock.io/profiles' \
 {
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }
 ```
@@ -1035,7 +1035,7 @@ The `did` and `name` fields are required to create a new Profile.
 {
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }
 ```
@@ -1076,7 +1076,7 @@ When a DID is provided in the path, the API will retrieve the Profile associated
 {
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }
 ```
@@ -1108,7 +1108,7 @@ Return a list of all Profiles that your user account controls.
   {
     "did": "did:dock:xyz",
     "name": "My Test Profile",
-    "description": "Testing out the Issuer Profiles API",
+    "description": "Testing out the Organization Profiles API",
     "logo":"data:image/png;base64,SomeBase64EncodedImage=="
   }
 ]
@@ -1140,7 +1140,7 @@ curl --location --request PATCH 'https://api.dock.io/profiles/did:dock:xyz' \
   --data-raw '{
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }'
 
@@ -1150,7 +1150,7 @@ curl --location --request PATCH 'https://api.dock.io/profiles/did:dock:xyz' \
 {
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }
 ```
@@ -1174,7 +1174,7 @@ The update profile operation means that you can update the details of the profil
 {
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }
 ```
@@ -3610,7 +3610,7 @@ You can verify issued/received credentials and presentations using this route. V
 
 <h1 id="subaccounts">Sub-Accounts</h1>
 
-Sub-accounts are a feature of the Dock Certs API that allows Dock enterprise customers to segregate their data within Dock's platform based on their own customers. Each sub-account can have its own keys, issuer profiles, credential designs and verification templates conviently organized to help with tracking and auditing of the activity performed by each.
+Sub-accounts are a feature of the Dock Certs API that allows Dock enterprise customers to segregate their data within Dock's platform based on their own customers. Each sub-account can have its own keys, organization profiles, credential designs and verification templates conviently organized to help with tracking and auditing of the activity performed by each.
 
 When using a sub-account the root account can set up separate API keys for each sub-account. By using the sub-account specific API key it will ensure all the transactions are attributed to that sub-account.
 
