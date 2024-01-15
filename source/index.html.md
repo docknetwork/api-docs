@@ -2609,6 +2609,10 @@ There can be multiple registries on the chain, and each registry has a unique id
 
 For a detailed example of the registry workflow. Please refer [here](https://github.com/docknetwork/dock-api-js/blob/main/workflows/registryFlow.js).
 
+<aside class="notice">
+If you want to revoke BBS+ credentials, you must create a registry with type `DockVBAccumulator2022`. For revoking other credentials, you can use `StatusList2021Entry` or `CredentialStatusList2017`.
+</aside>
+
 ## Create Registry
 
 > <span class="highlight"><span class="nt">POST</span> /registries</span></span> REQUEST
@@ -2641,6 +2645,22 @@ curl --location --request POST https://api.dock.io/registries/ \
 
 To create a registry, you have to create a `policy` object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.
 
+Choosing the right revocation registry is essential. Here's a simplified overview of the available options:
+  - CredentialStatusList2017
+    - Only supports non-BBS+ credentials.
+    - Individual Tracking: Each entry is tracked separately, which means more ledger space is used for multiple entries.
+    - This registry is cost-effective for a single entry. However, managing several entries can be more expensive.
+    - Implements add-only policies.
+  - StatusList2021Entry
+    - Only supports non-BBS+ credentials.
+    - Recommended for most users.
+    - Collective Tracking: Manages all revocation entries together, making it less costly to revoke multiple credentials simultaneously.
+    - W3C Compliant.
+  - DockVBAccumulator2022
+    - Only supports BBS+ credentials.
+    - Utilizes an on-ledger accumulator for enhanced privacy.
+    - Offers more privacy than the W3C Status List 2021.
+
 <h3 id="create-registry-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -2653,7 +2673,7 @@ To create a registry, you have to create a `policy` object for which a DID is ne
 
 |Parameter|Value|Description|
 |---|---|---|
-|type|StatusList2021Entry **or** CredentialStatusList2017|The type used in registry creation.|
+|type|StatusList2021Entry **or** CredentialStatusList2017 **or** DockVBAccumulator2022|The type used in registry creation.|
 
 > 200 Response
 
@@ -2939,6 +2959,45 @@ To check if an id is revoked or not, you can check its status with the registry 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return **true**, if the credential is revoked, **false** otherwise.|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
+|402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
+|400|[Server Error](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1)|The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.|[Error](#schemaerror)|
+
+## Get Revocation Status Witness
+
+> <span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}/witness</span></span> REQUEST
+
+```shell
+
+curl --location --request GET https://api.dock.io/revocationStatus/{regId}/{revId} \
+  --header 'DOCK-API-TOKEN: API_KEY' \
+  --data-raw ''
+
+```
+
+
+To check directly on the blockchain if an id using `DockVBAccumulator2022` is revoked or not, yo will need the accumulator witness for the status with the registry id (`regId`) and revocation id (`revId`).
+
+<h3 id="get-revocation-status-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|regId|path|[Hex32](#schemahex32)|true|Revocation registry id.|
+|revId|path|[Hex32](#schemahex32)|true|Credential revocation id.|
+
+> 200 Response
+
+```json
+{
+  "value": [215, 91, 79, 219, 251, 75, 66, 207, 196, 26, 202, 138, 129, 170, 48, 3, 13, 146, 165, 134, 188, 55, 139, 200, 68, 225, 224, 136, 130, 182, 99, 73, 30, 46, 66, 128, 58, 208, 133, 75, 3, 200, 9, 138, 40, 240, 215, 211]
+}
+```
+
+<h3 id="get-revocation-status-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The request was successful and will return the membership witness.|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The request was unsuccessful, because the registry was not found.|[Error](#schemaerror)|
 |402|[Payment required](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)|Transaction limit reached or upgrade required to proceed|[Error](#schemaerror)|
 |400|[Server Error](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1)|The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.|[Error](#schemaerror)|
