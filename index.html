@@ -1849,7 +1849,7 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
    </div>
 </div>
 
-<p>DID Profiles are used to provide more context for an Issuer DID. Details about the issuer such as name and logo can be added using a DID Profile. These details will be included in credentials that are issued by the DID.</p>
+<p>Organization Profiles are used to provide more context for an Issuer DID. Details about the issuer such as name and logo can be added using a Organization Profile. These details will be included in credentials that are issued by the DID.</p>
 <h2 id='create-profile'>Create Profile</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /profiles</span></span> REQUEST</p>
@@ -1859,13 +1859,13 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 <span class="nt">--data-raw</span> <span class="s1">'{
   "name": "My Test Profile",
   "did": "did:dock:xyz",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Organization Profiles API"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1918,7 +1918,7 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Organization Profiles API"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1982,7 +1982,7 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Organization Profiles API"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2027,7 +2027,7 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Organization Profiles API"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -2086,14 +2086,14 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
   <span class="nt">--data-raw</span> <span class="s1">'{
   "did": "did:dock:xyz",
   "name": "My Test Profile",
-  "description": "Testing out the Issuer Profiles API",
+  "description": "Testing out the Organization Profiles API",
   "logo":"data:image/png;base64,SomeBase64EncodedImage=="
 }'</span>
 
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Organization Profiles API"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2146,7 +2146,7 @@ When creating a Polygon ID DID, be sure to set the `keyType` field to `bjj`.
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"did"</span><span class="p">:</span><span class="w"> </span><span class="s2">"did:dock:xyz"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Test Profile"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Issuer Profiles API"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Testing out the Organization Profiles API"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logo"</span><span class="p">:</span><span class="s2">"data:image/png;base64,SomeBase64EncodedImage=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -5784,7 +5784,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 
 <h1 id="subaccounts">Sub-Accounts</h1>
 
-<p>Sub-accounts are a feature of the Dock Certs API that allows Dock enterprise customers to segregate their data within Dock&#39;s platform based on their own customers. Each sub-account can have its own keys, issuer profiles, credential designs and verification templates conviently organized to help with tracking and auditing of the activity performed by each.</p>
+<p>Sub-accounts are a feature of the Dock Certs API that allows Dock enterprise customers to segregate their data within Dock&#39;s platform based on their own customers. Each sub-account can have its own keys, organization profiles, credential designs and verification templates conviently organized to help with tracking and auditing of the activity performed by each.</p>
 
 <p>When using a sub-account the root account can set up separate API keys for each sub-account. By using the sub-account specific API key it will ensure all the transactions are attributed to that sub-account.</p>
 
