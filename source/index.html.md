@@ -2975,8 +2975,7 @@ curl --location --request GET https://api.dock.io/revocationStatus/{regId}/{revI
 
 ```
 
-
-To check directly on the blockchain if an id using `DockVBAccumulator2022` is revoked or not, yo will need the accumulator witness for the status with the registry id (`regId`) and revocation id (`revId`).
+The accumulator witness is utilized by the holder to generate a proof, which combines the witness with their revocation id associated with the credential id (`revId`) and the accumulator associated with the registry id (`regId`), allowing the verifier to validate the credential's status without directly accessing the revocation id on the blockchain.
 
 <h3 id="get-revocation-status-parameters">Parameters</h3>
 
@@ -2989,7 +2988,7 @@ To check directly on the blockchain if an id using `DockVBAccumulator2022` is re
 
 ```json
 {
-  "value": [215, 91, 79, 219, 251, 75, 66, 207, 196, 26, 202, 138, 129, 170, 48, 3, 13, 146, 165, 134, 188, 55, 139, 200, 68, 225, 224, 136, 130, 182, 99, 73, 30, 46, 66, 128, 58, 208, 133, 75, 3, 200, 9, 138, 40, 240, 215, 211]
+  "value": "0x81aa308882b663491e2b42803ad0855b030d92a586bc378bc844e1e003c8098a23f0d7d75b4fdbfb4b42cfc42aca8ad3"
 }
 ```
 
