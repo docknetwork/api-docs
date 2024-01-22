@@ -491,6 +491,9 @@
                   <li>
                     <a href="#get-revocation-status" class="toc-h2 toc-link" data-title="Get Revocation Status">Get Revocation Status</a>
                   </li>
+                  <li>
+                    <a href="#get-revocation-status-witness" class="toc-h2 toc-link" data-title="Get Revocation Status Witness">Get Revocation Status Witness</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -4280,6 +4283,10 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
 <p>There can be multiple registries on the chain, and each registry has a unique id. It is recommended that the revocation authority create a new registry for each credential type. Dock Certs allows you to create, delete, and revoke/unrevoke the credential. You can retrieve a specified registry as well as a list of all registries created by the user.</p>
 
 <p>For a detailed example of the registry workflow. Please refer <a href="https://github.com/docknetwork/dock-api-js/blob/main/workflows/registryFlow.js">here</a>.</p>
+
+<aside class="notice">
+If you want to revoke BBS+ credentials, you must create a registry with type `DockVBAccumulator2022`. For revoking other credentials, you can use `StatusList2021Entry` or `CredentialStatusList2017`.
+</aside>
 <h2 id='create-registry'>Create Registry</h2>
 <blockquote>
 <p><span class="highlight"><span class="nt">POST</span> /registries</span></span> REQUEST</p>
@@ -4306,6 +4313,22 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>To create a registry, you have to create a <code>policy</code> object for which a DID is needed. It is advised that the DID is registered on the chain first. Otherwise, someone can look at the registry and register the DID, thus gaining control of the registry.</p>
+
+<p>Choosing the right revocation registry is essential. Here&#39;s a simplified overview of the available options:
+  - CredentialStatusList2017
+    - Only supports non-BBS+ credentials.
+    - Individual Tracking: Each entry is tracked separately, which means more ledger space is used for multiple entries.
+    - This registry is cost-effective for a single entry. However, managing several entries can be more expensive.
+    - Implements add-only policies.
+  - StatusList2021Entry
+    - Only supports non-BBS+ credentials.
+    - Recommended for most users.
+    - Collective Tracking: Manages all revocation entries together, making it less costly to revoke multiple credentials simultaneously.
+    - W3C Compliant.
+  - DockVBAccumulator2022
+    - Only supports BBS+ credentials.
+    - Utilizes an on-ledger accumulator for enhanced privacy.
+    - Offers more privacy than the W3C Status List 2021.</p>
 
 <h3 id="create-registry-parameters">Parameters</h3>
 
@@ -4350,7 +4373,7 @@ curl <span class="nt">-X</span> DELETE https://api-testnet.dock.io/proof-templat
 </thead><tbody>
 <tr>
 <td>type</td>
-<td>StatusList2021Entry <strong>or</strong> CredentialStatusList2017</td>
+<td>StatusList2021Entry <strong>or</strong> CredentialStatusList2017 <strong>or</strong> DockVBAccumulator2022</td>
 <td>The type used in registry creation.</td>
 </tr>
 </tbody></table>
@@ -4824,6 +4847,87 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET ht
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>The request was successful and will return <strong>true</strong>, if the credential is revoked, <strong>false</strong> otherwise.</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>The request was unsuccessful, because the registry was not found.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>402</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402">Payment required</a></td>
+<td>Transaction limit reached or upgrade required to proceed</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1">Server Error</a></td>
+<td>The request was unsuccessful, because you have not revoked or unrevoked the registered credential yet. Please try to revoke/unrevoke the registered credential and try again.</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+<h2 id='get-revocation-status-witness'>Get Revocation Status Witness</h2>
+<blockquote>
+<p><span class="highlight"><span class="na">GET</span> /revocationStatus/{regId}/{revId}/witness</span></span> REQUEST</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> GET https://api.dock.io/revocationStatus/<span class="o">{</span>regId<span class="o">}</span>/<span class="o">{</span>revId<span class="o">}</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'DOCK-API-TOKEN: API_KEY'</span> <span class="se">\</span>
+  <span class="nt">--data-raw</span> <span class="s1">''</span>
+
+</code></pre></div>
+<p>The accumulator witness is utilized by the holder to generate a proof, which combines the witness with their revocation id associated with the credential id (<code>revId</code>) and the accumulator associated with the registry id (<code>regId</code>), allowing the verifier to validate the credential&#39;s status without directly accessing the revocation id on the blockchain.</p>
+
+<h3 id="get-revocation-status-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>regId</td>
+<td>path</td>
+<td><a href="#schemahex32">Hex32</a></td>
+<td>true</td>
+<td>Revocation registry id.</td>
+</tr>
+<tr>
+<td>revId</td>
+<td>path</td>
+<td><a href="#schemahex32">Hex32</a></td>
+<td>true</td>
+<td>Credential revocation id.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x81aa308882b663491e2b42803ad0855b030d92a586bc378bc844e1e003c8098a23f0d7d75b4fdbfb4b42cfc42aca8ad3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="get-revocation-status-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The request was successful and will return the membership witness.</td>
 <td>Inline</td>
 </tr>
 <tr>
