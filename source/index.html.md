@@ -17,6 +17,9 @@ headingLevel: 2
 
 ---
 
+> [!WARNING]
+> This documentation is no longer being maintained. Please visit https://docs.dock.io/developer-documentation/dock-api for the latest updates.
+
 # The Dock Certs API
 <em>A complete solution for creating, managing and presenting Verifiable Credentials.</em>
 
