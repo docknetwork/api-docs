@@ -20,7 +20,7 @@ headingLevel: 2
 # The Dock Certs API
 
 <aside class="warning">
-This documentation is no longer being maintained. Please visit [https://docs.dock.io/developer-documentation/dock-api](https://docs.dock.io/developer-documentation/dock-api) for the latest updates.
+This documentation is no longer being maintained. Please visit <a href="https://docs.dock.io/developer-documentation/dock-api">https://docs.dock.io/developer-documentation/dock-api</a> for the latest updates.
 </aside>
 
 <em>A complete solution for creating, managing and presenting Verifiable Credentials.</em>
