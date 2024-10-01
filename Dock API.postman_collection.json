@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f3a52f11-f878-4e2c-872e-66d11de324f1",
+		"_postman_id": "0d0a750f-1712-4c34-8f87-9b566f19491d",
 		"name": "Dock API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5579877"
 	},
 	"item": [
 		{
@@ -15,11 +16,51 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"did\", jsonData.data.did);",
-									"postman.setEnvironmentVariable(\"jobId\", jsonData.id);"
+									"",
+									"setTimeout(function(){",
+									"const jsonData = pm.response.json();",
+									"pm.environment.set(\"did\", jsonData.data.did);",
+									"pm.environment.set(\"jobId\", jsonData.id);",
+									"",
+									"// Get the response JSON",
+									"var response = pm.response.json();",
+									"",
+									"// Verify top-level fields start with \"did:dock:\"",
+									"pm.test(\"Verify top-level 'did' field starts with 'did:dock:'\", function () {",
+									"    pm.expect(response.did.startsWith(\"did:dock:\")).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Verify top-level 'controller' field starts with 'did:dock:'\", function () {",
+									"    pm.expect(response.controller.startsWith(\"did:dock:\")).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Verify top-level 'id' field is present and not empty\", function () {",
+									"    pm.expect(response.id).to.exist;",
+									"    pm.expect(response.id).to.not.be.empty;",
+									"});",
+									"",
+									"// Verify nested data fields start with \"did:dock:\"",
+									"pm.test(\"Verify nested 'data.did' field starts with 'did:dock:'\", function () {",
+									"    pm.expect(response.data.did.startsWith(\"did:dock:\")).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Verify nested 'data.controller' field starts with 'did:dock:'\", function () {",
+									"    pm.expect(response.data.controller.startsWith(\"did:dock:\")).to.be.true;",
+									"});",
+									"}, 5000);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -28,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"type\": \"dock\"\n}",
+							"raw": "{\"keyType\":\"ed25519\",\"type\":\"dock\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,7 +96,151 @@
 					"response": []
 				},
 				{
+					"name": "Get Ecosystem",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify the response status code is 200",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Get the response JSON",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Verify the 'total' field is 0",
+									"pm.test(\"Verify 'total' field is 0\", function () {",
+									"    pm.expect(jsonData.total).to.eql(0);",
+									"});",
+									"",
+									"// Verify the 'list' field is an empty array",
+									"pm.test(\"Verify 'list' field is an empty array\", function () {",
+									"    pm.expect(jsonData.list).to.be.an('array').that.is.empty;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids/{{did}}/ecosystems",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"dids",
+								"{{did}}",
+								"ecosystems"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Resolve DID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get the response JSON",
+									"const jsonData = pm.response.json();",
+									"const didValue = pm.environment.get(\"did\");",
+									"",
+									"// Verify the '@context' field",
+									"pm.test(\"Verify '@context' field is an array containing 'https://www.w3.org/ns/did/v1'\", function () {",
+									"    pm.expect(jsonData['@context']).to.be.an('array').that.includes('https://www.w3.org/ns/did/v1');",
+									"});",
+									"",
+									"// Verify 'id' field equals the given DID value",
+									"pm.test(\"Verify 'id' field equals the given DID value\", function () {",
+									"    pm.expect(jsonData.id).to.eql(didValue);",
+									"});",
+									"",
+									"// Verify 'controller' field is an array and each entry starts with the given DID value",
+									"pm.test(\"Verify 'controller' field is an array and entries start with the given DID value\", function () {",
+									"    pm.expect(jsonData.controller).to.be.an('array');",
+									"    jsonData.controller.forEach(function(ctrl) {",
+									"        pm.expect(ctrl).to.eql(didValue);",
+									"    });",
+									"});",
+									"",
+									"// Verify 'publicKey' field",
+									"pm.test(\"Verify 'publicKey' field is an array with correct structure\", function () {",
+									"    pm.expect(jsonData.publicKey).to.be.an('array').with.lengthOf(1);",
+									"    var publicKey = jsonData.publicKey[0];",
+									"    pm.expect(publicKey.id.startsWith(didValue)).to.be.true;",
+									"    pm.expect(publicKey.type).to.eql(\"Ed25519VerificationKey2018\");",
+									"    pm.expect(publicKey.controller).to.eql(didValue);",
+									"    pm.expect(publicKey.publicKeyBase58).to.be.a('string').that.is.not.empty;",
+									"});",
+									"",
+									"// Helper function to verify array fields with keys",
+									"function verifyArrayFieldStartsWith(arrayField, keyPrefix) {",
+									"    pm.expect(jsonData[arrayField]).to.be.an('array');",
+									"    jsonData[arrayField].forEach(function(item) {",
+									"        pm.expect(item.startsWith(keyPrefix)).to.be.true;",
+									"    });",
+									"}",
+									"",
+									"// Verify 'authentication' field",
+									"pm.test(\"Verify 'authentication' field entries start with the given DID value\", function () {",
+									"    verifyArrayFieldStartsWith('authentication', didValue);",
+									"});",
+									"",
+									"// Verify 'assertionMethod' field",
+									"pm.test(\"Verify 'assertionMethod' field entries start with the given DID value\", function () {",
+									"    verifyArrayFieldStartsWith('assertionMethod', didValue);",
+									"});",
+									"",
+									"// Verify 'capabilityInvocation' field",
+									"pm.test(\"Verify 'capabilityInvocation' field entries start with the given DID value\", function () {",
+									"    verifyArrayFieldStartsWith('capabilityInvocation', didValue);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(function() {",
+									"    console.log(\"Wait to DID is created\");",
+									"}, pm.environment.get(\"25000\")); "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -93,6 +278,69 @@
 				},
 				{
 					"name": "List DIDs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get the response JSON",
+									"const jsonData = pm.response.json();",
+									"const didPrefix = \"did:dock:\";",
+									"",
+									"// Verify that the response is an array and its length is greater than 0",
+									"pm.test(\"Verify response is a non-empty array\", function () {",
+									"    pm.expect(jsonData).to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"// Verify fields in the first object in the array",
+									"const item = jsonData[0];",
+									"",
+									"pm.test(\"Verify 'id' field in the first item starts with 'did:dock:'\", function () {",
+									"    pm.expect(item.id).to.be.a('string').and.satisfy(id => id.startsWith(didPrefix));",
+									"});",
+									"",
+									"pm.test(\"Verify 'did' field in the first item starts with 'did:dock:'\", function () {",
+									"    pm.expect(item.did).to.be.a('string').and.satisfy(did => did.startsWith(didPrefix));",
+									"});",
+									"",
+									"pm.test(\"Verify 'type' field in the first item is 'dock'\", function () {",
+									"    pm.expect(item.type).to.eql('dock');",
+									"});",
+									"",
+									"pm.test(\"Verify 'controller' field in the first item starts with 'did:dock:'\", function () {",
+									"    pm.expect(item.controller).to.be.a('string').and.satisfy(controller => controller.startsWith(didPrefix));",
+									"});",
+									"",
+									"pm.test(\"Verify 'credentialCount' field in the first item is a string\", function () {",
+									"    pm.expect(item.credentialCount).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Verify 'updatedLast' field in the first item is a valid date string\", function () {",
+									"    pm.expect(new Date(item.updatedLast).toString()).not.to.eql('Invalid Date');",
+									"});",
+									"",
+									"pm.test(\"Verify 'profile' field in the first item is null\", function () {",
+									"    pm.expect(item.profile).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"Verify 'keyId' field in the first item starts with 'did:dock:'\", function () {",
+									"    pm.expect(item.keyId).to.be.a('string').and.satisfy(keyId => keyId.startsWith(didPrefix));",
+									"});",
+									"",
+									"pm.test(\"Verify 'jobId' field in the first item is a string\", function () {",
+									"    pm.expect(item.jobId).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Verify 'trustRegistries' field in the first item is an array\", function () {",
+									"    pm.expect(item.trustRegistries).to.be.an('array');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -129,12 +377,56 @@
 				},
 				{
 					"name": "Update DID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get the response JSON",
+									"const jsonData = pm.response.json();",
+									"const didPrefix = pm.environment.get(\"did\");",
+									"",
+									"pm.test(\"Status code to update DID is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Verify the 'did' field starts with 'did:dock:'",
+									"pm.test(\"Verify 'did' field starts with 'did:dock:'\", function () {",
+									"    pm.expect(jsonData.did).to.be.a('string').and.satisfy(did => did.startsWith(didPrefix));",
+									"});",
+									"",
+									"// Verify the 'name' field is 'did_update_name_neural'",
+									"pm.test(\"Verify 'name' field is 'did_update_name_neural'\", function () {",
+									"    pm.expect(jsonData.name).to.contain('did_update_name_');",
+									"});",
+									"",
+									"// Verify the 'description' field is an empty string",
+									"pm.test(\"Verify 'description' field is an empty string\", function () {",
+									"    pm.expect(jsonData.description).to.eql('');",
+									"});",
+									"",
+									"// Verify the 'logo' field is an empty string",
+									"pm.test(\"Verify 'logo' field is an empty string\", function () {",
+									"    pm.expect(jsonData.logo).to.eql('');",
+									"});",
+									"",
+									"// Verify the 'type' field is 'dock'",
+									"pm.test(\"Verify 'type' field is 'dock'\", function () {",
+									"    pm.expect(jsonData.type).to.eql('dock');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"keyType\": \"sr25519\"\n}",
+							"raw": "{\n    \"name\": \"did_update_name_{{$randomAdjective}}\",\n    \"description\": \"\",\n    \"logo\": \"\",\n    \"type\": \"dock\",\n    \"did\": \"{{did}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,13 +434,121 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/dids/{{did}}",
+							"raw": "{{BaseUrl}}/profiles",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"profiles"
+							],
+							"query": [
+								{
+									"key": "headers",
+									"value": "headers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export DID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify the response status code is 200",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Get the response JSON",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Verify '@context' field",
+									"pm.test(\"Verify '@context' field contains expected URLs\", function () {",
+									"    pm.expect(jsonData['@context']).to.be.an('array').that.includes('https://www.w3.org/2018/credentials/v1', 'https://w3id.org/wallet/v1');",
+									"});",
+									"",
+									"// Verify 'id' field starts with 'did:key:'",
+									"pm.test(\"Verify 'id' field starts with 'did:key:'\", function () {",
+									"    pm.expect(jsonData.id).to.be.a('string').and.satisfy(id => id.startsWith('did:key:'));",
+									"});",
+									"",
+									"// Verify 'type' field contains 'VerifiableCredential' and 'EncryptedWallet'",
+									"pm.test(\"Verify 'type' field contains 'VerifiableCredential' and 'EncryptedWallet'\", function () {",
+									"    pm.expect(jsonData.type).to.be.an('array').that.includes('VerifiableCredential', 'EncryptedWallet');",
+									"});",
+									"",
+									"// Verify 'issuer' field starts with 'did:key:'",
+									"pm.test(\"Verify 'issuer' field starts with 'did:key:'\", function () {",
+									"    pm.expect(jsonData.issuer).to.be.a('string').and.satisfy(issuer => issuer.startsWith('did:key:'));",
+									"});",
+									"",
+									"// Verify 'issuanceDate' field is a valid date string",
+									"pm.test(\"Verify 'issuanceDate' field is a valid date string\", function () {",
+									"    pm.expect(new Date(jsonData.issuanceDate).toString()).not.to.eql('Invalid Date');",
+									"});",
+									"",
+									"// Verify 'credentialSubject.id' field starts with 'did:key:'",
+									"pm.test(\"Verify 'credentialSubject.id' field starts with 'did:key:'\", function () {",
+									"    pm.expect(jsonData.credentialSubject.id).to.be.a('string').and.satisfy(id => id.startsWith('did:key:'));",
+									"});",
+									"",
+									"// Verify 'credentialSubject.encryptedWalletContents.protected' field is a non-empty string",
+									"pm.test(\"Verify 'credentialSubject.encryptedWalletContents.protected' field is a non-empty string\", function () {",
+									"    pm.expect(jsonData.credentialSubject.encryptedWalletContents.protected).to.be.a('string').that.is.not.empty;",
+									"});",
+									"",
+									"// Verify 'credentialSubject.encryptedWalletContents.recipients' is a non-empty array",
+									"pm.test(\"Verify 'credentialSubject.encryptedWalletContents.recipients' is a non-empty array\", function () {",
+									"    pm.expect(jsonData.credentialSubject.encryptedWalletContents.recipients).to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"// Verify 'credentialSubject.encryptedWalletContents.iv' field is a non-empty string",
+									"pm.test(\"Verify 'credentialSubject.encryptedWalletContents.iv' field is a non-empty string\", function () {",
+									"    pm.expect(jsonData.credentialSubject.encryptedWalletContents.iv).to.be.a('string').that.is.not.empty;",
+									"});",
+									"",
+									"// Verify 'credentialSubject.encryptedWalletContents.ciphertext' field is a non-empty string",
+									"pm.test(\"Verify 'credentialSubject.encryptedWalletContents.ciphertext' field is a non-empty string\", function () {",
+									"    pm.expect(jsonData.credentialSubject.encryptedWalletContents.ciphertext).to.be.a('string').that.is.not.empty;",
+									"});",
+									"",
+									"// Verify 'credentialSubject.encryptedWalletContents.tag' field is a non-empty string",
+									"pm.test(\"Verify 'credentialSubject.encryptedWalletContents.tag' field is a non-empty string\", function () {",
+									"    pm.expect(jsonData.credentialSubject.encryptedWalletContents.tag).to.be.a('string').that.is.not.empty;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"password\": \"123456789QW!\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/dids/{{did}}/export",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
 								"dids",
-								"{{did}}"
+								"{{did}}",
+								"export"
 							],
 							"query": [
 								{
@@ -168,9 +568,33 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"postman.setEnvironmentVariable(\"did\", \"\");"
+									"// Verify the response status code is 200",
+									"pm.environment.set(\"did\", \"\");",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Get the response JSON",
+									"const jsonData = pm.response.json();",
+									"",
+									"// Verify the 'id' field is '32777'",
+									"pm.test(\"Verify 'id' field is not empty\", function () {",
+									"    pm.expect(jsonData.id).not.to.be.null;",
+									"});",
+									"",
+									"// Verify the 'data' field is an object",
+									"pm.test(\"Verify 'data' field is an object\", function () {",
+									"    pm.expect(jsonData.data).to.be.an('object');",
+									"});",
+									"",
+									"// Verify the 'status' field inside 'data' is 'deleted'",
+									"pm.test(\"Verify 'status' field inside 'data' is 'deleted'\", function () {",
+									"    pm.expect(jsonData.data.status).to.eql('deleted');",
+									"});",
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1540,13 +1964,13 @@
 		"type": "apikey",
 		"apikey": [
 			{
-				"key": "value",
-				"value": "{{ApiKey}}",
+				"key": "key",
+				"value": "dock-api-token",
 				"type": "string"
 			},
 			{
-				"key": "key",
-				"value": "DOCK-API-TOKEN",
+				"key": "value",
+				"value": "{{ApiKey}}",
 				"type": "string"
 			}
 		]
